@@ -194,8 +194,8 @@
 													value="${ team.teamId }"> <select
 													class="select2 form-control" id="selectMulti"
 													multiple="multiple">
-													<c:forEach items="${ allmembers }" var="allmember">
-														<option>${allmember.memberid }</option>
+													<c:forEach items="${ notTeamMembers }" var="allmember">
+														<option>${ allmember.memberid }</option>
 													</c:forEach>
 												</select> <input type="hidden" name="memberId" id="memberId"
 													value="$('#selectMulti').select2('data')">
@@ -612,8 +612,7 @@
 	   
 	   
 	   
-	   
-	   
+
    function submitMember(){
 	    var form = document.createTeamForm;
 	   
@@ -625,7 +624,7 @@
 	    }   
 	    var result = confirm(memberList2 + "님을 팀에 추가하시겠습니까?");
 	    if(result) {
-// 	   
+	
 	       $.ajax({
 	          type : 'POST',
 	          url : '/teamdetail/${ team.teamId }',
@@ -644,8 +643,8 @@
 	    }else {
 	    	return;
 	    }
-	    
 	}
+   
    
    
    

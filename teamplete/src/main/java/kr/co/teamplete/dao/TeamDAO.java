@@ -34,5 +34,8 @@ public interface TeamDAO {
 
 	//모든 멤버 조회
 	public List<MemberVO> selectAllTeamMember();
+	
+	//팀에 없는 멤버들 조회
+	public List<MemberVO> selectNotInTeamMembers(int teamId);
 
 }
