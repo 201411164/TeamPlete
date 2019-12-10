@@ -135,7 +135,7 @@ public class TeamController {
 				else if (calDay == 0)
 					return "오늘";
 				else
-					return Long.toString(calDay) + "일";
+					return Long.toString(calDay) + "일 남음";
 
 			} catch (Exception e) {
 				e.printStackTrace();

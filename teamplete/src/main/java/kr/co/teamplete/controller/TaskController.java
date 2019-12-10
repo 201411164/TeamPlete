@@ -14,11 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
-import kr.co.teamplete.dto.TeamVO;
 import kr.co.teamplete.service.BoardService;
 import kr.co.teamplete.service.TaskService;
+import kr.co.teamplete.service.TeamService;
 
 @Controller
 public class TaskController {
@@ -28,6 +29,9 @@ public class TaskController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private TeamService teamService;
 	
 	//태스크 등록
 	@PostMapping("/teamdetail/{id}/task")
@@ -54,7 +58,7 @@ public class TaskController {
 		List<ChargeVO> chargeList = service.selectNsubmitS(taskId);
 		
 		List<ChargeVO> chargeListY = service.selectYsubmitS(taskId);
-		
+				
 		for(int i=0; i<chargeList.size(); i++) {
 			for(int j=0; j<boardList.size(); j++) {
 				if(chargeList.get(i).getChargeMemberid().equals(boardList.get(j).getWriterId())) {
@@ -90,7 +94,7 @@ public class TaskController {
 		mav.addObject("boardList", boardList);
 		
 		mav.addObject("chargeListAll", chargeListAll);
-		
+				
 		return mav;
 	}
 	
