@@ -78,7 +78,7 @@
 			<div class="content-body">
 				<section class="row flexbox-container">
 				<div class="col-xl-8 col-11 d-flex justify-content-center">
-					<div class="card bg-authentication rounded-0 mb-0">
+					<div class="mb-0" >
 						<div class="row m-0">
 							<div
 								class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
@@ -87,27 +87,22 @@
 									alt="branding logo">
 							</div>
 							<div class="col-lg-6 col-12 p-0">
-								<div class="card rounded-0 mb-0 px-2">
-									<div class="card-header pb-1">
-										<div class="card-title">
-											<h2 class="mb-0" style="font-weight:600 !important;">로그인</h2>
-										</div>
-									</div>
-									<h4 class="px-2" style="font-weight:500 !important;">팀플리트에 오신 것을 환영합니다!</h4>
-									<div class="card-content">
-										<div class="card-body pt-1">
-											<form method="post" style="margin-top: 5%;"
+								<div class="ml-2 mb-0 px-0">
+									
+									<img class="mb-2" src="${ pageContext.request.contextPath }/resources/images/teampletewhite.png">
+									<div class="card-content" style="font-weight:700 ! important; color: white! important;">
+										<div class="pt-1">
+											<form method="post" 
 												action="${ pageContext.request.contextPath }/login"
 												name="inputForm" onsubmit="return checkForm()"
-												class="login-form">
+												class="login-form mt-1">
 												<fieldset
 													class="form-label-group form-group position-relative has-icon-left">
 													<input type="text" class="form-control" name="memberid"
-														id="user-name" placeholder="Username" required>
+														id="user-name" placeholder="Username" style="color:white !important;"required>
 													<div class="form-control-position">
 														<i class="feather icon-user"></i>
 													</div>
-													<label for="user-name">Username</label>
 												</fieldset>
 
 												<fieldset
@@ -117,39 +112,21 @@
 													<div class="form-control-position">
 														<i class="feather icon-lock"></i>
 													</div>
-													<label for="user-password">Password</label>
-												</fieldset>
-												<div
-													class="form-group d-flex justify-content-between align-items-center">
-													<!-- <div class="text-left">
-														<fieldset class="checkbox">
-															<div class="vs-checkbox-con vs-checkbox-primary">
-																<input type="checkbox"> <span
-																	class="vs-checkbox"> <span
-																	class="vs-checkbox--check"> <i
-																		class="vs-icon feather icon-check"></i>
-																</span>
-																</span> <span class="">Remember me</span>
-															</div>
-														</fieldset>
-													</div>
-													<div class="text-right">
-														<a href="auth-forgot-password.html" class="card-link">Forgot
-															Password?</a>
-													</div> -->
+												</fieldset>											
+												
+												<button type="submit" class="btn btn-outline-light btn-block mt-1" style="font-weight:700 ! important;">로그인</button>
+												<div class=" mb-1 mt-1" style="text-align:center !important"><h5 class="mb-0 mt-0 " style="font-weight:600 !important; color:white;">또는</h5>
 												</div>
-												<a href="${ pageContext.request.contextPath }/member/join"
-													class="btn btn-success btn-block">회원가입</a>
-												<button type="submit" class="btn btn-primary btn-block">로그인</button>
-												<div class="divider">
-													<div class="divider-text">OR</div>
-												</div>
-												
-												<a class="btn btn-block" href="https://kauth.kakao.com/oauth/authorize?client_id=e355c450ecfaeb579db7e67d74790574&redirect_uri=http://localhost:8088/kakaologin&response_type=code"
-												>
-            									<img src="${ pageContext.request.contextPath }/resources/images/kakao_account_login_btn_medium_wide.png"></a>
-												
-												
+
+												<a class="btn btn-block mt-1"
+													style="background-color: #ffe812; color: #3c1e1e; font-weight: 700; font-size:1rem;"
+													href="https://kauth.kakao.com/oauth/authorize?client_id=e355c450ecfaeb579db7e67d74790574&redirect_uri=http://localhost:8088/kakaologin&response_type=code"
+													style="font-weight:700 ! important;"><img class="mr-2 mb-0 mt-0" src="${ pageContext.request.contextPath }/resources/images/kakaotalk.svg" width="30" height="30">카카오 계정으로
+													로그인 </a>
+												<div class="mt-1" style="text-align:center !important">
+												<h5 class="mb-0 mt-0" style="font-weight:400 !important; color:white;">아직 계정이 없으신가요?  <a class="ml-1" href="${ pageContext.request.contextPath }/member/join"
+													style="font-weight:700 ! important; color:white; font-size:1.2rem;">회원가입</a></h5>
+												</div>	
 											</form>
 										</div>
 									</div>
@@ -682,12 +659,18 @@
 			   {src: '${ pageContext.request.contextPath }/resources/images/bg10.jpg'}
 		   ],
 		   delay:5500,
-		   timer:false
+		   timer:false,
+		   overlay: '${ pageContext.request.contextPath }/resources/images/06.png',
+		   transition: 'fade'
+		  
 		   
 		   
 	   })
-   }) 
-   
+   });
+     
+     
+    
+    
    
    function setREVStartSize(e){                                    
 			try{ e.c=jQuery(e.c);var i=jQuery(window).width(),t=9999,r=0,n=0,l=0,f=0,s=0,h=0;

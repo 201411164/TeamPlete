@@ -2548,7 +2548,7 @@ textarea.form-control {
       -ms-user-select : none;
           user-select : none;
   background-color : transparent;
-  border : 0 solid transparent;
+  border : 1 solid transparent;
   padding : 0.9rem 2rem;
   font-size : 1rem;
   line-height : 1;
@@ -2945,16 +2945,16 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 
 .btn-outline-light {
-  color : #BABFC7;
-  border-color : #BABFC7;
+  color : rgb(255, 255, 255);
+  border-color : rgb(255, 255, 255);
 }
 .btn-outline-light:hover {
-  color : #2A2E30;
-  background-color : #BABFC7;
-  border-color : #BABFC7;
+  color : rgb(0, 0, 0);
+  background-color : rgb(255, 255, 255);
+  border-color : rgb(255, 255, 255);
 }
 .btn-outline-light:focus, .btn-outline-light.focus {
-  box-shadow : 0 0 0 0.2rem rgba(186, 191, 199, 0.5);
+  box-shadow : 0 0 0 0.2rem rgb(255, 255, 255);
 }
 .btn-outline-light.disabled, .btn-outline-light:disabled {
   color : #BABFC7;
@@ -2962,8 +2962,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 .btn-outline-light:not(:disabled):not(.disabled):active, .btn-outline-light:not(:disabled):not(.disabled).active, .show > .btn-outline-light.dropdown-toggle {
   color : #2A2E30;
-  background-color : #BABFC7;
-  border-color : #BABFC7;
+  background-color : rgb(255, 255, 255);
+  border-color : rgb(255, 255, 255);
 }
 .btn-outline-light:not(:disabled):not(.disabled):active:focus, .btn-outline-light:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-light.dropdown-toggle:focus {
   box-shadow : 0 0 0 0.2rem rgba(186, 191, 199, 0.5);
