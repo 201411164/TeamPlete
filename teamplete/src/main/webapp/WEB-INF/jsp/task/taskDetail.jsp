@@ -152,6 +152,129 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			<div class="col-xl-3 col-md-6 col-sm-6">
+								<div class="card">
+									<div class="card-header d-flex justify-content-between">
+										<h4 class="text-primary">제출자</h4>
+										<i class="feather icon-more-horizontal cursor-pointer"></i>
+									</div>
+									<div class="card-body">
+										<c:set var="count1" value="0" scope="page" />
+										<c:forEach items="${ members }" var="member">
+											<c:set var="count" value="${count + 1}" scope="page" />
+
+											<c:choose>
+												<c:when test="${ not empty member.profile }">
+
+
+
+
+
+
+													<div
+														class="d-flex justify-content-start align-items-center mb-1">
+														<div class="avatar mr-50">
+															<img src="${ member.profile }" alt="avtar img holder"
+																height="35" width="35">
+														</div>
+														<div class="user-page-info">
+															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
+															<span class="font-small-3">파일 제출 완료</span>
+														</div>
+													</div>
+
+
+												</c:when>
+												<c:otherwise>
+													<div
+														class="d-flex justify-content-start align-items-center mb-1">
+														<div class="avatar ${colorlist[count%5]} mr-50">
+															<div class="avatar-content"
+																<c:set var = "membername" value = "${ member.name }"/>
+																<c:set var = "firstletter" value = "${fn:substring(membername, 0, 1)}"/>>${firstletter}
+															</div>
+														</div>
+														<div class="user-page-info">
+															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
+															<span class="font-small-3">파일 제출 완료</span>
+														</div>
+													</div>
+												</c:otherwise>
+											</c:choose>
+
+										</c:forEach>
+
+										<button type="button" class="btn btn-primary w-100 mt-1">
+											<i class="feather icon-plus mr-25"></i>Load More
+										</button>
+									</div>
+								</div>
+							</div>
+							
+							
+							
+							
+			<div class="col-xl-3 col-md-6 col-sm-6">
+								<div class="card">
+									<div class="card-header d-flex justify-content-between">
+										<h4 class="text-primary">미제출자</h4>
+										<i class="feather icon-more-horizontal cursor-pointer"></i>
+									</div>
+									<div class="card-body">
+										<c:set var="count1" value="0" scope="page" />
+										<c:forEach items="${ members }" var="member">
+											<c:set var="count" value="${count + 1}" scope="page" />
+
+											<c:choose>
+												<c:when test="${ not empty member.profile }">
+
+
+
+
+
+
+													<div
+														class="d-flex justify-content-start align-items-center mb-1">
+														<div class="avatar mr-50">
+															<img src="${ member.profile }" alt="avtar img holder"
+																height="35" width="35">
+														</div>
+														<div class="user-page-info">
+															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
+															<span class="font-small-3">파일 미제출</span>
+														</div>
+													</div>
+
+
+												</c:when>
+												<c:otherwise>
+													<div
+														class="d-flex justify-content-start align-items-center mb-1">
+														<div class="avatar ${colorlist[count%5]} mr-50">
+															<div class="avatar-content"
+																<c:set var = "membername" value = "${ member.name }"/>
+																<c:set var = "firstletter" value = "${fn:substring(membername, 0, 1)}"/>>${firstletter}
+															</div>
+														</div>
+														<div class="user-page-info">
+															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
+															<span class="font-small-3">파일 제출 완료</span>
+														</div>
+													</div>
+												</c:otherwise>
+											</c:choose>
+
+										</c:forEach>
+
+										<button type="button" class="btn btn-primary w-100 mt-1">
+											<i class="feather icon-plus mr-25"></i>Load More
+										</button>
+									</div>
+								</div>
+							</div>				
+			
 
 
 			<div class="col-xl-3 col-md-6 col-sm-6">
@@ -200,6 +323,7 @@
 <!-- 					<footer> </footer> -->
 				</div>
 			</div>
+			</div>
 			
 			<button onClick="writeBoard(${ taskDetail.taskId })">글작성</button>
 			
@@ -209,6 +333,9 @@
 			<h4>content: ${ fn:replace(board.content, newLineChar, "<br/>") }</h4>
 			</c:forEach>
 			
+			
+			</div>
+			</div>
 			
 	</c:otherwise>
 	</c:choose>
