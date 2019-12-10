@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,6 +47,7 @@
 <!-- END: Page CSS-->
 
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <style>
 
 
@@ -161,7 +164,7 @@
 						<ul class="list-group list-group-flush">
 						<li class="list-group-item">
                                            <h4 class="primary"
-														>내용: ${ taskDetail.content }</h4>
+														>내용: ${ fn:replace(taskDetail.content, newLineChar, "<br/>") }</h4>
 											<h4>마감날짜: ${ taskDetail.deadline }</h4>
                                         </li>
                                         
@@ -203,7 +206,7 @@
 			<c:forEach var="board" items="${ boardList }">
 			<h4>board title: ${ board.title }</h4>
 			<h4>writer: ${ board.writerName }</h4>
-			<h4>content: ${ board.content }</h4>
+			<h4>content: ${ fn:replace(board.content, newLineChar, "<br/>") }</h4>
 			</c:forEach>
 			
 			
@@ -242,6 +245,7 @@
    
    
    <script>
+
    
    	function writeBoard(taskId) {
 		taskId = taskId;

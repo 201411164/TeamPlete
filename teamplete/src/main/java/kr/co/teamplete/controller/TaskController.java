@@ -28,18 +28,6 @@ public class TaskController {
 	
 	@Autowired
 	private BoardService boardService;
-
-	
-	//ajax 태스크 등록
-//	@PostMapping("/teamdetail/{id}/task")
-//	@ResponseBody
-//	public TaskVO insertTask(@RequestBody TaskVO task, @PathVariable("id") int teamId, Model model) {
-//		
-//		service.insertTaskS(task);
-//		
-//		return task;
-//		
-//	}
 	
 	//태스크 등록
 	@PostMapping("/teamdetail/{id}/task")
