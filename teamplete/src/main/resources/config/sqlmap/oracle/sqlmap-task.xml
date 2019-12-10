@@ -138,7 +138,19 @@
          where charge_id = #{chargeId}
    </update>
    
-   
+   <!-- 태스크 담당자가 아닌 팀의 멤버들만 조회 -->
+   <select id="notTaskChargeMembers" parameterType="hashmap" resultMap="memberMap">
+      	select distinct M.memberid, M.name
+    	 from member_tb M
+    	  left outer join team_tb T
+    	   on M.memberid = T.owner_id
+    	    left outer join team_member_tb TM
+    	     on M.memberid = TM.member_id
+    	      where T.team_id = #{teamId} and
+    	       M.memberid not in(select charge_memberid from charge_tb where task_id = #{taskId}) or
+                TM.team_id = #{teamId} and 
+                 M.memberid not in(select charge_memberid from charge_tb where task_id = #{taskId})
+   </select>
    
 
 </mapper>

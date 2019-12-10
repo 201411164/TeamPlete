@@ -1,8 +1,10 @@
 package kr.co.teamplete.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
 
@@ -49,4 +51,7 @@ public interface TaskDAO {
 	
 	//태스크 담당자 update
 	public void updateSubmit(ChargeVO charge);
+	
+	//태스크 담당자가 아닌 팀의 멤버들만 조회
+	public List<MemberVO> selectNotChargeMembers(Map<String, Integer> map);
 }

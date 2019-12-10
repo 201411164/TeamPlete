@@ -73,7 +73,7 @@
 
 	<!-- 특정한 팀에 없는 멤버들만 조회 -->
 	<select id="selectNotInTeamMemebers" parameterType="int" resultMap="teamMemberMap">
-		select memberid
+		select memberid, name
 		from member_tb
 		where memberid not in(select member_id from team_member_tb where team_id = #{teamId})
 		and memberid not in(select owner_id from team_tb where team_id = #{teamId})

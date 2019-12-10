@@ -1,8 +1,10 @@
 package kr.co.teamplete.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
 
@@ -40,5 +42,8 @@ public interface TaskService {
 	
 	// 태스크 담당자 update
 	public void updateSubmitS(ChargeVO charge);
+	
+	//태스크 담당자가 아닌 팀의 멤버들만 조회
+	public List<MemberVO> NotChargeMembers(Map<String, Integer> map);
 
 }
