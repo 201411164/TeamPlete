@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!-- oracle null 처리 -->
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
    <typeAliases>
       <typeAlias type="kr.co.teamplete.dto.TaskDateVO" alias="TaskDateVO"/>
       <typeAlias type="kr.co.teamplete.dto.MemberVO" alias="MemberVO"/>

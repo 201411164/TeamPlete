@@ -136,7 +136,7 @@
 									
 									<select class="select2 form-control" id="selectMulti3" multiple="multiple">
 									<c:forEach var="charge" items="${ chargeListAll }">
-									 <option value="${charge.name }" selected="selected">${charge.name }</option>
+									 <option value="${charge.chargeMemberid }" selected="selected">${charge.chargeMemberid }</option>
 									 </c:forEach>
 									</select> <input type="hidden" name="chargeMemberid" id="chargeMemberid"
 													value="$('#selectMulti3').select2('data')">
