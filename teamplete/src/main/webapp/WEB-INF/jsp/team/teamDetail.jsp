@@ -243,7 +243,7 @@
 													<li class="list-group-item d-flex">
 														<p class="float-left mb-0">
 															<i class="feather icon-calendar mr-1"></i>
-														</p> <span><strong>제출기한:</strong> ${ taskDeadline[status.index] }</span>
+														</p> <span><strong>제출기한: </strong>${ task.deadline } (${ taskDeadline[status.index] })</span>
 													</li>
 
 													<li class="list-group-item d-flex">
