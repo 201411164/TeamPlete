@@ -129,14 +129,19 @@
 															<input type="date" name="deadline" id="deadline"
 																placeholder="Deadline" class="form-control" value="${ taskDetail.deadline }">
 														</div>
-									<label>담당자: </label>
+											
+									<label>등록된 담당자: </label>
+									<div>		
 									<c:forEach var="charge" items="${ chargeListAll }">
 										<c:out value="${ charge.name }"></c:out>
 									</c:forEach>
-									
+									</div>
+									</br>
+									<label>담당자 추가: </label>
 									<select class="select2 form-control" id="selectMulti3" multiple="multiple">
-									<c:forEach var="charge" items="${ chargeListAll }">
-									 <option value="${charge.chargeMemberid }" selected="selected">${charge.chargeMemberid }</option>
+									<c:forEach var="notCharge" items="${ notChargeMembers }">
+<%-- 									 <option value="${charge.chargeMemberid }" selected="selected">${charge.chargeMemberid }</option> --%>
+										<option>${ notCharge.memberid }</option>
 									 </c:forEach>
 									</select> <input type="hidden" name="chargeMemberid" id="chargeMemberid"
 													value="$('#selectMulti3').select2('data')">

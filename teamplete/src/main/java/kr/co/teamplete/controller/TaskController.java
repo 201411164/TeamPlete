@@ -1,6 +1,8 @@
 package kr.co.teamplete.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,21 +51,28 @@ public class TaskController {
 		
 		TaskVO task = service.selectTaskS(taskId);
 		
+		Map<String, Object> objectMap = new HashMap<>();
+		
 		List<TaskFileVO> taskFileList = service.selectAllTaskFileS(taskId);
 		
 		List<BoardVO> boardList = boardService.selectAllBoardS(taskId);
 		
 		List<ChargeVO> chargeListAll = service.selectAllsubmitS(taskId);
 		
-		List<ChargeVO> chargeList = service.selectNsubmitS(taskId);
+		List<ChargeVO> chargeListN = service.selectNsubmitS(taskId);
 		
 		List<ChargeVO> chargeListY = service.selectYsubmitS(taskId);
+		
+		Map<String, Integer> hm = new HashMap<>();
+		hm.put("teamId", task.getTeamId());
+		hm.put("taskId", taskId);
+		List<MemberVO> notChargeMembers = service.NotChargeMembers(hm);
 						
-		for(int i=0; i<chargeList.size(); i++) {
+		for(int i=0; i<chargeListN.size(); i++) {
 			for(int j=0; j<boardList.size(); j++) {
-				if(chargeList.get(i).getChargeMemberid().equals(boardList.get(j).getWriterId())) {
-					chargeList.get(i).setSubmit('Y');
-					service.updateSubmitS(chargeList.get(i));
+				if(chargeListN.get(i).getChargeMemberid().equals(boardList.get(j).getWriterId())) {
+					chargeListN.get(i).setSubmit('Y');
+					service.updateSubmitS(chargeListN.get(i));
 					break;
 				}
 			}
@@ -83,17 +92,18 @@ public class TaskController {
 			}
 		}
 		
+		objectMap.put("taskDetail", task);
+		objectMap.put("taskFileList", taskFileList);
+		objectMap.put("boardList", boardList);
+		objectMap.put("chargeListAll", chargeListAll);
+		objectMap.put("chargeListN", chargeListN);
+		objectMap.put("notChargeMembers", notChargeMembers);
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("task/taskDetail");
 		
-		mav.addObject("taskDetail", task);
-		
-		mav.addObject("taskFileList", taskFileList);
-		
-		mav.addObject("boardList", boardList);
-		
-		mav.addObject("chargeListAll", chargeListAll);
+		mav.addAllObjects(objectMap);
 						
 		return mav;
 	}

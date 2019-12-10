@@ -14,7 +14,6 @@
 		<result column="reg_date" property="regDate" />
 	</resultMap>
 
-
 	<!-- 팀 생성 -->
 	<insert id="insert" parameterType="TeamVO">
 		insert into team_tb(team_id, team_name, owner_id, members, deadline, img)
@@ -71,6 +70,14 @@
     	select distinct M.memberid, M.name, M.profile, M.email
     	 from member_tb M 
     </select>
+
+	<!-- 특정한 팀에 없는 멤버들만 조회 -->
+	<select id="selectNotInTeamMemebers" parameterType="int" resultMap="teamMemberMap">
+		select memberid, name
+		from member_tb
+		where memberid not in(select member_id from team_member_tb where team_id = #{teamId})
+		and memberid not in(select owner_id from team_tb where team_id = #{teamId})
+	</select>
     
     <!-- 팀 정보 업데이트 -->
     <update id="updateTeam" parameterType="TeamVO">

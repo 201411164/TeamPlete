@@ -1,16 +1,17 @@
 package kr.co.teamplete.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.teamplete.dto.ChargeVO;
-import kr.co.teamplete.dto.FileVO;
+import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
-import kr.co.teamplete.dto.TeamVO;
 
 @Repository
 public class TaskDAOImpl implements TaskDAO{
@@ -103,6 +104,10 @@ public class TaskDAOImpl implements TaskDAO{
 		
 	}
 
-
+	@Override
+	public List<MemberVO> selectNotChargeMembers(Map<String, Integer> map) {
+		List<MemberVO> notChargeMembers = session.selectList("kr.co.teamplete.dao.TaskDAO.notTaskChargeMembers", map);
+		return notChargeMembers;
+	}
 
 }

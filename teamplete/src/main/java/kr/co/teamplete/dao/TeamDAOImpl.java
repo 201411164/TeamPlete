@@ -68,5 +68,11 @@ public class TeamDAOImpl implements TeamDAO{
 		session.delete("kr.co.teamplete.dao.TeamDAO.deleteTeam", teamId);
 		
 	}
+
+	@Override
+	public List<MemberVO> selectNotInTeamMembers(int teamId) {
+		List<MemberVO> notTeamMembers = session.selectList("kr.co.teamplete.dao.TeamDAO.selectNotInTeamMemebers", teamId);
+		return notTeamMembers;
+	}
 	
 }

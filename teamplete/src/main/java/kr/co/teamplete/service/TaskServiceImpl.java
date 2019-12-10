@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.teamplete.dao.TaskDAO;
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
 
@@ -202,6 +204,12 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void updateSubmitS(ChargeVO charge) {
 		taskDAO.updateSubmit(charge);
+	}
+
+	@Override
+	public List<MemberVO> NotChargeMembers(Map<String, Integer> map) {
+		List<MemberVO> notChargeMembers = taskDAO.selectNotChargeMembers(map);
+		return notChargeMembers;
 	}
 
 }

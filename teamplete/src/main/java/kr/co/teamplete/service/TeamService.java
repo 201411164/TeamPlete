@@ -34,4 +34,7 @@ public interface TeamService {
 	
 	//팀 삭제
 	public void deleteTeamById(int teamId);
+	
+	//팀에 없는 멤버들 조회
+	public List<MemberVO> NotInTeamMembers(int teamId);
 }

@@ -69,6 +69,12 @@ public class TeamServiceImpl implements TeamService{
 		teamDAO.deleteTeam(teamId);
 		
 	}
+
+	@Override
+	public List<MemberVO> NotInTeamMembers(int teamId) {
+		List<MemberVO> notTeamMembers = teamDAO.selectNotInTeamMembers(teamId);
+		return notTeamMembers;
+	}
 	
 
 }

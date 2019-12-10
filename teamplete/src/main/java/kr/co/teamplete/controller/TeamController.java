@@ -2,7 +2,9 @@ package kr.co.teamplete.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
@@ -149,6 +150,8 @@ public class TeamController {
 	@RequestMapping(value = "/teamdetail/{id}", method = {RequestMethod.GET})
 	public ModelAndView teamDetail(@PathVariable("id") int teamId) {
 		
+		Map<String, Object> map = new HashMap<>();
+		
 		TeamVO team = service.detailTeam(teamId);
 		List<MemberVO> members = service.selectAllMembers(teamId);
 		List<MemberVO> allmembers = service.selectAllMembers();
@@ -157,28 +160,30 @@ public class TeamController {
 		List<String> deadline = new ArrayList<>();
 		List<List<ChargeVO>> chargeMembers = new ArrayList<>();
 		List<List<ChargeVO>> submitN = new ArrayList<>();
+		
+		List<MemberVO> notTeamMembers = service.NotInTeamMembers(teamId);
+		
 		for(int i=0; i<taskList.size(); i++) {
 			taskFileList.add(taskService.selectAllTaskFileS(taskList.get(i).getTaskId()));
 			deadline.add(deadline(taskList.get(i).getDeadline()));
 			chargeMembers.add(taskService.selectAllsubmitS(taskList.get(i).getTaskId()));
 			submitN.add(taskService.selectNsubmitS(taskList.get(i).getTaskId()));
 		}
+		
+		map.put("team", team);
+		map.put("members", members);
+		map.put("taskList", taskList);
+		map.put("allmembers", allmembers);
+		map.put("taskFileList", taskFileList);
+		map.put("chargeMembers", chargeMembers);
+		map.put("taskDeadline", deadline);
+		map.put("submitN", submitN);
+		map.put("notTeamMembers", notTeamMembers);
 
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("team/teamDetail");
-		mav.addObject("team", team);
-		mav.addObject("members", members);
-//		System.out.println(members.toString());
-		mav.addObject("taskList", taskList);
-		mav.addObject("allmembers", allmembers);
-		mav.addObject("taskFileList", taskFileList);
-		
-		mav.addObject("taskDeadline", deadline);
-		
-		mav.addObject("chargeMembers", chargeMembers);
-		
-		mav.addObject("submitN", submitN);
+		mav.addAllObjects(map);
 	
 		return mav;
 	}
