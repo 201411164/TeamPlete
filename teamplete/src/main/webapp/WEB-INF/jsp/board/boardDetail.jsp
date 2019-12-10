@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -96,7 +98,7 @@
 						<ul class="list-group list-group-flush">
 						<li class="list-group-item">
                                            <h4 class="primary"
-														>${ boardDetail.content }</h4>
+														>${ fn:replace(boardDetail.content, newLineChar, "<br/>") }</h4>
                                         </li>
                                         
                         <c:forEach var="file" items="${ fileList }">

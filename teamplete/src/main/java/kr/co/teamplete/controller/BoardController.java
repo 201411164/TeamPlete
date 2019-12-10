@@ -45,27 +45,6 @@ public class BoardController {
 	public String writeBoard(BoardVO board, @PathVariable("taskId") int taskId, Model model) {
 
 		board.setTaskId(taskId);
-		
-//		List<ChargeVO> chargeList = taskService.selectNsubmitS(taskId);
-//
-//
-//		for (int i = 0; i < chargeList.size(); i++) {
-//			System.out.println(i + "번째: " + chargeList.get(i).toString());
-//			System.out.println("============================================");
-//			System.out.println("charge id: " + chargeList.get(i).getChargeMemberid());
-//			System.out.println("submit: " + chargeList.get(i).getSubmit());
-//			System.out.println("board id: " + board.getWriterId());
-//			if (chargeList.get(i).getChargeMemberid().equals(board.getWriterId())) {
-//				System.out.println("============================================");
-//				System.out.println("id: " + chargeList.get(i).getChargeMemberid());
-//				System.out.println("submit1: " + chargeList.get(i).getSubmit());
-//				chargeList.get(i).setSubmit('Y');
-//				taskService.updateSubmitS(chargeList.get(i));
-//				System.out.println("submit2: " + chargeList.get(i).getSubmit());
-//				System.out.println(chargeList.get(i).toString());
-//				break;
-//			}
-//		}
 
 		service.insertBoardS(board);
 
