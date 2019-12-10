@@ -18,8 +18,8 @@
 	placeholder:'팀원의 ID를 입력해주세요',	
     dropdownAutoWidth: true,
     width: '100%',
-    tags:true,
-    tokenSeparators: [',', ' ']
+    tokenSeparators: [',', ' ']	
+	
   });
 
     // Select With Icon
