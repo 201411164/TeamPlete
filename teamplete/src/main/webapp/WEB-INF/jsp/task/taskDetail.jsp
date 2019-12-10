@@ -18,9 +18,7 @@
 	href="${ pageContext.request.contextPath }/resources/css/colors.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/components.css">
-<link
-	href="https://fonts.googleapis.com/cssf?family=Montserrat:300,400,500,600"
-	rel="stylesheet">
+
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 <link rel="stylesheet"
@@ -137,7 +135,9 @@
 									</c:forEach>
 									
 									<select class="select2 form-control" id="selectMulti3" multiple="multiple">
-									<option></option>
+									<c:forEach var="charge" items="${ chargeListAll }">
+									 <option value="${charge.name }" selected="selected">${charge.name }</option>
+									 </c:forEach>
 									</select> <input type="hidden" name="chargeMemberid" id="chargeMemberid"
 													value="$('#selectMulti3').select2('data')">
 													
