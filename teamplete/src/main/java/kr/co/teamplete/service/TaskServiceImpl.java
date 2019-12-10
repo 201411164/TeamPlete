@@ -24,7 +24,7 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void insertTaskS(TaskVO task) {
-
+		
 		List<TaskFileVO> taskFileList = null;
 		
 		List<String> chargeMems = task.getChargeMems();

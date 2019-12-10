@@ -58,7 +58,7 @@ public class TaskController {
 		List<ChargeVO> chargeList = service.selectNsubmitS(taskId);
 		
 		List<ChargeVO> chargeListY = service.selectYsubmitS(taskId);
-				
+						
 		for(int i=0; i<chargeList.size(); i++) {
 			for(int j=0; j<boardList.size(); j++) {
 				if(chargeList.get(i).getChargeMemberid().equals(boardList.get(j).getWriterId())) {
@@ -94,7 +94,7 @@ public class TaskController {
 		mav.addObject("boardList", boardList);
 		
 		mav.addObject("chargeListAll", chargeListAll);
-				
+						
 		return mav;
 	}
 	
