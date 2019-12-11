@@ -37,16 +37,14 @@
    <!-- 모든 board 조회 -->
    <select id="selectAllBoard" parameterType="int"
       resultMap="boardMap">
-      select board_id, writer_id, writer_name, title, content,
-      board_date, task_id
-      from board_tb
-      where task_id = #{taskId}
-      order by board_id
+      select board_id, writer_id, writer_name, title, content, board_date, task_id, M.profile
+       from board_tb B
+        left outer join member_tb M
+         on B.writer_id = M.memberid
+          where task_id = #{taskId}
+           order by board_id
    </select>
-   
-   
-    
-   
+
    
    <!-- board 상세 -->
    <select id="selectBoardById" parameterType="int" resultMap="boardMap">

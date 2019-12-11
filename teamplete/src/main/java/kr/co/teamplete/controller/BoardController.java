@@ -28,19 +28,6 @@ public class BoardController {
 	private TaskService taskService;
 
 	// insert board
-	@RequestMapping(value = "/{taskId}/board/write", method = RequestMethod.GET)
-	public ModelAndView writeBoardForm(@PathVariable("taskId") int taskId) {
-		ModelAndView mav = new ModelAndView();
-
-		TaskVO taskInfo = taskService.selectTaskS(taskId);
-
-		mav.setViewName("board/boardWrite");
-		mav.addObject("taskInfo", taskInfo);
-
-		return mav;
-	}
-
-	// insert board
 	@RequestMapping(value = "/{taskId}/board/write", method = RequestMethod.POST)
 	public String writeBoard(BoardVO board, @PathVariable("taskId") int taskId, Model model) {
 

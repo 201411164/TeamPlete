@@ -385,11 +385,6 @@
 												<div>
 													<c:if test="${ loginVO.memberid eq task.writerId }">
 														<%--                      <button name="modifyTask" value="${ task.taskId }">수정</button> --%>
-														<button name="deleteTask"
-															class="btn btn-danger btn-block "
-															value="${ task.taskId }">
-															<i class="feather icon-trash-2 mr-1"></i>글 삭제하기
-														</button>
 													</c:if>
 												</div>
 											</div>

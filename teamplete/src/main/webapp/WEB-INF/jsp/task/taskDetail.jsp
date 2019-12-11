@@ -88,12 +88,17 @@
                 </div>
             </div>
             
-            	<!-- 태스크 수정 Modal -->
-            	<c:if test="${ loginVO.memberid eq taskDetail.writerId }">
-				<button id="createTaskBtn" class="btn btn-success"
-					data-toggle="modal" data-target="#createTask" onclick="taskModify(${ taskDetail.taskId })">태스크 수정</button>
-				</c:if>
-				<div class="modal fade text-left" id="createTask" tabindex="-1"
+            		<!-- 태스크 수정 Modal -->
+					<c:if test="${ loginVO.memberid eq taskDetail.writerId }">
+						<button id="createTaskBtn" class="btn btn-success"
+							data-toggle="modal" data-target="#createTask"
+							onclick="taskModify(${ taskDetail.taskId })">태스크 수정</button>
+						<button name="deleteTask" class="btn btn-danger btn-block "
+							onclick="taskDelete(${ taskDetail.taskId })" value="${ taskDetail.teamId }">
+							<i class="feather icon-trash-2 mr-1"></i>글 삭제하기
+						</button>
+					</c:if>
+					<div class="modal fade text-left" id="createTask" tabindex="-1"
 					role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
 					<div
 						class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
@@ -162,16 +167,17 @@
 			<div class="col-xl-3 col-md-6 col-sm-6">
 								<div class="card">
 									<div class="card-header d-flex justify-content-between">
+<!-- 										제출자는 등록된 담당자만 따로 나눠서 보여주는게 아니라 board의 모든 목록을 보여주는걸로 -->
 										<h4 class="text-primary">제출자</h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
 									<div class="card-body">
 										<c:set var="count1" value="0" scope="page" />
-										<c:forEach items="${ members }" var="member">
+										<c:forEach items="${ boardList }" var="board">
 											<c:set var="count" value="${count + 1}" scope="page" />
 
 											<c:choose>
-												<c:when test="${ not empty member.profile }">
+												<c:when test="${ not empty board.profile }">
 
 
 
@@ -181,12 +187,13 @@
 													<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
-															<img src="${ member.profile }" alt="avtar img holder"
+															<img src="${ board.profile }" alt="avtar img holder"
 																height="35" width="35">
 														</div>
 														<div class="user-page-info">
-															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
-															<span class="font-small-3">파일 제출 완료</span>
+															<h5 class="mb-0" style="font-weight: 600;">${board.writerName }</h5>
+<!-- 															<span class="font-small-3">파일 제출 완료</span> -->
+															<span class="font-small-3">제목: ${ board.title }</span>
 														</div>
 													</div>
 
@@ -197,19 +204,24 @@
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar ${colorlist[count%5]} mr-50">
 															<div class="avatar-content"
-																<c:set var = "membername" value = "${ member.name }"/>
+																<c:set var = "membername" value = "${ board.writerName }"/>
 																<c:set var = "firstletter" value = "${fn:substring(membername, 0, 1)}"/>>${firstletter}
 															</div>
 														</div>
 														<div class="user-page-info">
-															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
-															<span class="font-small-3">파일 제출 완료</span>
+															<h5 class="mb-0" style="font-weight: 600;">${ board.writerName}</h5>
+<!-- 															<span class="font-small-3">파일 제출 완료</span> -->
+															<span class="font-small-3">제목: ${ board.title }</span>
 														</div>
 													</div>
 												</c:otherwise>
 											</c:choose>
 
 										</c:forEach>
+										
+										
+
+
 
 										<button type="button" class="btn btn-primary w-100 mt-1">
 											<i class="feather icon-plus mr-25"></i>Load More
@@ -217,6 +229,8 @@
 									</div>
 								</div>
 							</div>
+							
+
 							
 							
 							
@@ -278,7 +292,56 @@
 										</button>
 									</div>
 								</div>
-							</div>				
+							</div>			
+							
+							
+							
+							
+							
+
+	<form method="post" enctype="multipart/form-data"
+		action="${ pageContext.request.contextPath}/${ taskDetail.taskId }/board/write"
+		name="boardWriteForm">
+		<input type="hidden" name="writerId" value="${ loginVO.memberid }">
+		<input type="hidden" name="writerName" value="${ loginVO.name }">
+		<div class="col-xl-3 col-md-6 col-sm-6">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-header">
+						<h4 class="card-title">글 추가하기</h4>
+					</div>
+					<div class="card-body">
+						<div id="writeForm">
+							<div class="form-body">
+								<div class="form-group">
+									<label for="title" class="sr-only">제목을 입력하세요</label> <input
+										type="text" class="form-control form-control-plaintext" placeholder="제목을 입력하세요" name="title"
+										required>
+								</div>
+
+								<div class="form-group">
+									<label for="content" class="sr-only">내용</label>														
+									
+									<textarea id="content" rows="5" class="form-control form-control-plaintext" name="content" placeholder="내용을 입력하세요"></textarea>		
+									<div style="color: black;" id="fileForm">
+										<button type="button"
+											class="btn btn-outline-primary round btn-block"
+											name="fileBtn" id="fileBtn">파일 추가</button>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+						<button type="button" onClick="checkForm()"
+							id="submitbutton" class="btn btn-outline-success round btn-block">등록</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>	
+			
+			
 			
 
 
@@ -328,16 +391,7 @@
 <!-- 					<footer> </footer> -->
 				</div>
 			</div>
-			</div>
-			
-			<button onClick="writeBoard(${ taskDetail.taskId })">글작성</button>
-			
-			<c:forEach var="board" items="${ boardList }">
-			<h4>board title: ${ board.title }</h4>
-			<h4>writer: ${ board.writerName }</h4>
-			<h4>content: ${ fn:replace(board.content, newLineChar, "<br/>") }</h4>
-			</c:forEach>
-			
+			</div>			
 			
 			</div>
 			</div>
@@ -391,13 +445,13 @@
    	}
    	
    	
-	var index = 0;
+	var index2 = 0;
 
 	$("button[name='taskFileBtnM']").click(function() {
-	   $('#taskFileFormM').append('<br name="taskfileBr' + index +'"><input type="file" id="taskFiles[' + index + ']" name="taskFiles[' + index + ']" value="">');
-	   $('#taskFileFormM').append('<button type="button" name="taskbtn'+index+'" class="btn black ml15" style="padding: 3px 5px 6px 5px; color: red;" onClick="deletetaskFile(' + index + ')">X</button>');
-	   console.log('<br><input type="file" id="taskFiles[' + index + ']" name="taskFiles[' + index + ']" value="">')
-	   index += 1;
+	   $('#taskFileFormM').append('<br name="taskfileBr' + index2 +'"><input type="file" id="taskFiles[' + index2 + ']" name="taskFiles[' + index2 + ']" value="">');
+	   $('#taskFileFormM').append('<button type="button" name="taskbtn'+index2+'" class="btn black ml15" style="padding: 3px 5px 6px 5px; color: red;" onClick="deletetaskFile(' + index2 + ')">X</button>');
+	   console.log('<br><input type="file" id="taskFiles[' + index2 + ']" name="taskFiles[' + index2 + ']" value="">')
+	   index2 += 1;
 	});
 
 
@@ -446,7 +500,79 @@
  	    modifyTask.submit();
 
     }
+    
+    
+	
+	var teamId = '';
+	function taskDelete(taskId) {
+		
+		teamId = $("button[name='deleteTask']").val();
+		
+		if(confirm("삭제하시겠습니까?")){
+			$.ajax({
+				url : '/task/delete/' + taskId,
+				type : 'DELETE'
+			});
+//				$('#taskTable').load(document.URL +  ' #taskTable');
+			location.href = "${ pageContext.request.contextPath}/teamdetail/" + teamId;
+		} else return;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	var index = 0;
+
+	$("button[name='fileBtn']").click(function() {
+	   $('#fileForm').append('<br name="fileBr' + index +'"><input type="file" id="files[' + index + ']" name="files[' + index + ']" value="">');
+	   $('#fileForm').append('<button type="button" name="btn'+index+'" class="btn black ml15" style="padding: 3px 5px 6px 5px; color: red;" onClick="deleteFile(' + index + ')">X</button>');
+	   console.log('<br><input type="file" id="files[' + index + ']" name="files[' + index + ']" value="">')
+	   index += 1;
+	});
+
+
+
+	function deleteFile(idx) {
+	   $("br[name='fileBr" + idx + "']").remove();
+	   $("input[name='files[" + idx + "]']").remove();
+	   $("button[name='btn" + idx + "']").remove();
+	   console.log(idx);
+	}
+
+
+	function checkForm() {	   
+		
+	   var form = document.boardWriteForm;
+	   
+	   if (!form.title.value) {
+	      alert('제목은 필수항목입니다.');
+	      form.title.focus();
+	      return false;
+	   }
+	      
+	   var cnt = 0;
+	   for(i = 0; i < index; i++) {
+	      if(document.getElementById('files[' + i + ']')) {
+	      if ($("input[name='files[" + i + "]']").val() != ""){
+	         document.getElementById('files[' + i + ']').setAttribute('name', 'files[' + cnt + ']');
+	         cnt ++;
+	      }else {
+	         $("br[name='fileBr" + i + "']").remove();
+	         $("input[name='files[" + i + "]']").remove();
+	         $("button[name='btn" + i + "']").remove();
+	      }
+	      }
+	   }
+	   
+	   form.submit();
+	}
+
    </script>
+  
 
 </body>
 </html>

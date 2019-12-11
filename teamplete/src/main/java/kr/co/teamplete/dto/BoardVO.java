@@ -5,101 +5,108 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardVO {
-   
-   List<MultipartFile> files;
-   
-   private int boardId;
-   private String writerId, writerName, title, content, 
-   boardDate;
-   private int taskId;
-   
-   public BoardVO() {
-      super();
-      // TODO Auto-generated constructor stub
-   }
 
-   public BoardVO(List<MultipartFile> files, int boardId, String writerId, String writerName, String title,
-         String content, String boardDate, int taskId) {
-      super();
-      this.files = files;
-      this.boardId = boardId;
-      this.writerId = writerId;
-      this.writerName = writerName;
-      this.title = title;
-      this.content = content;
-      this.boardDate = boardDate;
-      this.taskId = taskId;
-   }
+	List<MultipartFile> files;
 
-   public List<MultipartFile> getFiles() {
-      return files;
-   }
+	private int boardId;
+	private String writerId, writerName, title, content, boardDate, profile;
+	private int taskId;
 
-   public void setFiles(List<MultipartFile> files) {
-      this.files = files;
-   }
+	public BoardVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-   public int getBoardId() {
-      return boardId;
-   }
+	public BoardVO(List<MultipartFile> files, int boardId, String writerId, String writerName, String title,
+			String content, String boardDate, int taskId) {
+		super();
+		this.files = files;
+		this.boardId = boardId;
+		this.writerId = writerId;
+		this.writerName = writerName;
+		this.title = title;
+		this.content = content;
+		this.boardDate = boardDate;
+		this.taskId = taskId;
+	}
 
-   public void setBoardId(int boardId) {
-      this.boardId = boardId;
-   }
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
 
-   public String getWriterId() {
-      return writerId;
-   }
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
 
-   public void setWriterId(String writerId) {
-      this.writerId = writerId;
-   }
+	public int getBoardId() {
+		return boardId;
+	}
 
-   public String getWriterName() {
-      return writerName;
-   }
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
+	}
 
-   public void setWriterName(String writerName) {
-      this.writerName = writerName;
-   }
+	public String getWriterId() {
+		return writerId;
+	}
 
-   public String getTitle() {
-      return title;
-   }
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
+	}
 
-   public void setTitle(String title) {
-      this.title = title;
-   }
+	public String getWriterName() {
+		return writerName;
+	}
 
-   public String getContent() {
-      return content;
-   }
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
 
-   public void setContent(String content) {
-      this.content = content;
-   }
+	public String getTitle() {
+		return title;
+	}
 
-   public String getBoardDate() {
-      return boardDate;
-   }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-   public void setBoardDate(String boardDate) {
-      this.boardDate = boardDate;
-   }
+	public String getContent() {
+		return content;
+	}
 
-   public int getTaskId() {
-      return taskId;
-   }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-   public void setTaskId(int taskId) {
-      this.taskId = taskId;
-   }
+	public String getBoardDate() {
+		return boardDate;
+	}
 
-   @Override
-   public String toString() {
-      return "BoardVO [files=" + files + ", boardId=" + boardId + ", writerId=" + writerId + ", writerName="
-            + writerName + ", title=" + title + ", content=" + content + ", boardDate=" + boardDate + ", taskId="
-            + taskId + "]";
-   }
-   
+	public void setBoardDate(String boardDate) {
+		this.boardDate = boardDate;
+	}
+
+	public int getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(int taskId) {
+		this.taskId = taskId;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	@Override
+	public String toString() {
+		return "BoardVO [files=" + files + ", boardId=" + boardId + ", writerId=" + writerId + ", writerName="
+				+ writerName + ", title=" + title + ", content=" + content + ", boardDate=" + boardDate + ", taskId="
+				+ taskId + "]";
+	}
+
 }
