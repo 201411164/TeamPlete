@@ -199,7 +199,7 @@
 															<h6 class="text-nowrap"
 																	style="white-space: nowrap; display: inline;"
 																	id="fileName"
-																	onClick="boardFileDown('filePath=${ boardFile.filePath }&fileNameKey=${ boardFile.fileNameKey }&fileName=${ boardFile.fileName }')">${ boardFile.fileName }</h6>
+																	onClick="fileDown('filePath=${ boardFile.filePath }&fileNameKey=${ boardFile.fileNameKey }&fileName=${ boardFile.fileName }')">${ boardFile.fileName }</h6>
 																<c:choose>
 																	<c:when test="${ boardFile.fileSize >= 1024 }">
 																		<h6 id="strong" style="display: inline;">
