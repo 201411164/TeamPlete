@@ -43,6 +43,9 @@ public interface TaskDAO {
 	//태스크 수정시 담당자 추가
 	public void insertChargeModify(ChargeVO charge);
 	
+	//태스크 수정시 담당자 삭제
+	public void deleteCharge(int chargeId);
+	
 	// 태스크 담당자 전체 조회
 	public List<ChargeVO> selectAllsubmit(int taskId);
 	

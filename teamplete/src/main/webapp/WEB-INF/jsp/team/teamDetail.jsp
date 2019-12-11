@@ -101,6 +101,13 @@
 									class="btn round btn-danger mb-3" value="${ team.teamId }">
 									<i class="feather icon-trash-2 mr-1"></i>팀 삭제
 								</button>
+
+							</c:if>
+							<c:if test="${ loginVO.memberid ne team.ownerId }">
+								<button type="button" name="outTeam"
+									class="btn round btn-danger mb-3" value="${ team.teamId }">
+									<i class=""></i>팀 나가기
+								</button>
 							</c:if>
 						</div>
 					</div>
@@ -223,6 +230,7 @@
 
 											<div class="card-header d-flex justify-content-between">
 												<h4 class="text-primary">${task.title }</h4>
+												<h7>${ task.taskDate }</h7>
 												<i class="feather icon-more-horizontal cursor-pointer"></i>
 											</div>
 											<div class="card-body">
@@ -713,6 +721,21 @@
 
 	});
 	
+	$("button[name='outTeam']").click(function() {
+		var teamId = this.value;
+		if(confirm("팀을 나가시겠습니까?")){
+			$.ajax({
+				url : '/team/outTeam/' + teamId + '/' + '${ loginVO.memberid }',
+				type : 'DELETE'
+			});
+			
+			
+			location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
+		} else return;
+
+	});
+	
+	
 	function taskFileDown(file){
 	    location.href = "${ pageContext.request.contextPath}/fileDownload?" + file;
 	}
@@ -721,8 +744,8 @@
 	function taskDetail(id) {
 		location.href = "/taskdetail/" + id;
 	}
+	
 
-   
    
 </script>
 </body>

@@ -81,36 +81,19 @@ public class TeamController {
 
 		List<String> deadline = new ArrayList<>();
 		List<TeamVO> teamList = service.selectAllTeam(memberid);
+		List<List<MemberVO>> teamMemberList = new ArrayList<>();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("team/team");
 		mav.addObject("teamList", teamList);
 		for(int i=0; i<teamList.size(); i++) {
 			deadline.add(deadline(teamList.get(i).getDeadline()));
+			teamMemberList.add(service.selectAllMembers(teamList.get(i).getTeamId()));
 //			System.out.println(deadline(teamList.get(i)));
 		}
 		mav.addObject("deadline", deadline);
+		mav.addObject("teamMemberList", teamMemberList);
 
 		return mav;
-	}
-	
-	// 팀 멤버 문자열 update
-	public void membersUpdate(TeamVO team) {
-		
-		List<MemberVO> members = service.selectAllMembers(team.getTeamId());
-		
-		String membersStr = "";
-		for(int i=0; i<members.size(); i++) {
-			if(i == members.size()-1) {
-				membersStr = membersStr + members.get(i).getName();
-			}else membersStr = membersStr + members.get(i).getName() + ", ";
-		}
-		
-//		System.out.println(membersStr);
-		
-		team.setMembers(membersStr);
-		
-		service.updateAllMembers(team);
-	
 	}
 
 	// 남은 제출 기한 구하기
@@ -202,7 +185,6 @@ public class TeamController {
 		}
 		
 		TeamVO team = service.detailTeam(teamId);
-		membersUpdate(team);
 		
 		return memberList;
 	}
@@ -219,6 +201,17 @@ public class TeamController {
 	public void deleteTeam(@PathVariable("teamId") int teamId) {
 		
 		service.deleteTeamById(teamId);
+	}
+	
+	@RequestMapping(value = "/team/outTeam/{teamId}/{memberId:.+}", method = RequestMethod.DELETE)
+	public void outFromTeam(@PathVariable("teamId") int teamId, @PathVariable("memberId") String memberId) {
+		
+		Map<String, Object> hm = new HashMap<>();
+		
+		hm.put("teamId", teamId);
+		hm.put("memberId", memberId);
+		
+		service.outFromTeam(hm);
 	}
 
 }

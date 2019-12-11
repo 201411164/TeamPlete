@@ -1,6 +1,7 @@
 package kr.co.teamplete.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,12 @@ public class TeamDAOImpl implements TeamDAO{
 	public List<MemberVO> selectNotInTeamMembers(int teamId) {
 		List<MemberVO> notTeamMembers = session.selectList("kr.co.teamplete.dao.TeamDAO.selectNotInTeamMemebers", teamId);
 		return notTeamMembers;
+	}
+
+	@Override
+	public void outFromTeam(Map<String, Object> map) {
+		session.delete("kr.co.teamplete.dao.TeamDAO.outFromTeam", map);
+		
 	}
 	
 }

@@ -88,7 +88,11 @@
 								alt="avatar">
                                         <div class="card-text">                                        
                                             <h2 class="text-bold-700" style="margin-top:7%;" onclick="teamDetail(${ team.teamId })" ><c:out value="${ team.teamName }" /></h2>
-                                            <h6 class="text-bold-600"><c:out value="팀원: " /><strong style="color:#0275d8 !important"><c:out value="${ team.members }" /></strong></h6>									
+                                            <h6 class="text-bold-600"><c:out value="팀원: " />
+                                            <c:forEach items="${ teamMemberList[status.index] }" var="teamMembers">
+                                            	<strong style="color:#0275d8 !important">${ teamMembers.name }</strong>
+                                            </c:forEach>
+                                            </h6>									
 											<h4 class="primary text-bold-400" style="margin-top:5%"><c:out value="과제 제출 기한: " /><strong class="text-bold-600 text-nowrap" style="color:red !important;"><c:out
 										value="${ deadline[status.index] }" /></strong></h4>
                                         </div>

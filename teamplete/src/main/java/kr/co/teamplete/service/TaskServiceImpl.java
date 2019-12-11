@@ -144,8 +144,16 @@ public class TaskServiceImpl implements TaskService {
 		List<Integer> deleteFiles = task.getDeleteFiles();
 		
 		if(deleteFiles != null) {
-			for (Integer deleteFile : deleteFiles) {
-				taskDAO.deleteTaskFile(deleteFile);
+			for (Integer fileNo : deleteFiles) {
+				taskDAO.deleteTaskFile(fileNo);
+			}
+		}
+		
+		List<Integer> deleteChargeList = task.getDeleteCharge();
+		
+		if(deleteChargeList != null) {
+			for(Integer chargeId : deleteChargeList) {
+				taskDAO.deleteCharge(chargeId);
 			}
 		}
 		

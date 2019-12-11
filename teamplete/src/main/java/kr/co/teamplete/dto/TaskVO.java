@@ -11,6 +11,8 @@ public class TaskVO {
 	List<Integer> deleteFiles;
 	
 	List<String> chargeMems;
+	
+	List<Integer> deleteCharge;
 
 	private int taskId;
 	private String writerId, writerName;
@@ -126,7 +128,14 @@ public class TaskVO {
 	public void setDeleteFiles(List<Integer> deleteFiles) {
 		this.deleteFiles = deleteFiles;
 	}
-	
+
+	public List<Integer> getDeleteCharge() {
+		return deleteCharge;
+	}
+
+	public void setDeleteCharge(List<Integer> deleteCharge) {
+		this.deleteCharge = deleteCharge;
+	}
 
 	@Override
 	public String toString() {
