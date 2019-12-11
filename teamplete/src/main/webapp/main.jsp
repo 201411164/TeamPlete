@@ -99,7 +99,7 @@
 												<fieldset
 													class="form-label-group form-group position-relative has-icon-left">
 													<input type="text" class="form-control" name="memberid"
-														id="user-name" placeholder="Username" style="color:white !important;"required>
+														id="user-name" placeholder="Username" required>
 													<div class="form-control-position">
 														<i class="feather icon-user"></i>
 													</div>
