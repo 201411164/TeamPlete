@@ -1,5 +1,6 @@
 package kr.co.teamplete.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
@@ -63,6 +65,12 @@ public class TaskController {
 		
 		List<ChargeVO> chargeListY = service.selectYsubmitS(taskId);
 		
+		List<List<FileVO>> boardFileList = new ArrayList<>();
+		
+		for(int i=0; i<boardList.size(); i++) {
+			boardFileList.add(boardService.selectAllFileS(boardList.get(i).getBoardId()));
+		}
+		
 		Map<String, Integer> hm = new HashMap<>();
 		hm.put("teamId", task.getTeamId());
 		hm.put("taskId", taskId);
@@ -96,8 +104,9 @@ public class TaskController {
 		objectMap.put("taskFileList", taskFileList);
 		objectMap.put("boardList", boardList);
 		objectMap.put("chargeListAll", chargeListAll);
-		objectMap.put("chargeListN", chargeListN);
+		objectMap.put("submitNmembers", chargeListN);
 		objectMap.put("notChargeMembers", notChargeMembers);
+		objectMap.put("boardFileList", boardFileList);
 		
 		ModelAndView mav = new ModelAndView();
 		

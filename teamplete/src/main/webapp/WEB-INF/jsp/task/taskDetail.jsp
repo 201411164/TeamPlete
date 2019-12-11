@@ -173,7 +173,7 @@
 									</div>
 									<div class="card-body">
 										<c:set var="count1" value="0" scope="page" />
-										<c:forEach items="${ boardList }" var="board">
+										<c:forEach items="${ boardList }" var="board" varStatus="status">
 											<c:set var="count" value="${count + 1}" scope="page" />
 
 											<c:choose>
@@ -194,6 +194,28 @@
 															<h5 class="mb-0" style="font-weight: 600;">${board.writerName }</h5>
 <!-- 															<span class="font-small-3">파일 제출 완료</span> -->
 															<span class="font-small-3">제목: ${ board.title }</span>
+															<c:forEach var="boardFile" items="${ boardFileList[status.index] }">
+															
+															<h6 class="text-nowrap"
+																	style="white-space: nowrap; display: inline;"
+																	id="fileName"
+																	onClick="boardFileDown('filePath=${ boardFile.filePath }&fileNameKey=${ boardFile.fileNameKey }&fileName=${ boardFile.fileName }')">${ boardFile.fileName }</h6>
+																<c:choose>
+																	<c:when test="${ boardFile.fileSize >= 1024 }">
+																		<h6 id="strong" style="display: inline;">
+																			(
+																			<fmt:formatNumber
+																				value="${ boardFile.fileSize / 1024 }" pattern=".00" />
+																			MB)
+																		</h6>
+																	</c:when>
+																	<c:otherwise>
+																		<h6 id="strong" style="display: inline;">(${ boardFile.fileSize }KB)</h6>
+																	</c:otherwise>
+																</c:choose>
+																</br>
+															
+															</c:forEach>
 														</div>
 													</div>
 
@@ -243,11 +265,11 @@
 									</div>
 									<div class="card-body">
 										<c:set var="count1" value="0" scope="page" />
-										<c:forEach items="${ members }" var="member">
+										<c:forEach items="${ submitNmembers }" var="submitNmem">
 											<c:set var="count" value="${count + 1}" scope="page" />
 
 											<c:choose>
-												<c:when test="${ not empty member.profile }">
+												<c:when test="${ not empty submitNmem.profile }">
 
 
 
@@ -257,11 +279,11 @@
 													<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
-															<img src="${ member.profile }" alt="avtar img holder"
+															<img src="${ submitNmem.profile }" alt="avtar img holder"
 																height="35" width="35">
 														</div>
 														<div class="user-page-info">
-															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
+															<h5 class="mb-0" style="font-weight: 600;">${ submitNmem.name }</h5>
 															<span class="font-small-3">파일 미제출</span>
 														</div>
 													</div>
@@ -273,12 +295,12 @@
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar ${colorlist[count%5]} mr-50">
 															<div class="avatar-content"
-																<c:set var = "membername" value = "${ member.name }"/>
+																<c:set var = "membername" value = "${ submitNmem.name }"/>
 																<c:set var = "firstletter" value = "${fn:substring(membername, 0, 1)}"/>>${firstletter}
 															</div>
 														</div>
 														<div class="user-page-info">
-															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
+															<h5 class="mb-0" style="font-weight: 600;">${ submitNmem.name }</h5>
 															<span class="font-small-3">파일 제출 완료</span>
 														</div>
 													</div>
@@ -570,6 +592,15 @@
 	   
 	   form.submit();
 	}
+	
+	
+	function fileDown(file){
+	    location.href = "${ pageContext.request.contextPath}/fileDownload?" + file;
+	}
+	
+	
+	
+	
 
    </script>
   
