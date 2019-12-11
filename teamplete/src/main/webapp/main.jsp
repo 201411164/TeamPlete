@@ -60,6 +60,15 @@
 
 <link href="http://fonts.googleapis.com/css?family=Noto+Sans:700%2C400%7CNanum+Gothic:800%7COpen+Sans:400" rel="stylesheet" property="stylesheet" type="text/css" media="all">
 
+<style>
+input::placeholder {
+  color: white !important;  
+}
+.form-control{
+ border: 1px solid rgba(255,255,255,0.7) !important;
+}
+
+</style>
 	
 
 <!-- END: Page CSS-->
@@ -99,7 +108,7 @@
 												<fieldset
 													class="form-label-group form-group position-relative has-icon-left">
 													<input type="text" class="form-control" name="memberid"
-														id="user-name" placeholder="Username" required>
+														id="user-name" placeholder="Username" required style="background-color:transparent; color:white;">
 													<div class="form-control-position">
 														<i class="feather icon-user"></i>
 													</div>
@@ -108,7 +117,7 @@
 												<fieldset
 													class="form-label-group position-relative has-icon-left">
 													<input type="password" class="form-control" name="password"
-														id="user-password" placeholder="Password" required>
+														id="user-password" placeholder="Password"  required style="background-color:transparent; color:white;">
 													<div class="form-control-position">
 														<i class="feather icon-lock"></i>
 													</div>

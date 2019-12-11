@@ -94,24 +94,40 @@
 
 
 	<div class="content-header row">
+                
                 <div class="content-header-left col-md-9 col-12 mb-2">
-                		<button onClick="backTeamDetail(${ taskDetail.teamId })">팀 페이지로 돌아가기</button>
-                        <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0 ">태스크 title: ${ taskDetail.title }</h2>                            
-                        </div>  
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12 mb-1">
+                            <h2 class=" text-primary text-bold-600 float-left mb-0 mr-2 ">${ taskDetail.title }</h2> 
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="${ pageContext.request.contextPath }/team/${loginVO.memberid}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="${ pageContext.request.contextPath }/teamdetail/${taskDetail.teamId}">Team</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" style="font-weight:600; font-family:'Noto Sans KR';">${ taskDetail.title }
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <c:if test="${ loginVO.memberid eq taskDetail.writerId }">
+						<button id="createTaskBtn" class="btn round btn-success btn-sm mb-3"
+							data-toggle="modal" data-target="#createTask"
+							onclick="taskModify(${ taskDetail.taskId })"><i class="feather icon-edit mr-1"></i>태스크 수정</button>
+						<button name="deleteTask" class="btn round btn-danger btn-sm mb-3 "
+							onclick="taskDelete(${ taskDetail.taskId })" value="${ taskDetail.teamId }">
+							<i class="feather icon-trash-2 mr-1"></i>글 삭제하기
+						</button>					
+						
+						
+					</c:if>
                 </div>
             </div>
             
             		<!-- 태스크 수정 Modal -->
-					<c:if test="${ loginVO.memberid eq taskDetail.writerId }">
-						<button id="createTaskBtn" class="btn btn-success"
-							data-toggle="modal" data-target="#createTask"
-							onclick="taskModify(${ taskDetail.taskId })">태스크 수정</button>
-						<button name="deleteTask" class="btn btn-danger btn-block "
-							onclick="taskDelete(${ taskDetail.taskId })" value="${ taskDetail.teamId }">
-							<i class="feather icon-trash-2 mr-1"></i>글 삭제하기
-						</button>
-					</c:if>
+					
 					<div class="modal fade text-left" id="createTask" tabindex="-1"
 					role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
 					<div
@@ -184,7 +200,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+				
 			
 			
 			
@@ -195,26 +211,27 @@
 			
 			
 			
+			<div>
 			
 			
 			
 			
-			
-		
-			
+				<!-- Begin: Card Drag Area-->
 			
 			
+			<section id="draggable-cards">
+						<div class="row" id="card-drag-area">
 			
 			
 			
-			
+		<!-- Begin: 제출 현황-->
 			
 			
 			<div class="col-xl-4 col-md-6 col-sm-6">
 								<div class="card">
 									<div class="card-header d-flex justify-content-between">
 <!-- 										제출자는 등록된 담당자만 따로 나눠서 보여주는게 아니라 board의 모든 목록을 보여주는걸로 -->
-										<h4 class="text-primary">제출자</h4>
+										<h4 class="text-primary">제출 현황</h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
 									<div class="card-body">
@@ -222,7 +239,7 @@
 
 							<section id="accordion">
 							<div class="row">
-								<div class="col-sm-12">
+								<div class="col-sm-12 mr-3 ">
 									<div id="accordionWrapa1" role="tablist"
 										aria-multiselectable="true">
 										<div class="card collapse-icon accordion-icon-rotate">
@@ -267,8 +284,39 @@
 																</c:choose>
 																<div class="user-page-info">
 																	<h5 class="mb-0" style="font-weight: 600;">${board.writerName }</h5>
+																	<h6>${board.title }</h6>
+																	
 
-																	<c:forEach var="boardFile"
+
+																</div>
+
+															</div>
+														</div>
+
+
+
+													</div>
+
+
+
+													<div id="accordion${count4}" role="tabpanel"
+														data-parent="#accordionWrapa1"
+														aria-labelledby="heading${count4}" class="collapse">
+														<div class="card-content">
+														
+															<ul class="list-group list-group-flush">
+														
+															<li class="list-group-item d-flex">
+															<div class="card-body">${ fn:replace(board.content, newLineChar, "<br/>") }
+															
+															</div>
+															</li>
+															
+															<li class="list-group-item d-flex">
+															<p class="float-left mb-0">
+															<i class="feather icon-download mr-1"></i>
+														</p> <span><strong>첨부파일 :</strong>
+															<c:forEach var="boardFile"
 																		items="${ boardFileList[status.index] }">
 
 
@@ -294,25 +342,11 @@
 
 
 																	</c:forEach>
-
-
-																</div>
-
-															</div>
-														</div>
-
-
-
-													</div>
-
-
-
-													<div id="accordion${count4}" role="tabpanel"
-														data-parent="#accordionWrapa1"
-														aria-labelledby="heading${count4}" class="collapse">
-														<div class="card-content">
-															<div class="card-body">${ fn:replace(board.content, newLineChar, "<br/>") }
-															</div>
+																	</span>
+														
+															</li>
+															
+															</ul>		
 														</div>
 													</div>
 
@@ -327,19 +361,15 @@
 							</div>
 
 							</section>
-							<button type="button" class="btn btn-primary w-100 mt-1">
-											<i class="feather icon-plus mr-25"></i>Load More
-										</button>
+							
 									</div>
 								</div>
-							</div>
+								
+								
+								
+								<!-- Begin: 미제출자 정보 보여주기-->							
 							
-
 							
-							
-							
-							
-			<div class="col-xl-4 col-md-6 col-sm-6">
 								<div class="card">
 									<div class="card-header d-flex justify-content-between">
 										<h4 class="text-primary">미제출자</h4>
@@ -383,36 +413,32 @@
 														</div>
 														<div class="user-page-info">
 															<h5 class="mb-0" style="font-weight: 600;">${ submitNmem.name }</h5>
-															<span class="font-small-3">파일 제출 완료</span>
+															<span class="font-small-3">파일을 아직 제출하지 않았습니다</span>
 														</div>
 													</div>
 												</c:otherwise>
 											</c:choose>
 
 										</c:forEach>
-
-										<button type="button" class="btn btn-primary w-100 mt-1">
-											<i class="feather icon-plus mr-25"></i>Load More
-										</button>
+										
 									</div>
 								</div>
-							</div>			
-							
-							
-							
-							
-							
-
-	<form method="post" enctype="multipart/form-data"
+								
+								<!-- END: 미제출자 정보 보여주기-->
+								
+								
+								<!-- BEGIN: 파일 제출하기 폼-->
+								
+								
+								<form method="post" enctype="multipart/form-data"
 		action="${ pageContext.request.contextPath}/${ taskDetail.taskId }/board/write"
 		name="boardWriteForm">
 		<input type="hidden" name="writerId" value="${ loginVO.memberid }">
 		<input type="hidden" name="writerName" value="${ loginVO.name }">
-		<div class="col-xl-3 col-md-6 col-sm-6">
 			<div class="card">
 				<div class="card-content">
 					<div class="card-header">
-						<h4 class="card-title">글 추가하기</h4>
+						<h4 class="card-title">파일 제출하기</h4>
 					</div>
 					<div class="card-body">
 						<div id="writeForm">
@@ -426,7 +452,7 @@
 								<div class="form-group">
 									<label for="content" class="sr-only">내용</label>														
 									
-									<textarea id="content" rows="5" class="form-control form-control-plaintext" name="content" placeholder="내용을 입력하세요"></textarea>		
+									<textarea id="content" rows="5" class="form-control form-control-plaintext" name="content" placeholder="제출한 파일에 관한 내용을 입력하세요"></textarea>		
 									<div style="color: black;" id="fileForm">
 										<button type="button"
 											class="btn btn-outline-primary round btn-block"
@@ -442,66 +468,202 @@
 					</div>
 				</div>
 			</div>
+			</form>
+							<!-- END: 파일 제출하기 폼-->	
+								
+							</div>
+							
+
+							<!-- END: 제출 현황-->
+							<!-- Begin: task 정보 보여주기-->
+
+							<div class="col-xl-8 col-lg-8 col-md-6 col-sm-6">
+								<div class="card" id="showdetail">
+									<div class="card-content">
+
+
+
+
+										<div class="card-header d-flex justify-content-between">
+											<h4 class="text-primary">${ taskDetail.title }</h4>
+											<i class="feather icon-more-horizontal cursor-pointer"></i>
+										</div>
+										<div class="card-body">
+
+
+
+											<div class="col-12">
+
+												<blockquote class="blockquote">
+													<p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(taskDetail.content, newLineChar, "<br/>") }
+														}</p>
+													<footer class="blockquote-footer mt-1">작성자 :
+													${taskDetail.writerName } </footer>
+												</blockquote>
+											</div>
+
+											<ul class="list-group list-group-flush">
+
+												<li class="list-group-item d-flex">
+													<p class="float-left mb-0">
+														<i class="feather icon-calendar mr-1"></i>
+													</p> <span><strong>제출기한: </strong>${ taskDetail.deadline }
+														</span>
+												</li>
+
+												<li class="list-group-item d-flex">
+													<p class="float-left mb-0">
+														<i class="feather icon-download mr-1"></i>
+													</p> <span><strong>첨부파일 :</strong> <c:forEach var="file"
+															items="${ taskFileList }">
+															<li class="list-group-item">
+																<h6 class="text-nowrap"
+																	style="white-space: nowrap; display: inline;"
+																	id="fileName"
+																	onClick="fileDown('filePath=${ file.filePath }&fileNameKey=${ file.fileNameKey }&fileName=${ file.fileName }')">${ file.fileName }</h6>
+																<c:choose>
+																	<c:when test="${ file.fileSize >= 1024 }">
+																		<h6 id="strong" style="display: inline;">
+																			(
+																			<fmt:formatNumber value="${ file.fileSize / 1024 }"
+																				pattern=".00" />
+																			MB)
+																		</h6>
+																	</c:when>
+																	<c:otherwise>
+																		<h6 id="strong" style="display: inline;">(${ file.fileSize }KB)</h6>
+																	</c:otherwise>
+																</c:choose> </br>
+															</li>
+														</c:forEach> </span>
+
+
+												</li>
+												<li class="list-group-item d-flex">
+													<div
+														class="d-flex justify-content-start align-items-center mb-1">
+														<div class="user-page-info">
+															<p class="float-left mb-0">
+																<i class="feather icon-user-check mr-1"></i>
+															</p>
+															<span><strong>담당자 :</strong></span>
+															<ul class="list-unstyled users-list d-flex">
+
+
+
+																<c:forEach var="charge" items="${ chargeListAll }">
+																	<c:set var="count" value="${count + 1}" scope="page" />
+																	<c:choose>
+																		<c:when test="${ empty charge.profile }">
+																			<li data-toggle="tooltip" data-popup="tooltip-custom"
+																				data-placement="bottom"
+																				data-original-title="${ charge.name }"
+																				class="avatar pull-up ml-0">
+																				<div class="avatar avatar-sm ${colorlist[count%5]}">
+																					<div class="avatar-content"
+																						<c:set var = "chargename" value = "${ charge.name }"/>
+																						<c:set var = "firstletter" value = "${fn:substring(chargename, 0, 1)}"/>>${firstletter}
+																					</div>
+																				</div>
+																			</li>
+																		</c:when>
+																		<c:otherwise>
+
+																			<li data-toggle="tooltip" data-popup="tooltip-custom"
+																				data-placement="bottom"
+																				data-original-title="${ charge.name }"
+																				class="avatar pull-up ml-0"><img
+																				class="media-object rounded-circle"
+																				src="${ charge.profile }" alt="Avatar" height="30"
+																				width="30"></li>
+																		</c:otherwise>
+																	</c:choose>
+																</c:forEach>
+															</ul>
+														</div>
+													</div>
+												</li>
+
+
+												<li class="list-group-item d-flex">
+													<div
+														class="d-flex justify-content-start align-items-center mb-1">
+														<div class="user-page-info">
+															<p class="float-left mb-0">
+																<i class="feather icon-user-minus mr-1"></i>
+															</p>
+															<span><strong>미제출자 :</strong></span>
+
+															<ul class="list-unstyled users-list d-flex">
+																<c:forEach items="${ submitNmembers }" var="submitNmem">
+																	<c:set var="count" value="${count + 1}" scope="page" />
+																	<c:choose>
+																		<c:when test="${ empty submitNmem.profile }">
+																			<li data-toggle="tooltip" data-popup="tooltip-custom"
+																				data-placement="bottom"
+																				data-original-title="${ submitNmem.name }"
+																				class="avatar pull-up ml-0">
+																				<div class="avatar avatar-sm ${colorlist[count%5]}">
+																					<div class="avatar-content"
+																						<c:set var = "submitNname" value = "${ submitNmem.name }"/>
+																						<c:set var = "firstletter" value = "${fn:substring(submitNname, 0, 1)}"/>>${firstletter}
+																					</div>
+																				</div>
+																			</li>
+																		</c:when>
+																		<c:otherwise>
+
+																			<li data-toggle="tooltip" data-popup="tooltip-custom"
+																				data-placement="bottom"
+																				data-original-title="${ submitNmem.name }"
+																				class="avatar pull-up ml-0"><img
+																				class="media-object rounded-circle"
+																				src="${ submitNmem.profile }" alt="Avatar"
+																				height="30" width="30"></li>
+																		</c:otherwise>
+																	</c:choose>
+																</c:forEach>
+															</ul>
+														</div>
+													</div>
+												</li>
+											</ul>
+
+
+
+										</div>
+									</div>
+								</div>
+							</div>				
+							
+							<!-- END: task 정보 보여주기-->
+							
+							
+							
+							
+							
+							
+							
+		<!-- Begin: 파일 제출하기 폼-->
+	
+		<div class="col-xl-3 col-md-6 col-sm-6">
+			
 		</div>
-	</form>	
-			
-			
-			
-
-
-			<div class="col-xl-3 col-md-6 col-sm-6">
-				<div class="card">
-					<div class="card-content">						
-						<div class="card-body">
-						<div class="card-header">
-							<h4 class="card-title">작성자 : <strong>${ taskDetail.writerName }</strong></h4>
-						</div>
-						<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-                                           <h4 class="primary"
-														>내용: ${ fn:replace(taskDetail.content, newLineChar, "<br/>") }</h4>
-											<h4>마감날짜: ${ taskDetail.deadline }</h4>
-                                        </li>
-                                        
-                        <c:forEach var="file" items="${ taskFileList }">
-                        <li class="list-group-item">
-										<h6 class="text-nowrap"
-											style="white-space: nowrap; display: inline;" id="fileName"
-											onClick="fileDown('filePath=${ file.filePath }&fileNameKey=${ file.fileNameKey }&fileName=${ file.fileName }')">${ file.fileName }</h6>
-										<c:choose>
-											<c:when test="${ file.fileSize >= 1024 }">
-												<h6 id="strong" style="display: inline;">
-													(
-													<fmt:formatNumber value="${ file.fileSize / 1024 }"
- 														pattern=".00" />
-													MB)
-												</h6>
-											</c:when>
-											<c:otherwise>
-												<h6 id="strong" style="display: inline;">(${ file.fileSize }KB)</h6>
-											</c:otherwise>
-										</c:choose>
-										</br>
-										 </li>
-									</c:forEach>                
-                                        
-						</ul>
-						</div>
-					</div>
-					<div>				
-
-
-
-<!-- 					<footer> </footer> -->
-				</div>
+		<!-- END: 파일 제출하기 폼-->
+		
+		</section>
+		
+		<!-- Card Drag Area 끝!! -->
+		
 			</div>
-			</div>			
-			
+						
 			</div>
 			</div>
+			
 			
 	</c:otherwise>
 	</c:choose>
+	
 
 
 
