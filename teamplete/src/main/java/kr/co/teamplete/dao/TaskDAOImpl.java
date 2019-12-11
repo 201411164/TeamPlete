@@ -60,6 +60,13 @@ public class TaskDAOImpl implements TaskDAO{
 		session.insert("kr.co.teamplete.dao.TaskDAO.insertTaskFileModify", file);
 		
 	}
+	
+	//수정시 파일 삭제
+	@Override
+	public void deleteTaskFile(int fileNo) {
+		session.delete("kr.co.teamplete.dao.TaskDAO.deleteTaskFile", fileNo);
+		
+	}
 
 	@Override
 	public List<TaskFileVO> selectAllTaskFiles(int taskId) {
@@ -109,5 +116,7 @@ public class TaskDAOImpl implements TaskDAO{
 		List<MemberVO> notChargeMembers = session.selectList("kr.co.teamplete.dao.TaskDAO.notTaskChargeMembers", map);
 		return notChargeMembers;
 	}
+
+
 
 }

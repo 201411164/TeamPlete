@@ -36,7 +36,7 @@
 		  left outer join team_member_tb M
 		   on T.team_id = M.team_id
 		    where T.owner_id = #{memberid} or M.member_id = #{memberid}
-		     order by T.team_id asc
+<!-- 		     order by T.team_id asc -->
 	</select>
 
 	

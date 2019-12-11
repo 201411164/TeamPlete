@@ -141,6 +141,14 @@ public class TaskServiceImpl implements TaskService {
 
 		taskDAO.updateTask(task);
 		
+		List<Integer> deleteFiles = task.getDeleteFiles();
+		
+		if(deleteFiles != null) {
+			for (Integer deleteFile : deleteFiles) {
+				taskDAO.deleteTaskFile(deleteFile);
+			}
+		}
+		
 
 		for (TaskFileVO taskFile : taskFileList) {
 			taskDAO.insertTaskFileModify(taskFile);
