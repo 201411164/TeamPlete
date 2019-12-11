@@ -3,6 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
+<%
+	List<String> colorlist = new ArrayList<>();
+	colorlist.add("bg-primary");
+	colorlist.add("bg-info");
+	colorlist.add("bg-warning");
+	colorlist.add("bg-success");
+	colorlist.add("bg-danger");
+	request.setAttribute("colorlist", colorlist);
+%>
+
+
 <% pageContext.setAttribute("newLineChar", "\n"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -176,7 +190,30 @@
 			</div>
 			
 			
-			<div class="col-xl-3 col-md-6 col-sm-6">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<div class="col-xl-4 col-md-6 col-sm-6">
 								<div class="card">
 									<div class="card-header d-flex justify-content-between">
 <!-- 										제출자는 등록된 담당자만 따로 나눠서 보여주는게 아니라 board의 모든 목록을 보여주는걸로 -->
@@ -184,80 +221,116 @@
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
 									<div class="card-body">
-										<c:set var="count1" value="0" scope="page" />
-										<c:forEach items="${ boardList }" var="board" varStatus="status">
-											<c:set var="count" value="${count + 1}" scope="page" />
-
-											<c:choose>
-												<c:when test="${ not empty board.profile }">
 
 
+							<section id="accordion">
+							<div class="row">
+								<div class="col-sm-12">
+									<div id="accordionWrapa1" role="tablist"
+										aria-multiselectable="true">
+										<div class="card collapse-icon accordion-icon-rotate">
 
 
+											<div class="accordion-default collapse-bordered">
+
+												<c:set var="count4" value="0" scope="page" />
+												<c:forEach items="${ boardList }" var="board"
+													varStatus="status">
+													<c:set var="count4" value="${count4 + 1}" scope="page" />
 
 
-													<div
-														class="d-flex justify-content-start align-items-center mb-1">
-														<div class="avatar mr-50">
-															<img src="${ board.profile }" alt="avtar img holder"
-																height="35" width="35">
-														</div>
-														<div class="user-page-info">
-															<h5 class="mb-0" style="font-weight: 600;">${board.writerName }</h5>
-<!-- 															<span class="font-small-3">파일 제출 완료</span> -->
-															<span class="font-small-3">제목: ${ board.title }</span>
-															<c:forEach var="boardFile" items="${ boardFileList[status.index] }">
-															
-															<h6 class="text-nowrap"
-																	style="white-space: nowrap; display: inline;"
-																	id="fileName"
-																	onClick="fileDown('filePath=${ boardFile.filePath }&fileNameKey=${ boardFile.fileNameKey }&fileName=${ boardFile.fileName }')">${ boardFile.fileName }</h6>
+													<div class="card collapse-header">
+														<div id="heading${count4}"
+															class="card-header collapse-header"
+															data-toggle="collapse" role="button"
+															data-target="#accordion${count4}" aria-expanded="false"
+															aria-controls="accordion${count4}">
+
+															<div
+																class="d-flex justify-content-start align-items-center mb-1">
+
 																<c:choose>
-																	<c:when test="${ boardFile.fileSize >= 1024 }">
-																		<h6 id="strong" style="display: inline;">
-																			(
-																			<fmt:formatNumber
-																				value="${ boardFile.fileSize / 1024 }" pattern=".00" />
-																			MB)
-																		</h6>
+																	<c:when test="${ not empty board.profile }">
+
+																		<div class="avatar mr-50">
+																			<img src="${ board.profile }" alt="avtar img holder"
+																				height="35" width="35">
+																		</div>
 																	</c:when>
 																	<c:otherwise>
-																		<h6 id="strong" style="display: inline;">(${ boardFile.fileSize }KB)</h6>
+
+																		<div class="avatar ${colorlist[count%5]} mr-50">
+																			<div class="avatar-content"
+																				<c:set var = "membername" value = "${ board.writerName }"/>
+																				<c:set var = "firstletter" value = "${fn:substring(membername, 0, 1)}"/>>${firstletter}
+																			</div>
+																		</div>
+
 																	</c:otherwise>
 																</c:choose>
-																</br>
-															
-															</c:forEach>
-														</div>
-													</div>
+																<div class="user-page-info">
+																	<h5 class="mb-0" style="font-weight: 600;">${board.writerName }</h5>
+
+																	<c:forEach var="boardFile"
+																		items="${ boardFileList[status.index] }">
 
 
-												</c:when>
-												<c:otherwise>
-													<div
-														class="d-flex justify-content-start align-items-center mb-1">
-														<div class="avatar ${colorlist[count%5]} mr-50">
-															<div class="avatar-content"
-																<c:set var = "membername" value = "${ board.writerName }"/>
-																<c:set var = "firstletter" value = "${fn:substring(membername, 0, 1)}"/>>${firstletter}
+																		<h6 class="text-nowrap"
+																			style="white-space: nowrap; display: inline;"
+																			id="fileName"
+																			onClick="fileDown('filePath=${ boardFile.filePath }&fileNameKey=${ boardFile.fileNameKey }&fileName=${ boardFile.fileName }')">${ boardFile.fileName }</h6>
+																		<c:choose>
+																			<c:when test="${ boardFile.fileSize >= 1024 }">
+																				<h6 id="strong" style="display: inline;">
+																					(
+																					<fmt:formatNumber
+																						value="${ boardFile.fileSize / 1024 }"
+																						pattern=".00" />
+																					MB)
+																				</h6>
+																			</c:when>
+																			<c:otherwise>
+																				<h6 id="strong" style="display: inline;">(${ boardFile.fileSize }KB)</h6>
+																			</c:otherwise>
+																		</c:choose>
+
+
+
+																	</c:forEach>
+
+
+																</div>
+
 															</div>
 														</div>
-														<div class="user-page-info">
-															<h5 class="mb-0" style="font-weight: 600;">${ board.writerName}</h5>
-<!-- 															<span class="font-small-3">파일 제출 완료</span> -->
-															<span class="font-small-3">제목: ${ board.title }</span>
+
+
+
+													</div>
+
+
+
+													<div id="accordion${count4}" role="tabpanel"
+														data-parent="#accordionWrapa1"
+														aria-labelledby="heading${count4}" class="collapse">
+														<div class="card-content">
+															<div class="card-body">${ fn:replace(board.content, newLineChar, "<br/>") }
+															</div>
 														</div>
 													</div>
-												</c:otherwise>
-											</c:choose>
-
-										</c:forEach>
-										
-										
 
 
+												</c:forEach>
+											</div>
 
-										<button type="button" class="btn btn-primary w-100 mt-1">
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							</section>
+							<button type="button" class="btn btn-primary w-100 mt-1">
 											<i class="feather icon-plus mr-25"></i>Load More
 										</button>
 									</div>
@@ -269,7 +342,7 @@
 							
 							
 							
-			<div class="col-xl-3 col-md-6 col-sm-6">
+			<div class="col-xl-4 col-md-6 col-sm-6">
 								<div class="card">
 									<div class="card-header d-flex justify-content-between">
 										<h4 class="text-primary">미제출자</h4>
