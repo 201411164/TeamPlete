@@ -138,6 +138,15 @@
 										<textarea class="form-control" name="content" id="content"
 											rows="5">${ taskDetail.content }</textarea>
 									</div>
+									<div id="taskFileListForm">
+									<label>파일 목록: </label>
+									<c:forEach items="${ taskFileList }" var="taskFile">
+										<span name="${ taskFile.fileNo }">${ taskFile.fileName }</span>
+										<button type='button' name="${ taskFile.fileNo }" class='btn black ml15'
+										style='padding: 3px 5px 6px 5px; color: red;'
+										onClick="setDeleteFile(${ taskFile.fileNo })">삭제</button><br>
+									</c:forEach>
+									</div>
 									<div style="color: black;" id="taskFileFormM">
 										<button type="button"
 											class="btn btn-outline-primary round btn-block"
@@ -569,7 +578,7 @@
  	   
  	   var cnt = 0;
 //  	   var fileList = new Array();
- 	   for(i = 0; i < index; i++) {
+ 	   for(i = 0; i < index2; i++) {
  	      if(document.getElementById('taskFiles[' + i + ']')) {
  	      if ($("input[name='taskFiles[" + i + "]']").val() != ""){
  	         document.getElementById('taskFiles[' + i + ']').setAttribute('name', 'taskFiles[' + cnt + ']');
@@ -673,7 +682,17 @@
 	
 	
 	
-	
+	var indexDTF = 0;
+	function setDeleteFile(fileNo) {
+		
+		$('#taskFileListForm').append('<input type="hidden" id="deleteFiles[' + indexDTF + ']" name="deleteFiles[' + indexDTF + ']" value="' + fileNo + '"/>');
+		   
+		
+		$("span[name='" + fileNo + "']").remove();
+		$("button[name='" + fileNo + "']").remove();
+
+		indexDTF += 1;
+	   }
 
    </script>
   

@@ -30,6 +30,9 @@ public interface TaskDAO {
 	
 	// 태스크 수정시 파일 업로드
 	public void insertTaskFileModify(TaskFileVO file);
+	
+	//수정시 파일 삭제
+	public void deleteTaskFile(int fileNo);
 
 	// board의 모든 파일 조회
 	public List<TaskFileVO> selectAllTaskFiles(int taskId);

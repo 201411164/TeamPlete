@@ -83,6 +83,12 @@
        values(task_file_seq.nextval, #{fileNameKey}, #{fileName}, #{filePath}, #{fileSize}, #{delYN}, #{insUserId}, #{taskId})
    </insert>
    
+   <!-- task 수정시 파일 삭제 -->
+   <delete id="deleteTaskFile" parameterType="int">
+      delete task_file
+       where file_no = #{fileNo}
+   </delete>
+   
    <!-- task의 모든 파일 정보 조회 -->
    <select id="selectAllTaskFiles" parameterType="int" resultMap="taskFileMap">
       select file_no, file_name_key, file_name, file_path, CEIL(file_size / 1024) AS file_size, del_yn, ins_user_id, ins_date, task_id

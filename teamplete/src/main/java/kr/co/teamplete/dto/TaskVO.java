@@ -8,6 +8,8 @@ public class TaskVO {
 	
 	List<MultipartFile> taskFiles;
 	
+	List<Integer> deleteFiles;
+	
 	List<String> chargeMems;
 
 	private int taskId;
@@ -114,6 +116,17 @@ public class TaskVO {
 	public void setTaskDate(String taskDate) {
 		this.taskDate = taskDate;
 	}
+	
+	
+
+	public List<Integer> getDeleteFiles() {
+		return deleteFiles;
+	}
+
+	public void setDeleteFiles(List<Integer> deleteFiles) {
+		this.deleteFiles = deleteFiles;
+	}
+	
 
 	@Override
 	public String toString() {
