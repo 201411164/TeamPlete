@@ -496,7 +496,7 @@
  	   
  	   var cnt = 0;
 //  	   var fileList = new Array();
- 	   for(i = 0; i < index; i++) {
+ 	   for(i = 0; i < index2; i++) {
  	      if(document.getElementById('taskFiles[' + i + ']')) {
  	      if ($("input[name='taskFiles[" + i + "]']").val() != ""){
  	         document.getElementById('taskFiles[' + i + ']').setAttribute('name', 'taskFiles[' + cnt + ']');
