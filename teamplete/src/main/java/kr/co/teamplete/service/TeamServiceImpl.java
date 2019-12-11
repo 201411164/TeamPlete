@@ -1,6 +1,7 @@
 package kr.co.teamplete.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,6 +76,10 @@ public class TeamServiceImpl implements TeamService{
 		List<MemberVO> notTeamMembers = teamDAO.selectNotInTeamMembers(teamId);
 		return notTeamMembers;
 	}
-	
 
+	@Override
+	public void outFromTeam(Map<String, Object> map) {
+		teamDAO.outFromTeam(map);
+	}
+	
 }

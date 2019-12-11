@@ -175,9 +175,12 @@
 														</div>
 											
 									<label>등록된 담당자: </label>
-									<div>		
+									<div id="taskChargeListForm">		
 									<c:forEach var="charge" items="${ chargeListAll }">
-										<c:out value="${ charge.name }"></c:out>
+										<span name="${ charge.chargeId }">${ charge.name }</span>
+										<button type='button' name="${ charge.chargeId }" class='btn black ml15'
+										style='padding: 3px 5px 6px 5px; color: red;'
+										onClick="setDeleteCharge(${ charge.chargeId })">X</button>
 									</c:forEach>
 									</div>
 									</br>
@@ -854,7 +857,19 @@
 		$("button[name='" + fileNo + "']").remove();
 
 		indexDTF += 1;
-	   }
+	}
+	
+	
+	var indexDTC = 0;
+	function setDeleteCharge(chargeId) {
+		
+		$('#taskChargeListForm').append('<input type="hidden" id="deleteCharge[' + indexDTC + ']" name="deleteCharge[' + indexDTC + ']" value="' + chargeId + '"/>');
+		
+		$("span[name='" + chargeId + "']").remove();
+		$("button[name='" + chargeId + "']").remove();
+		
+		indexDTC += 1;
+	}
 
    </script>
   

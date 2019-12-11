@@ -53,6 +53,12 @@
     	 values(team_member_seq.nextval, #{teamId}, #{memberId})
     </insert>
     
+    <!-- 팀 나가기 -->
+    <delete id="outFromTeam" parameterType="hashmap">
+    	delete team_member_tb
+    	 where team_id = #{teamId} and member_id = #{memberId}
+    </delete>
+    
     <!-- 팀멤버 조회 -->
     <select id="selectTeamMember" parameterType="int" resultMap="teamMemberMap">
     	select distinct M.memberid, M.name, M.profile, M.email

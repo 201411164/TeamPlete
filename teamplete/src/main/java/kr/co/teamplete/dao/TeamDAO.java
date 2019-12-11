@@ -1,6 +1,7 @@
 package kr.co.teamplete.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TeamMemberVO;
@@ -37,5 +38,8 @@ public interface TeamDAO {
 	
 	//팀에 없는 멤버들 조회
 	public List<MemberVO> selectNotInTeamMembers(int teamId);
+	
+	//팀에서 나가기
+	public void outFromTeam(Map<String, Object> map);
 
 }

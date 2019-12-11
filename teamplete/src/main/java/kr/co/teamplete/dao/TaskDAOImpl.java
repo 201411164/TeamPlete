@@ -86,6 +86,12 @@ public class TaskDAOImpl implements TaskDAO{
 		session.insert("kr.co.teamplete.dao.TaskDAO.insertChargeModify", charge);
 		
 	}
+	
+	//태스크 수정시 담당자 삭제
+	@Override
+	public void deleteCharge(int chargeId) {
+		session.delete("kr.co.teamplete.dao.TaskDAO.deleteCharge", chargeId);
+	}
 
 	@Override
 	public List<ChargeVO> selectAllsubmit(int taskId) {
@@ -116,7 +122,6 @@ public class TaskDAOImpl implements TaskDAO{
 		List<MemberVO> notChargeMembers = session.selectList("kr.co.teamplete.dao.TaskDAO.notTaskChargeMembers", map);
 		return notChargeMembers;
 	}
-
 
 
 }
