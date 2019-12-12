@@ -183,7 +183,8 @@
                                             <c:forEach items="${ teamMemberList[status.index] }" var="teamMembers">
                                             	<strong style="color:#0275d8 !important">${ teamMembers.name }</strong>
                                             </c:forEach>
-                                            </h6>									
+                                            </h6>
+											<p>마지막 수정 일시: ${ updateTime[status.index] }</p>
 											<h4 class="primary text-bold-400" style="margin-top:5%"><c:out value="과제 제출 기한: " /><strong class="text-bold-600 text-nowrap" style="color:red !important;"><c:out
 										value="${ deadline[status.index] }" /></strong></h4>
                                         </div>

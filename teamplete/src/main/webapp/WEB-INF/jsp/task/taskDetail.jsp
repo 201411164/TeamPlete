@@ -142,6 +142,7 @@
 								</button>
 							</div>
 							<form method="post" name="modifyTask" enctype="multipart/form-data">
+							<input type="hidden" name="teamId" value="${ taskDetail.teamId }">
 							<input type="hidden" name="writerId" id="writerId"
 									value="${ loginVO.memberid }">
 								<div class="modal-body">
@@ -316,7 +317,8 @@
 																				</c:otherwise>
 																</c:choose>
 																<div class="user-page-info">
-																	<h5 class="mb-0" style="font-weight: 600;">${board.writerName }</h5>
+																	<h5 class="mb-0" style="font-weight: 600; display: inline;">${board.writerName }</h5>
+																	<p style="display: inline;">${ board.boardDate }</p>
 																	<h6>${board.title }</h6>
 																	
 

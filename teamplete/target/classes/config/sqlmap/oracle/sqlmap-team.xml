@@ -8,6 +8,8 @@
 		<result column="team_id" property="teamId" />
 		<result column="team_name" property="teamName" />
 		<result column="owner_id" property="ownerId" />
+		<result column="task_latest" property="taskLatest" />
+		<result column="board_latest" property="boardLatest" />
 	</resultMap>
 	
 	<resultMap type="MemberVO" id="teamMemberMap">
@@ -31,18 +33,18 @@
 	
 	<!-- 회원이 속한 팀 조회 -->
 	<select id="selectAll" parameterType="String" resultMap="teamMap">
-		select distinct T.team_id, T.team_name, T.owner_id, T.members, T.deadline, T.img
+		select distinct T.team_id, T.team_name, T.owner_id, T.members, T.deadline, T.img, T.task_latest, T.board_latest
 		 from team_tb T
 		  left outer join team_member_tb M
 		   on T.team_id = M.team_id
 		    where T.owner_id = #{memberid} or M.member_id = #{memberid}
-<!-- 		     order by T.team_id asc -->
+		     order by T.team_id desc
 	</select>
 
 	
 	<!-- 특정 팀 조회 -->
 	<select id="selectTeam" parameterType="int" resultMap="teamMap">
-		select team_id, team_name, owner_id, deadline
+		select team_id, team_name, owner_id, deadline, task_latest, board_latest
 		 from team_tb
 		  where team_id = #{teamId}
 	</select>
@@ -99,6 +101,23 @@
     	delete team_tb
     	 where team_id = #{teamId}
     </delete>
+    
+    
+    <!-- 최근 업데이트 된 task의 등록시간 -->
+    <update id="taskLatest" parameterType="int">
+    	update team_tb
+    	 set task_latest = (select max(task_date) from task_tb where team_id = #{teamId})
+    	  where team_id = #{teamId}
+    </update>
+    
+    <!-- 최근 업데이트 된 board의 등록시간 -->
+    <update id="boardLatest" parameterType="int">
+    	update team_tb
+    	 set board_latest = (select max(board_date)
+    	                    from board_tb
+    	                     where task_id in(select task_id from task_tb where team_id = #{teamId}))
+    	  where team_id = #{teamId}
+    </update>
     
 
 </mapper>

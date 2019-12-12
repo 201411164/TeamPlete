@@ -1,4 +1,4 @@
-package kr.co.teamplete.deadline;
+package kr.co.teamplete.method;
 
 import java.util.Calendar;
 

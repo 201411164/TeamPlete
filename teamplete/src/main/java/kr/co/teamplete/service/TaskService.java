@@ -28,9 +28,6 @@ public interface TaskService {
 	// task의 모든 파일 조회
 	public List<TaskFileVO> selectAllTaskFileS(int taskId);
 	
-	// 태스트 담장자 추가
-	public void insertChargeS(ChargeVO charge);
-	
 	// 태스크 담당자 전체 조회
 	public List<ChargeVO> selectAllsubmitS(int taskId);
 	

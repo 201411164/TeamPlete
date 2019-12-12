@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.teamplete.dao.BoardDAO;
+import kr.co.teamplete.dao.TaskDAO;
+import kr.co.teamplete.dao.TeamDAO;
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.FileVO;
 
@@ -20,6 +22,12 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardDAO boardDAO;
+	
+	@Autowired
+	private TeamDAO teamDAO;
+	
+	@Autowired
+	private TaskDAO taskDAO;
 
 	// insert board
 	// @Override
@@ -48,6 +56,9 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		boardDAO.insertBoard(board);
+		
+		teamDAO.boardLatest(taskDAO.selectTask(board.getTaskId()).getTeamId());
+		System.out.println("boardLatest 업데이트 teamId: " + taskDAO.selectTask(board.getTaskId()).getTeamId());
 
 		for (FileVO boardFile : boardFileList) {
 			boardDAO.insertBoardFile(boardFile);

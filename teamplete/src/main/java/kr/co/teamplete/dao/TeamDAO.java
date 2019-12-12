@@ -41,5 +41,10 @@ public interface TeamDAO {
 	
 	//팀에서 나가기
 	public void outFromTeam(Map<String, Object> map);
-
+	
+    // 최근 업데이트 된 task의 등록시간
+	public void taskLatest(int teamId);
+    
+    // 최근 업데이트 된 board의 등록시간
+	public void boardLatest(int teamId);
 }

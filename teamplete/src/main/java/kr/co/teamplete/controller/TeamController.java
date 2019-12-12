@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.co.teamplete.deadline.Deadline;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
 import kr.co.teamplete.dto.TeamMemberVO;
 import kr.co.teamplete.dto.TeamVO;
+import kr.co.teamplete.method.Deadline;
+import kr.co.teamplete.method.UpdateTime;
 import kr.co.teamplete.service.BoardService;
 import kr.co.teamplete.service.MemberService;
 import kr.co.teamplete.service.TaskService;
@@ -79,7 +80,9 @@ public class TeamController {
 	// 팀 조회
 	@RequestMapping(value = "/team/{loginVO.memberid}", method = RequestMethod.GET)
 	public ModelAndView teamList(@PathVariable("loginVO.memberid") String memberid) {
-
+		
+		List<String> updateTime = new ArrayList<>();
+		
 		List<String> deadline = new ArrayList<>();
 		List<TeamVO> teamList = service.selectAllTeam(memberid);
 		List<List<MemberVO>> teamMemberList = new ArrayList<>();
@@ -89,10 +92,13 @@ public class TeamController {
 		for(int i=0; i<teamList.size(); i++) {
 			deadline.add(Deadline.deadline(teamList.get(i).getDeadline()));
 			teamMemberList.add(service.selectAllMembers(teamList.get(i).getTeamId()));
-//			System.out.println(deadline(teamList.get(i)));
+			if(UpdateTime.calcLatest(teamList.get(i).getTaskLatest(), teamList.get(i).getBoardLatest()) >= 0) {
+				updateTime.add(UpdateTime.updateTime(teamList.get(i).getTaskLatest()));
+			}else updateTime.add(UpdateTime.updateTime(teamList.get(i).getBoardLatest()));
 		}
 		mav.addObject("deadline", deadline);
 		mav.addObject("teamMemberList", teamMemberList);
+		mav.addObject("updateTime", updateTime);
 
 		return mav;
 	}

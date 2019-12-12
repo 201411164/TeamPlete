@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.teamplete.dao.TaskDAO;
+import kr.co.teamplete.dao.TeamDAO;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
@@ -23,6 +24,9 @@ public class TaskServiceImpl implements TaskService {
 
 	@Autowired
 	private TaskDAO taskDAO;
+	
+	@Autowired
+	private TeamDAO teamDAO;
 
 	@Override
 	public void insertTaskS(TaskVO task) {
@@ -40,6 +44,9 @@ public class TaskServiceImpl implements TaskService {
 		}
 
 		taskDAO.insertTask(task);
+		
+		teamDAO.taskLatest(task.getTeamId());
+		System.out.println("taskLatest 업데이트 teamId: " + task.getTeamId());
 
 		for (TaskFileVO taskFile : taskFileList) {
 			taskDAO.insertTaskFile(taskFile);
@@ -141,6 +148,9 @@ public class TaskServiceImpl implements TaskService {
 
 		taskDAO.updateTask(task);
 		
+		teamDAO.taskLatest(task.getTeamId());
+		System.out.println("taskLatest 업데이트 teamId: " + task.getTeamId());
+		
 		List<Integer> deleteFiles = task.getDeleteFiles();
 		
 		if(deleteFiles != null) {
@@ -193,11 +203,6 @@ public class TaskServiceImpl implements TaskService {
 		return fileList;
 	}
 
-	@Override
-	public void insertChargeS(ChargeVO charge) {
-		taskDAO.insertCharge(charge);
-		
-	}
 
 	@Override
 	public List<ChargeVO> selectAllsubmitS(int taskId) {

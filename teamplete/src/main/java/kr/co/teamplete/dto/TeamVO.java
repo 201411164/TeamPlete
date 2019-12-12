@@ -2,7 +2,7 @@ package kr.co.teamplete.dto;
 
 public class TeamVO {
 	private int teamId;
-	private String teamName, ownerId, members, deadline, img;
+	private String teamName, ownerId, members, deadline, img, taskLatest, boardLatest;
 	public TeamVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -51,6 +51,20 @@ public class TeamVO {
 	}
 	public void setImg(String img) {
 		this.img = img;
+	}
+	
+	
+	public String getTaskLatest() {
+		return taskLatest;
+	}
+	public void setTaskLatest(String taskLatest) {
+		this.taskLatest = taskLatest;
+	}
+	public String getBoardLatest() {
+		return boardLatest;
+	}
+	public void setBoardLatest(String boardLatest) {
+		this.boardLatest = boardLatest;
 	}
 	@Override
 	public String toString() {

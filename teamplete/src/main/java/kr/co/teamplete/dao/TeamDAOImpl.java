@@ -81,5 +81,17 @@ public class TeamDAOImpl implements TeamDAO{
 		session.delete("kr.co.teamplete.dao.TeamDAO.outFromTeam", map);
 		
 	}
+
+	@Override
+	public void taskLatest(int teamId) {
+		session.update("kr.co.teamplete.dao.TeamDAO.taskLatest", teamId);
+		
+	}
+
+	@Override
+	public void boardLatest(int teamId) {
+		session.update("kr.co.teamplete.dao.TeamDAO.boardLatest", teamId);
+		
+	}
 	
 }

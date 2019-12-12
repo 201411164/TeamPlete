@@ -60,8 +60,6 @@
 
 
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-</script>
 
 <style>
 #fileName:hover {
@@ -439,7 +437,7 @@
 																																	
 																	
 																	<c:forEach var="submitNmem"
-																		items="${ chargeMembers[status.index] }">
+																		items="${ submitN[status.index] }">
 																		<c:set var="count" value="${count + 1}" scope="page" />
 																		<c:choose>
 																			<c:when test="${ empty submitNmem.profile }">
@@ -573,7 +571,7 @@
 									</div>
 									<form method="post" enctype="multipart/form-data"
 										action="${pageContext.request.contextPath}/teamdetail/${ team.teamId }/task"
-										name="createTaskForm">
+										name="createTaskForm" id="createTaskForm">
 										<input type="hidden" name="writerId" id="writerId"
 											value="${ loginVO.memberid }"> <input type="hidden"
 											name="writerName" id="writerName" value="${ loginVO.name }">
@@ -784,8 +782,7 @@
 	    	return;
 	    }
 	}
-   
-		
+   	
    
    function submitTask(){
 	   
@@ -796,9 +793,9 @@
 	      form.title.focus();
 	      return false;
 	   }else if (!form.content.value) {
-		  alert('내용은 필수항목입니다.');
-		  form.title.focus();
-		  return false;
+			  alert('내용은 필수항목입니다.');
+			  form.title.focus();
+			  return false;
 	   }
 	   
 	   var cnt = 0;
@@ -827,13 +824,11 @@
 	    
 	  	createTaskForm.submit();
    }
+
+   
    
    	var taskId = '';
 	$(document).ready(function() {
-		
-		
-		 
-		
 		
 		
 		$("button[name='deleteTask']").click(function() {
@@ -892,7 +887,6 @@
 	function taskDetail(id) {
 		location.href = "/taskdetail/" + id;
 	}
-	
 
    
 </script>
