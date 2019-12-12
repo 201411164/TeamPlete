@@ -43,6 +43,86 @@
 
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+<style>
+.hovereffect {
+  width: 100%;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+
+.hovereffect img {
+  display: block;
+  position: relative;
+  -webkit-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+}
+
+.hovereffect:hover img {
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /><feGaussianBlur stdDeviation="3" /></filter></svg>#filter');
+  filter: grayscale(1) blur(3px);
+  -webkit-filter: grayscale(1) blur(3px);
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.hovereffect h2 {
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+  font-size: 17px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hovereffect a.info {
+  display: inline-block;
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 1px solid #fff;
+  margin: 50px 0 0 0;
+  background-color: transparent;
+}
+
+.hovereffect a.info:hover {
+  box-shadow: 0 0 5px #fff;
+}
+
+.hovereffect a.info, .hovereffect h2 {
+  -webkit-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+  -webkit-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.hovereffect:hover a.info, .hovereffect:hover h2 {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+</style>
+
 </head>
 <body>
 
@@ -65,7 +145,7 @@
 		<div class="content-header row">
                 <div class="content-header-left col-md-9 col-12 mb-2">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0 ">최신 업데이트</h2>                            
+                            <h2 class="content-header-title float-left mb-0 ">최신 업데이트!</h2>                            
                         </div>
                 </div>
             </div>
@@ -73,21 +153,32 @@
 			<div>
 				
 				
-				<section id="draggable-cards">
-                    <div class="row" id="card-drag-area">
+				 <div class="row match-height">
                     <c:forEach var="team" items="${ teamList }" varStatus="status">
-                        <div class="col-xl-3 col-md-6 col-sm-6">
+                       <div class="col-xl-3 col-md-6 col-sm-6">
                         	
                             <div class="card" id="showdetail">
                                                             
-                                <div class="card-content">
+                                <div class="card-content" >
                                     <div class="card-body">
-                                    
-                                    	<img class="teamImg" style="width: 100%; height: auto;"
-								src="${ pageContext.request.contextPath }/resources/images/${ team.img }"
-								alt="avatar">
-                                        <div class="card-text">                                        
-                                            <h2 class="text-bold-700" style="margin-top:7%;" onclick="teamDetail(${ team.teamId })" ><c:out value="${ team.teamName }" /></h2>
+
+
+
+													<div class="hovereffect">
+														<img class="teamImg" id="cardImage"
+															style="width: 100%; height: auto;"
+															
+															src="${ pageContext.request.contextPath }/resources/images/${ team.img }"
+															alt="avatar">
+
+														<div class="overlay">
+															<a class="info" onclick="teamDetail(${ team.teamId })" style="color:white; font-weight:600;">팀 확인하기</a>
+														</div>
+													</div>
+
+
+													<div class="card-text">                                        
+                                            <a onclick="teamDetail(${ team.teamId })"><h2 class="text-bold-700" style="margin-top:7%;"  ><c:out value="${ team.teamName }" /></h2></a>
                                             <h6 class="text-bold-600"><c:out value="팀원: " />
                                             <c:forEach items="${ teamMemberList[status.index] }" var="teamMembers">
                                             	<strong style="color:#0275d8 !important">${ teamMembers.name }</strong>
@@ -97,20 +188,31 @@
 										value="${ deadline[status.index] }" /></strong></h4>
                                         </div>
                                     </div>
-                                </div>
+                               
                             </div>
                         </div>
-                    </c:forEach>    
-                    </div>
-                </section>
-			</div>
+                       </div> 
+                    </c:forEach>
 
-			<!-- 			<section id="form-and-scrolling-components"> -->
-			<div class="row match-height">
-				<div class="col-xl-3 col-md-6 col-sm-6">
-						<div class="card">							
-									<h1 class="btn btn-outline-success"
-										data-toggle="modal" data-target="#inlineForm" style="font-size:100px">+</h1>
+
+								
+
+
+
+								<!-- BEGIN: 팀 추가-->
+                    <div class="col-xl-3 col-md-6 col-sm-6">
+						<div class="card">
+						
+						<div class="card-content">
+                                    <div class="card-body">
+                                    
+                                    	<h1 class="btn btn-outline-success btn-block"
+										data-toggle="modal" data-target="#inlineForm" style="font-size:270px">+</h1>
+                                        
+                                    </div>
+                               
+                            </div>							
+									
 										
 									<!-- Modal -->
 									<div class="modal fade text-left" id="inlineForm" tabindex="-1"
@@ -160,9 +262,17 @@
 									
 									
 								</div>
-					
 					</div>
-			</div>
+                    <!-- END: 팀 추가-->
+                    
+                    
+                    
+                        </div> 
+                    </div>
+                
+
+			<!-- 			<section id="form-and-scrolling-components"> -->
+			
 <!-- 			</section> -->
 		</c:if>
 	</div>

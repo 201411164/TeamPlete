@@ -118,8 +118,7 @@
 					<div>
 
 
-						<section id="draggable-cards">
-						<div class="row" id="card-drag-area">
+						<div class="row" >
 
 
 							<div class="col-xl-3 col-md-6 col-sm-6">
@@ -481,11 +480,9 @@
 							</div>
 						</div>
 					</div>
-					</section>
 				</div>
 			</div>
 			</div>
-			</section>
 			</div>
 
 			<!-- Modal3 (수정) -->
