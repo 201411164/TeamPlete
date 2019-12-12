@@ -418,6 +418,8 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<h4 class="modal-title" id="myModalLabel33">태스크를 추가해주세요.</h4>
+										
+										<p><strong style="color: red;">*</strong> 는 필수항목입니다.</p>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
@@ -432,12 +434,12 @@
 										<input type="hidden" name="teamId" id="teamId"
 											value="${ team.teamId }">
 										<div class="modal-body">
-											<label>Title: </label>
+											<label><strong style="color: red;">* </strong>Title:</label>
 											<div class="form-group">
 												<input type="text" class="form-control" name="title"
 													id="title"></input>
 											</div>
-											<label>Content: </label>
+											<label><strong style="color: red;">* </strong>Content:</label>
 											<div class="form-group">
 												<textarea class="form-control" name="content" id="content"
 													rows="5"></textarea>
@@ -450,7 +452,7 @@
 														name="taskFileBtn" id="taskFileBtn">파일 추가</button>
 												</div>
 											</div>
-											<label>deadline: (선택입니다) </label>
+											<label>deadline:</label>
 											<div class="form-group">
 												<input type="date" name="deadline" id="deadline"
 													placeholder="Deadline" class="form-control">
@@ -639,10 +641,21 @@
 	    }
 	}
    
-   
-   
+		
    
    function submitTask(){
+	   
+	   var form = document.createTaskForm;
+	   
+	   if (!form.title.value) {
+	      alert('제목은 필수항목입니다.');
+	      form.title.focus();
+	      return false;
+	   }else if (!form.content.value) {
+		  alert('내용은 필수항목입니다.');
+		  form.title.focus();
+		  return false;
+	   }
 	   
 	   var cnt = 0;
 	   var fileList = new Array();

@@ -18,5 +18,8 @@ public interface BoardService {
    
    //board의 모든 파일 조회
    public List<FileVO> selectAllFileS(int boardId);
+   
+   //board 삭제
+   public void deleteBoardS(int boardId);
 
 }

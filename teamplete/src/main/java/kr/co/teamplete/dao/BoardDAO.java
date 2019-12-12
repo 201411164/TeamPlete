@@ -21,4 +21,7 @@ public interface BoardDAO {
    
    //board의 모든 파일 조회
    public List<FileVO> selectAllFiles(int boardId);
+   
+   //board 삭제
+   public void deleteBoard(int boardId);
 }

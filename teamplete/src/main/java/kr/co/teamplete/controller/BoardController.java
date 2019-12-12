@@ -53,5 +53,14 @@ public class BoardController {
 
 		return mav;
 	}
+	
+	
+	// board 삭제
+	@RequestMapping(value = "/board/delete/{boardId}", method = RequestMethod.DELETE)
+	public void deleteTask(@PathVariable("boardId") int boardId) {
+
+		service.deleteBoardS(boardId);
+	}
+	
 
 }
