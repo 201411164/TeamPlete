@@ -133,13 +133,84 @@
 											<c:set var="count" value="${count + 1}" scope="page" />
 
 											<c:choose>
-												<c:when test="${ not empty member.profile }">
+												 <c:when test="${fn:startsWith(member.profile, 'circle')}">
+
+													<div
+														class="d-flex justify-content-start align-items-center mb-1">
+														<div class="avatar mr-50">
+															<div
+																style="position: relative; text-align: center; color: white;">
+																<img
+																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
+																	alt="avtar img holder" height="35" width="35">
+																<div class="custom-avatar-container">
+																	<c:set var="membername" value="${ member.name }" />
+																	<c:set var="firstletter"
+																		value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																</div>
+															</div>
+														</div>
+
+														<div class="user-page-info">
+														<c:choose>
+															<c:when test="${ member.memberid eq team.ownerId }">
+																<h5 class="mb-0 text-primary" style="font-weight: 600;">${member.name }
+																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
+																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
+																		height="18" width="18" style="margin-bottom:4px;">																
+																</h5>
+																
+															</c:when>
+															<c:otherwise>
+																<h5 class="mb-0" style="font-weight: 600;">${member.name }
+																</h5>
+															</c:otherwise>
+														</c:choose>	
+															<span class="font-small-3">파일 제출 완료</span>
+														</div>
+													</div>
 
 
+												</c:when>
+												<c:when test="${empty member.profile}">
+												<div
+														class="d-flex justify-content-start align-items-center mb-1">
+														<div class="avatar mr-50">
+															<div
+																style="position: relative; text-align: center; color: white;">
+																<img
+																	src="${ pageContext.request.contextPath }/resources/images/circle1.png"
+																	alt="avtar img holder" height="35" width="35">
+																<div class="custom-avatar-container">
+																	<c:set var="membername" value="${ member.name }" />
+																	<c:set var="firstletter"
+																		value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																</div>
+															</div>
+														</div>
 
-
-
-
+														<div class="user-page-info">
+															<c:choose>
+															<c:when test="${ member.memberid eq team.ownerId }">
+																<h5 class="mb-0 text-primary" style="font-weight: 600;">${member.name }
+																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
+																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
+																		height="18" width="18" style="margin-bottom:4px;">																
+																</h5>
+																
+															</c:when>
+															<c:otherwise>
+																<h5 class="mb-0" style="font-weight: 600;">${member.name }
+																</h5>
+															</c:otherwise>
+														</c:choose>	
+															
+															<span class="font-small-3">파일 제출 완료</span>
+														</div>
+													</div>
+												
+												</c:when>
+												<c:otherwise>
 													<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
@@ -147,24 +218,21 @@
 																height="35" width="35">
 														</div>
 														<div class="user-page-info">
-															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
-															<span class="font-small-3">파일 제출 완료</span>
-														</div>
-													</div>
-
-
-												</c:when>
-												<c:otherwise>
-													<div
-														class="d-flex justify-content-start align-items-center mb-1">
-														<div class="avatar ${colorlist[count%5]} mr-50">
-															<div class="avatar-content"
-																<c:set var = "membername" value = "${ member.name }"/>
-																<c:set var = "firstletter" value = "${fn:substring(membername, 0, 1)}"/>>${firstletter}
-															</div>
-														</div>
-														<div class="user-page-info">
-															<h5 class="mb-0" style="font-weight: 600;">${member.name }</h5>
+															<c:choose>
+															<c:when test="${ member.memberid eq team.ownerId }">
+																<h5 class="mb-0 text-primary" style="font-weight: 600;">${member.name }
+																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
+																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
+																		height="18" width="18" style="margin-bottom:4px;">																
+																</h5>
+																
+															</c:when>
+															<c:otherwise>
+																<h5 class="mb-0" style="font-weight: 600;">${member.name }
+																</h5>
+															</c:otherwise>
+														</c:choose>	
+															
 															<span class="font-small-3">파일 제출 완료</span>
 														</div>
 													</div>
@@ -294,10 +362,37 @@
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ charge.name }"
 																					class="avatar pull-up ml-0">
-																					<div class="avatar avatar-sm ${colorlist[count%5]}">
-																						<div class="avatar-content"
-																							<c:set var = "chargename" value = "${ charge.name }"/>
-																							<c:set var = "firstletter" value = "${fn:substring(chargename, 0, 1)}"/>>${firstletter}
+																					<div class="avatar" style="margin:0;">
+																						<div
+																							style="position: relative; text-align: center; color: white; margin:0;">
+																							<img
+																								src="${ pageContext.request.contextPath }/resources/images/circle1.png"
+																								alt="avtar img holder" height="50" width="50">
+																							<div class="custom-avatar-container">
+																								<c:set var="membername" value="${ charge.name }" />
+																								<c:set var="firstletter"
+																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																							</div>
+																						</div>
+																					</div>
+																				</li>
+																			</c:when>
+																			<c:when test="${fn:startsWith(charge.profile, 'circle')}">
+																				<li data-toggle="tooltip"
+																					data-popup="tooltip-custom" data-placement="bottom"
+																					data-original-title="${ charge.name }"
+																					class="avatar pull-up ml-0">
+																					<div class="avatar" style="margin:0;">
+																						<div
+																							style="position: relative; text-align: center; color: white; ">
+																							<img
+																								src="${ pageContext.request.contextPath }/resources/images/${charge.profile}"
+																								alt="avtar img holder" height="50" width="50">
+																							<div class="custom-avatar-container">
+																								<c:set var="membername" value="${ charge.name }" />
+																								<c:set var="firstletter"
+																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																							</div>
 																						</div>
 																					</div>
 																				</li>
@@ -307,10 +402,21 @@
 																				<li data-toggle="tooltip"
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ charge.name }"
-																					class="avatar pull-up ml-0"><img
-																					class="media-object rounded-circle"
-																					src="${ charge.profile }" alt="Avatar" height="30"
-																					width="30"></li>
+																					class="avatar pull-up ml-0">
+																					<div class="avatar" style="margin:0;">
+																						<div
+																							style="position: relative; text-align: center; color: white; margin:0;">
+																							<img
+																								src="${charge.profile}"
+																								alt="avtar img holder" height="50" width="50">
+																							<div class="custom-avatar-container">
+																								<c:set var="membername" value="${ charge.name }" />
+																								<c:set var="firstletter"
+																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																							</div>
+																						</div>
+																					</div>
+																					</li>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>
@@ -330,8 +436,10 @@
 																<span><strong>미제출자 :</strong></span>
 
 																<ul class="list-unstyled users-list d-flex">
+																																	
+																	
 																	<c:forEach var="submitNmem"
-																		items="${ submitN[status.index] }">
+																		items="${ chargeMembers[status.index] }">
 																		<c:set var="count" value="${count + 1}" scope="page" />
 																		<c:choose>
 																			<c:when test="${ empty submitNmem.profile }">
@@ -339,10 +447,37 @@
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ submitNmem.name }"
 																					class="avatar pull-up ml-0">
-																					<div class="avatar avatar-sm ${colorlist[count%5]}">
-																						<div class="avatar-content"
-																							<c:set var = "submitNname" value = "${ submitNmem.name }"/>
-																							<c:set var = "firstletter" value = "${fn:substring(submitNname, 0, 1)}"/>>${firstletter}
+																					<div class="avatar" style="margin:0;">
+																						<div
+																							style="position: relative; text-align: center; color: white; margin:0;">
+																							<img
+																								src="${ pageContext.request.contextPath }/resources/images/circle1.png"
+																								alt="avtar img holder" height="50" width="50">
+																							<div class="custom-avatar-container">
+																								<c:set var="membername" value="${ submitNmem.name }" />
+																								<c:set var="firstletter"
+																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																							</div>
+																						</div>
+																					</div>
+																				</li>
+																			</c:when>
+																			<c:when test="${fn:startsWith(submitNmem.profile, 'circle')}">
+																				<li data-toggle="tooltip"
+																					data-popup="tooltip-custom" data-placement="bottom"
+																					data-original-title="${ submitNmem.name }"
+																					class="avatar pull-up ml-0">
+																					<div class="avatar" style="margin:0;">
+																						<div
+																							style="position: relative; text-align: center; color: white; ">
+																							<img
+																								src="${ pageContext.request.contextPath }/resources/images/${submitNmem.profile}"
+																								alt="avtar img holder" height="50" width="50">
+																							<div class="custom-avatar-container">
+																								<c:set var="membername" value="${ submitNmem.name }" />
+																								<c:set var="firstletter"
+																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																							</div>
 																						</div>
 																					</div>
 																				</li>
@@ -352,13 +487,25 @@
 																				<li data-toggle="tooltip"
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ submitNmem.name }"
-																					class="avatar pull-up ml-0"><img
-																					class="media-object rounded-circle"
-																					src="${ submitNmem.profile }" alt="Avatar"
-																					height="30" width="30"></li>
+																					class="avatar pull-up ml-0">
+																					<div class="avatar" style="margin:0;">
+																						<div
+																							style="position: relative; text-align: center; color: white; margin:0;">
+																							<img
+																								src="${submitNmem.profile}"
+																								alt="avtar img holder" height="50" width="50">
+																							<div class="custom-avatar-container">
+																								<c:set var="membername" value="${submitNmem.name }" />
+																								<c:set var="firstletter"
+																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																							</div>
+																						</div>
+																					</div>
+																					</li>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>
+																	
 																</ul>
 															</div>
 														</div>

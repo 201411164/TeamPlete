@@ -33,12 +33,11 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="MemberVO"
 		resultMap="memberMap">
-		select memberid, name, password, email
+		select memberid, name, password, email, profile
 		from Member_tb
 		where
 		memberid = #{memberid} and
-		password = #{password} and
-		kakao = 'N'
+		password = #{password}		
 	</select>
 
 </mapper>

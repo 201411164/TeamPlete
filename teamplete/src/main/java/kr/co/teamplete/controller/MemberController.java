@@ -1,5 +1,9 @@
 package kr.co.teamplete.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -45,8 +49,23 @@ public class MemberController {
 		if(result.hasErrors()) {
 			//System.out.println("오류발생...");
 			return "member/joinForm";
-		}
+		}	
 		
+		
+		if(member.getProfile()=="")
+		{
+			List<String> imgList = new ArrayList<>();
+			imgList.add("circle1.png");
+			imgList.add("circle2.png");
+			imgList.add("circle3.png");
+			imgList.add("circle4.png");
+			imgList.add("circle5.png");
+			
+			
+			Random random = new Random();
+			int index = random.nextInt(imgList.size()); // (0 ~ imgList.size()-1)
+			member.setProfile(imgList.get(index));
+		}
 		service.insertMember(member);
 		
 		return "redirect:/";

@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -147,11 +150,26 @@
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">${ loginVO.name }</span><span class="user-status">Available</span></div>
                                 <c:choose>
-                                <c:when test="${ not empty loginVO.profile }">
-                                <span><img class="round" src="${ loginVO.profile }" alt="avatar" height="40" width="40"></span>
-                            	</c:when>
+                                <c:when test="${fn:startsWith(loginVO.profile, 'circle')}">
+
+									<div class="avatar">
+										<div
+											style="position: relative; text-align: center; color: white;">
+											<img
+												src="${ pageContext.request.contextPath }/resources/images/${loginVO.profile}"
+												alt="avtar img holder" height="40" width="40">
+											<div
+												class="custom-avatar-container">
+												<c:set var="membername" value="${ loginVO.name }" />
+												<c:set var="firstletter"
+													value="${fn:substring(membername, 0, 1)}" />${firstletter}
+											</div>
+										</div>
+									</div>
+
+								</c:when>
                             	<c:otherwise>
-                            	<span><img class="round" src="${ pageContext.request.contextPath }/resources/images/blank-profile-picture-973460_1280.png" alt="avatar" height="40" width="40"></span>
+                            	<span><img class="round" src="${ loginVO.profile }" alt="avatar" height="40" width="40"></span>
                             	</c:otherwise>
                             	</c:choose>
                             </a>
