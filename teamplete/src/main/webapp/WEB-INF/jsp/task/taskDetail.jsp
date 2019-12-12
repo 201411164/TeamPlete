@@ -489,6 +489,7 @@
 
 										<div class="card-header d-flex justify-content-between">
 											<h4 class="text-primary">${ taskDetail.title }</h4>
+											<h6>작성일 : ${ taskDetail.taskDate }</h6>
 											<i class="feather icon-more-horizontal cursor-pointer"></i>
 										</div>
 										<div class="card-body">
