@@ -174,24 +174,9 @@
 
 										</c:forEach>
 
-										<button type="button" class="btn btn-primary w-100 mt-1">
-											<i class="feather icon-plus mr-25"></i>Load More
-										</button>
-									</div>
-								</div>
-							</div>
-
-
-
-
-
-							<div class="col-xl-3 col-md-6 col-sm-6">
-								<div class="card" id="showdetail">
-									<div class="card-content">
 
 										<div class="card-header d-flex justify-content-between">
-											<h4 class="text-primary">팀원 초대</h4>
-											<i class="feather icon-more-horizontal cursor-pointer"></i>
+											<h4 class="text-primary">팀원 추가하기</h4>
 										</div>
 										<div class="card-body">
 											<form method="post"
@@ -218,6 +203,12 @@
 							</div>
 
 
+
+
+
+							
+
+
 							<c:forEach var="task" items="${ taskList }" varStatus="status">
 
 
@@ -230,7 +221,7 @@
 
 											<div class="card-header d-flex justify-content-between">
 												<h4 class="text-primary">${task.title }</h4>
-												<h7>${ task.taskDate }</h7>
+												<h6>작성일 : ${ task.taskDate }</h6>
 												<i class="feather icon-more-horizontal cursor-pointer"></i>
 											</div>
 											<div class="card-body">
