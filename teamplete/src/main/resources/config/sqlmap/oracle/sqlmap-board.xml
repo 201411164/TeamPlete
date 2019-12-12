@@ -66,6 +66,20 @@
        from board_file
         where board_id = #{boardId}
    </select>
-
+   
+   
+   <!-- board 삭제 -->
+   <delete id="deleteBoard" parameterType="int">
+      delete board_tb
+       where board_id = #{boardId}
+   </delete>
+   
+   <!-- board 수정 -->
+<!--    <update id="update" parameterType="BoardVO"> -->
+<!--       update board_tb -->
+<!--        set -->
+<!--     	title = #{title}, content = #{content}, deadline = #{deadline} -->
+<!--     	 where task_id = #{taskId} -->
+<!--    </update> -->
 
 </mapper>

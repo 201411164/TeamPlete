@@ -381,6 +381,10 @@
 															
 															</ul>		
 														</div>
+														<c:if test="${ loginVO.memberid eq board.writerId }">
+														<button name="modifyBoard" id="modifyBoard" onClick="modifyBoard(${ board.boardId })">수정</button>
+														<button name="deleteBoard" id="deleteBoard" onClick="deleteBoard(${ board.boardId })">삭제</button>
+														</c:if>
 													</div>
 
 
@@ -937,10 +941,17 @@
 		
 	}
 	
-	
-	
-	
-	
+	function deleteBoard(boardId) {
+		
+		if(confirm("삭제하시겠습니까?")){
+			$.ajax({
+				url : '/board/delete/' + boardId,
+				type : 'DELETE'
+			});
+			
+			location.reload();
+		} else return;
+	}
 	
 	
 	var index = 0;

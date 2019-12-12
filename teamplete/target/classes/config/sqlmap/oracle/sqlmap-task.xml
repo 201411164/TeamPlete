@@ -61,7 +61,7 @@
     <update id="updateTask" parameterType="TaskVO">
     	update task_tb
     	 set
-    	  title = #{title}, content = #{content}, deadline = #{deadline}
+    	  title = #{title}, content = #{content}, deadline = #{deadline}, task_date = SYSDATE
     	   where task_id = #{taskId}
     </update>
     
