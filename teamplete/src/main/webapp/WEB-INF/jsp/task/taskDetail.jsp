@@ -219,11 +219,9 @@
 			
 			
 			
-				<!-- Begin: Card Drag Area-->
 			
 			
-			<section id="draggable-cards">
-						<div class="row" id="card-drag-area">
+						<div class="row" >
 			
 			
 			
@@ -655,9 +653,7 @@
 		</div>
 		<!-- END: 파일 제출하기 폼-->
 		
-		</section>
 		
-		<!-- Card Drag Area 끝!! -->
 		
 			</div>
 						
