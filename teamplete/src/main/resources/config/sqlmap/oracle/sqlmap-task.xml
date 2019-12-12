@@ -44,7 +44,7 @@
 	
 	<!-- 모든 태스크 조회 -->
 	<select id="selectAllTask" parameterType="int" resultMap="taskMap">
-		select task_id, writer_id, writer_name, team_id, title, content, deadline, to_char(task_date, 'yyyy-mm-dd') as task_date
+		select task_id, writer_id, writer_name, team_id, title, content, deadline, task_date
 		 from task_tb
 		  where team_id = #{teamId}
 		   order by task_id

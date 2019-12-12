@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.teamplete.deadline.Deadline;
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.FileVO;
@@ -54,6 +55,8 @@ public class TaskController {
 		TaskVO task = service.selectTaskS(taskId);
 		
 		Map<String, Object> objectMap = new HashMap<>();
+		
+		String deadline = Deadline.deadline(task.getDeadline());
 		
 		List<TaskFileVO> taskFileList = service.selectAllTaskFileS(taskId);
 		
@@ -107,12 +110,14 @@ public class TaskController {
 		objectMap.put("submitNmembers", chargeListN);
 		objectMap.put("notChargeMembers", notChargeMembers);
 		objectMap.put("boardFileList", boardFileList);
+		objectMap.put("deadline", deadline);
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("task/taskDetail");
 		
 		mav.addAllObjects(objectMap);
+		
 						
 		return mav;
 	}

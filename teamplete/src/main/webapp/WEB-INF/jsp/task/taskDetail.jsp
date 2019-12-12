@@ -510,7 +510,7 @@
 													<p class="float-left mb-0">
 														<i class="feather icon-calendar mr-1"></i>
 													</p> <span><strong>제출기한: </strong>${ taskDetail.deadline }
-														</span>
+														(${ deadline })</span>
 												</li>
 
 												<li class="list-group-item d-flex">

@@ -185,6 +185,8 @@
                 
                 <li class=" navigation-header"><span>Teamplete</span>
                 </li>
+                <li class="nav-item"><a href="${ pageContext.request.contextPath}/mypage" data-i18n="Profile"><i class="feather icon-user"></i>마이페이지</a>
+                </li>
                 <li class=" nav-item"><a href="app-chat.html"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Chat">팀 작업</span></a>
                 </li>
                 <li class=" nav-item"><a href="app-todo.html"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">나의 할 일</span></a>
