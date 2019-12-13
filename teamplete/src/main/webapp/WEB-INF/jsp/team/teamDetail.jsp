@@ -759,28 +759,33 @@
 	    var index= $('#selectMulti').select2('data').length;
 	    for(i=0;i<index;i++){
 			   memberList2.push(array[i].id);
-	    }   
-	    var result = confirm(memberList2 + "님을 팀에 추가하시겠습니까?");
-	    if(result) {
-	
-	       $.ajax({
-	          type : 'POST',
-	          url : '/teamdetail/${ team.teamId }',
-	          data : JSON.stringify(memberList2),
-	          contentType : "application/json",
-	          success : function(data) {
-	        	  console.log(data);
-
-// 	         	  $('#membersView').load(document.URL +  ' #membersView');
-	        	  location.reload();
-	          },
-	          error : function(error) {
-	        	  console.log(error);
-	          }
-	       });
-	    }else {
-	    	return;
 	    }
+	    if(memberList2 != "") {
+		    var result = confirm(memberList2 + "님을 팀에 추가하시겠습니까?");
+		    if(result) {
+		
+		       $.ajax({
+		          type : 'POST',
+		          url : '/teamdetail/${ team.teamId }',
+		          data : JSON.stringify(memberList2),
+		          contentType : "application/json",
+		          success : function(data) {
+		        	  console.log(data);
+
+//	 	         	  $('#membersView').load(document.URL +  ' #membersView');
+		        	  location.reload();
+		          },
+		          error : function(error) {
+		        	  console.log(error);
+		          }
+		       });
+		    }else {
+		    	return;
+		    }
+	    }else {
+	    	alert("추가된 멤버가 없습니다.");
+	    }
+
 	}
    	
    
