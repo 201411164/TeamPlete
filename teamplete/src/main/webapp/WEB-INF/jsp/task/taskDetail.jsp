@@ -575,7 +575,7 @@
 
 												<blockquote class="blockquote">
 													<p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(taskDetail.content, newLineChar, "<br/>") }
-														}</p>
+													</p>
 													<footer class="blockquote-footer mt-1">작성자 :
 													${taskDetail.writerName } </footer>
 												</blockquote>

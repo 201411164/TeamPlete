@@ -92,9 +92,14 @@ public class TeamController {
 		for(int i=0; i<teamList.size(); i++) {
 			deadline.add(Deadline.deadline(teamList.get(i).getDeadline()));
 			teamMemberList.add(service.selectAllMembers(teamList.get(i).getTeamId()));
-			if(UpdateTime.calcLatest(teamList.get(i).getTaskLatest(), teamList.get(i).getBoardLatest()) >= 0) {
+			if(teamList.get(i).getTaskLatest() != null && teamList.get(i).getBoardLatest() != null) {
+				if(UpdateTime.calcLatest(teamList.get(i).getTaskLatest(), teamList.get(i).getBoardLatest()) >= 0) {
+					updateTime.add(UpdateTime.updateTime(teamList.get(i).getTaskLatest()));
+				}else updateTime.add(UpdateTime.updateTime(teamList.get(i).getBoardLatest()));
+			}else if(teamList.get(i).getTaskLatest() != null && teamList.get(i).getBoardLatest() == null) {
 				updateTime.add(UpdateTime.updateTime(teamList.get(i).getTaskLatest()));
-			}else updateTime.add(UpdateTime.updateTime(teamList.get(i).getBoardLatest()));
+			}else updateTime.add("업데이트 없음");
+			
 		}
 		mav.addObject("deadline", deadline);
 		mav.addObject("teamMemberList", teamMemberList);

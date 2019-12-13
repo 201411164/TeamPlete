@@ -32,26 +32,7 @@
 <!-- END: Page CSS-->
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-   $(document).ready(function() {
-      $('#checkbtn').on('click', function() {
-         $.ajax({
-            type : 'POST',
-            url : '/checkSignUp',
-            data : {
-               "idCheck" : $('#memberid').val() 
-            },
-            success : function(result) {
-               if ($.trim(result) == 0) {
-            	   console.log(result);
-                  $('#checkMsg').html('<h3 style="color:blue !important, font-weight:700">사용가능한 아이디입니다</h3>');
-               } else {
-            	   console.log(result);
-                  $('#checkMsg').html('<h3 style="color:red !important, font-weight:700">이미 중복된 아이디가 있습니다</h3>');
-               }
-            }
-         });
-      });
-   });
+
 </script>
 <style>
 .error {
@@ -87,7 +68,7 @@
                                         <div class="card-content">
                                             <div class="card-body pt-0">
                                                 <div>
-		<form:form method="post" commandName="memberVO" class="login-form">
+		<form:form method="post" commandName="memberVO" class="login-form" name="joinForm">
 			<div class="form-label-group">
 				<label for="id" class="text-uppercase">ID</label><br />
 				<div class="form-group">
@@ -98,8 +79,8 @@
 				
 				<form:errors path="memberid" class="error" />
 				<div id="checkMsg" class="form-control-plaintext"></div>	
-				<button type="button" id="checkbtn" class="btn btn-success btn-inline"
-					style="margin-top: 2%;">중복확인</button>		
+				<button type="button" id="checkbtn" name="checkbtn" class="btn btn-success btn-inline"
+					style="margin-top: 2%;">ID중복체크</button>		
 				</div>
 							
 				
@@ -151,7 +132,7 @@
                                                         </div>
                                                     </div>
 
-			<button type="submit" class="btn btn-primary float-center btn-inline">회원가입</button>
+			<button type="button" class="btn btn-primary float-center btn-inline" onClick="checkJoinForm()">회원가입</button>
 
 		</form:form>
 	</div>
@@ -189,5 +170,54 @@
 
 	<!-- BEGIN: Page JS-->
 	<!-- END: Page JS-->
+	
+	
+	<script>
+	
+	   $(document).ready(function() {
+		      $('#checkbtn').on('click', function() {
+		         $.ajax({
+		            type : 'POST',
+		            url : '/checkSignUp',
+		            data : {
+		               "idCheck" : $('#memberid').val()
+		            },
+		            success : function(result) {
+		            	if($('#memberid').val() == "") {
+		            		$('#checkMsg').html('<p style="color:red !important;, font-weight:700;">아이디를 입력해주세요</p>');
+		            	}else {
+		               if ($.trim(result) == 0) {
+		            	   console.log(result);
+		                  $('#checkMsg').html('<p style="color:blue !important;, font-weight:700;">사용가능한 아이디입니다</p>');
+		            	  $("button[name='checkbtn']").val(result);
+		            	  console.log("사용가능: "+$("button[name='checkbtn']").val())
+		               } else {
+		            	   console.log(result);
+		                  $('#checkMsg').html('<p style="color:red !important;, font-weight:700;">이미 중복된 아이디가 있습니다</p>');
+		            	  $("button[name='checkbtn']").val(result);
+		            	  console.log("사용불가능: "+$("button[name='checkbtn']").val())
+		               }
+		            	}
+		            }
+		         });
+
+		      });
+		      
+		   });
+	   
+	  	function checkJoinForm() {
+			if($("button[name='checkbtn']").val() == "0") {
+				var form = document.joinForm;
+				form.submit();
+			}else {
+				console.log($("button[name='checkbtn']").val());
+				alert("아이디 중복체크를 해주세요. ");
+				return false;
+			}
+		}
+	   
+	  
+	
+	</script>
 </body>
 </html>

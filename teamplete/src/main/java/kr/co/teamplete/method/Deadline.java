@@ -5,8 +5,7 @@ import java.util.Calendar;
 public class Deadline {
 	
 	// 남은 제출 기한 구하기
-	public static String deadline(String deadlineStr) {
-		String deadline = deadlineStr;
+	public static String deadline(String deadline) {
 
 		if (deadline != null) {
 			String[] words = deadline.split("-");
