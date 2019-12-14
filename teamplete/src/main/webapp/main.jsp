@@ -62,7 +62,9 @@
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/navigation.css">
 	<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/pe-icon-7-stroke.css">
-		<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/font-awesome.css">	
+		<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/sweetalert2.min.css">		
 
 
 <link href="http://fonts.googleapis.com/css?family=Noto+Sans:700%2C400%7CNanum+Gothic:800%7COpen+Sans:400" rel="stylesheet" property="stylesheet" type="text/css" media="all">
@@ -630,6 +632,7 @@ input::placeholder {
 		src="${ pageContext.request.contextPath }/resources/js/revolution.extension.slideanims.min.js"></script>
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/revolution.extension.video.min.js"></script>
+		<script src="${ pageContext.request.contextPath }/resources/js/sweetalert2.all.min.js"></script>	
 
 	
 			
@@ -663,8 +666,16 @@ input::placeholder {
 	</c:if>
 
 		
-   if ("${ param.msg }")
-      alert("${ param.msg }");
+   if ("${ param.msg }"){
+	   Swal.fire({
+			  title: '로그인 실패',
+			  text: "${ param.msg }",
+			  type: 'error',
+			  confirmButtonText: '네, 알겠어요!'
+			})
+	   
+   }
+      
    
      $(function(){
 	   $('body').vegas({
