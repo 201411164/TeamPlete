@@ -72,29 +72,33 @@
 
 .hovereffect:hover img {
   filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /><feGaussianBlur stdDeviation="3" /></filter></svg>#filter');
-  filter: grayscale(1) blur(3px);
+  filter: grayscale(3) blur(20px);
   -webkit-filter: grayscale(1) blur(3px);
-  -webkit-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  transform: scale(1.2);
+  -webkit-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
 }
 
 .hovereffect h2 {
   text-transform: uppercase;
   text-align: center;
   position: relative;
-  font-size: 17px;
+  font-size: 1rem;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.95);
 }
 
 .hovereffect a.info {
   display: inline-block;
   text-decoration: none;
   padding: 7px 14px;
-  border: 1px solid #fff;
-  margin: 50px 0 0 0;
+  font-size: 2rem;
+  border: 3px solid #fff;
+  margin-top:25%;
   background-color: transparent;
+}
+.hovereffect a.info::first-letter {
+  color:#28c76f;
 }
 
 .hovereffect a.info:hover {
@@ -281,7 +285,8 @@
 	</section>
 	
 
-	<footer> </footer>
+	<footer>
+	 </footer>
 	</c:otherwise>
 	</c:choose>
 

@@ -25,6 +25,8 @@
 	href="${ pageContext.request.contextPath }/resources/css/semi-dark-layout.css">
 
 <!-- BEGIN: Page CSS-->
+	<link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/vegas.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/horizontal-menu.css">
 <link rel="stylesheet" type="text/css"
@@ -50,21 +52,21 @@
             </div>
             <div class="content-body">
                 <section class="row flexbox-container">
-                    <div class="col-xl-8 col-10 d-flex justify-content-center">
-                        <div class="card bg-authentication rounded-0 mb-0">
+                    <div class="col-xl-8 col-10 col-sm-0 d-flex justify-content-center">
+                        <div class="card bg-authentication rounded-0 mb-0" style="background-color:transparent !important;">
                             <div class="row m-0">
                                 <div class="col-lg-6 d-lg-block d-none text-center align-self-center pl-0 pr-3 py-0">
-                                    <img src="${ pageContext.request.contextPath }/resources/images/register.jpg" alt="branding logo">
+                                    <a href="${ pageContext.request.contextPath }/main.jsp"><img src="${ pageContext.request.contextPath }/resources/images/register.png" alt="branding logo"></a>
                                 </div>
-                                <div class="col-lg-6 col-12 p-0">
-                                    <div class="card rounded-0 mb-0 p-2">
+                                <div class="col-lg-6 col-12 col-sm-6 p-0">
+                                    <div class="rounded-0 mb-0 p-2" style="background-color:transparent; color:white !important">
                                     
                                         <div class="card-header pt-50 pb-1">
-                                            <div class="card-title">
-                                                <h3 class="text-bold-600 mb-0">계정 생성</h3>
-                                            </div>
+                                            
+                                                <h2 class="mb-0"  style="color:white; font-weight:600;">계정 생성</h2>
+                                            
                                         </div>
-                                        <p class="px-2" style="font-weight:400">회원가입에 필요한 정보를 입력해주세요.</p>
+                                        <p class="px-2" style="font-weight:400; font-size:1.2rem;">회원가입에 필요한 정보를 입력해주세요.</p>
                                         <div class="card-content">
                                             <div class="card-body pt-0">
                                                 <div>
@@ -78,9 +80,10 @@
 				
 				
 				<form:errors path="memberid" class="error" />
-				<div id="checkMsg" class="form-control-plaintext"></div>	
-				<button type="button" id="checkbtn" name="checkbtn" class="btn btn-success btn-inline"
-					style="margin-top: 2%;">ID중복체크</button>		
+				<div id="checkMsg" class="form-control-plaintext mb-0 pb-0"></div>	
+				<button type="button"  id="checkbtn" name="checkbtn" class="btn btn-outline-light mt-0"
+				>ID중복체크</button>
+					
 				</div>
 							
 				
@@ -88,10 +91,10 @@
 
 			</div>
 			<div class="form-label-group">
-				<label for="name" class="text-uppercase">Username</label><br />
+				<label for="name" class="text-uppercase">이름</label><br />
 
 
-				<form:input path="name" class="form-control" placeholder = "Username" size="35px" />
+				<form:input path="name" class="form-control" placeholder = "성함을 입력해 주세요." size="35px" />
 				<form:errors path="name" class="error" />
 				<br>
 				
@@ -101,10 +104,19 @@
 
 
 			<div class="form-label-group">
-				<label for="password" class="text-uppercase">Password</label><br />
+				<label for="비밀번호" class="text-uppercase">비밀번호(6자 이상 15자 이하)</label><br />
 
 				<form:input path="password" type="password" class="form-control"
-					placeholder = "Password" size="35px" />
+					id="password" placeholder = "비밀번호를 입력해 주세요." size="35px" />
+				<br>
+				<form:errors path="password" class="error" />
+			</div>
+			
+			<div class="form-label-group">
+				<label for="비밀번호 재확인" class="text-uppercase">비밀번호 재 입력</label><br />
+
+				<form:input path="password" type="password" id="password2" class="form-control"
+					placeholder = "비밀번호를 다시 입력해 주세요." size="35px" />
 				<br>
 				<form:errors path="password" class="error" />
 			</div>
@@ -126,13 +138,13 @@
                                                                             <i class="vs-icon feather icon-check"></i>
                                                                         </span>
                                                                     </span>
-                                                                    <span class=""> I accept the terms & conditions.</span>
+                                                                    <span class=""> 개인 정보 취급 방침 및 이용 약관에 동의합니다.</span>
                                                                 </div>
                                                             </fieldset>
                                                         </div>
                                                     </div>
 
-			<button type="button" class="btn btn-primary float-center btn-inline" onClick="checkJoinForm()">회원가입</button>
+			<button type="button" class="btn btn-primary float-center btn-block" onClick="checkJoinForm()">회원가입</button>
 
 		</form:form>
 	</div>
@@ -160,6 +172,8 @@
 		src="${ pageContext.request.contextPath }/resources/js/jquery.sticky.js"></script>
 	<!-- END: Page Vendor JS-->
 
+	<script
+		src="${ pageContext.request.contextPath }/resources/js/vegas.min.js"></script>
 	<!-- BEGIN: Theme JS-->
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/app-menu.js"></script>
@@ -184,16 +198,16 @@
 		            },
 		            success : function(result) {
 		            	if($('#memberid').val() == "") {
-		            		$('#checkMsg').html('<p style="color:red !important;, font-weight:700;">아이디를 입력해주세요</p>');
+		            		$('#checkMsg').html('<p style="color:red !important;, font-size:1.2rem; font-weight:600;">아이디를 입력해주세요</p>');
 		            	}else {
 		               if ($.trim(result) == 0) {
 		            	   console.log(result);
-		                  $('#checkMsg').html('<p style="color:blue !important;, font-weight:700;">사용가능한 아이디입니다</p>');
+		                  $('#checkMsg').html('<p style="color:blue !important; font-size:1.2rem; font-weight:600;">사용가능한 아이디입니다</p>');
 		            	  $("button[name='checkbtn']").val(result);
 		            	  console.log("사용가능: "+$("button[name='checkbtn']").val())
 		               } else {
 		            	   console.log(result);
-		                  $('#checkMsg').html('<p style="color:red !important;, font-weight:700;">이미 중복된 아이디가 있습니다</p>');
+		                  $('#checkMsg').html('<p style="color:red !important; font-size:1.2rem; font-weight:600;">이미 중복된 아이디가 있습니다</p>');
 		            	  $("button[name='checkbtn']").val(result);
 		            	  console.log("사용불가능: "+$("button[name='checkbtn']").val())
 		               }
@@ -204,20 +218,87 @@
 		      });
 		      
 		   });
+	   const form = document.joinForm;
+	   const password=document.getElementById('password');
+	   const password2=document.getElementById('password2');
 	   
-	  	function checkJoinForm() {
-			if($("button[name='checkbtn']").val() == "0") {
-				var form = document.joinForm;
-				form.submit();
-			}else {
+	   
+	   
+	  
+		function checkJoinForm() {
+
+			
+		
+			if ($("button[name='checkbtn']").val() != "0") {
 				console.log($("button[name='checkbtn']").val());
 				alert("아이디 중복체크를 해주세요. ");
 				return false;
 			}
+
+			if (password.value != password2.value) {
+				alert("비밀번호와 비밀번호 확인에 입력된 값이 다릅니다.");
+				return false;
+			} else {
+				if (password.value.length < 6) {
+					alert("비밀번호는 6자 이상이어야 합니다.");
+					return false;
+				}
+				if (password.value.length > 15) {
+					alert("비밀번호는 15자 이하이어야 합니다.");
+					return false;
+				}
+			}
+			form.submit();
+
 		}
-	   
-	  
-	
+
+		
+
+		if ("${ param.msg }")
+			alert("${ param.msg }");
+
+		$(function() {
+			$('body')
+					.vegas(
+							{
+								slides : [
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg1.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg2.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg3.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg4.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg5.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg6.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg7.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg8.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg9.jpg'
+										},
+										{
+											src : '${ pageContext.request.contextPath }/resources/images/bg10.jpg'
+										} ],
+								delay : 5500,
+								timer : false,
+								overlay : '${ pageContext.request.contextPath }/resources/images/06.png',
+								transition : 'fade'
+
+							})
+		});
 	</script>
 </body>
 </html>
