@@ -31,6 +31,10 @@
 	href="${ pageContext.request.contextPath }/resources/css/horizontal-menu.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/palette-gradient.css">
+	
+<link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/sweetalert2.min.css">
+
 <!-- END: Page CSS-->
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -39,6 +43,9 @@
 <style>
 .error {
    color: red;
+}
+#logoimg:hover{
+opacity:0.8;
 }
 </style>
 </head>
@@ -56,7 +63,7 @@
                         <div class="card bg-authentication rounded-0 mb-0" style="background-color:transparent !important;">
                             <div class="row m-0">
                                 <div class="col-lg-6 d-lg-block d-none text-center align-self-center pl-0 pr-3 py-0">
-                                    <a href="${ pageContext.request.contextPath }/main.jsp"><img src="${ pageContext.request.contextPath }/resources/images/register.png" alt="branding logo"></a>
+                                    <a href="${ pageContext.request.contextPath }/main.jsp"><img src="${ pageContext.request.contextPath }/resources/images/register.png" id="logoimg" alt="branding logo"></a>
                                 </div>
                                 <div class="col-lg-6 col-12 col-sm-6 p-0">
                                     <div class="rounded-0 mb-0 p-2" style="background-color:transparent; color:white !important">
@@ -94,7 +101,7 @@
 				<label for="name" class="text-uppercase">이름</label><br />
 
 
-				<form:input path="name" class="form-control" placeholder = "성함을 입력해 주세요." size="35px" />
+				<form:input path="name" class="form-control" id="username" placeholder = "성함을 입력해 주세요." size="35px"  />
 				<form:errors path="name" class="error" />
 				<br>
 				
@@ -116,7 +123,7 @@
 				<label for="비밀번호 재확인" class="text-uppercase">비밀번호 재 입력</label><br />
 
 				<form:input path="password" type="password" id="password2" class="form-control"
-					placeholder = "비밀번호를 다시 입력해 주세요." size="35px" />
+					placeholder = "비밀번호를 다시 입력해 주세요." size="35px"/>
 				<br>
 				<form:errors path="password" class="error" />
 			</div>
@@ -178,6 +185,7 @@
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/app-menu.js"></script>
 	<script src="${ pageContext.request.contextPath }/resources/js/app.js"></script>
+	<script src="${ pageContext.request.contextPath }/resources/js/sweetalert2.all.min.js"></script>
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/components.js"></script>
 	<!-- END: Theme JS-->
@@ -218,37 +226,74 @@
 		      });
 		      
 		   });
-	   const form = document.joinForm;
-	   const password=document.getElementById('password');
-	   const password2=document.getElementById('password2');
-	   
+	   var form = document.joinForm;
+	   var password=document.getElementById('password');
+	   var password2=document.getElementById('password2');
 	   
 	   
 	  
 		function checkJoinForm() {
 
-			
 		
 			if ($("button[name='checkbtn']").val() != "0") {
 				console.log($("button[name='checkbtn']").val());
-				alert("아이디 중복체크를 해주세요. ");
+				Swal.fire({
+					  title: 'Error!',
+					  text: '아이디 중복체크를 해주세요!',
+					  type: 'error',
+					  confirmButtonText: '네, 알겠어요!'
+					})
 				return false;
 			}
+			
+			
+			
 
 			if (password.value != password2.value) {
-				alert("비밀번호와 비밀번호 확인에 입력된 값이 다릅니다.");
+				Swal.fire({
+					  title: 'Error!',
+					  text: '비밀번호와 비밀번호 확인에 입력된 값이 다릅니다!',
+					  type: 'error',
+					  confirmButtonText: '네, 알겠어요!'
+					})
 				return false;
 			} else {
 				if (password.value.length < 6) {
-					alert("비밀번호는 6자 이상이어야 합니다.");
+					Swal.fire({
+						  title: '비밀번호가 너무 짧아요!',
+						  text: '비밀번호는 6자리 이상이어야 합니다!',
+						  type: 'error',
+						  confirmButtonText: '네, 알겠어요!'
+						})
 					return false;
 				}
 				if (password.value.length > 15) {
-					alert("비밀번호는 15자 이하이어야 합니다.");
+					Swal.fire({
+						  title: '비밀번호가 너무 길어요!',
+						  text: '비밀번호는 15자리 이하여야 합니다!',
+						  type: 'error',
+						  confirmButtonText: '네, 알겠어요!'
+						})
 					return false;
 				}
 			}
-			form.submit();
+			
+			Swal.fire({
+				  title: '회원 가입에 성공했습니다.',
+				  text: '이제, Teamplete에 로그인하세요',
+				  type: 'success',
+				  confirmButtonColor: '#3085d6',
+				  confirmButtonText: '네, 알겠어요!'
+			}).then((result) => {
+				  if (result.value) {
+					  form.submit();
+				  }
+				})
+				
+				
+			
+			
+			
 
 		}
 
