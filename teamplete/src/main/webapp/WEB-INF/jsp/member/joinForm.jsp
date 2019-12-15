@@ -122,10 +122,10 @@ opacity:0.8;
 			<div class="form-label-group">
 				<label for="비밀번호 재확인" class="text-uppercase">비밀번호 재 입력</label><br />
 
-				<form:input path="password" type="password" id="password2" class="form-control"
+				<input  type="password" id="password2" class="form-control"
 					placeholder = "비밀번호를 다시 입력해 주세요." size="35px"/>
 				<br>
-				<form:errors path="password" class="error" />
+				
 			</div>
 
 
