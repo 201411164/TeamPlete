@@ -21,5 +21,8 @@ public interface BoardService {
    
    //board 삭제
    public void deleteBoardS(int boardId);
+   
+   //board 수정
+   public void updateBoardS(BoardVO board);
 
 }

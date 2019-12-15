@@ -75,11 +75,11 @@
    </delete>
    
    <!-- board 수정 -->
-<!--    <update id="update" parameterType="BoardVO"> -->
-<!--       update board_tb -->
-<!--        set -->
-<!--     	title = #{title}, content = #{content}, deadline = #{deadline} -->
-<!--     	 where task_id = #{taskId} -->
-<!--    </update> -->
+   <update id="updateBoard" parameterType="BoardVO">
+      update board_tb
+       set
+    	title = #{title}, content = #{content}
+    	 where board_id = #{boardId}
+   </update>
 
 </mapper>

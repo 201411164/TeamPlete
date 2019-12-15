@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.FileVO;
+import kr.co.teamplete.dto.TaskVO;
 import kr.co.teamplete.service.BoardService;
 import kr.co.teamplete.service.TaskService;
 
@@ -54,10 +55,21 @@ public class BoardController {
 		return mav;
 	}
 	
+	// board 수정
+	@RequestMapping(value = "/board/update/{boardId}", method = { RequestMethod.POST, RequestMethod.GET })
+	public String updateBoard(BoardVO board, @PathVariable("boardId") int boardId) {
+		
+		BoardVO boardDetail = service.selectBoardById(boardId);
+				
+//		service.updateTaskS(task);
+		service.updateBoardS(board);
+	
+		return "redirect:/taskdetail/" + boardDetail.getTaskId();
+	}
 	
 	// board 삭제
 	@RequestMapping(value = "/board/delete/{boardId}", method = RequestMethod.DELETE)
-	public void deleteTask(@PathVariable("boardId") int boardId) {
+	public void deleteBoard(@PathVariable("boardId") int boardId) {
 
 		service.deleteBoardS(boardId);
 	}

@@ -24,4 +24,7 @@ public interface BoardDAO {
    
    //board 삭제
    public void deleteBoard(int boardId);
+   
+   // board 수정
+   public void updateBoard(BoardVO board);
 }

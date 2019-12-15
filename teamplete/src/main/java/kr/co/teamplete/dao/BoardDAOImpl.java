@@ -49,4 +49,9 @@ public class BoardDAOImpl implements BoardDAO {
 		session.delete("kr.co.teamplete.dao.BoardDAO.deleteBoard", boardId);
 	}
 
+	@Override
+	public void updateBoard(BoardVO board) {
+		session.update("kr.co.teamplete.dao.BoardDAO.updateBoard", board);
+	}
+
 }
