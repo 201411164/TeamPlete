@@ -138,6 +138,11 @@ input::placeholder {
 												<div class=" mb-1 mt-1" style="text-align:center !important"><h5 class="mb-0 mt-0 " style="font-weight:600 !important; color:white;">또는</h5>
 												</div>
 
+<!-- 												<a class="btn btn-block mt-1" -->
+<!-- 													style="background-color: #ffe812; color: #3c1e1e; font-weight: 700; font-size:1rem;" -->
+<!-- 													href="https://kauth.kakao.com/oauth/authorize?client_id=e355c450ecfaeb579db7e67d74790574&redirect_uri=http://teamplete.net/kakaologin&response_type=code" -->
+<%-- 													style="font-weight:700 ! important;"><img class="mr-2 mb-0 mt-0" src="${ pageContext.request.contextPath }/resources/images/kakaotalk.svg" width="30" height="30">카카오 계정으로 --%>
+<!-- 													로그인 </a> -->
 												<a class="btn btn-block mt-1"
 													style="background-color: #ffe812; color: #3c1e1e; font-weight: 700; font-size:1rem;"
 													href="https://kauth.kakao.com/oauth/authorize?client_id=e355c450ecfaeb579db7e67d74790574&redirect_uri=http://teamplete.net/kakaologin&response_type=code"
