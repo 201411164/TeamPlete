@@ -311,9 +311,21 @@
 
 
    function submit(){
-	    var form = document.createTeamForm;
+	   
+	   Swal.fire({
+			  title: '축하합니다',
+			  text: '팀이 성공적으로 생성되었습니다',
+			  type: 'success',
+			  confirmButtonColor: '#3085d6',
+			  confirmButtonText: '네, 알겠어요!'
+		}).then((result) => {
+			  if (result.value) {
+				  var form = document.createTeamForm;
+				  form.submit();
+			  }
+			})
+			
 	    
-	    form.submit();
 	}
    
    function teamDetail(teamId) {

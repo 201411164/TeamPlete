@@ -761,32 +761,50 @@
 			   memberList2.push(array[i].id);
 	    }
 	    if(memberList2 != "") {
-		    var result = confirm(memberList2 + "님을 팀에 추가하시겠습니까?");
-		    if(result) {
-		
-		       $.ajax({
-		          type : 'POST',
-		          url : '/teamdetail/${ team.teamId }',
-		          data : JSON.stringify(memberList2),
-		          contentType : "application/json",
-		          success : function(data) {
-		        	  console.log(data);
+		    
+		    Swal.fire({
+				  title: '팀원 추가',
+				  text: memberList2 + '님을 팀에 추가하시겠습니까?',
+				  type: 'success',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  confirmButtonText: '네, 추가하겠습니다!'
+			}).then((result) => {
+				  if (result.value) {
+					  Swal.fire({
+							  title: '팀원 추가 성공',
+							  text: '일꾼이 늘었군요! 축하드려요',
+							  type: 'success',
+							  confirmButtonText: '좋아요'
+					  }).then((result) => {
+						  $.ajax({
+					          type : 'POST',
+					          url : '/teamdetail/${ team.teamId }',
+					          data : JSON.stringify(memberList2),
+					          contentType : "application/json",
+					          success : function(data) {
+					        	  console.log(data);
 
-//	 	         	  $('#membersView').load(document.URL +  ' #membersView');
-		        	  location.reload();
-		          },
-		          error : function(error) {
-		        	  console.log(error);
-		          }
-		       });
-		    }else {
-		    	return;
-		    }
-	    }else {
-	    	alert("추가된 멤버가 없습니다.");
-	    }
+//				 	         	  $('#membersView').load(document.URL +  ' #membersView');
+					        	  location.reload();
+					          },
+					          error : function(error) {
+					        	  console.log(error);
+					          }
+					       });
+						  
+					  });
+					  
+					  
+					 
+				  };
+				})
+		    
+		    
+		    
 
-	}
+	};
+   }
    	
    
    function submitTask(){
@@ -794,11 +812,21 @@
 	   var form = document.createTaskForm;
 	   
 	   if (!form.title.value) {
-	      alert('제목은 필수항목입니다.');
+	      Swal.fire({
+			  title: 'Error!',
+			  text: '제목은 필수적으로 입력해주세요!',
+			  type: 'error',
+			  confirmButtonText: '네, 알겠어요!'
+			})
 	      form.title.focus();
 	      return false;
 	   }else if (!form.content.value) {
-			  alert('내용은 필수항목입니다.');
+			  Swal.fire({
+				  title: 'Error!',
+				  text: '내용은 필수적으로 입력해주세요!',
+				  type: 'error',
+				  confirmButtonText: '네, 알겠어요!'
+				})
 			  form.title.focus();
 			  return false;
 	   }
@@ -840,16 +868,40 @@
 			
 			taskId = this.value;
 			console.log(taskId);
-			if(confirm("삭제하시겠습니까?")){
-				$.ajax({
-					url : '/task/delete/' + taskId,
-					type : 'DELETE'
-				});
-// 				$('#taskTable').load(document.URL +  ' #taskTable');
-				location.reload();
-			} else return;
+			
+			 Swal.fire({
+				 title: '정말로 삭제하시겠어요?',
+				  text: '삭제하면 모든 정보를 되돌릴 수가 없습니다.',
+				  type: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  confirmButtonText: '네, 삭제하겠습니다!'
+			}).then((result) => {
+				  if (result.value) {
+					  Swal.fire({
+							  title: '삭제 성공',
+							  text: '성공적으로 삭제하였습니다.',
+							  type: 'success',
+							  confirmButtonText: '좋아요'
+					  }).then((result) => {
+						  $.ajax({
+								url : '/task/delete/' + taskId,
+								type : 'DELETE'
+							});
+//			 				$('#taskTable').load(document.URL +  ' #taskTable');
+							location.reload();
+						  
+					  });
+					 
+				  };
+				})
+			
+			
+			
 
 		});
+		
+		
 		
 	});
 	
@@ -858,28 +910,71 @@
 	$("button[name='delete']").click(function() {
 		id = this.value;
 		console.log(id);
-		if(confirm("팀을 삭제하시겠습니까?")){
-			$.ajax({
-				url : '/team/delete/' + id,
-				type : 'DELETE'
-			});
 			
-			location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
-		} else return;
+			
+			
+			 Swal.fire({
+				 title: '팀을 정말로 삭제하시겠어요?',
+				  text: '팀을 삭제하면 모든 정보를 되돌릴 수가 없습니다.',
+				  type: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  confirmButtonText: '네, 삭제하겠습니다!'
+			}).then((result) => {
+				  if (result.value) {
+					  Swal.fire({
+							  title: '팀 삭제 성공',
+							  text: '팀을 성공적으로 삭제하였습니다.',
+							  type: 'success',
+							  confirmButtonText: '좋아요'
+					  }).then((result) => {
+						  $.ajax({
+								url : '/team/delete/' + id,
+								type : 'DELETE'
+							});
+							
+							location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
+						  
+					  });
+					 
+				  };
+				})
 
 	});
 	
 	$("button[name='outTeam']").click(function() {
 		var teamId = this.value;
-		if(confirm("팀을 나가시겠습니까?")){
-			$.ajax({
-				url : '/team/outTeam/' + teamId + '/' + '${ loginVO.memberid }',
-				type : 'DELETE'
-			});
-			
-			
-			location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
-		} else return;
+		
+		
+		Swal.fire({
+			 title: '팀 탈퇴',
+			  text: '정말로 팀에서 나가시겠어요?',
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  confirmButtonText: '네, 나갈래요!'
+		}).then((result) => {
+			  if (result.value) {
+				  Swal.fire({
+						  title: '팀 탈퇴 성공',
+						  text: '팀을 성공적으로 탈퇴하였습니다.',
+						  type: 'success',
+						  confirmButtonText: '알겠어요'
+				  }).then((result) => {
+					  $.ajax({
+							url : '/team/outTeam/' + teamId + '/' + '${ loginVO.memberid }',
+							type : 'DELETE'
+						});
+						
+						
+						location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
+					  
+				  });
+				 
+			  };
+			})
+		
+		
 
 	});
 	

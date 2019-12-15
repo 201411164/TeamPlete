@@ -47,6 +47,8 @@
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/sweetalert2.min.css">
 
    
 
@@ -237,6 +239,7 @@
 	<!-- END: Page Vendor JS-->
 
 	<!-- BEGIN: Theme JS-->
+	<script src="${ pageContext.request.contextPath }/resources/js/sweetalert2.all.min.js"></script>
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/app-menu.js"></script>
 	<script src="${ pageContext.request.contextPath }/resources/js/app.js"></script>
