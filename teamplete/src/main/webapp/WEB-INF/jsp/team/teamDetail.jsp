@@ -594,6 +594,9 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
+
+									
+
 									<form method="post" enctype="multipart/form-data"
 										action="${pageContext.request.contextPath}/teamdetail/${ team.teamId }/task"
 										name="createTaskForm" id="createTaskForm">
@@ -621,6 +624,8 @@
 														name="taskFileBtn" id="taskFileBtn">파일 추가</button>
 												</div>
 											</div>
+											
+
 											<label>deadline:</label>
 											<div class="form-group">
 												<input type="date" name="deadline" id="deadline"
