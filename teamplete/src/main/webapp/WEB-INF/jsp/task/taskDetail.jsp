@@ -932,14 +932,33 @@
 		
 		teamId = $("button[name='deleteTask']").val();
 		
-		if(confirm("삭제하시겠습니까?")){
-			$.ajax({
-				url : '/task/delete/' + taskId,
-				type : 'DELETE'
-			});
-//				$('#taskTable').load(document.URL +  ' #taskTable');
-			location.href = "${ pageContext.request.contextPath}/teamdetail/" + teamId;
-		} else return;
+				
+		 Swal.fire({
+			 title: '정말로 삭제하시겠어요?',
+			  text: '삭제하면 모든 정보를 되돌릴 수가 없습니다.',
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  confirmButtonText: '네, 삭제하겠습니다!'
+		}).then((result) => {
+			  if (result.value) {
+				  Swal.fire({
+						  title: '삭제 성공',
+						  text: '성공적으로 삭제하였습니다.',
+						  type: 'success',
+						  confirmButtonText: '좋아요'
+				  }).then((result) => {
+					  $.ajax({
+							url : '/task/delete/' + taskId,
+							type : 'DELETE'
+						});
+//							$('#taskTable').load(document.URL +  ' #taskTable');
+						location.href = "${ pageContext.request.contextPath}/teamdetail/" + teamId;
+					  
+				  });
+				 
+			  };
+			})
 		
 	}
 	
@@ -953,6 +972,31 @@
 			
 			location.reload();
 		} else return;
+		
+		Swal.fire({
+			 title: '정말로 삭제하시겠어요?',
+			  text: '삭제하면 모든 정보를 되돌릴 수가 없습니다.',
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  confirmButtonText: '네, 삭제하겠습니다!'
+		}).then((result) => {
+			  if (result.value) {
+				  Swal.fire({
+						  title: '삭제 성공',
+						  text: '성공적으로 삭제하였습니다.',
+						  type: 'success',
+						  confirmButtonText: '좋아요'
+				  }).then((result) => {
+					  $.ajax({
+							url : '/board/delete/' + boardId,
+							type : 'DELETE'
+						});
+					  
+				  });
+				 
+			  };
+			})
 	}
 	
 	
@@ -980,7 +1024,12 @@
 	   var form = document.boardWriteForm;
 	   
 	   if (!form.title.value) {
-	      alert('제목은 필수항목입니다.');
+		   Swal.fire({
+				  title: 'Error!',
+				  text: '제목은 필수적으로 입력해주세요!',
+				  type: 'error',
+				  confirmButtonText: '네, 알겠어요!'
+				})
 	      form.title.focus();
 	      return false;
 	   }

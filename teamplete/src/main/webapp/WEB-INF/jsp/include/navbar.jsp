@@ -11,8 +11,15 @@
      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <link rel="shortcut icon" type="image/x-icon" href="${ pageContext.request.contextPath }/resources/images/favicon.ico">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
+<meta property="og:title" content="Teamplete - 팀 작업을 더 편리하게!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.teamplete.net/" />
+<meta property="og:description"
+	content="Teamplete와 함께 스트레스 없는 팀 프로젝트를 진행하세요. 팀원들의 작업물을 한 눈에 확인하고, 일정을 관리하세요." />
+<meta property="og:image"
+	content="${ pageContext.request.contextPath }/resources/images/ogimage.png" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
     <!-- BEGIN: Vendor CSS-->
 
     <!-- END: Vendor CSS-->
@@ -40,6 +47,8 @@
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/sweetalert2.min.css">
 
    
 
@@ -230,6 +239,7 @@
 	<!-- END: Page Vendor JS-->
 
 	<!-- BEGIN: Theme JS-->
+	<script src="${ pageContext.request.contextPath }/resources/js/sweetalert2.all.min.js"></script>
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/app-menu.js"></script>
 	<script src="${ pageContext.request.contextPath }/resources/js/app.js"></script>

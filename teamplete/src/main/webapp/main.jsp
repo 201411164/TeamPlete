@@ -9,7 +9,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-<title>Insert title here</title>
+
+<title>Teamplete - 팀 작업을 더 편리하게!!</title>
+<meta property="og:title" content="Teamplete - 팀 작업을 더 편리하게!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.teamplete.net/" />
+<meta property="og:description" 
+  content="Teamplete와 함께 스트레스 없는 팀 프로젝트를 진행하세요. 팀원들의 작업물을 한 눈에 확인하고, 일정을 관리하세요." />
+<meta property="og:image" content="${ pageContext.request.contextPath }/resources/images/ogimage.png" />
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/bootstrap.css">
 <link rel="stylesheet" type="text/css"
@@ -55,7 +62,9 @@
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/navigation.css">
 	<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/pe-icon-7-stroke.css">
-		<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/font-awesome.css">	
+		<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/sweetalert2.min.css">		
 
 
 <link href="http://fonts.googleapis.com/css?family=Noto+Sans:700%2C400%7CNanum+Gothic:800%7COpen+Sans:400" rel="stylesheet" property="stylesheet" type="text/css" media="all">
@@ -78,6 +87,8 @@ input::placeholder {
 <body
 	class="horizontal-layout horizontal-menu 1-column  navbar-floating footer-static bg-full-screen-image  blank-page blank-page"
 	data-open="hover" data-menu="horizontal-menu" data-col="1-column">
+	
+	
 
 	<div class="app-content content">
 		<div class="content-overlay"></div>
@@ -98,7 +109,7 @@ input::placeholder {
 							<div class="col-lg-6 col-12 p-0">
 								<div class="ml-2 mb-0 px-0">
 									
-									<img class="mb-2" src="${ pageContext.request.contextPath }/resources/images/teampletewhite.png">
+									 <a href="${ pageContext.request.contextPath }/main.jsp"><img class="mb-2" src="${ pageContext.request.contextPath }/resources/images/teampletewhite.png"></a>
 									<div class="card-content" style="font-weight:700 ! important; color: white! important;">
 										<div class="pt-1">
 											<form method="post" 
@@ -581,10 +592,14 @@ input::placeholder {
 				
 				
 				
-				
+		<jsp:include page="/WEB-INF/jsp/include/mainfooter.jsp" />
 				
 			</div>
+			
+			
 		</div>
+		
+		
 
 	<!-- END: Content-->
 
@@ -622,6 +637,7 @@ input::placeholder {
 		src="${ pageContext.request.contextPath }/resources/js/revolution.extension.slideanims.min.js"></script>
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/revolution.extension.video.min.js"></script>
+		<script src="${ pageContext.request.contextPath }/resources/js/sweetalert2.all.min.js"></script>	
 
 	
 			
@@ -655,8 +671,16 @@ input::placeholder {
 	</c:if>
 
 		
-   if ("${ param.msg }")
-      alert("${ param.msg }");
+   if ("${ param.msg }"){
+	   Swal.fire({
+			  title: '로그인 실패',
+			  text: "${ param.msg }",
+			  type: 'error',
+			  confirmButtonText: '네, 알겠어요!'
+			})
+	   
+   }
+      
    
      $(function(){
 	   $('body').vegas({
