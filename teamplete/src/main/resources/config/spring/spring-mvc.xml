@@ -50,8 +50,8 @@
    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-<!--       <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/> -->
-      <property name="url" value="jdbc:oracle:thin:@teampleteaws.c8afjabwb27y.ap-northeast-2.rds.amazonaws.com:1521:orcl"/>
+      <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+<!--       <property name="url" value="jdbc:oracle:thin:@teampleteaws.c8afjabwb27y.ap-northeast-2.rds.amazonaws.com:1521:orcl"/> -->
       <property name="username" value="teamplete"/>
       <property name="password" value="teamplete"/>
    </bean>

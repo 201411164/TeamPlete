@@ -10,6 +10,7 @@
 			<result column="writer_name" property="writerName" />
 			<result column="team_id" property="teamId" />
 			<result column="task_date" property="taskDate" />
+			<result column="charge_memberid" property="chargeMemberid" />
 		</resultMap>
 		
 		<resultMap type="ChargeVO" id="chargeMap">
@@ -164,5 +165,14 @@
                  M.memberid not in(select charge_memberid from charge_tb where task_id = #{taskId})
    </select>
    
+   
+   <!-- 모든 태스크 중 로그인 중인 사용자의 제출하지 않은 태스크 목록  -->
+   <select id="notSubmitMyTask" parameterType="int" resultMap="taskMap">
+      select T.task_id, writer_id, writer_name, team_id, title, content, deadline, task_date, C.charge_memberid
+       from task_tb T
+        full outer join charge_tb C
+         on T.task_id = C.task_id
+          where T.team_id = #{teamId} and C.submit = 'N'
+   </select>
 
 </mapper>

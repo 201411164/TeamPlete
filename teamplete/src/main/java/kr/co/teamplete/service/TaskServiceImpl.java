@@ -46,7 +46,6 @@ public class TaskServiceImpl implements TaskService {
 		taskDAO.insertTask(task);
 		
 		teamDAO.taskLatest(task.getTeamId());
-		System.out.println("taskLatest 업데이트 teamId: " + task.getTeamId());
 
 		for (TaskFileVO taskFile : taskFileList) {
 			taskDAO.insertTaskFile(taskFile);
@@ -149,7 +148,6 @@ public class TaskServiceImpl implements TaskService {
 		taskDAO.updateTask(task);
 		
 		teamDAO.taskLatest(task.getTeamId());
-		System.out.println("taskLatest 업데이트 teamId: " + task.getTeamId());
 		
 		List<Integer> deleteFiles = task.getDeleteFiles();
 		
@@ -231,6 +229,12 @@ public class TaskServiceImpl implements TaskService {
 	public List<MemberVO> NotChargeMembers(Map<String, Integer> map) {
 		List<MemberVO> notChargeMembers = taskDAO.selectNotChargeMembers(map);
 		return notChargeMembers;
+	}
+
+	@Override
+	public List<TaskVO> notSubmitMyTask(int teamId) {
+		List<TaskVO> taskList = taskDAO.notSubmitMyTask(teamId);
+		return taskList;
 	}
 
 }

@@ -126,11 +126,18 @@ public class TeamController {
 		
 		List<MemberVO> notTeamMembers = service.NotInTeamMembers(teamId);
 		
+		List<TaskVO> notSubmitMyTask = taskService.notSubmitMyTask(teamId);
+		List<String> deadline2 = new ArrayList<>();
+		
 		for(int i=0; i<taskList.size(); i++) {
 			taskFileList.add(taskService.selectAllTaskFileS(taskList.get(i).getTaskId()));
 			deadline.add(Deadline.deadline(taskList.get(i).getDeadline()));
 			chargeMembers.add(taskService.selectAllsubmitS(taskList.get(i).getTaskId()));
 			submitN.add(taskService.selectNsubmitS(taskList.get(i).getTaskId()));
+		}
+		
+		for(int i=0; i<notSubmitMyTask.size(); i++) {
+			deadline2.add(Deadline.deadline(notSubmitMyTask.get(i).getDeadline()));
 		}
 		
 		map.put("team", team);
@@ -142,6 +149,8 @@ public class TeamController {
 		map.put("taskDeadline", deadline);
 		map.put("submitN", submitN);
 		map.put("notTeamMembers", notTeamMembers);
+		map.put("notSubmitMyTask", notSubmitMyTask);
+		map.put("notSubmitMyTaskDeadline", deadline2);
 
 		
 		ModelAndView mav = new ModelAndView();

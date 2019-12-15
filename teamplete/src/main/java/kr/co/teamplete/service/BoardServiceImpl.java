@@ -58,7 +58,6 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.insertBoard(board);
 		
 		teamDAO.boardLatest(taskDAO.selectTask(board.getTaskId()).getTeamId());
-		System.out.println("boardLatest 업데이트 teamId: " + taskDAO.selectTask(board.getTaskId()).getTeamId());
 
 		for (FileVO boardFile : boardFileList) {
 			boardDAO.insertBoardFile(boardFile);

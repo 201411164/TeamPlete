@@ -18,6 +18,8 @@ public class TaskVO {
 	private String writerId, writerName;
 	private int teamId;
 	private String title, content, deadline, taskDate;
+	
+	private String chargeMemberid;
 
 	public TaskVO() {
 		super();
@@ -135,6 +137,16 @@ public class TaskVO {
 
 	public void setDeleteCharge(List<Integer> deleteCharge) {
 		this.deleteCharge = deleteCharge;
+	}
+
+	
+	
+	public String getChargeMemberid() {
+		return chargeMemberid;
+	}
+
+	public void setChargeMemberid(String chargeMemberid) {
+		this.chargeMemberid = chargeMemberid;
 	}
 
 	@Override

@@ -271,6 +271,31 @@
 
 
 
+			<div class="card">
+				<div class="card-content">
+					<div class="card-header">
+						<h4 class="card-title">제출하지 않은 태스크</h4>
+					</div>
+					<div class="card-body">
+					<c:forEach items="${ notSubmitMyTask }" var="nsmt" varStatus="status">
+						<c:if test="${ nsmt.chargeMemberid eq loginVO.memberid }">
+							<p>${ nsmt.title }</p>
+							<p>제출기한: ${ nsmt.deadline } (${ notSubmitMyTaskDeadline[status.index] })</p>
+							<button type="button"
+													class="btn btn-primary btn-block  mb-1"
+													onClick="taskDetail(${ nsmt.taskId })">
+													<i class="feather icon-plus mr-25"></i>파일 제출하기
+							</button>
+							<hr/>
+						</c:if>
+					</c:forEach>
+					</div>
+				</div>
+			</div>
+
+
+
+
 							
 
 
