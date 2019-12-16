@@ -125,7 +125,7 @@
 							<div class="col-xl-3 col-md-6 col-sm-6">
 								<div class="card">
 									<div class="card-header d-flex justify-content-between">
-										<h4 class="text-primary">팀 구성원</h4>
+										<h4 class="text-primary" style="font-family:'Inter'; font-weight:700; font-size:26px;">팀 구성원</h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
 									<div class="card-body">
