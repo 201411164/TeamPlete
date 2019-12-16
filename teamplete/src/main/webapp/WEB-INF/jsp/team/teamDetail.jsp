@@ -3,18 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-	List<String> colorlist = new ArrayList<>();
-	colorlist.add("bg-primary");
-	colorlist.add("bg-info");
-	colorlist.add("bg-warning");
-	colorlist.add("bg-success");
-	colorlist.add("bg-danger");
-	request.setAttribute("colorlist", colorlist);
-%>
+
 <% pageContext.setAttribute("newLineChar", "\n"); %>
 
 
@@ -55,7 +46,10 @@
 	href="${ pageContext.request.contextPath }/resources/css/palette-gradient.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/authentication.css">
-<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">	
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/dashboard-analytics.css">
+    <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/card-analytics.css">	
 <!-- END: Page CSS-->
 
 
@@ -88,30 +82,79 @@
 				<div class="content-wrapper" id="contentWrapper">
 
 					<div class="content-header row">
-						<div class="content-header-left col-md-9 col-12 mb-1">
-							<h2 class=" text-primary text-bold-600 float-left mb-0 mr-2 ">${ team.teamName }</h2>
 
-							<c:if test="${ loginVO.memberid eq team.ownerId }">
-								<button type="button" name="modify" id="modifyBtn"
-									class="btn round btn-success mb-3 mr-1"
-									onclick="modifyFunc(${ team.teamId })" data-toggle="modal"
-									data-target="#updateTeam">
-									<i class="feather icon-edit mr-1"></i>팀 정보 수정
-								</button>
-								<button type="button" name="delete"
-									class="btn round btn-danger mb-3" value="${ team.teamId }">
-									<i class="feather icon-trash-2 mr-1"></i>팀 삭제
-								</button>
+						<div class="content-header-left col-md-9 col-12 mb-2">
+							<div class="row breadcrumbs-top">
+								<div class="col-12 mb-1">
+									<div class="col-xl-4 col-md-6 col-sm-6">
+									<h2 class="text-bold-600 mt-1 mr-2 mb-1 " style="white-space:nowrap;">${ team.teamName }</h2>
+									<fmt:formatNumber var="totalrate"
+										value="${totalFileSize*100/102400}" maxFractionDigits="0" />
 
-							</c:if>
-							<c:if test="${ loginVO.memberid ne team.ownerId }">
-								<button type="button" name="outTeam"
-									class="btn round btn-danger mb-3" value="${ team.teamId }">
-									<i class=""></i>팀 나가기
-								</button>
-							</c:if>
-						</div>
+									<h5>팀 전체 용량의 <strong> ${totalrate}%</strong>을 사용중입니다.</h5>
+									
+									<div class="progress progress-bar-primary progress-lg" data-toggle="tooltip" data-placement="top" title="팀 하나당 최대 100MB의 파일을 저장할 수 있습니다.">
+										<div class="progress-bar" role="progressbar" 
+											aria-valuenow="${totalrate }" aria-valuemin="${totalrate }"
+											aria-valuemax="100" style="width: ${totalrate }%">${totalrate }%</div>
+									</div>
+									</div>
+									
+								</div>
+							</div>
+							</div>
+
+							<div
+								class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+								<div class="form-group breadcrum-right">
+								<div class="dropdown mt-1 ">
+									<button
+										class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
+										type="button" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">
+										<i class="feather icon-settings"></i>
+									</button>
+									<div class="dropdown-menu dropdown-menu-right">
+										<c:if test="${ loginVO.memberid eq team.ownerId }">
+										<button type="button" name="modify" id="modifyBtn"
+											class="dropdown-item"
+											onclick="modifyFunc(${ team.teamId })" data-toggle="modal"
+											data-target="#updateTeam">
+											<i class="feather icon-edit mr-1"></i>팀 정보 수정
+										</button>
+										<button type="button" name="delete"
+											class="dropdown-item" value="${ team.teamId }">
+											<i class="feather icon-trash-2 mr-1"></i>팀 삭제
+										</button>
+
+									</c:if>
+									<c:if test="${ loginVO.memberid ne team.ownerId }">
+										<button type="button" name="outTeam"
+											class="dropdown-item" value="${ team.teamId }">
+											<i class=""></i>팀 나가기
+										</button>
+									</c:if>
+									</div>
+								</div>
+							</div>
+								
+								
+								
+							</div>
+							
+							
+
+							
+						
 					</div>
+					
+					
+					
+					
+					
+					
+					
+					
 
 
 
@@ -129,9 +172,7 @@
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
 									<div class="card-body">
-										<c:set var="count1" value="0" scope="page" />
 										<c:forEach items="${ members }" var="member">
-											<c:set var="count" value="${count + 1}" scope="page" />
 
 											<c:choose>
 												 <c:when test="${fn:startsWith(member.profile, 'circle')}">
@@ -273,33 +314,68 @@
 
 
 
+								<div class="col-xl-3 col-md-6 col-sm-6">
+									<div class="card bg-analytics text-white" id="dashboard-analytics">
+										<div class="card-content">
+										<div class="card-body text-center" style="color:#98a8b9">
+												<img
+													src="${ pageContext.request.contextPath }/resources/images/decore-left.png"
+													class="img-left" alt="
+            card-img-left"> <img
+													src="${ pageContext.request.contextPath }/resources/images/decore-right.png"
+													class="img-right" alt="
+            card-img-right">
+												<div class="avatar avatar-xl bg-primary shadow mt-0">
+													<div class="avatar-content">
+														<i class="feather icon-award white font-large-1"></i>
+													</div>
+												</div>
+												
+											<h4 class="mt-2" style="font-family:'Inter';"><strong>${loginVO.name}</strong>님, 환영합니다.</h4>	
+											
+												
+												
+											
+											<c:set var="nScount" value="0" scope="page" />	
+											
+											<c:forEach items="${ notSubmitMyTask }" var="nsmt"
+												varStatus="status">
+												
+												<c:if test="${ nsmt.chargeMemberid eq loginVO.memberid }">
+												<c:set var="nScount" value="${nScount + 1}" scope="page" />
+													<h5 class="mt-1 text-primary" >${ nsmt.title }</h5>
+													<p>제출기한: ${ nsmt.deadline } (${ notSubmitMyTaskDeadline[status.index] })</p>
+													<button type="button"
+														class="btn btn-primary btn-block  mb-1"
+														onClick="taskDetail(${ nsmt.taskId })">
+														<i class="feather icon-plus mr-25"></i>파일 제출하기
+													</button>
+												</c:if>
+											</c:forEach>
+											<div class="text-center">
+													
+													<c:choose>
+											<c:when test="${nScount eq 0 }">>
+											<h4 class="mt-2" style="font-family:'Inter'; font-weight:600;">모든 과제를 다 제출했어요.</h4>
+											</c:when>
+											<c:otherwise>
+											<h4 class="mt-2" style="font-family:'Inter';">총 <strong>${nScount}</strong>개의 과제가 남아있어요</h4>
+											</c:otherwise>
+											</c:choose>	
+													
+													
+													
+													
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 
-			<div class="card">
-				<div class="card-content">
-					<div class="card-header">
-						<h4 class="card-title">제출하지 않은 태스크</h4>
-					</div>
-					<div class="card-body">
-					<c:forEach items="${ notSubmitMyTask }" var="nsmt" varStatus="status">
-						<c:if test="${ nsmt.chargeMemberid eq loginVO.memberid }">
-							<p>${ nsmt.title }</p>
-							<p>제출기한: ${ nsmt.deadline } (${ notSubmitMyTaskDeadline[status.index] })</p>
-							<button type="button"
-													class="btn btn-primary btn-block  mb-1"
-													onClick="taskDetail(${ nsmt.taskId })">
-													<i class="feather icon-plus mr-25"></i>파일 제출하기
-							</button>
-							<hr/>
-						</c:if>
-					</c:forEach>
-					</div>
-				</div>
-			</div>
 
 
 
-
-							
 
 
 							<c:forEach var="task" items="${ taskList }" varStatus="status">
@@ -321,56 +397,48 @@
 
 											<div class="card-body">
 
-
+														<p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(task.content, newLineChar, "<br/>") }</p>
 
 												<div class="col-12">
 
-													<blockquote class="blockquote">														
-														<p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(task.content, newLineChar, "<br/>") }</p>
-														<div class=" d-flex justify-content-between">
-														<div></div>									
-														<c:forEach items="${ members }" var="member">
-														<c:if test="${ member.memberid eq task.writerId }">
-														
-														<div
-														class="d-flex justify-content-start align-items-right mb-1">	
-																										
-														<div class="avatar mr-50">
+
+													<c:forEach items="${ members }" var="member">
+													<c:if test="${member.memberid eq task.writerId}">
+
+													<div class="media">
+														<div class="media-body text-right">
+															<c:choose>
+															<c:when test="${ member.memberid eq team.ownerId }">
+																<h4 class="mt-1 media-heading" style="font-weight: 600;">${member.name }
+																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
+																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
+																		height="18" width="18" style="margin-bottom:4px;">																
+																</h4>
+																${ task.taskDate }
+															</c:when>
+															<c:otherwise>																
+																<h4 class="media-heading">${member.name }</h4>
+															</c:otherwise>
+														</c:choose>	
+															
+														</div>
+														<div class="media-right avatar">
 															<div
 																style="position: relative; text-align: center; color: white;">
 																<img
 																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
-																	alt="avtar img holder" height="35" width="35">
-																<div class="custom-avatar-container">
+																	alt="avtar img holder" height="64" width="64">
+																<div class="custom-avatar-container" style="font-size:1.2rem;">
 																	<c:set var="membername" value="${ member.name }" />
 																	<c:set var="firstletter"
-																		value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																		value="${fn:substring(membername, 0, 3)}" />${firstletter}
 																</div>
 															</div>
 														</div>
-														
-														<div class="user-page-info">
-														<c:choose>
-															<c:when test="${ member.memberid eq team.ownerId }">
-																<h5 class="mb-0 text-primary" style="font-weight: 400;">${member.name }
-																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
-																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
-																		height="18" width="18" style="margin-bottom:4px;">																
-																</h5>
-																
-															</c:when>
-															<c:otherwise>
-																<h6 class="mb-0" style="font-weight: 600;">${member.name }
-																</h6>
-															</c:otherwise>
-														</c:choose>	
-															<span class="font-small-2">${ task.taskDate }</span>
-														</div>
-														</div>
-														</c:if>									
+													</div>
+													</c:if>																	
 														</c:forEach>
 														</div>
-													</blockquote>
 												</div>
 
 												<ul class="list-group list-group-flush">
@@ -424,7 +492,6 @@
 
 																	<c:forEach var="charge"
 																		items="${ chargeMembers[status.index] }">
-																		<c:set var="count" value="${count + 1}" scope="page" />
 																		<c:choose>
 																			<c:when test="${ empty charge.profile }">
 																				<li data-toggle="tooltip"
@@ -509,7 +576,6 @@
 																	
 																	<c:forEach var="submitNmem"
 																		items="${ submitN[status.index] }">
-																		<c:set var="count" value="${count + 1}" scope="page" />
 																		<c:choose>
 																			<c:when test="${ empty submitNmem.profile }">
 																				<li data-toggle="tooltip"
@@ -604,7 +670,6 @@
 											</div>
 										</div>
 									</div>
-								</div>
 
 
 							</c:forEach>
@@ -760,8 +825,7 @@
 
 
 	<!-- BEGIN: Vendor JS-->
-	<script
-		src="${ pageContext.request.contextPath }/resources/js/vendors.min.js"></script>
+	
 	<!-- BEGIN Vendor JS-->
 
 	<!-- BEGIN: Page Vendor JS-->
@@ -785,6 +849,7 @@
 		src="${ pageContext.request.contextPath }/resources/js/select2.full.min.js"></script>
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/form-select2.js"></script>
+		
 	<!-- BEGIN: Page JS-->
 	<!-- END: Page JS-->
 

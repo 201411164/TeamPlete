@@ -904,8 +904,7 @@ th, td {
 
 
 	<!-- BEGIN: Vendor JS-->
-	<script
-		src="${ pageContext.request.contextPath }/resources/js/vendors.min.js"></script>
+
 	<!-- BEGIN Vendor JS-->
 
 	<!-- BEGIN: Page Vendor JS-->

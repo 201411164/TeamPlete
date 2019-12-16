@@ -793,13 +793,13 @@ body.fixed-footer footer.footer-dark {
 
 .navigation {
   font-size : 1.1rem;
-  font-family : 'Noto Sans KR', Helvetica, Arial, serif;
+  font-family : 'Inter','Noto Sans KR', Helvetica, Arial, serif;
   font-weight : 400;
   overflow-y : hidden;
   padding-bottom : 20px;
 }
 .navigation .navigation-header {
-  font-family : 'Noto Sans KR', Helvetica, Arial, serif;
+  font-family : 'Inter','Noto Sans KR', Helvetica, Arial, serif;
   font-weight : 600;
   line-height : 1.2;
   padding : 12px 22px;

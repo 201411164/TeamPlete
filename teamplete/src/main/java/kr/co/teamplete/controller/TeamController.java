@@ -1,5 +1,6 @@
 package kr.co.teamplete.controller;
 
+import java.nio.channels.SelectableChannel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
@@ -128,13 +132,49 @@ public class TeamController {
 		
 		List<TaskVO> notSubmitMyTask = taskService.notSubmitMyTask(teamId);
 		List<String> deadline2 = new ArrayList<>();
+		List<TaskFileVO> FileVOList = new ArrayList<>();
+		List<BoardVO> boardList = new ArrayList<>();
+		List<FileVO> FileList = new ArrayList<>();
+		int totalFileSize = 0;
+		
+		for (TaskVO s : taskList) {
+			boardList = boardService.selectAllBoardS(s.getTaskId());
+			for(BoardVO b : boardList) {
+				FileList=boardService.selectAllFileS(b.getBoardId());
+				for(FileVO f : FileList) {
+					totalFileSize+=Integer.parseInt(f.getFileSize());
+				}
+			}
+		}
+		
+		
+		List<List<FileVO>> boardFileList = new ArrayList<>();
+
+		for (int i = 0; i < boardList.size(); i++) {
+			boardFileList.add(boardService.selectAllFileS(boardList.get(i).getBoardId()));
+		}
+		
+		
+		
 		
 		for(int i=0; i<taskList.size(); i++) {
 			taskFileList.add(taskService.selectAllTaskFileS(taskList.get(i).getTaskId()));
 			deadline.add(Deadline.deadline(taskList.get(i).getDeadline()));
 			chargeMembers.add(taskService.selectAllsubmitS(taskList.get(i).getTaskId()));
 			submitN.add(taskService.selectNsubmitS(taskList.get(i).getTaskId()));
+			
+			
 		}
+		
+		
+		for(int i=0;i<taskFileList.size();i++) {
+			FileVOList= taskFileList.get(i);
+			for(int j=0;j<FileVOList.size();j++) {
+				totalFileSize+=Integer.parseInt(FileVOList.get(j).getFileSize());
+			}
+		}
+		
+		
 		
 		for(int i=0; i<notSubmitMyTask.size(); i++) {
 			deadline2.add(Deadline.deadline(notSubmitMyTask.get(i).getDeadline()));
@@ -151,8 +191,8 @@ public class TeamController {
 		map.put("notTeamMembers", notTeamMembers);
 		map.put("notSubmitMyTask", notSubmitMyTask);
 		map.put("notSubmitMyTaskDeadline", deadline2);
-
-		
+		map.put("totalFileSize",totalFileSize);
+				
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("team/teamDetail");
 		mav.addAllObjects(map);

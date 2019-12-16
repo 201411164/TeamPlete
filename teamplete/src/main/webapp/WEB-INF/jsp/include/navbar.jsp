@@ -38,7 +38,8 @@
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/vendors.min.css">
-
+<link rel="stylesheet" type="text/css"
+	href="https://rsms.me/inter/inter.css">
 
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/bootstrap-extended.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/dark-layout.css">
@@ -183,9 +184,8 @@
                             	</c:otherwise>
                             	</c:choose>
                             </a>
-                            <a href="${ pageContext.request.contextPath }/logout">Logout</a>
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> Chats</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="auth-login.html"><i class="feather icon-power"></i> Logout</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item"  href="${ pageContext.request.contextPath }/logout"><i class="feather icon-power"></i> Logout</a>
                             </div>
                         </li>
                     </ul>
