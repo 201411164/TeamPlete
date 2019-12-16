@@ -82,7 +82,7 @@ input::placeholder {
 
 <!-- END: Page CSS-->
 <style type="text/css">.hesperiden.tparrows{cursor:pointer;background:rgba(0,0,0,0.5);width:40px;height:40px;position:absolute;display:block;z-index:100;  border-radius:50%}.hesperiden.tparrows:hover{background:rgba(0,0,0,1)}.hesperiden.tparrows:before{font-family:"revicons";font-size:20px;color:rgb(255,255,255);display:block;line-height:40px;text-align:center}.hesperiden.tparrows.tp-leftarrow:before{content:"\e82c";  margin-left:-3px}.hesperiden.tparrows.tp-rightarrow:before{content:"\e82d";  margin-right:-3px}.hephaistos .tp-bullet{width:12px;height:12px;position:absolute;background:rgba(153,153,153,1);border:3px solid rgba(255,255,255,0.9);border-radius:50%;cursor:pointer;box-sizing:content-box;  box-shadow:0px 0px 2px 1px rgba(130,130,130,0.3)}.hephaistos .tp-bullet:hover,.hephaistos .tp-bullet.selected{background:rgba(255,255,255,1);  border-color:rgba(0,0,0,1)}</style>
-				
+<script data-ad-client="ca-pub-2653440415528337" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>				
 </head>
 <body
 	class="horizontal-layout horizontal-menu 1-column  navbar-floating footer-static bg-full-screen-image  blank-page blank-page"
@@ -140,12 +140,12 @@ input::placeholder {
 
 <!-- 												<a class="btn btn-block mt-1" -->
 <!-- 													style="background-color: #ffe812; color: #3c1e1e; font-weight: 700; font-size:1rem;" -->
-<!-- 													href="https://kauth.kakao.com/oauth/authorize?client_id=e355c450ecfaeb579db7e67d74790574&redirect_uri=http://teamplete.net/kakaologin&response_type=code" -->
+<!-- 													href="https://kauth.kakao.com/oauth/authorize?client_id=e355c450ecfaeb579db7e67d74790574&redirect_uri=http://localhost:8088/kakaologin&response_type=code" -->
 <%-- 													style="font-weight:700 ! important;"><img class="mr-2 mb-0 mt-0" src="${ pageContext.request.contextPath }/resources/images/kakaotalk.svg" width="30" height="30">카카오 계정으로 --%>
 <!-- 													로그인 </a> -->
 												<a class="btn btn-block mt-1"
 													style="background-color: #ffe812; color: #3c1e1e; font-weight: 700; font-size:1rem;"
-													href="https://kauth.kakao.com/oauth/authorize?client_id=e355c450ecfaeb579db7e67d74790574&redirect_uri=http://localhost:8088/kakaologin&response_type=code"
+													href="https://kauth.kakao.com/oauth/authorize?client_id=e355c450ecfaeb579db7e67d74790574&redirect_uri=http://teamplete.net/kakaologin&response_type=code"
 													style="font-weight:700 ! important;"><img class="mr-2 mb-0 mt-0" src="${ pageContext.request.contextPath }/resources/images/kakaotalk.svg" width="30" height="30">카카오 계정으로
 													로그인 </a>
 												<div class="mt-1" style="text-align:center !important">

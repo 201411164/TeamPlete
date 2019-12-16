@@ -41,9 +41,8 @@
 	href="${ pageContext.request.contextPath }/resources/css/vendors.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/select2.min.css">
-
-
-
+<link rel="stylesheet" type="text/css"
+	href="https://rsms.me/inter/inter.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/dark-layout.css">
 <link rel="stylesheet" type="text/css"
@@ -56,6 +55,7 @@
 	href="${ pageContext.request.contextPath }/resources/css/palette-gradient.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/authentication.css">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap" rel="stylesheet">	
 <!-- END: Page CSS-->
 
 
@@ -64,6 +64,9 @@
 <style>
 #fileName:hover {
 	text-decoration: underline;
+}
+.body{
+	font-family:'Inter';
 }
 </style>
 
@@ -309,21 +312,64 @@
 
 
 
-											<div class="card-header d-flex justify-content-between">
-												<h4 class="text-primary">${task.title }</h4>
-												<h6>작성일 : ${ task.taskDate }</h6>
-												<i class="feather icon-more-horizontal cursor-pointer"></i>
-											</div>
+											
+												
+												<div class="card-header d-flex justify-content-between">
+										<h4 class="text-primary" style="font-family:'Inter'; font-weight:700; font-size:26px;">${task.title }</h4>
+										<i class="feather icon-more-horizontal cursor-pointer"></i>
+									</div>
+
 											<div class="card-body">
 
 
 
 												<div class="col-12">
 
-													<blockquote class="blockquote">
+													<blockquote class="blockquote">														
 														<p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(task.content, newLineChar, "<br/>") }</p>
-														<footer class="blockquote-footer mt-1">작성자 :
-														${task.writerName } </footer>
+														<div class=" d-flex justify-content-between">
+														<div></div>									
+														<c:forEach items="${ members }" var="member">
+														<c:if test="${ member.memberid eq task.writerId }">
+														
+														<div
+														class="d-flex justify-content-start align-items-right mb-1">	
+																										
+														<div class="avatar mr-50">
+															<div
+																style="position: relative; text-align: center; color: white;">
+																<img
+																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
+																	alt="avtar img holder" height="35" width="35">
+																<div class="custom-avatar-container">
+																	<c:set var="membername" value="${ member.name }" />
+																	<c:set var="firstletter"
+																		value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																</div>
+															</div>
+														</div>
+														
+														<div class="user-page-info">
+														<c:choose>
+															<c:when test="${ member.memberid eq team.ownerId }">
+																<h5 class="mb-0 text-primary" style="font-weight: 400;">${member.name }
+																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
+																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
+																		height="18" width="18" style="margin-bottom:4px;">																
+																</h5>
+																
+															</c:when>
+															<c:otherwise>
+																<h6 class="mb-0" style="font-weight: 600;">${member.name }
+																</h6>
+															</c:otherwise>
+														</c:choose>	
+															<span class="font-small-2">${ task.taskDate }</span>
+														</div>
+														</div>
+														</c:if>									
+														</c:forEach>
+														</div>
 													</blockquote>
 												</div>
 
@@ -332,13 +378,13 @@
 													<li class="list-group-item d-flex">
 														<p class="float-left mb-0">
 															<i class="feather icon-calendar mr-1"></i>
-														</p> <span><strong>제출기한: </strong>${ task.deadline } (${ taskDeadline[status.index] })</span>
+														</p> <span><strong style="color:#0188CC;">제출기한: </strong>${ task.deadline } (${ taskDeadline[status.index] })</span>
 													</li>
 
 													<li class="list-group-item d-flex">
 														<p class="float-left mb-0">
 															<i class="feather icon-download mr-1"></i>
-														</p> <span><strong>첨부파일 :</strong> <c:forEach
+														</p> <span><strong style="color:#0188CC;">첨부파일 :</strong> <c:forEach
 																var="taskFile" items="${ taskFileList[status.index] }">
 
 																<h6 class="text-nowrap"
@@ -371,7 +417,7 @@
 																<p class="float-left mb-0">
 																	<i class="feather icon-user-check mr-1"></i>
 																</p>
-																<span><strong>담당자 :</strong></span>
+																<span><strong style="color:#0188CC;">담당자 :</strong></span>
 																<ul class="list-unstyled users-list d-flex">
 
 
@@ -456,7 +502,7 @@
 																<p class="float-left mb-0">
 																	<i class="feather icon-user-minus mr-1"></i>
 																</p>
-																<span><strong>미제출자 :</strong></span>
+																<span><strong style="color:#0188CC;">미제출자 :</strong></span>
 
 																<ul class="list-unstyled users-list d-flex">
 																																	
