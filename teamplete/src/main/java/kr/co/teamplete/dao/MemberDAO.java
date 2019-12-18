@@ -13,5 +13,8 @@ public interface MemberDAO {
 	
 	/* 특정 회원 조회 */
 	MemberVO selectMember(String memberid);
+	
+	/* update member*/
+	public void updateMember(MemberVO member);
 
 }

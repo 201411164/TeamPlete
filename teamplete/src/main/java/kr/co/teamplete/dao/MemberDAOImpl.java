@@ -29,5 +29,10 @@ public class MemberDAOImpl implements MemberDAO{
 		MemberVO member = session.selectOne("kr.co.teamplete.dao.MemberDAO.selectMember", memberid);
 		return member;
 	}
+	
+	@Override
+	public void updateMember(MemberVO member) {
+		session.update("kr.co.teamplete.dao.MemberDAO.updateMember", member);
+	}
 
 }

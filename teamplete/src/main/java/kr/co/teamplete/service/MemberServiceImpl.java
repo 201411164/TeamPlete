@@ -1,5 +1,9 @@
 package kr.co.teamplete.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +32,12 @@ public class MemberServiceImpl implements MemberService{
 		MemberVO member = memberDAO.selectMember(memberid);
 		return member;
 	}
+	
+	@Override
+	 public void updateMember(MemberVO member) {
+		memberDAO.updateMember(member);
+	}
+	
+	
 
 }

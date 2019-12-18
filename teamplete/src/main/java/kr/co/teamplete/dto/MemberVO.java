@@ -15,6 +15,10 @@ public class MemberVO {
 	private String email, type, regDate;
 	private char kakao;
 	private String profile;
+	private String last_date;
+	private String status;
+	private int logincount;
+	
 	
 	public MemberVO() {
 		super();
@@ -22,7 +26,7 @@ public class MemberVO {
 	}
 
 	public MemberVO(String memberid, String name, String password, String email, String type, String regDate,
-			char kakao, String profile) {
+			char kakao, String profile, String last_date, String status, int logincount) {
 		super();
 		this.memberid = memberid;
 		this.name = name;
@@ -32,6 +36,9 @@ public class MemberVO {
 		this.regDate = regDate;
 		this.kakao = kakao;
 		this.profile = profile;
+		this.last_date=last_date;
+		this.status=status;
+		this.logincount=logincount;
 	}
 
 	public String getMemberid() {
@@ -97,11 +104,38 @@ public class MemberVO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+		
+	
 
 	@Override
 	public String toString() {
 		return "MemberVO [memberid=" + memberid + ", name=" + name + ", password=" + password + ", email=" + email
-				+ ", type=" + type + ", regDate=" + regDate + ", kakao=" + kakao + ", profile=" + profile + "]";
+				+ ", type=" + type + ", regDate=" + regDate + ", kakao=" + kakao + ", profile=" + profile
+				+ ", last_date=" + last_date + ", status=" + status + ", logincount=" + logincount + "]";
+	}
+
+	public String getLast_date() {
+		return last_date;
+	}
+
+	public void setLastdate(String last_date) {
+		this.last_date = last_date;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getLogincount() {
+		return logincount;
+	}
+
+	public void setLogincount(int logincount) {
+		this.logincount = logincount;
 	}
 	
 	

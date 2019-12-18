@@ -6,6 +6,9 @@
 
 	<resultMap type="MemberVO" id="memberMap">
 		<result column="reg_date" property="regDate" />
+		<result column="status" property="status" />
+		<result column="logincount" property="logincount" />
+		<result column="last_date" property="lastdate" />
 	</resultMap>
 
 	<!-- 회원정보 삽입 -->
@@ -17,7 +20,7 @@
 	
 	<!-- 특정 회원의 정보 조회(아이디로 이름 조회) -->
 	<select id="selectMember" parameterType="String" resultMap="memberMap">
-		select memberid, name, email
+		select memberid, name, email, logincount, status, last_date, profile, logincount, status, last_date
 		from member_tb
 		where memberid = #{memberid}
 	</select>
@@ -33,11 +36,18 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="MemberVO"
 		resultMap="memberMap">
-		select memberid, name, password, email, profile
+		select memberid, name, password, email, profile, logincount, status, last_date
 		from Member_tb
 		where
 		memberid = #{memberid} and
 		password = #{password}		
 	</select>
+	
+	<update id="updateMember" parameterType="MemberVO">
+      update member_tb
+       set
+    	logincount = #{logincount}, status = #{status}, last_date = SYSDATE
+    	 where memberid = #{memberid}
+   </update>
 
 </mapper>

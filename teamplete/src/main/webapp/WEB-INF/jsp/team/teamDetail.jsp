@@ -62,6 +62,9 @@
 .body{
 	font-family:'Inter';
 }
+#nsmttitle:hover{
+	text-decoration:underline;
+}
 </style>
 
 
@@ -190,8 +193,10 @@
 																	<c:set var="firstletter"
 																		value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																</div>
-															</div>
+															</div><span
+																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
 														</div>
+														
 
 														<div class="user-page-info">
 														<c:choose>
@@ -208,7 +213,7 @@
 																</h5>
 															</c:otherwise>
 														</c:choose>	
-															<span class="font-small-3">파일 제출 완료</span>
+															<span class="font-small-3">마지막 접속 : ${member.last_date} </span>
 														</div>
 													</div>
 
@@ -229,7 +234,10 @@
 																		value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																</div>
 															</div>
+															<span
+																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
 														</div>
+														
 
 														<div class="user-page-info">
 															<c:choose>
@@ -247,7 +255,7 @@
 															</c:otherwise>
 														</c:choose>	
 															
-															<span class="font-small-3">파일 제출 완료</span>
+															<span class="font-small-3">마지막 접속 : ${member.last_date}</span>
 														</div>
 													</div>
 												
@@ -258,7 +266,10 @@
 														<div class="avatar mr-50">
 															<img src="${ member.profile }" alt="avtar img holder"
 																height="35" width="35">
+																<span
+																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
 														</div>
+														
 														<div class="user-page-info">
 															<c:choose>
 															<c:when test="${ member.memberid eq team.ownerId }">
@@ -275,13 +286,14 @@
 															</c:otherwise>
 														</c:choose>	
 															
-															<span class="font-small-3">파일 제출 완료</span>
+															<span class="font-small-3">마지막 접속 : ${member.last_date}</span>
 														</div>
 													</div>
 												</c:otherwise>
 											</c:choose>
 
 										</c:forEach>
+										
 
 
 										<div class="card-header d-flex justify-content-between">
@@ -315,7 +327,7 @@
 
 
 								<div class="col-xl-3 col-md-6 col-sm-6">
-									<div class="card bg-analytics text-white" id="dashboard-analytics">
+									<div class="card bg-analytics text-white" id="dashboard-analytics" style="max-height:100%;">
 										<div class="card-content">
 										<div class="card-body text-center" style="color:#98a8b9">
 												<img
@@ -343,13 +355,9 @@
 												
 												<c:if test="${ nsmt.chargeMemberid eq loginVO.memberid }">
 												<c:set var="nScount" value="${nScount + 1}" scope="page" />
-													<h5 class="mt-1 text-primary" >${ nsmt.title }</h5>
+													<a onClick="taskDetail(${ nsmt.taskId })"><h5 class="mt-1 text-primary" id="nsmttitle">${ nsmt.title }</h5></a>
 													<p>제출기한: ${ nsmt.deadline } (${ notSubmitMyTaskDeadline[status.index] })</p>
-													<button type="button"
-														class="btn btn-primary btn-block  mb-1"
-														onClick="taskDetail(${ nsmt.taskId })">
-														<i class="feather icon-plus mr-25"></i>파일 제출하기
-													</button>
+													
 												</c:if>
 											</c:forEach>
 											<div class="text-center">

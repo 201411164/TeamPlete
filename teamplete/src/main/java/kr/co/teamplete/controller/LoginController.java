@@ -1,5 +1,8 @@
 package kr.co.teamplete.controller;
 
+import java.util.Date;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.service.LoginService;
+import kr.co.teamplete.service.MemberService;
 
 
 @SessionAttributes({"loginVO"})
@@ -19,6 +23,8 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private MemberService memberService;
 	
 	// 스프링 4.3 이상 => GetMapping, PostMapping, PutMapping...
 	
@@ -37,7 +43,12 @@ public class LoginController {
 			return "redirect:/";
 		} else {
 			// 로그인 성공
-
+			
+			int temp=loginVO.getLogincount();
+			System.out.println("temp:" + temp);
+			loginVO.setLogincount(temp+1);
+			loginVO.setStatus("online");
+			memberService.updateMember(loginVO);
 			model.addAttribute("loginVO", loginVO);
 			
 			return "redirect:/team/" + member.getMemberid();
@@ -47,12 +58,16 @@ public class LoginController {
 	
 	//세션 정보 삭제
 	//SessionStatus객체의 setComplete() 메소드를 사용해서 해제해 주어야함.
-	@GetMapping("/logout")
-	public String logout(SessionStatus status) {
+	@PostMapping("/logout")
+	public String logout(MemberVO member, SessionStatus status) {
 
+		MemberVO logoutVO = memberService.selectMemberById(member.getMemberid());
+		logoutVO.setStatus("offline");
+		memberService.updateMember(logoutVO);
 		status.setComplete();
 		
 		return "redirect:/";
 	}
+	
 	
 }

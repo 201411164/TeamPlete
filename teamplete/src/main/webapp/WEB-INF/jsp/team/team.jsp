@@ -156,7 +156,6 @@
 <%-- 						<a href="${ pageContext.request.contextPath }/calendar">캘린더</a> --%>
 			<div>
 				
-				
 				 <div class="row match-height">
                     <c:forEach var="team" items="${ teamList }" varStatus="status">
                        <div class="col-xl-3 col-md-6 col-sm-6">

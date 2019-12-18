@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.co.teamplete.dto.MemberVO;
+import kr.co.teamplete.service.LoginService;
 import kr.co.teamplete.service.MemberService;
 
 @SessionAttributes({"loginVO"})
@@ -23,7 +24,7 @@ public class KakaoLoginController {
     
 	@Autowired
 	MemberService service;
-    
+	
     
     @RequestMapping(value="/kakaologin")
     public String login(@RequestParam("code") String code, Model model) {
@@ -37,6 +38,10 @@ public class KakaoLoginController {
         member.setPassword((String) userInfo.get("kakaoId"));
         member.setEmail((String) userInfo.get("email"));
         member.setKakao('Y');
+        member.setStatus("online");
+        int temp=member.getLogincount()+1;
+        member.setLogincount(temp);
+        
         if((String) userInfo.get("thumbnail_image") != null ) {
             member.setProfile((String) userInfo.get("thumbnail_image"));
         }

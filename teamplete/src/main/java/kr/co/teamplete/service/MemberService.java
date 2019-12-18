@@ -1,5 +1,6 @@
 package kr.co.teamplete.service;
 
+import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.MemberVO;
 
 public interface MemberService {
@@ -13,5 +14,8 @@ public interface MemberService {
 	/* 특정 회원 조회 */
 	MemberVO selectMemberById(String memberid);
 
-	
+	 //update member login
+	 public void updateMember(MemberVO member);
+	 
+	 
 }
