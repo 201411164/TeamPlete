@@ -208,6 +208,19 @@ opacity:0.8;
 		            	if($('#memberid').val() == "") {
 		            		$('#checkMsg').html('<p style="color:red !important;, font-size:1.2rem; font-weight:600;">아이디를 입력해주세요</p>');
 		            	}else {
+
+		        			var regex = /^[A-Za-z0-9]+$/
+		        			var isValidId=regex.test(document.getElementById("memberid").value);
+		        			if (!isValidId){
+		        				Swal.fire({
+		        					  title: 'Error!',
+		        					  text: '아이디에는 알파벳 및 숫자만 입력 가능해요!',
+		        					  type: 'error',
+		        					  confirmButtonText: '네, 알겠어요!'
+		        					})
+		        				return false;
+		        			}	
+		            		
 		               if ($.trim(result) == 0) {
 		            	   console.log(result);
 		                  $('#checkMsg').html('<p style="color:blue !important; font-size:1.2rem; font-weight:600;">사용가능한 아이디입니다</p>');
@@ -233,6 +246,18 @@ opacity:0.8;
 	   
 	  
 		function checkJoinForm() {
+			
+			var regex = /^[A-Za-z0-9]+$/
+			var isValidId=regex.test(document.getElementById("memberid").value);
+			if (!isValidId){
+				Swal.fire({
+					  title: 'Error!',
+					  text: '아이디에는 알파벳 및 숫자만 입력 가능해요!',
+					  type: 'error',
+					  confirmButtonText: '네, 알겠어요!'
+					})
+				return false;
+			}
 
 		
 			if ($("button[name='checkbtn']").val() != "0") {
@@ -258,6 +283,18 @@ opacity:0.8;
 					})
 				return false;
 			} else {
+				 
+				 var isValid= regex.test(password.value);
+				 if(!isValid){
+					 Swal.fire({
+						  title: 'Error!',
+						  text: '비밀번호는 영문 대소문자 및 숫자만 입력 가능합니다!',
+						  type: 'error',
+						  confirmButtonText: '네, 알겠어요!'
+						})
+					return false;
+				 }
+				
 				if (password.value.length < 6) {
 					Swal.fire({
 						  title: '비밀번호가 너무 짧아요!',
