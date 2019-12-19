@@ -65,6 +65,8 @@
 #nsmttitle:hover{
 	text-decoration:underline;
 }
+
+
 </style>
 
 
@@ -169,12 +171,13 @@
 
 
 							<div class="col-xl-3 col-md-6 col-sm-6">
-								<div class="card">
+								<div class="card ">
 									<div class="card-header d-flex justify-content-between">
-										<h4 class="text-primary" style="font-family:'Inter'; font-weight:700; font-size:26px;">팀 구성원</h4>
+										<h4 class="text-primary mr-1" style="font-family:'Inter'; font-weight:700; font-size:26px;">팀 구성원 -<small class="text-dark"> 총 <strong >${fn:length(members)}</strong> 명</small></h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
-									<div class="card-body">
+									<div class=" card-body nano" style="min-height:400px;">
+									<div class="nano-content " >
 										<c:forEach items="${ members }" var="member">
 
 											<c:choose>
@@ -319,6 +322,7 @@
 												</button>
 											</form>
 										</div>
+									</div>
 									</div>
 								</div>
 							</div>
@@ -691,12 +695,28 @@
 
 
 						</div>
+						
+						
+						
+						<div class="row" >
 
 
 
+
+						<div class="col-xl-3 col-md-6 col-sm-6">
+						<div class="card">
+						
+						<div class="card-content">
+                                    <div class="card-body">
+                                    
+                                    	
+                                        <h1 class="btn btn-outline-primary btn-block" id="createTaskBtn"
+										data-toggle="modal" data-target="#createTask" style="font-size:230px">+</h1>
+                                    </div>
+                               
+                       </div>	
 						<!-- 태스크 등록 Modal -->
-						<button id="createTaskBtn" class="btn btn-success"
-							data-toggle="modal" data-target="#createTask">태스크 등록</button>
+						
 
 						<div class="modal fade text-left" id="createTask" tabindex="-1"
 							role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
@@ -705,7 +725,7 @@
 								role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h4 class="modal-title" id="myModalLabel33">태스크를 추가해주세요.</h4>
+										<h4 class="modal-title" id="myModalLabel33">새로운 카드를 추가해주세요.</h4>
 										
 										<p><strong style="color: red;">*</strong> 는 필수항목입니다.</p>
 										<button type="button" class="close" data-dismiss="modal"
@@ -725,12 +745,12 @@
 										<input type="hidden" name="teamId" id="teamId"
 											value="${ team.teamId }">
 										<div class="modal-body">
-											<label><strong style="color: red;">* </strong>Title:</label>
+											<label><strong style="color: red;">* </strong>제목:</label>
 											<div class="form-group">
 												<input type="text" class="form-control" name="title"
 													id="title"></input>
 											</div>
-											<label><strong style="color: red;">* </strong>Content:</label>
+											<label><strong style="color: red;">* </strong>내용:</label>
 											<div class="form-group">
 												<textarea class="form-control" name="content" id="content"
 													rows="5"></textarea>
@@ -745,7 +765,7 @@
 											</div>
 											
 
-											<label>deadline:</label>
+											<label>마감일:</label>
 											<div class="form-group">
 												<input type="date" name="deadline" id="deadline"
 													placeholder="Deadline" class="form-control">
@@ -765,7 +785,7 @@
 											<div class="modal-footer">
 												<button type="button" id="taskSubmit"
 													class="btn btn-primary" onClick="submitTask()"
-													data-dismiss="modal">Create</button>
+													data-dismiss="modal">카드 생성하기</button>
 
 											</div>
 										</div>
@@ -773,6 +793,16 @@
 								</div>
 							</div>
 						</div>
+						</div>
+						</div>
+						
+						</div>
+						
+						
+						
+						
+						
+						
 					</div>
 				</div>
 			</div>

@@ -31,7 +31,8 @@
 	href="${ pageContext.request.contextPath }/resources/css/colors.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/components.css">
-
+<link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/nanoscroller.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 <link rel="stylesheet"
@@ -250,6 +251,8 @@
 	<!-- BEGIN: Theme JS-->
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/sweetalert2.all.min.js"></script>
+	<script
+		src="${ pageContext.request.contextPath }/resources/js/jquery.nanoscroller.js"></script>	
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/dropzone.js"></script>
 	<script
