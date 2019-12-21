@@ -70,6 +70,10 @@ public class TaskController {
 		
 		List<List<FileVO>> boardFileList = new ArrayList<>();
 		
+		
+		
+		List<MemberVO> members = teamService.selectAllMembers(task.getTeamId());
+		
 		for(int i=0; i<boardList.size(); i++) {
 			boardFileList.add(boardService.selectAllFileS(boardList.get(i).getBoardId()));
 		}
@@ -102,7 +106,7 @@ public class TaskController {
 				service.updateSubmitS(chargeListY.get(i));
 			}
 		}
-		
+		objectMap.put("members", members);
 		objectMap.put("taskDetail", task);
 		objectMap.put("taskFileList", taskFileList);
 		objectMap.put("boardList", boardList);

@@ -112,25 +112,43 @@ th, td {
 										</ol>
 									</div>
 								</div>
-							</div>
-
-							<c:if test="${ loginVO.memberid eq taskDetail.writerId }">
-								<button id="createTaskBtn"
-									class="btn round btn-success btn-sm mb-3" data-toggle="modal"
-									data-target="#createTask"
-									onclick="taskModify(${ taskDetail.taskId })">
-									<i class="feather icon-edit mr-1"></i>태스크 수정
-								</button>
-								<button name="deleteTask"
-									class="btn round btn-danger btn-sm mb-3 "
-									onclick="taskDelete(${ taskDetail.taskId })"
-									value="${ taskDetail.teamId }">
-									<i class="feather icon-trash-2 mr-1"></i>글 삭제하기
-								</button>
-
-
-							</c:if>
+							</div>						
 						</div>
+						
+						
+						<c:if test="${ loginVO.memberid eq taskDetail.writerId }">
+						<div
+								class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+								<div class="form-group breadcrum-right">
+								<div class="dropdown mt-1 ">
+									<button
+										class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
+										type="button" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">
+										<i class="feather icon-settings"></i>
+									</button>
+									<div class="dropdown-menu dropdown-menu-right">
+										<button type="button" name="modify" id="createTaskBtn"
+											class="dropdown-item"
+											onclick="taskModify(${ taskDetail.taskId })" data-toggle="modal"
+									data-target="#createTask">
+											<i class="feather icon-edit mr-1"></i>팀 정보 수정
+										</button>
+										<button type="button" name="deleteTask"
+											onclick="taskDelete(${ taskDetail.taskId })" class="dropdown-item" value="${ taskDetail.teamId }">
+											<i class="feather icon-trash-2 mr-1"></i>팀 삭제
+										</button>									
+									</div>
+								</div>
+							</div>
+								
+								
+								
+							</div>
+							</c:if>
+						
+						
+						
 					</div>
 
 					<!-- 태스크 수정 Modal -->
@@ -642,8 +660,8 @@ th, td {
 
 
 									<div class="card-header d-flex justify-content-between">
+									<h4 class="text-primary" style="font-family:'Inter'; font-weight:700; font-size:26px;">${taskDetail.title }</h4>
 										<h4 class="text-primary">${ taskDetail.title }</h4>
-										<h6>작성일 : ${ taskDetail.taskDate }</h6>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
 									<div class="card-body">
@@ -652,12 +670,44 @@ th, td {
 
 										<div class="col-12">
 
-											<blockquote class="blockquote">
-												<p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(taskDetail.content, newLineChar, "<br/>") }
-												</p>
-												<footer class="blockquote-footer mt-1">작성자 :
-												${taskDetail.writerName } </footer>
-											</blockquote>
+												<c:forEach items="${ members }" var="member">
+													<c:if test="${member.memberid eq taskDetail.writerId}">
+
+													<div class="media">
+														<div class="media-body text-right">
+															<c:choose>
+															<c:when test="${ member.memberid eq team.ownerId }">
+																<h4 class="mt-1 media-heading" style="font-weight: 600;">${member.name }
+																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
+																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
+																		height="18" width="18" style="margin-bottom:4px;">																
+																</h4>
+																${ taskDetail.taskDate }
+															</c:when>
+															<c:otherwise>																
+																<h4 class="media-heading">${member.name }</h4>
+																${ taskDetail.taskDate }
+															</c:otherwise>
+														</c:choose>	
+															
+														</div>
+														<div class="media-right avatar">
+															<div
+																style="position: relative; text-align: center; color: white;">
+																<img
+																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
+																	alt="avtar img holder" height="64" width="64">
+																<div class="custom-avatar-container" style="font-size:1.2rem;">
+																	<c:set var="membername" value="${ member.name }" />
+																	<c:set var="firstletter"
+																		value="${fn:substring(membername, 0, 3)}" />${firstletter}
+																</div>
+															</div>
+														</div>
+													</div>
+													</c:if>																	
+														</c:forEach>
+													</div>
 										</div>
 
 										<ul class="list-group list-group-flush">
