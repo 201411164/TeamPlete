@@ -42,6 +42,7 @@
 <!-- BEGIN: Page CSS-->
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/horizontal-menu.css">
+	
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/palette-gradient.css">
 <link rel="stylesheet" type="text/css"
@@ -65,7 +66,9 @@
 #nsmttitle:hover{
 	text-decoration:underline;
 }
-
+.ql-disabled{
+border-style: none !important;
+}
 
 </style>
 
@@ -389,12 +392,9 @@
 
 
 
-
-
-
+							<c:set var="tcount" value="0" scope="page" />	
 							<c:forEach var="task" items="${ taskList }" varStatus="status">
-
-
+							<c:set var="tcount" value="${tcount+1 }" scope="page" />	
 								<div class="col-lg-6 col-12">
 									<div class="card" id="showdetail">
 										<div class="card-content">
@@ -411,7 +411,24 @@
 
 											<div class="card-body">
 
-														<p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(task.content, newLineChar, "<br/>") }</p>
+														<%-- <p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(task.content, newLineChar, "<br/>") }</p> --%>
+												
+												<div id="editor-readonly${tcount}">
+												<p></p>
+												</div>
+												<script>
+												var options = {
+														  debug: 'info',
+														  modules: {
+														    toolbar: false
+														  },
+														  readOnly: true,
+														  theme: 'snow'
+														};
+												var quill${tcount} = new Quill('#editor-readonly${tcount}', options);
+												
+												quill${tcount}.setContents(${task.content});
+												</script>
 
 												<div class="col-12">
 
@@ -717,14 +734,17 @@
 										data-toggle="modal" data-target="#createTask" style="font-size:230px">+</h1>
                                     </div>
                                
-                       </div>	
+                       </div>
+                       </div>
+						</div>
+						</div>	
 						<!-- 태스크 등록 Modal -->
 						
 
 						<div class="modal fade text-left" id="createTask" tabindex="-1"
 							role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
 							<div
-								class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+								class="modal-dialog modal-lg modal-dialog-scrollable"
 								role="document">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -741,25 +761,31 @@
 
 									<form method="post" enctype="multipart/form-data"
 										action="${pageContext.request.contextPath}/teamdetail/${ team.teamId }/task"
-										name="createTaskForm" id="createTaskForm">
+										name="createTaskForm" id="createTaskForm" style="overflow-y:auto;">
 										<input type="hidden" name="writerId" id="writerId"
 											value="${ loginVO.memberid }"> <input type="hidden"
 											name="writerName" id="writerName" value="${ loginVO.name }">
 										<input type="hidden" name="teamId" id="teamId"
 											value="${ team.teamId }">
-										<div class="modal-body">
+										<div class="modal-body" ">
 											<label><strong style="color: red;">* </strong>제목:</label>
 											<div class="form-group">
 												<input type="text" class="form-control" name="title"
 													id="title"></input>
 											</div>
 											<label><strong style="color: red;">* </strong>내용:</label>
-											<div class="form-group">
-												<textarea class="form-control" name="content" id="content"
-													rows="5"></textarea>
-											</div>
+											<div class="form-group" >
+															<div id="editor-container" >
+															<p></p>
+															<br/>
+															<p></p>
+															<br/>
+															<p></p>
+															</div>
+															<input name="content" id="content" type="hidden">
+														</div>
 											<label>파일 첨부하기: </label>
-											<div class="form-group">
+											<div class="form-group" >
 												<div style="color: black;" id="taskFileForm">
 													<button type="button"
 														class="btn btn-outline-primary round btn-block"
@@ -796,10 +822,9 @@
 								</div>
 							</div>
 						</div>
-						</div>
-						</div>
 						
-						</div>
+						
+						
 						
 						
 						
@@ -808,47 +833,6 @@
 						
 					</div>
 				</div>
-			</div>
-			</div>
-			</div>
-
-			<!-- Modal3 (수정) -->
-			<div class="modal fade text-left" id="updateTeam" tabindex="-1"
-				role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-				<div
-					class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-					role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel33">팀의 정보를 수정해주세요.</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<form method="post" name="modifyTeam">
-
-							<div class="modal-body">
-								<div class="form-group">
-									<label>Team Name: </label>
-									<div>
-										<input type="text" name="teamName" id="teamNameM"
-											class="form-control" value="${ team.teamName }" />
-									</div>
-									<label>deadline: (선택입니다) </label>
-									<div class="form-group">
-										<input type="date" name="deadline" id="deadlineM"
-											class="form-control" value="${ team.deadline }" />
-									</div>
-									<div class="modal-footer">
-										<button type="button" id="modifyButton" onClick="submit2()"
-											class="btn btn-primary" data-dismiss="modal">Modify</button>
-									</div>
-								</div>
-						</form>
-					</div>
-				</div>
-			</div>
 			</div>
 
 			<!-- 태스크 조회, 태스크 추가 -->
@@ -890,7 +874,7 @@
 		src="${ pageContext.request.contextPath }/resources/js/select2.full.min.js"></script>
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/form-select2.js"></script>
-		
+	
 	<!-- BEGIN: Page JS-->
 	<!-- END: Page JS-->
 
@@ -987,12 +971,52 @@
 
 	};
    }
-   	
+   var toolbarOptions = [
+       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+       ['blockquote', 'code-block'],
+
+       [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+       [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+       [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+       [{ 'direction': 'rtl' }],                         // text direction
+
+       [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+       [ 'link', 'image', 'video', 'formula' ],          // add's image support
+       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+       [{ 'font': [] }],
+       [{ 'align': [] }],
+
+       ['clean']                                         // remove formatting button
+   ];
+   
+   
+   var quill = new Quill('#editor-container', {
+	   modules: {
+			toolbar: toolbarOptions
+		},
+	   theme: 'snow'
+	 });
+  
+   $('input[name=content]').change( function(e) {
+	    e.preventDefault();
+	    setTimeout( function () {
+	    	$('#createTask').modal('handleUpdate')
+	    } , 100 );
+	});
+  
+
+   
+
    
    function submitTask(){
 	   
 	   var form = document.createTaskForm;
-	   
+	   var about = document.querySelector('input[name=content]');
+	   about.value = JSON.stringify(quill.getContents());
+	   var delta = quill.getContents();
+	  
 	   if (!form.title.value) {
 	      Swal.fire({
 			  title: 'Error!',
@@ -1002,7 +1026,7 @@
 			})
 	      form.title.focus();
 	      return false;
-	   }else if (!form.content.value) {
+	   }else if (!about.value) {
 			  Swal.fire({
 				  title: 'Error!',
 				  text: '내용은 필수적으로 입력해주세요!',
@@ -1012,6 +1036,7 @@
 			  form.title.focus();
 			  return false;
 	   }
+	   
 	   
 	   var cnt = 0;
 	   var fileList = new Array();
@@ -1039,11 +1064,16 @@
 	    
 	  	createTaskForm.submit();
    }
+   
+  
 
    
    
    	var taskId = '';
 	$(document).ready(function() {
+		 
+		
+				
 		
 		
 		$("button[name='deleteTask']").click(function() {

@@ -45,7 +45,8 @@
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/bootstrap-extended.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/semi-dark-layout.css">
-
+	<link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/quill.snow.css">
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/font-awesome.min.css">
@@ -61,6 +62,8 @@
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/palette-gradient.css">
 <script data-ad-client="ca-pub-2653440415528337" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script
+		src="${ pageContext.request.contextPath }/resources/js/quill.min.js"></script>	
 </head>
 <body>
 

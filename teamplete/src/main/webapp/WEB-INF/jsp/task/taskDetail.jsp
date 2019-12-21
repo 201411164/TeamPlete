@@ -74,6 +74,9 @@ th, td {
 #fileName:hover {
 	text-decoration: underline;
 }
+.ql-disabled{
+border-style: none !important;
+}
 </style>
 </head>
 <body>
@@ -132,11 +135,11 @@ th, td {
 											class="dropdown-item"
 											onclick="taskModify(${ taskDetail.taskId })" data-toggle="modal"
 									data-target="#createTask">
-											<i class="feather icon-edit mr-1"></i>팀 정보 수정
+											<i class="feather icon-edit mr-1"></i>카드 정보 수정
 										</button>
 										<button type="button" name="deleteTask"
 											onclick="taskDelete(${ taskDetail.taskId })" class="dropdown-item" value="${ taskDetail.teamId }">
-											<i class="feather icon-trash-2 mr-1"></i>팀 삭제
+											<i class="feather icon-trash-2 mr-1"></i>카드 삭제
 										</button>									
 									</div>
 								</div>
@@ -156,7 +159,7 @@ th, td {
 					<div class="modal fade text-left" id="createTask" tabindex="-1"
 						role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
 						<div
-							class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+							class="modal-dialog modal-dialog-scrollable"
 							role="document">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -167,7 +170,7 @@ th, td {
 									</button>
 								</div>
 								<form method="post" name="modifyTask"
-									enctype="multipart/form-data">
+									enctype="multipart/form-data" style="overflow-y:auto;">
 									<input type="hidden" name="teamId"
 										value="${ taskDetail.teamId }"> <input type="hidden"
 										name="writerId" id="writerId" value="${ loginVO.memberid }">
@@ -179,8 +182,9 @@ th, td {
 										</div>
 										<label>Content: </label>
 										<div class="form-group">
-											<textarea class="form-control" name="content" id="content"
-												rows="5">${ taskDetail.content }</textarea>
+											<div id="editor-modify">
+												<p></p>
+												</div>	
 										</div>
 										<div id="taskFileListForm">
 											<label>파일 목록: </label>
@@ -661,10 +665,29 @@ th, td {
 
 									<div class="card-header d-flex justify-content-between">
 									<h4 class="text-primary" style="font-family:'Inter'; font-weight:700; font-size:26px;">${taskDetail.title }</h4>
-										<h4 class="text-primary">${ taskDetail.title }</h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
 									<div class="card-body">
+									
+									
+									<div id="editor-readonly">
+												<p></p>
+												</div>
+												
+												
+												<script>
+												var options = {
+														  debug: 'info',
+														  modules: {
+														    toolbar: false
+														  },
+														  readOnly: true,
+														  theme: 'snow'
+														};
+												var readquill = new Quill('#editor-readonly', options);
+												
+												readquill.setContents(${taskDetail.content});
+												</script>
 
 
 
@@ -984,6 +1007,55 @@ th, td {
 
 
 	<script>
+	
+	
+	
+	 var toolbarOptions = [
+	       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+	       ['blockquote', 'code-block'],
+
+	       [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+	       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+	       [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+	       [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+	       [{ 'direction': 'rtl' }],                         // text direction
+
+	       [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+	       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+	       [ 'link', 'image', 'video', 'formula' ],          // add's image support
+	       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+	       [{ 'font': [] }],
+	       [{ 'align': [] }],
+
+	       ['clean']                                         // remove formatting button
+	   ];
+	
+	 var quill = new Quill('#editor-modify', {
+		   modules: {
+				toolbar: toolbarOptions
+			},
+		   theme: 'snow'
+		 });
+	 
+	 quill.setContents(${taskDetail.content});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
    
    
 	var boardId = '';
