@@ -299,7 +299,11 @@
 										
 
 
-										<div class="card-header d-flex justify-content-between">
+										
+									</div>
+									
+									</div>
+									<div class="card-header d-flex justify-content-between">
 											<h4 class="text-primary">팀원 추가하기</h4>
 										</div>
 										<div class="card-body">
@@ -322,8 +326,6 @@
 												</button>
 											</form>
 										</div>
-									</div>
-									</div>
 								</div>
 							</div>
 
@@ -430,6 +432,7 @@
 															</c:when>
 															<c:otherwise>																
 																<h4 class="media-heading">${member.name }</h4>
+																${ task.taskDate }
 															</c:otherwise>
 														</c:choose>	
 															
