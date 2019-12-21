@@ -35,4 +35,10 @@ public class MemberDAOImpl implements MemberDAO{
 		session.update("kr.co.teamplete.dao.MemberDAO.updateMember", member);
 	}
 
+	@Override
+	public void deleteMember(String memberid) {
+		session.delete("kr.co.teamplete.dao.MemberDAO.deleteMember", memberid);
+		
+	}
+
 }

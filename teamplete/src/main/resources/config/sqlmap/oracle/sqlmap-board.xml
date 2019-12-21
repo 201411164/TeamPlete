@@ -60,6 +60,18 @@
        values(board_file_seq.nextval, #{fileNameKey}, #{fileName}, #{filePath}, #{fileSize}, #{delYN}, #{insUserId}, board_seq.currval)
    </insert>
    
+   <!-- board 수정시 파일 업로드 -->
+   <insert id="insertBoardFileModify" parameterType="FileVO">
+      insert into board_file(file_no, file_name_key, file_name, file_path, file_size, del_yn, ins_user_id, board_id)
+       values(board_file_seq.nextval, #{fileNameKey}, #{fileName}, #{filePath}, #{fileSize}, #{delYN}, #{insUserId}, #{boardId})
+   </insert>
+   
+   <!-- board 수정시 파일 삭제 -->
+   <delete id="deleteBoardFile" parameterType="int">
+      delete board_file
+       where file_no = #{fileNo}
+   </delete>
+   
    <!-- 보드의 모든 파일 정보 조회 -->
    <select id="selectAllFiles" parameterType="int" resultMap="fileMap">
       select file_no, file_name_key, file_name, file_path, CEIL(file_size / 1024) AS file_size, del_yn, ins_user_id, ins_date, board_id
@@ -78,7 +90,7 @@
    <update id="updateBoard" parameterType="BoardVO">
       update board_tb
        set
-    	title = #{title}, content = #{content}
+    	title = #{title}, content = #{content}, board_date = SYSDATE
     	 where board_id = #{boardId}
    </update>
 

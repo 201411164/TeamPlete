@@ -16,6 +16,7 @@ import kr.co.teamplete.dao.TaskDAO;
 import kr.co.teamplete.dao.TeamDAO;
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.FileVO;
+import kr.co.teamplete.dto.TaskFileVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -144,9 +145,36 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.deleteBoard(boardId);
 	}
 
+	
 	@Override
 	public void updateBoardS(BoardVO board) {
+		
+		List<FileVO> boardFileList = null;
+		
+		try {
+			boardFileList = getBoardFileInfo(board);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		boardDAO.updateBoard(board);
+		
+		teamDAO.boardLatest(taskDAO.selectTask(board.getTaskId()).getTeamId());
+		
+		List<Integer> deleteFiles = board.getDeleteBoardFiles();
+		
+		if(deleteFiles != null) {
+			for (Integer fileNo : deleteFiles) {
+				boardDAO.deleteBoardFile(fileNo);
+			}
+		}
+
+		for (FileVO boardFile : boardFileList) {
+			boardDAO.insertBoardFileModify(boardFile);
+		}
+		
 	}
 
 }

@@ -49,5 +49,11 @@
     	logincount = #{logincount}, status = #{status}, last_date = SYSDATE
     	 where memberid = #{memberid}
    </update>
-
+   
+   <!-- 회원탈퇴 -->
+   <delete id="deleteMember" parameterType="String">
+      delete member_tb
+        where memberid = #{memberid}
+   </delete>
+   
 </mapper>

@@ -135,7 +135,9 @@ border-style: none !important;
 											class="dropdown-item"
 											onclick="taskModify(${ taskDetail.taskId })" data-toggle="modal"
 									data-target="#createTask">
-											<i class="feather icon-edit mr-1"></i>카드 정보 수정
+
+											<i class="feather icon-edit mr-1"></i>카드 수정
+
 										</button>
 										<button type="button" name="deleteTask"
 											onclick="taskDelete(${ taskDetail.taskId })" class="dropdown-item" value="${ taskDetail.teamId }">
@@ -270,6 +272,14 @@ border-style: none !important;
 										<!-- 										제출자는 등록된 담당자만 따로 나눠서 보여주는게 아니라 board의 모든 목록을 보여주는걸로 -->
 										<h4 class="text-primary">제출 현황</h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
+									</div>
+									<fmt:formatNumber var="submitYrate"
+										value="${ chargeListYcnt / chargeListAllcnt * 100 }" maxFractionDigits="0" />
+									
+									<div class="progress progress-bar-primary progress-lg" data-toggle="tooltip" data-placement="top" title="제출한 담당자 퍼센티지입니다.">
+										<div class="progress-bar" role="progressbar" 
+											aria-valuenow="${ submitYrate }" aria-valuemin="${ submitYrate }"
+											aria-valuemax="100" style="width: ${ submitYrate }%">${ submitYrate }%</div>
 									</div>
 									<div class="card-body">
 
@@ -455,6 +465,8 @@ border-style: none !important;
 																						id="modifyBoard${ board.boardId }"
 																						enctype="multipart/form-data">
 																						<div class="modal-body">
+																						<input type="hidden" name="taskId" value="${ board.taskId }">
+																						<input type="hidden" name="writerId" value="${ loginVO.memberid }">
 																							<div class="form-group">
 																								<label>Title: </label>
 																								<div>
@@ -467,6 +479,22 @@ border-style: none !important;
 																										class="form-control form-control-plaintext"
 																										name="content"
 																										placeholder="제출한 파일에 관한 내용을 입력하세요">${ board.content }</textarea>
+																								</div>
+																								<div id="boardFileListForm${ board.boardId }">
+																								<label>파일 목록: </label>
+																								<c:forEach items="${ boardFileList[status.index] }" var="boardFile">
+																								<span name="${ boardFile.fileNo }">${ boardFile.fileName }</span>
+																								<button type='button' name="${ boardFile.fileNo }"
+																										class='btn black ml15'
+																										style='padding: 3px 5px 6px 5px; color: red;'
+																										onClick="setDeleteBoardFile(${ boardFile.fileNo })">삭제</button>
+																								<br>
+																								</c:forEach>
+																								</div>
+																								<div style="color: black;" id="boardFileFormM${ board.boardId }">
+																								<button type="button"
+																									class="btn btn-outline-primary round btn-block"
+																									name="boardFileBtnM">파일 추가</button>
 																								</div>
 																								<div class="modal-footer">
 																									<button type="button" class="btn btn-primary"
@@ -517,6 +545,14 @@ border-style: none !important;
 									<h4 class="text-primary">미제출자</h4>
 									<i class="feather icon-more-horizontal cursor-pointer"></i>
 								</div>
+								<fmt:formatNumber var="submitNrate"
+										value="${ chargeListNcnt / chargeListAllcnt * 100 }" maxFractionDigits="0" />
+									
+									<div class="progress progress-bar-primary progress-lg" data-toggle="tooltip" data-placement="top" title="제출하지 않은 담당자 퍼센티지입니다.">
+										<div class="progress-bar" role="progressbar" 
+											aria-valuenow="${ submitNrate }" aria-valuemin="${ submitNrate }"
+											aria-valuemax="100" style="width: ${ submitNrate }%">${ submitNrate }%</div>
+									</div>
 								<div class="card-body">
 									<c:set var="count1" value="0" scope="page" />
 									<c:forEach items="${ submitNmembers }" var="submitNmem">
@@ -1006,6 +1042,7 @@ border-style: none !important;
 
 
 
+
 	<script>
 	
 	
@@ -1057,6 +1094,7 @@ border-style: none !important;
 	
 	
    
+
    
 	var boardId = '';
 	
@@ -1065,13 +1103,60 @@ border-style: none !important;
 		   
 	}
 	
+	var boardModifyIdx = 0;
+	   
+	$("button[name='boardFileBtnM']").click(function() {
+		   $('#boardFileFormM'+boardId).append('<br name="boardfileBr'+ boardId + boardModifyIdx +'"><input type="file" id="filesM[' + boardId + boardModifyIdx + ']" name="files[' + boardModifyIdx + ']" value="">');
+		   $('#boardFileFormM'+boardId).append('<button type="button" name="boardbtn'+ boardId + boardModifyIdx + '" class="btn black ml15" style="padding: 3px 5px 6px 5px; color: red;" onClick="deleteboardFile(' + boardModifyIdx + ')">X</button>');
+		   console.log('<br><input type="file" id="filesM[' + boardId + boardModifyIdx + ']" name="files[' + boardModifyIdx + ']" value="">')
+		   boardModifyIdx += 1;
+		   console.log(boardModifyIdx);
+		});
+	
+	
+	function deleteboardFile(idx) {
+		   $("br[name='boardfileBr" + boardId + idx + "']").remove();
+		   $("input[name='files[" + idx + "]']").remove();
+		   $("button[name='boardbtn" + boardId + idx + "']").remove();
+		   console.log(idx);
+		}
+	
     function submitModifyBoard(){
     	
 		var modifyBoard = document.forms["modifyBoard"+boardId];
+		
+		   var cnt = 0;
+		   for(i = 0; i < boardModifyIdx; i++) {
+		      if(document.getElementById('filesM[' + boardId + i + ']')) {
+		      if ($("input[name='files[" + i + "]']").val() != ""){
+		         document.getElementById('filesM[' + boardId + i + ']').setAttribute('name', 'files[' + cnt + ']');
+		         cnt ++;
+		      }else {
+		         $("br[name='boardfileBr" + boardId + i + "']").remove();
+		         $("input[name='files[" + i + "]']").remove();
+		         $("button[name='boardbtn" + boardId + i + "']").remove();
+		      }
+		      }
+		   }
+		   
+		   
  	    modifyBoard.action = "${pageContext.request.contextPath}/board/update/" + boardId;
  	    modifyBoard.submit();
 
     }
+    
+	var indexDBF = 0;
+	function setDeleteBoardFile(fileNo) {
+		
+		$('#boardFileListForm'+boardId).append('<input type="hidden" name="deleteBoardFiles[' + indexDBF + ']" value="' + fileNo + '"/>');
+		   
+		
+		$("span[name='" + fileNo + "']").remove();
+		$("button[name='" + fileNo + "']").remove();
+
+		indexDBF += 1;
+	}
+	
 
    
    	function writeBoard(taskId) {
@@ -1181,14 +1266,6 @@ border-style: none !important;
 	
 	function deleteBoard(boardId) {
 		
-		if(confirm("삭제하시겠습니까?")){
-			$.ajax({
-				url : '/board/delete/' + boardId,
-				type : 'DELETE'
-			});
-			
-			location.reload();
-		} else return;
 		
 		Swal.fire({
 			 title: '정말로 삭제하시겠어요?',
@@ -1209,6 +1286,7 @@ border-style: none !important;
 							url : '/board/delete/' + boardId,
 							type : 'DELETE'
 						});
+					  location.reload();
 					  
 				  });
 				 
