@@ -132,11 +132,11 @@ th, td {
 											class="dropdown-item"
 											onclick="taskModify(${ taskDetail.taskId })" data-toggle="modal"
 									data-target="#createTask">
-											<i class="feather icon-edit mr-1"></i>팀 정보 수정
+											<i class="feather icon-edit mr-1"></i>태스크 수정
 										</button>
 										<button type="button" name="deleteTask"
 											onclick="taskDelete(${ taskDetail.taskId })" class="dropdown-item" value="${ taskDetail.teamId }">
-											<i class="feather icon-trash-2 mr-1"></i>팀 삭제
+											<i class="feather icon-trash-2 mr-1"></i>태스크 삭제
 										</button>									
 									</div>
 								</div>
@@ -1174,14 +1174,6 @@ th, td {
 	
 	function deleteBoard(boardId) {
 		
-		if(confirm("삭제하시겠습니까?")){
-			$.ajax({
-				url : '/board/delete/' + boardId,
-				type : 'DELETE'
-			});
-			
-			location.reload();
-		} else return;
 		
 		Swal.fire({
 			 title: '정말로 삭제하시겠어요?',
@@ -1202,6 +1194,7 @@ th, td {
 							url : '/board/delete/' + boardId,
 							type : 'DELETE'
 						});
+					  location.reload();
 					  
 				  });
 				 
