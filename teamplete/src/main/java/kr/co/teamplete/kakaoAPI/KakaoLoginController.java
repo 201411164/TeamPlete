@@ -38,9 +38,7 @@ public class KakaoLoginController {
         member.setPassword((String) userInfo.get("kakaoId"));
         member.setEmail((String) userInfo.get("email"));
         member.setKakao('Y');
-        member.setStatus("online");
-        int temp=member.getLogincount()+1;
-        member.setLogincount(temp);
+
         
         if((String) userInfo.get("thumbnail_image") != null ) {
             member.setProfile((String) userInfo.get("thumbnail_image"));
@@ -52,6 +50,11 @@ public class KakaoLoginController {
        
         //    클라이언트의 이메일이 존재할 때
         if (userInfo.get("email") != null) {
+        	
+            member.setStatus("online");
+            int temp=member.getLogincount()+1;
+            member.setLogincount(temp);
+            service.updateMember(member);
         	
             model.addAttribute("loginVO", member);
             
