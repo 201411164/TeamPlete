@@ -3,6 +3,9 @@ package kr.co.teamplete.dto;
 public class TeamVO {
 	private int teamId;
 	private String teamName, ownerId, members, deadline, img, taskLatest, boardLatest;
+	private String keyword;
+	
+	
 	public TeamVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -66,6 +69,16 @@ public class TeamVO {
 	public void setBoardLatest(String boardLatest) {
 		this.boardLatest = boardLatest;
 	}
+	
+	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "TeamVO [teamId=" + teamId + ", teamName=" + teamName + ", ownerId=" + ownerId + ", members=" + members

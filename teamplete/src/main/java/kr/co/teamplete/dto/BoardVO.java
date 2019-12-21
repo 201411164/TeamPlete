@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class BoardVO {
 
 	List<MultipartFile> files;
+	
+	List<Integer> deleteBoardFiles;
 
 	private int boardId;
 	private String writerId, writerName, title, content, boardDate, profile;
@@ -100,6 +102,17 @@ public class BoardVO {
 
 	public void setProfile(String profile) {
 		this.profile = profile;
+	}
+	
+	
+	
+
+	public List<Integer> getDeleteBoardFiles() {
+		return deleteBoardFiles;
+	}
+
+	public void setDeleteBoardFiles(List<Integer> deleteBoardFiles) {
+		this.deleteBoardFiles = deleteBoardFiles;
 	}
 
 	@Override

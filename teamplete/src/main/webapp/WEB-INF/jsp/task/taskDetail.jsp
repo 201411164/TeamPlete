@@ -451,6 +451,8 @@ th, td {
 																						id="modifyBoard${ board.boardId }"
 																						enctype="multipart/form-data">
 																						<div class="modal-body">
+																						<input type="hidden" name="taskId" value="${ board.taskId }">
+																						<input type="hidden" name="writerId" value="${ loginVO.memberid }">
 																							<div class="form-group">
 																								<label>Title: </label>
 																								<div>
@@ -463,6 +465,22 @@ th, td {
 																										class="form-control form-control-plaintext"
 																										name="content"
 																										placeholder="제출한 파일에 관한 내용을 입력하세요">${ board.content }</textarea>
+																								</div>
+																								<div id="boardFileListForm${ board.boardId }">
+																								<label>파일 목록: </label>
+																								<c:forEach items="${ boardFileList[status.index] }" var="boardFile">
+																								<span name="${ boardFile.fileNo }">${ boardFile.fileName }</span>
+																								<button type='button' name="${ boardFile.fileNo }"
+																										class='btn black ml15'
+																										style='padding: 3px 5px 6px 5px; color: red;'
+																										onClick="setDeleteBoardFile(${ boardFile.fileNo })">삭제</button>
+																								<br>
+																								</c:forEach>
+																								</div>
+																								<div style="color: black;" id="boardFileFormM${ board.boardId }">
+																								<button type="button"
+																									class="btn btn-outline-primary round btn-block"
+																									name="boardFileBtnM">파일 추가</button>
 																								</div>
 																								<div class="modal-footer">
 																									<button type="button" class="btn btn-primary"
@@ -983,8 +1001,8 @@ th, td {
 
 
 
-	<script>
-   
+	<script>	
+	
    
 	var boardId = '';
 	
@@ -993,13 +1011,60 @@ th, td {
 		   
 	}
 	
+	var boardModifyIdx = 0;
+	   
+	$("button[name='boardFileBtnM']").click(function() {
+		   $('#boardFileFormM'+boardId).append('<br name="boardfileBr'+ boardId + boardModifyIdx +'"><input type="file" id="filesM[' + boardId + boardModifyIdx + ']" name="files[' + boardModifyIdx + ']" value="">');
+		   $('#boardFileFormM'+boardId).append('<button type="button" name="boardbtn'+ boardId + boardModifyIdx + '" class="btn black ml15" style="padding: 3px 5px 6px 5px; color: red;" onClick="deleteboardFile(' + boardModifyIdx + ')">X</button>');
+		   console.log('<br><input type="file" id="filesM[' + boardId + boardModifyIdx + ']" name="files[' + boardModifyIdx + ']" value="">')
+		   boardModifyIdx += 1;
+		   console.log(boardModifyIdx);
+		});
+	
+	
+	function deleteboardFile(idx) {
+		   $("br[name='boardfileBr" + boardId + idx + "']").remove();
+		   $("input[name='files[" + idx + "]']").remove();
+		   $("button[name='boardbtn" + boardId + idx + "']").remove();
+		   console.log(idx);
+		}
+	
     function submitModifyBoard(){
     	
 		var modifyBoard = document.forms["modifyBoard"+boardId];
+		
+		   var cnt = 0;
+		   for(i = 0; i < boardModifyIdx; i++) {
+		      if(document.getElementById('filesM[' + boardId + i + ']')) {
+		      if ($("input[name='files[" + i + "]']").val() != ""){
+		         document.getElementById('filesM[' + boardId + i + ']').setAttribute('name', 'files[' + cnt + ']');
+		         cnt ++;
+		      }else {
+		         $("br[name='boardfileBr" + boardId + i + "']").remove();
+		         $("input[name='files[" + i + "]']").remove();
+		         $("button[name='boardbtn" + boardId + i + "']").remove();
+		      }
+		      }
+		   }
+		   
+		   
  	    modifyBoard.action = "${pageContext.request.contextPath}/board/update/" + boardId;
  	    modifyBoard.submit();
 
     }
+    
+	var indexDBF = 0;
+	function setDeleteBoardFile(fileNo) {
+		
+		$('#boardFileListForm'+boardId).append('<input type="hidden" name="deleteBoardFiles[' + indexDBF + ']" value="' + fileNo + '"/>');
+		   
+		
+		$("span[name='" + fileNo + "']").remove();
+		$("button[name='" + fileNo + "']").remove();
+
+		indexDBF += 1;
+	}
+	
 
    
    	function writeBoard(taskId) {

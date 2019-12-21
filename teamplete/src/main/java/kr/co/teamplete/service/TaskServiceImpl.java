@@ -169,7 +169,6 @@ public class TaskServiceImpl implements TaskService {
 		for (TaskFileVO taskFile : taskFileList) {
 			taskDAO.insertTaskFileModify(taskFile);
 		}
-		System.out.println(taskFileList.toString());
 		
 		if(chargeMems != null) {
 			for (String mems : chargeMems) {

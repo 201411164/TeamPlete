@@ -31,6 +31,16 @@ public class BoardDAOImpl implements BoardDAO {
 	public void insertBoardFile(FileVO file) {
 		session.insert("kr.co.teamplete.dao.BoardDAO.insertFile", file);
 	}
+	
+	@Override
+	public void insertBoardFileModify(FileVO file) {
+		session.insert("kr.co.teamplete.dao.BoardDAO.insertBoardFileModify", file);
+	}
+
+	@Override
+	public void deleteBoardFile(int fileNo) {
+		session.delete("kr.co.teamplete.dao.BoardDAO.deleteBoardFile", fileNo);
+	}
 
 	@Override
 	public BoardVO selectBoard(int boardId) {
