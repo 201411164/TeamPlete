@@ -115,6 +115,9 @@ public class TaskController {
 		objectMap.put("notChargeMembers", notChargeMembers);
 		objectMap.put("boardFileList", boardFileList);
 		objectMap.put("deadline", deadline);
+		objectMap.put("chargeListAllcnt", chargeListAll.size());
+		objectMap.put("chargeListNcnt", chargeListN.size());
+		objectMap.put("chargeListYcnt", chargeListY.size());
 		
 		ModelAndView mav = new ModelAndView();
 		

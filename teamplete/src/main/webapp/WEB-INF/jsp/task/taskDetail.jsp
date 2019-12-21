@@ -132,11 +132,11 @@ th, td {
 											class="dropdown-item"
 											onclick="taskModify(${ taskDetail.taskId })" data-toggle="modal"
 									data-target="#createTask">
-											<i class="feather icon-edit mr-1"></i>태스크 수정
+											<i class="feather icon-edit mr-1"></i>카드 수정
 										</button>
 										<button type="button" name="deleteTask"
 											onclick="taskDelete(${ taskDetail.taskId })" class="dropdown-item" value="${ taskDetail.teamId }">
-											<i class="feather icon-trash-2 mr-1"></i>태스크 삭제
+											<i class="feather icon-trash-2 mr-1"></i>카드 삭제
 										</button>									
 									</div>
 								</div>
@@ -266,6 +266,14 @@ th, td {
 										<!-- 										제출자는 등록된 담당자만 따로 나눠서 보여주는게 아니라 board의 모든 목록을 보여주는걸로 -->
 										<h4 class="text-primary">제출 현황</h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
+									</div>
+									<fmt:formatNumber var="submitYrate"
+										value="${ chargeListYcnt / chargeListAllcnt * 100 }" maxFractionDigits="0" />
+									
+									<div class="progress progress-bar-primary progress-lg" data-toggle="tooltip" data-placement="top" title="제출한 담당자 퍼센티지입니다.">
+										<div class="progress-bar" role="progressbar" 
+											aria-valuenow="${ submitYrate }" aria-valuemin="${ submitYrate }"
+											aria-valuemax="100" style="width: ${ submitYrate }%">${ submitYrate }%</div>
 									</div>
 									<div class="card-body">
 
@@ -531,6 +539,14 @@ th, td {
 									<h4 class="text-primary">미제출자</h4>
 									<i class="feather icon-more-horizontal cursor-pointer"></i>
 								</div>
+								<fmt:formatNumber var="submitNrate"
+										value="${ chargeListNcnt / chargeListAllcnt * 100 }" maxFractionDigits="0" />
+									
+									<div class="progress progress-bar-primary progress-lg" data-toggle="tooltip" data-placement="top" title="제출하지 않은 담당자 퍼센티지입니다.">
+										<div class="progress-bar" role="progressbar" 
+											aria-valuenow="${ submitNrate }" aria-valuemin="${ submitNrate }"
+											aria-valuemax="100" style="width: ${ submitNrate }%">${ submitNrate }%</div>
+									</div>
 								<div class="card-body">
 									<c:set var="count1" value="0" scope="page" />
 									<c:forEach items="${ submitNmembers }" var="submitNmem">
