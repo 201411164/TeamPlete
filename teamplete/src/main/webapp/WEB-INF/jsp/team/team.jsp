@@ -153,7 +153,9 @@
 	</c:when>
 	<c:otherwise>
 	
-	<header> <jsp:include page="/WEB-INF/jsp/include/navbar.jsp" />
+	<header>
+<%-- 	<jsp:include page="/WEB-INF/jsp/include/navbar.jsp" /> --%>
+		<c:import url="/navbar/${ loginVO.memberid }" />
 	</header>
 	
 	<section>

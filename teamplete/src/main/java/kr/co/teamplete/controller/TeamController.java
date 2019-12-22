@@ -88,15 +88,6 @@ public class TeamController {
 		
 		List<String> updateTime = new ArrayList<>();
 		
-		// 요청온 시간 계산
-		List<String> requestTime = new ArrayList<>();
-		
-		// 나에게 온 request
-		List<RequestVO> allRequestList = requestService.selectAllRequest(memberid);
-		for(RequestVO request : allRequestList) {
-			requestTime.add(UpdateTime.updateTime(request.getReqDate()));
-		}
-		
 		List<String> deadline = new ArrayList<>();
 		List<TeamVO> teamList = service.selectAllTeam(memberid);
 		List<List<MemberVO>> teamMemberList = new ArrayList<>();
@@ -118,9 +109,6 @@ public class TeamController {
 		mav.addObject("deadline", deadline);
 		mav.addObject("teamMemberList", teamMemberList);
 		mav.addObject("updateTime", updateTime);
-		mav.addObject("AllRequestList", allRequestList);
-		mav.addObject("requestCnt", allRequestList.size());
-		mav.addObject("requestTime", requestTime);
 
 		return mav;
 	}
@@ -298,6 +286,29 @@ public class TeamController {
 		map.put("updateTime", updateTime);
 
 		mav.addAllObjects(map);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/navbar/{loginVO.memberid}", method = RequestMethod.GET)
+	public ModelAndView navbar(@PathVariable("loginVO.memberid") String memberid) {
+		
+		// 요청온 시간 계산
+		List<String> requestTime = new ArrayList<>();
+		
+		// 나에게 온 request
+		List<RequestVO> allRequestList = requestService.selectAllRequest(memberid);
+		
+		for(RequestVO request : allRequestList) {
+			requestTime.add(UpdateTime.updateTime(request.getReqDate()));
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("include/navbar");
+		mav.addObject("allRequestList", allRequestList);
+		mav.addObject("requestCnt", allRequestList.size());
+		mav.addObject("requestTime", requestTime);
 		
 		return mav;
 	}

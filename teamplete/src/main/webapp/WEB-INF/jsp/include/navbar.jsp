@@ -67,6 +67,7 @@
 </head>
 <body>
 
+
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     <!-- BEGIN: Header-->
@@ -120,7 +121,7 @@
                                 </li>
                                 <li class="scrollable-container media-list">
                                 
-                                <c:forEach items="${ AllRequestList }" var="request" varStatus="status">
+                                <c:forEach items="${ allRequestList }" var="request" varStatus="status">
                                 
                                 <a class="d-flex justify-content-between" href="javascript:void(0)">
                                         <div class="media d-flex align-items-start">
