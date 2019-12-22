@@ -240,5 +240,31 @@ public class TeamController {
 		
 		service.outFromTeam(hm);
 	}
+	
+	// 팀 검색
+	@RequestMapping(value = "/team/search/kw={keyword}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView searchTeam(@PathVariable("keyword") String keyword) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<TeamVO> searchTeamList = service.searchTeam(keyword);
+		
+		List<List<MemberVO>> allTeamMembers = new ArrayList<>();
+		
+		for(TeamVO searchTeam : searchTeamList) {
+			allTeamMembers.add(service.selectAllMembers(searchTeam.getTeamId()));
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("team/searchResultTeam");
+		
+		map.put("searchTeamList", searchTeamList);
+		map.put("allTeamMembers", allTeamMembers);
+		
+		mav.addAllObjects(map);
+		
+		return mav;
+	}
 
 }

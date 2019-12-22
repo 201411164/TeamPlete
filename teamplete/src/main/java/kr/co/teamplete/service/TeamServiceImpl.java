@@ -76,5 +76,11 @@ public class TeamServiceImpl implements TeamService{
 	public void outFromTeam(Map<String, Object> map) {
 		teamDAO.outFromTeam(map);
 	}
+
+	@Override
+	public List<TeamVO> searchTeam(String keyword) {
+		List<TeamVO> teamList = teamDAO.searchTeam(keyword);
+		return teamList;
+	}
 	
 }

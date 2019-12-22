@@ -45,4 +45,7 @@ public interface TeamDAO {
     
     // 최근 업데이트 된 board의 등록시간
 	public void boardLatest(int teamId);
+	
+	// 팀 검색
+	public List<TeamVO> searchTeam(String keyword);
 }

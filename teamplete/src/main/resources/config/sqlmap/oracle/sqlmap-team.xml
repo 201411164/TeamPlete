@@ -112,11 +112,13 @@
     </update>
     
     <!-- 팀 검색 -->
-<!--     <select id="searchTeam" parameterType="String" resultMap="teamMap"> -->
-<!--     	select team_id, team_name, owner_id -->
-<!--     	 from team_tb -->
-<!--     	  where team_name like '%'||#{keyword}||'%' -->
-<!--     </select> -->
+    <select id="searchTeam" parameterType="String" resultMap="teamMap">
+    	select team_id, team_name, owner_id, name
+    	 from team_tb T
+    	  left outer join member_tb M
+    	   on T.owner_id = M.memberid
+    	    where team_name like '%'||#{keyword}||'%'
+    </select>
     
 
 </mapper>

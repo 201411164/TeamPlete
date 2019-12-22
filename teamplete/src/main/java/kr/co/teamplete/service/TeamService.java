@@ -39,4 +39,7 @@ public interface TeamService {
 	
 	//팀에서 나가기
 	public void outFromTeam(Map<String, Object> map);
+	
+	//팀 검색
+	public List<TeamVO> searchTeam(String keyword);
 }

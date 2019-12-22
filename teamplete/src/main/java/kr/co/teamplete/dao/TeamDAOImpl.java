@@ -87,5 +87,12 @@ public class TeamDAOImpl implements TeamDAO{
 		session.update("kr.co.teamplete.dao.TeamDAO.boardLatest", teamId);
 		
 	}
+
+	@Override
+	public List<TeamVO> searchTeam(String keyword) {
+		List<TeamVO> teamList = session.selectList("kr.co.teamplete.dao.TeamDAO.searchTeam", keyword);
+		
+		return teamList;
+	}
 	
 }

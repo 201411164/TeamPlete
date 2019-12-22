@@ -3,7 +3,7 @@ package kr.co.teamplete.dto;
 public class TeamVO {
 	private int teamId;
 	private String teamName, ownerId, deadline, img, taskLatest, boardLatest;
-	private String keyword;
+	private String keyword, name;
 	
 	
 	public TeamVO() {
@@ -103,6 +103,18 @@ public class TeamVO {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+	
+	
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
