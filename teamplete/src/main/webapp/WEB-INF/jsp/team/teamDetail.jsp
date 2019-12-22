@@ -835,8 +835,48 @@ border-style: none !important;
 				</div>
 			</div>
 
-			<!-- 태스크 조회, 태스크 추가 -->
 
+
+<!-- Modal3 (수정) -->
+	<div class="modal fade text-left" id="updateTeam" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel33">팀의 정보를 수정해주세요.</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" name="modifyTeam">
+
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Team Name: </label>
+							<div>
+								<input type="text" name="teamName" id="teamNameM"
+									class="form-control" value="${ team.teamName }" />
+							</div>
+							<label>deadline: (선택입니다) </label>
+							<div class="form-group">
+								<input type="date" name="deadline" id="deadlineM"
+									class="form-control" value="${ team.deadline }" />
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="modifyButton" onClick="submit2()"
+									class="btn btn-primary" data-dismiss="modal">Modify</button>
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	
 
 
 

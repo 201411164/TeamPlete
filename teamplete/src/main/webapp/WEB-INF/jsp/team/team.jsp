@@ -152,9 +152,9 @@
                             <h2 class="content-header-title float-left mb-0 ">최신 업데이트!</h2>                            
                         </div>
                 </div>
-                <form method="post" name="searchTeamForm">
+                <form method="get" action="${pageContext.request.contextPath}/team/search" name="searchTeamForm">
                 <input type="text" name="keyword" id="keyword">
-                <button type="button" name="searchTeam">검색</button>
+                <button type="submit">검색</button>
                 </form>
             </div>
 <%-- 						<a href="${ pageContext.request.contextPath }/calendar">캘린더</a> --%>
@@ -313,19 +313,11 @@
 	<script>
 	
 	
-	$("button[name='searchTeam']").click(function() {
-		   
-		   var form = document.searchTeamForm;
-		   
-		   var keyword = $("input[name='keyword']").val();
-		   
-		   console.log(keyword);
-		   
-		   form.action = "${pageContext.request.contextPath}/team/search/kw=" + keyword;
-		   
-		   form.submit();
-		   
-	});
+// 	$("button[name='searchTeam']").click(function() {
+// 		   var form = document.searchTeamForm;
+// 		   form.action = "${pageContext.request.contextPath}/team/search";
+// 		   form.submit();
+// 	});
 
 
    function submit(){

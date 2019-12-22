@@ -1,8 +1,6 @@
 package kr.co.teamplete.controller;
 
-import java.nio.channels.SelectableChannel;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.BoardVO;
@@ -242,8 +240,8 @@ public class TeamController {
 	}
 	
 	// 팀 검색
-	@RequestMapping(value = "/team/search/kw={keyword}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView searchTeam(@PathVariable("keyword") String keyword) {
+	@RequestMapping(value = "/team/search", method = RequestMethod.GET)
+	public ModelAndView searchTeam(@RequestParam("keyword") String keyword) {
 		
 		Map<String, Object> map = new HashMap<>();
 		

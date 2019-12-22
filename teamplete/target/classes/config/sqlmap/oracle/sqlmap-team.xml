@@ -117,7 +117,7 @@
     	 from team_tb T
     	  left outer join member_tb M
     	   on T.owner_id = M.memberid
-    	    where team_name like '%'||#{keyword}||'%'
+    	    where lower(team_name) like '%'||lower(#{keyword})||'%'
     </select>
     
 
