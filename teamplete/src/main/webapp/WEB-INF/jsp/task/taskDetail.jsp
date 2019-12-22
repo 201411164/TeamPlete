@@ -187,6 +187,7 @@ border-style: none !important;
 											<div id="editor-modify">
 												<p></p>
 												</div>
+												<input name="taskContent" id="taskContent" type="hidden">
 										</div>
 										<div id="taskFileListForm">
 											<label>파일 목록: </label>
@@ -1119,10 +1120,18 @@ border-style: none !important;
 		   console.log(idx);
 		}
 	
+	$('input[name=taskContent]').change( function(e) {
+	    e.preventDefault();
+	    setTimeout( function () {
+	    	$('#createTask').modal('handleUpdate')
+	    } , 100 );
+	});
+	
     function submitModifyBoard(){
     	
 		var modifyBoard = document.forms["modifyBoard"+boardId];
 		
+		   
 		   var cnt = 0;
 		   for(i = 0; i < boardModifyIdx; i++) {
 		      if(document.getElementById('filesM[' + boardId + i + ']')) {
@@ -1195,7 +1204,9 @@ border-style: none !important;
    	
    	
     function submitModifyTask(){
- 	   
+    	var about = document.querySelector('input[name=taskContent]');
+		   about.value = JSON.stringify(quill.getContents());
+		   var delta = quill.getContents();
  	   var cnt = 0;
 //  	   var fileList = new Array();
  	   for(i = 0; i < index2; i++) {

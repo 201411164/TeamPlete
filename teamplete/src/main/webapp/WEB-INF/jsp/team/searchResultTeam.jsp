@@ -62,18 +62,40 @@
 			
 			<div class="app-content content">
 				<div class="content-wrapper" id="contentWrapper">
-				
-				<c:forEach items="${ searchTeamList }" var="team" varStatus="status">
-					<p>팀 이름 : ${ team.teamName }</p>
-					<p>팀장 ID: ${ team.ownerId }</p>
-					<p>팀장 이름: ${ team.name }</p>
+				<div class="col-lg-12 md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title" style="font-weight:600;">검색 결과</h3>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        
+                                        <ul class="list-group list-group-flush">
+                                        <c:forEach items="${ searchTeamList }" var="team" varStatus="status">
+				<li class="list-group-item">
+				<div
+														class="d-flex justify-content-start align-items-center mb-1">
+				<div class="avatar mr-50">
+															<img src="${ pageContext.request.contextPath }/resources/images/${ team.img }" alt="avtar img holder"
+																height="65" width="65">
+														</div>
+														
+					<div class="user-page-info">
+														
+					<h3 class="text-primary mt-1 mb-0" style="font-weight:600;">${ team.teamName }</h3>
+					<hr/>
+					<h5 class="mb-1 mt-0 mr-2" style="font-weight: 600;">팀장 : 
+																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
+																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
+																		height="18" width="18" style="margin-bottom:4px;">	${ team.name }															
+																<small style="color:#98a8b9;">마지막 수정 일시 : ${ updateTime[status.index] }</small></h5>
 					<c:set var="cnt" value="0"/>
-					<p>팀원 : <c:forEach items="${ allTeamMembers[status.index] }" var="member">
+					<h6>팀원 : <c:forEach items="${ allTeamMembers[status.index] }" var="member">
 								${ member.name }
 								<c:if test="${ loginVO.memberid eq member.memberid }">
 									<c:set var="cnt" value="1"/>
 								</c:if>
-							</c:forEach></p>
+							</c:forEach></h6>
 					<c:if test="${ cnt eq 0 }">
 						<c:set var="cnt2" value="0"/>
 						<c:forEach items="${ requestList }" var="request">
@@ -101,8 +123,18 @@
 					<c:if test="${ cnt eq 1 }">
 						<button type="button" onclick="teamDetail(${ team.teamId})">팀 상세</button>
 					</c:if>
-					<hr/>
+					</div></div></li>
 				</c:forEach>
+                                        
+                                        
+                                            
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+				
 				
 				</div>
 			</div>

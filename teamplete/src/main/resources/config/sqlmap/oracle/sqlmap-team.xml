@@ -113,7 +113,7 @@
     
     <!-- 팀 검색 -->
     <select id="searchTeam" parameterType="String" resultMap="teamMap">
-    	select team_id, team_name, owner_id, name
+    	select team_id, team_name, owner_id, name, img, task_latest, board_latest
     	 from team_tb T
     	  left outer join member_tb M
     	   on T.owner_id = M.memberid

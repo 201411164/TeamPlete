@@ -124,6 +124,21 @@
   -ms-transform: scale(1);
   transform: scale(1);
 }
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
 
 </style>
 
@@ -149,13 +164,18 @@
 		<div class="content-header row">
                 <div class="content-header-left col-md-9 col-12 mb-2">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0 ">최신 업데이트!</h2>                            
+                            <h2 class="content-header-title float-left mb-0 ">최신 업데이트</h2>                            
                         </div>
                 </div>
                 <form method="get" action="${pageContext.request.contextPath}/${ loginVO.memberid }/team/search" name="searchTeamForm">
-                <input type="text" name="keyword" id="keyword">
-                <button type="submit">검색</button>
+								<div class="form-group has-search">
+									<span class="fa fa-search form-control-feedback"></span> <input
+										type="text" name="keyword" id="keyword" class="form-control" placeholder="팀 이름을 입력">
+								</div>
+
                 </form>
+                
+                 
             </div>
 <%-- 						<a href="${ pageContext.request.contextPath }/calendar">캘린더</a> --%>
 			<div>

@@ -272,7 +272,22 @@ public class TeamController {
 			allTeamMembers.add(service.selectAllMembers(searchTeam.getTeamId()));
 		}
 		
+		List<String> updateTime = new ArrayList<>();
+
 		ModelAndView mav = new ModelAndView();
+		for (int i = 0; i < searchTeamList.size(); i++) {
+			if (searchTeamList.get(i).getTaskLatest() != null && searchTeamList.get(i).getBoardLatest() != null) {
+				if (UpdateTime.calcLatest(searchTeamList.get(i).getTaskLatest(), searchTeamList.get(i).getBoardLatest()) >= 0) {
+					updateTime.add(UpdateTime.updateTime(searchTeamList.get(i).getTaskLatest()));
+				} else
+					updateTime.add(UpdateTime.updateTime(searchTeamList.get(i).getBoardLatest()));
+			} else if (searchTeamList.get(i).getTaskLatest() != null && searchTeamList.get(i).getBoardLatest() == null) {
+				updateTime.add(UpdateTime.updateTime(searchTeamList.get(i).getTaskLatest()));
+			} else
+				updateTime.add("업데이트 없음");
+		}
+		
+		
 		
 		mav.setViewName("team/searchResultTeam");
 		
@@ -280,6 +295,8 @@ public class TeamController {
 		map.put("allTeamMembers", allTeamMembers);
 		map.put("requestList", requestList);
 		
+		map.put("updateTime", updateTime);
+
 		mav.addAllObjects(map);
 		
 		return mav;
