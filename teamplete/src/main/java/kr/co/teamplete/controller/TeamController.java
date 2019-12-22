@@ -20,6 +20,7 @@ import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
+import kr.co.teamplete.dto.RequestVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
 import kr.co.teamplete.dto.TeamMemberVO;
@@ -28,6 +29,7 @@ import kr.co.teamplete.method.Deadline;
 import kr.co.teamplete.method.UpdateTime;
 import kr.co.teamplete.service.BoardService;
 import kr.co.teamplete.service.MemberService;
+import kr.co.teamplete.service.RequestService;
 import kr.co.teamplete.service.TaskService;
 import kr.co.teamplete.service.TeamService;
 
@@ -45,6 +47,9 @@ public class TeamController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private RequestService requestService;
 	
 
 	// 팀 등록한 뒤 팀 조회 페이지로 돌아감
@@ -70,7 +75,7 @@ public class TeamController {
 		int index = random.nextInt(imgList.size()); // (0 ~ imgList.size()-1)
 		team.setImg(imgList.get(index));
 		
-		String ownerName = memberService.selectMemberById(memberid).getName();
+//		String ownerName = memberService.selectMemberById(memberid).getName();
 		
 		service.insertTeam(team);
 		
@@ -82,6 +87,15 @@ public class TeamController {
 	public ModelAndView teamList(@PathVariable("loginVO.memberid") String memberid) {
 		
 		List<String> updateTime = new ArrayList<>();
+		
+		// 요청온 시간 계산
+		List<String> requestTime = new ArrayList<>();
+		
+		// 나에게 온 request
+		List<RequestVO> allRequestList = requestService.selectAllRequest(memberid);
+		for(RequestVO request : allRequestList) {
+			requestTime.add(UpdateTime.updateTime(request.getReqDate()));
+		}
 		
 		List<String> deadline = new ArrayList<>();
 		List<TeamVO> teamList = service.selectAllTeam(memberid);
@@ -104,6 +118,9 @@ public class TeamController {
 		mav.addObject("deadline", deadline);
 		mav.addObject("teamMemberList", teamMemberList);
 		mav.addObject("updateTime", updateTime);
+		mav.addObject("AllRequestList", allRequestList);
+		mav.addObject("requestCnt", allRequestList.size());
+		mav.addObject("requestTime", requestTime);
 
 		return mav;
 	}
@@ -209,8 +226,6 @@ public class TeamController {
 			service.insertTeamMem(teamMember);			
 		}
 		
-		TeamVO team = service.detailTeam(teamId);
-		
 		return memberList;
 	}
 	
@@ -240,14 +255,18 @@ public class TeamController {
 	}
 	
 	// 팀 검색
-	@RequestMapping(value = "/team/search", method = RequestMethod.GET)
-	public ModelAndView searchTeam(@RequestParam("keyword") String keyword) {
+	@RequestMapping(value = "/{id}/team/search", method = RequestMethod.GET)
+	public ModelAndView searchTeam(@RequestParam("keyword") String keyword, @PathVariable("id") String id) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
 		List<TeamVO> searchTeamList = service.searchTeam(keyword);
 		
 		List<List<MemberVO>> allTeamMembers = new ArrayList<>();
+		
+		// 내가 요청한 request
+		List<RequestVO> requestList = requestService.selectMyRequest(id);
+		
 		
 		for(TeamVO searchTeam : searchTeamList) {
 			allTeamMembers.add(service.selectAllMembers(searchTeam.getTeamId()));
@@ -259,6 +278,7 @@ public class TeamController {
 		
 		map.put("searchTeamList", searchTeamList);
 		map.put("allTeamMembers", allTeamMembers);
+		map.put("requestList", requestList);
 		
 		mav.addAllObjects(map);
 		

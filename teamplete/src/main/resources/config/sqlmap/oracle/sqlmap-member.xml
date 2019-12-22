@@ -6,8 +6,6 @@
 
 	<resultMap type="MemberVO" id="memberMap">
 		<result column="reg_date" property="regDate" />
-		<result column="status" property="status" />
-		<result column="logincount" property="logincount" />
 		<result column="last_date" property="lastdate" />
 	</resultMap>
 

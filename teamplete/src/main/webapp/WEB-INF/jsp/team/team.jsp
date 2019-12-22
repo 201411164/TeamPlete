@@ -152,7 +152,7 @@
                             <h2 class="content-header-title float-left mb-0 ">최신 업데이트!</h2>                            
                         </div>
                 </div>
-                <form method="get" action="${pageContext.request.contextPath}/team/search" name="searchTeamForm">
+                <form method="get" action="${pageContext.request.contextPath}/${ loginVO.memberid }/team/search" name="searchTeamForm">
                 <input type="text" name="keyword" id="keyword">
                 <button type="submit">검색</button>
                 </form>

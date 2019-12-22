@@ -71,11 +71,35 @@
 					<p>팀원 : <c:forEach items="${ allTeamMembers[status.index] }" var="member">
 								${ member.name }
 								<c:if test="${ loginVO.memberid eq member.memberid }">
-									<c:set var="cnt" value="${ cnt + 1 }"/>
+									<c:set var="cnt" value="1"/>
 								</c:if>
 							</c:forEach></p>
 					<c:if test="${ cnt eq 0 }">
-						<button>초대 요청</button>
+						<c:set var="cnt2" value="0"/>
+						<c:forEach items="${ requestList }" var="request">
+						<c:if test="${ request.teamId eq team.teamId }">
+						<c:set var="cnt2" value="1"/>
+						</c:if>
+						</c:forEach>
+						<c:choose>
+						<c:when test="${ cnt2 eq 0 }">
+						<form method="post" action="${pageContext.request.contextPath}/team/request" name="requestForm">
+						<input type="hidden" name="ownerId" id="ownerId" value="${ team.ownerId }">
+						<input type="hidden" name="teamId" id="teamId" value="${ team.teamId}">
+						<input type="hidden" name="reqMemberid" id="reqMemberid" value="${ loginVO.memberid }">
+						<input type="hidden" name="teamName" id="teamName" value="${ team.teamName }">
+						<button type="button" name="requestBtn">초대 요청</button>
+						</form>
+						</c:when>
+						<c:otherwise>
+						<h4>초대 요청 완료.</h4>
+						</c:otherwise>
+						</c:choose>
+
+						
+					</c:if>
+					<c:if test="${ cnt eq 1 }">
+						<button type="button" onclick="teamDetail(${ team.teamId})">팀 상세</button>
 					</c:if>
 					<hr/>
 				</c:forEach>
@@ -118,6 +142,60 @@
 
 	
 <script>
+
+
+$("button[name='requestBtn']").click(function() {
+	
+	var form = document.requestForm;
+
+	Swal.fire({
+		 title: '초대 요청을 보내시겠습니까?',
+		  text: '팀장이 요청을 수락해야 합니다.',
+		  type: 'success',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  confirmButtonText: '네, 요청합니다!'
+	}).then((result) => {
+		  if (result.value) {
+			  Swal.fire({
+					  title: '요청 성공',
+					  text: '초대 요청을 보냈습니다.',
+					  type: 'success',
+					  confirmButtonText: '좋아요'
+			  }).then((result) => {
+				  var data = {ownerId : $('#ownerId').val(),
+		    		   	   	  teamId : $('#teamId').val(),
+		    		   	      reqMemberid : $('#reqMemberid').val(),
+		    		   	      teamName : $('#teamName').val()
+		    		   	   };
+		       $.ajax({
+		          type : 'POST',
+		          url : '/team/request',
+		          data : JSON.stringify(data),
+		          contentType : "application/json",
+		          success : function(data) {
+		        	  console.log(data);
+		        	  location.reload();
+		          },
+		          error : function(error) {
+		        	  console.log(error);
+		          }
+		       });
+				  
+			  });
+			 
+		  };
+		})
+});
+
+
+
+
+
+function teamDetail(teamId) {
+    location.href = "${ pageContext.request.contextPath}/teamdetail/" + teamId;
+}
+
 </script>
 </body>
 </html>

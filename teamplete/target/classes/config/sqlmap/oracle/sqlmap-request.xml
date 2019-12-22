@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.teamplete.dao.RequestDAO">
+
+	<resultMap type="RequestVO" id="requestMap">
+		<result column="owner_id" property="ownerId" />
+		<result column="team_id" property="teamId" />
+		<result column="req_memberid" property="reqMemberid" />
+		<result column="team_name" property="teamName" />
+		<result column="req_date" property="reqDate" />
+	</resultMap>
+	
+	<!-- 팀에 대한 request 삽입 -->
+	<insert id="insertRequest" parameterType="RequestVO">
+		insert into request_tb(owner_id, team_id, req_memberid, team_name)
+		 values(#{ownerId}, #{teamId}, #{reqMemberid}, #{teamName})
+	</insert>
+	
+	<!-- 팀장에게 온 request 조회 -->
+	<select id="selectAllRequest" parameterType="String" resultMap="requestMap">
+		select owner_id, team_id, req_memberid, team_name, req_date, M.name
+		 from request_tb R
+		  left outer join member_tb M
+		   on R.req_memberid = M.memberid
+		    where owner_id = #{ownerId}
+	</select>
+	
+	<!-- 사용자의 request 보낸 팀 조회 -->
+	<select id="selectMyRequest" parameterType="String" resultMap="requestMap">
+		select team_id
+		 from request_tb
+		  where req_memberid = #{reqMemberid}
+	</select>
+	
+	
+   
+</mapper>
