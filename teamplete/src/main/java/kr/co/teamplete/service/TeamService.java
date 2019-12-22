@@ -11,9 +11,7 @@ public interface TeamService {
 
 	// 팀 생성
 	void insertTeam(TeamVO team);
-	
-	// 팀 멤버 문자열 update
-	public void updateAllMembers(TeamVO team);
+
 	
 	//모든 팀 조회
 	List<TeamVO> selectAllTeam(String memberid);

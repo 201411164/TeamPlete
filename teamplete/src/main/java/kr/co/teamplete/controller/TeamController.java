@@ -74,8 +74,6 @@ public class TeamController {
 		
 		String ownerName = memberService.selectMemberById(memberid).getName();
 		
-		team.setMembers(ownerName);
-		
 		service.insertTeam(team);
 		
 		return "redirect:/team/" + memberid;

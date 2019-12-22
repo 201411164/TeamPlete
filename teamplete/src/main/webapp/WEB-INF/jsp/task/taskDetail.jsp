@@ -186,7 +186,7 @@ border-style: none !important;
 										<div class="form-group">
 											<div id="editor-modify">
 												<p></p>
-												</div>	
+												</div>
 										</div>
 										<div id="taskFileListForm">
 											<label>파일 목록: </label>
@@ -273,6 +273,7 @@ border-style: none !important;
 										<h4 class="text-primary">제출 현황</h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
+									<c:if test="${ chargeListAllcnt ne 0 }">
 									<fmt:formatNumber var="submitYrate"
 										value="${ chargeListYcnt / chargeListAllcnt * 100 }" maxFractionDigits="0" />
 									
@@ -281,6 +282,7 @@ border-style: none !important;
 											aria-valuenow="${ submitYrate }" aria-valuemin="${ submitYrate }"
 											aria-valuemax="100" style="width: ${ submitYrate }%">${ submitYrate }%</div>
 									</div>
+									</c:if>
 									<div class="card-body">
 
 
@@ -494,7 +496,7 @@ border-style: none !important;
 																								<div style="color: black;" id="boardFileFormM${ board.boardId }">
 																								<button type="button"
 																									class="btn btn-outline-primary round btn-block"
-																									name="boardFileBtnM">파일 추가</button>
+																									name="boardFileBtnM" id="boardFileBtnM">파일 추가</button>
 																								</div>
 																								<div class="modal-footer">
 																									<button type="button" class="btn btn-primary"
@@ -545,6 +547,7 @@ border-style: none !important;
 									<h4 class="text-primary">미제출자</h4>
 									<i class="feather icon-more-horizontal cursor-pointer"></i>
 								</div>
+								<c:if test="${ chargeListAllcnt ne 0 }">
 								<fmt:formatNumber var="submitNrate"
 										value="${ chargeListNcnt / chargeListAllcnt * 100 }" maxFractionDigits="0" />
 									
@@ -553,6 +556,7 @@ border-style: none !important;
 											aria-valuenow="${ submitNrate }" aria-valuemin="${ submitNrate }"
 											aria-valuemax="100" style="width: ${ submitNrate }%">${ submitNrate }%</div>
 									</div>
+									</c:if>
 								<div class="card-body">
 									<c:set var="count1" value="0" scope="page" />
 									<c:forEach items="${ submitNmembers }" var="submitNmem">
@@ -722,7 +726,7 @@ border-style: none !important;
 														};
 												var readquill = new Quill('#editor-readonly', options);
 												
-												readquill.setContents(${taskDetail.content});
+												readquill.setContents(${taskDetail.taskContent});
 												</script>
 
 
@@ -1074,18 +1078,12 @@ border-style: none !important;
 		   theme: 'snow'
 		 });
 	 
-	 quill.setContents(${taskDetail.content});
+	 quill.setContents(${taskDetail.taskContent});
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

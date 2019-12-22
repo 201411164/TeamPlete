@@ -427,7 +427,7 @@ border-style: none !important;
 														};
 												var quill${tcount} = new Quill('#editor-readonly${tcount}', options);
 												
-												quill${tcount}.setContents(${task.content});
+												quill${tcount}.setContents(${task.taskContent});
 												</script>
 
 												<div class="col-12">
@@ -782,7 +782,7 @@ border-style: none !important;
 															<br/>
 															<p></p>
 															</div>
-															<input name="content" id="content" type="hidden">
+															<input name="taskContent" id="taskContent" type="hidden">
 														</div>
 											<label>파일 첨부하기: </label>
 											<div class="form-group" >
@@ -999,7 +999,7 @@ border-style: none !important;
 	   theme: 'snow'
 	 });
   
-   $('input[name=content]').change( function(e) {
+   $('input[name=taskContent]').change( function(e) {
 	    e.preventDefault();
 	    setTimeout( function () {
 	    	$('#createTask').modal('handleUpdate')
@@ -1013,7 +1013,7 @@ border-style: none !important;
    function submitTask(){
 	   
 	   var form = document.createTaskForm;
-	   var about = document.querySelector('input[name=content]');
+	   var about = document.querySelector('input[name=taskContent]');
 	   about.value = JSON.stringify(quill.getContents());
 	   var delta = quill.getContents();
 	  

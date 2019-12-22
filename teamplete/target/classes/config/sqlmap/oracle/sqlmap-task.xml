@@ -8,6 +8,7 @@
 			<result column="task_id" property="taskId" />
 			<result column="writer_id" property="writerId" />
 			<result column="writer_name" property="writerName" />
+			<result column="content" property="taskContent" />
 			<result column="team_id" property="teamId" />
 			<result column="task_date" property="taskDate" />
 			<result column="charge_memberid" property="chargeMemberid" />
@@ -39,7 +40,7 @@
 	<!-- 태스크 생성 -->
 	<insert id="insertTask" parameterType="TaskVO">
 		insert into task_tb(task_id, writer_id, writer_name, team_id, title, content, deadline)
-		values(task_seq.nextval, #{writerId}, #{writerName}, #{teamId}, #{title}, #{content}, #{deadline})
+		values(task_seq.nextval, #{writerId}, #{writerName}, #{teamId}, #{title}, #{taskContent}, #{deadline})
 	</insert>
 	
 	
@@ -62,7 +63,7 @@
     <update id="updateTask" parameterType="TaskVO">
     	update task_tb
     	 set
-    	  title = #{title}, content = #{content}, deadline = #{deadline}, task_date = SYSDATE
+    	  title = #{title}, content = #{taskContent}, deadline = #{deadline}, task_date = SYSDATE
     	   where task_id = #{taskId}
     </update>
     

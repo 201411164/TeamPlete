@@ -18,22 +18,14 @@
 
 	<!-- 팀 생성 -->
 	<insert id="insert" parameterType="TeamVO">
-		insert into team_tb(team_id, team_name, owner_id, members, deadline, img)
-		values(team_seq.nextval, #{teamName}, #{ownerId}, #{members}, #{deadline}, #{img})
+		insert into team_tb(team_id, team_name, owner_id, deadline, img)
+		values(team_seq.nextval, #{teamName}, #{ownerId}, #{deadline}, #{img})
 	</insert>
-	
-	<!-- 팀 멤버 문자열 update -->
-	   <!-- 특정번호 게시글 수정 -->
-   <update id ="membersUpdate"  parameterType="TeamVO">
-      update team_tb
-         set
-            members = #{members}
-            where team_id = #{teamId}
-   </update>
+
 	
 	<!-- 회원이 속한 팀 조회 -->
 	<select id="selectAll" parameterType="String" resultMap="teamMap">
-		select distinct T.team_id, T.team_name, T.owner_id, T.members, T.deadline, T.img, T.task_latest, T.board_latest
+		select distinct T.team_id, T.team_name, T.owner_id, T.deadline, T.img, T.task_latest, T.board_latest
 		 from team_tb T
 		  left outer join team_member_tb M
 		   on T.team_id = M.team_id
@@ -118,6 +110,13 @@
     	                     where task_id in(select task_id from task_tb where team_id = #{teamId}))
     	  where team_id = #{teamId}
     </update>
+    
+    <!-- 팀 검색 -->
+<!--     <select id="searchTeam" parameterType="String" resultMap="teamMap"> -->
+<!--     	select team_id, team_name, owner_id -->
+<!--     	 from team_tb -->
+<!--     	  where team_name like '%'||#{keyword}||'%' -->
+<!--     </select> -->
     
 
 </mapper>

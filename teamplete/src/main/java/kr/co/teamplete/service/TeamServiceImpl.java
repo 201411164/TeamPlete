@@ -53,11 +53,6 @@ public class TeamServiceImpl implements TeamService{
 		return members;
 	}
 
-	@Override
-	public void updateAllMembers(TeamVO team) {
-	      teamDAO.updateMembers(team);
-		
-	}
 
 	@Override
 	public void updateTeamInfo(TeamVO team) {

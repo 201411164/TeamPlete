@@ -17,7 +17,7 @@ public class TaskVO {
 	private int taskId;
 	private String writerId, writerName;
 	private int teamId;
-	private String title, content, deadline, taskDate;
+	private String title, taskContent, deadline, taskDate;
 	
 	private String chargeMemberid;
 
@@ -26,19 +26,23 @@ public class TaskVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TaskVO(List<MultipartFile> taskFiles, List<String> chargeMems, int taskId, String writerId,
-			String writerName, int teamId, String title, String content, String deadline, String taskDate) {
+	public TaskVO(List<MultipartFile> taskFiles, List<Integer> deleteFiles, List<String> chargeMems,
+			List<Integer> deleteCharge, int taskId, String writerId, String writerName, int teamId, String title,
+			String taskContent, String deadline, String taskDate, String chargeMemberid) {
 		super();
 		this.taskFiles = taskFiles;
+		this.deleteFiles = deleteFiles;
 		this.chargeMems = chargeMems;
+		this.deleteCharge = deleteCharge;
 		this.taskId = taskId;
 		this.writerId = writerId;
 		this.writerName = writerName;
 		this.teamId = teamId;
 		this.title = title;
-		this.content = content;
+		this.taskContent = taskContent;
 		this.deadline = deadline;
 		this.taskDate = taskDate;
+		this.chargeMemberid = chargeMemberid;
 	}
 
 	public List<MultipartFile> getTaskFiles() {
@@ -49,12 +53,28 @@ public class TaskVO {
 		this.taskFiles = taskFiles;
 	}
 
+	public List<Integer> getDeleteFiles() {
+		return deleteFiles;
+	}
+
+	public void setDeleteFiles(List<Integer> deleteFiles) {
+		this.deleteFiles = deleteFiles;
+	}
+
 	public List<String> getChargeMems() {
 		return chargeMems;
 	}
 
 	public void setChargeMems(List<String> chargeMems) {
 		this.chargeMems = chargeMems;
+	}
+
+	public List<Integer> getDeleteCharge() {
+		return deleteCharge;
+	}
+
+	public void setDeleteCharge(List<Integer> deleteCharge) {
+		this.deleteCharge = deleteCharge;
 	}
 
 	public int getTaskId() {
@@ -97,12 +117,12 @@ public class TaskVO {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public String getTaskContent() {
+		return taskContent;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setTaskContent(String taskContent) {
+		this.taskContent = taskContent;
 	}
 
 	public String getDeadline() {
@@ -120,27 +140,7 @@ public class TaskVO {
 	public void setTaskDate(String taskDate) {
 		this.taskDate = taskDate;
 	}
-	
-	
 
-	public List<Integer> getDeleteFiles() {
-		return deleteFiles;
-	}
-
-	public void setDeleteFiles(List<Integer> deleteFiles) {
-		this.deleteFiles = deleteFiles;
-	}
-
-	public List<Integer> getDeleteCharge() {
-		return deleteCharge;
-	}
-
-	public void setDeleteCharge(List<Integer> deleteCharge) {
-		this.deleteCharge = deleteCharge;
-	}
-
-	
-	
 	public String getChargeMemberid() {
 		return chargeMemberid;
 	}
@@ -151,9 +151,13 @@ public class TaskVO {
 
 	@Override
 	public String toString() {
-		return "TaskVO [taskFiles=" + taskFiles + ", chargeMems=" + chargeMems + ", taskId=" + taskId + ", writerId="
-				+ writerId + ", writerName=" + writerName + ", teamId=" + teamId + ", title=" + title + ", content="
-				+ content + ", deadline=" + deadline + ", taskDate=" + taskDate + "]";
+		return "TaskVO [taskFiles=" + taskFiles + ", deleteFiles=" + deleteFiles + ", chargeMems=" + chargeMems
+				+ ", deleteCharge=" + deleteCharge + ", taskId=" + taskId + ", writerId=" + writerId + ", writerName="
+				+ writerName + ", teamId=" + teamId + ", title=" + title + ", taskContent=" + taskContent
+				+ ", deadline=" + deadline + ", taskDate=" + taskDate + ", chargeMemberid=" + chargeMemberid + "]";
 	}
+
+	
+	
 		
 }

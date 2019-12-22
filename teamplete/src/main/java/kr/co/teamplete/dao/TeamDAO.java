@@ -11,9 +11,7 @@ public interface TeamDAO {
 
 	//팀 생성
 	public void insert(TeamVO team);
-	
-	//팀 멤버 문자열 update
-	public void updateMembers(TeamVO team);
+
 	
 	//모든 팀 조회
 	public List<TeamVO> selectAll(String memberid);

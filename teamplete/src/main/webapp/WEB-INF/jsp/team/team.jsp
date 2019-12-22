@@ -152,6 +152,7 @@
                             <h2 class="content-header-title float-left mb-0 ">최신 업데이트!</h2>                            
                         </div>
                 </div>
+                <input type="text"> <button type="button">검색</button>
             </div>
 <%-- 						<a href="${ pageContext.request.contextPath }/calendar">캘린더</a> --%>
 			<div>
