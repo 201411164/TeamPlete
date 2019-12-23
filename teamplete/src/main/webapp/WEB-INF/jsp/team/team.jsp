@@ -55,6 +55,7 @@
 }
 
 .hovereffect .overlay {
+ 
   width: 100%;
   height: 100%;
   position: absolute;
@@ -62,6 +63,13 @@
   top: 0;
   left: 0;
 }
+.hovereffect .overlay:hover {
+ 
+  background-color:rgba(0,0,0,0.55);
+}
+
+
+
 
 .hovereffect img {
   display: block;
@@ -98,7 +106,8 @@
   background-color: transparent;
 }
 .hovereffect a.info::first-letter {
-  color:#28c76f;
+  color:#fce205;
+  font-size:2.3rem;
 }
 
 .hovereffect a.info:hover {
@@ -169,6 +178,7 @@
                             <h2 class="content-header-title float-left mb-0 ">최신 업데이트</h2>                            
                         </div>
                 </div>
+                <div class="content-header-right col-md-9 col-12 mb-2">
                 <form method="get" action="${pageContext.request.contextPath}/${ loginVO.memberid }/team/search" name="searchTeamForm">
 								<div class="form-group has-search">
 									<span class="fa fa-search form-control-feedback"></span> <input
@@ -176,7 +186,7 @@
 								</div>
 
                 </form>
-                
+                </div>
                  
             </div>
 <%-- 						<a href="${ pageContext.request.contextPath }/calendar">캘린더</a> --%>
