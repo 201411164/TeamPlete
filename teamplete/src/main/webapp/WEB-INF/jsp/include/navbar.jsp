@@ -116,45 +116,32 @@
                             <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                                 <li class="dropdown-menu-header">
                                     <div class="dropdown-header m-0 p-2">
-                                        <h3 class="white">${ requestCnt } New</h3><span class="notification-title">App Notifications</span>
+                                        <h3 class="white">${ requestCnt } New</h3><span class="notification-title">Notifications</span>
                                     </div>
                                 </li>
                                 <li class="scrollable-container media-list">
                                 
                                 <c:forEach items="${ allRequestList }" var="request" varStatus="status">
                                 
-                                <a class="d-flex justify-content-between">
+                                <a class="d-flex justify-content-between" onClick="acceptFunc('${ request.reqMemberid }', ${ request.teamId },'${ request.name }')">
                                         <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-plus-square font-medium-5 primary"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="primary media-heading">${ request.name }(${ request.reqMemberid })님이 ${ request.teamName }에 초대를 요청했습니다.</h6><small class="notification-text"></small>
-                                                <button type="button" onClick="acceptFunc('${ request.reqMemberid }', ${ request.teamId })">수락</button>
-                                                <button type="button" onClick="rejectFunc('${ request.reqMemberid }', ${ request.teamId })">거절</button>
-                                            </div><small>
-                                                <time class="media-meta">${ requestTime[status.index] }</time></small>
+                                            <div class="media-left"><i class="feather icon-plus-square font-medium-5 text-primary"></i></div>
+                                            <div class="media-body" style="font-family:'Inter';">
+                                                <h4 class="text-primary" style="font-weight:600; ">초대 요청</h4>
+                                                <small class="notification-text" style="line-height: 1.2rem;"><strong>${ request.name }(${ request.reqMemberid })</strong>님이 <strong>${ request.teamName }</strong>에 초대를 요청했습니다.</small>
+                                            </div>
+                                                <time class="media-meta text-info" style="font-family:'Inter';">${ requestTime[status.index] }</time>
                                                 
                                         </div>
                                     </a>
                                 </c:forEach>
                                 
-                                
-                                
-                                
-<!--                                 <a class="d-flex justify-content-between" href="javascript:void(0)"> -->
-<!--                                         <div class="media d-flex align-items-start"> -->
-<!--                                             <div class="media-left"><i class="feather icon-plus-square font-medium-5 primary"></i></div> -->
-<!--                                             <div class="media-body"> -->
-<!--                                                 <h6 class="primary media-heading">You have new order!</h6><small class="notification-text"> Are your going to meet me tonight?</small> -->
-<!--                                             </div><small> -->
-<!--                                                 <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">9 hours ago</time></small> -->
-<!--                                         </div> -->
-<!--                                     </a> -->
+                            
                                     </li>
-                                <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li>
                             </ul>
                         </li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">${ loginVO.name }</span><span class="user-status">Available</span></div>
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">${ loginVO.name }</span><span class="user-status">online</span></div>
                                 <c:choose>
                                 <c:when test="${fn:startsWith(loginVO.profile, 'circle')}">
 
@@ -265,81 +252,95 @@
 	    logoutform.submit();
 	}
     
-    function acceptFunc(memberId, teamId) {
-    	var conf = confirm("요청을 수락하시겠습니까?");
+    function acceptFunc(memberId, teamId, name) {
     	
-    	if(conf){
-    	    var member=[];
-    	    member.push(memberId);
-    	    
-    	    $.ajax({
-		          type : 'POST',
-		          url : '/teamdetail/' + teamId,
-		          data : JSON.stringify(member),
-		          contentType : "application/json"
-    	    });
-    	    
-		    $.ajax({
-				url : '/request/delete/' + teamId + "/" + memberId,
-				type : 'DELETE'
-		    });
-		    
-		    location.reload();
-		    
-    	    
-    	}else {
-    		return false;
-    	}
+    	
+    	
+    	
+    	Swal.fire({
+			 title: '팀원 추가',
+			  text: name + '('+memberId+')'+'님을 추가하시겠습니까?',
+			  type: 'question',
+			  showCloseButton:true,
+			  showCancelButton: true,
+			  cancelButtonText:'아니요, 필요 없어요.',
+			  cancelButtonColor:'#d33',
+			  focusConfirm:false,
+			  confirmButtonColor: '#3085d6',
+			  confirmButtonText: '네, 추가할래요!'
+		}).then((result) => {
+			  if (result.value) {
+				  
+				  var member=[];
+		    	    member.push(memberId);
+				  
+				  Swal.fire({
+						  title: '추가 성공',
+						  text: '일꾼이 늘었군요, 축하해요!',
+						  type: 'success',
+						  confirmButtonColor: '#3085d6',
+						  focusConfirm:false,
+						  confirmButtonText: '좋아요'
+						  
+				  }).then((result) => {
+					  $.ajax({
+				          type : 'POST',
+				          url : '/teamdetail/' + teamId,
+				          data : JSON.stringify(member),
+				          contentType : "application/json"
+		    	    });
+		    	    
+				    $.ajax({
+						url : '/request/delete/' + teamId + "/" + memberId,
+						type : 'DELETE'
+				    });
+				    
+				    location.reload();
+					  
+				  });
+				 
+			  }
+			  
+			  else if (
+					    /* Read more about handling dismissals below */
+					    result.dismiss === Swal.DismissReason.cancel
+					  ){
+				  
+				  Swal.fire({
+    				  title: '요청 삭제',
+					  text: '초대 요청을 삭제하였습니다!',
+					  type: 'success',
+					  confirmButtonColor: '#3085d6',
+					  focusConfirm:false,
+					  confirmButtonText: '좋아요'
+    		}).then((result) => {
+    			$.ajax({
+					url : '/request/delete/' + teamId + "/" + memberId,
+					type : 'DELETE'
+				});
+	    		location.reload();
+				  
+			  });
+				  
+				  
+				  
+		    		
+				  
+				  
+				  
+			  }
+			  
+			  
+			})
+    	
+    	
+    	
+    	
+    	
     }
     
-    function rejectFunc(memberId, teamId) {
-    	var conf = confirm("요청을 거절하시겠습니까?");
-    	
-    	if(conf){
-    		$.ajax({
-				url : '/request/delete/' + teamId + "/" + memberId,
-				type : 'DELETE'
-			});
-    		location.reload();
-		    
-    	}else {
-    		return false;
-    	}
-    }
     
-    
-/*
-    function requestFunc(memberId, teamId) {
-    	var conf = confirm("요청을 수락하시겠습니까?");
-    	
-    	if(conf){
-    	    var member=[];
-    	    member.push(memberId);
-    	    
-    	    $.ajax({
-		          type : 'POST',
-		          url : '/teamdetail/' + teamId,
-		          data : JSON.stringify(member),
-		          contentType : "application/json"
-    	    });
-    	    
-		    $.ajax({
-				url : '/request/delete/' + teamId + "/" + memberId,
-				type : 'DELETE'
-		    });
-		    
-		    location.reload();
-		    
-    	    
-    	}else {
-    		$.ajax({
-				url : '/request/delete/' + teamId + "/" + memberId,
-				type : 'DELETE'
-			});
-    		location.reload();
-    	}
-    }
-*/    
+     
     
     </script>
 

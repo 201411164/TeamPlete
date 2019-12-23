@@ -29,12 +29,20 @@ public class UpdateTime {
 	    
 	    if((diff / 86400000) >= 1) {
 	    	t = diff / 86400000;
+	    	if(t==1) {
+	    		result="어제";
+	    		return result;
+	    	}	    		
 	    	result = t + "일 전";
 	    }else if((diff / 3600000) >= 1) {
 	    	t = diff / 3600000;
 	    	result = t + "시간 전";
 	    }else {
 	    	t = diff / 60000;
+	    	if(t<5) {
+	    		result="방금 전";
+	    		return result;
+	    	}
 	    	result = t + "분 전";
 	    }
 

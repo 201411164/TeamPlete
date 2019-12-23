@@ -190,8 +190,12 @@ $("button[name='requestBtn']").click(function() {
 		  text: '팀장이 요청을 수락해야 합니다.',
 		  type: 'success',
 		  showCancelButton: true,
+		  cancelButtonColor:'#d33',
+		  cancelButtonText:'아니요, 안 할래요.',
 		  confirmButtonColor: '#3085d6',
-		  confirmButtonText: '네, 요청합니다!'
+		  confirmButtonText: '네, 요청합니다!',
+		  focusConfirm:false,
+			
 	}).then((result) => {
 		  if (result.value) {
 			  Swal.fire({
