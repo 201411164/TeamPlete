@@ -123,13 +123,16 @@
                                 
                                 <c:forEach items="${ allRequestList }" var="request" varStatus="status">
                                 
-                                <a class="d-flex justify-content-between" href="javascript:void(0)">
+                                <a class="d-flex justify-content-between">
                                         <div class="media d-flex align-items-start">
                                             <div class="media-left"><i class="feather icon-plus-square font-medium-5 primary"></i></div>
                                             <div class="media-body">
                                                 <h6 class="primary media-heading">${ request.name }(${ request.reqMemberid })님이 ${ request.teamName }에 초대를 요청했습니다.</h6><small class="notification-text"></small>
+                                                <button type="button" onClick="acceptFunc('${ request.reqMemberid }', ${ request.teamId })">수락</button>
+                                                <button type="button" onClick="rejectFunc('${ request.reqMemberid }', ${ request.teamId })">거절</button>
                                             </div><small>
                                                 <time class="media-meta">${ requestTime[status.index] }</time></small>
+                                                
                                         </div>
                                     </a>
                                 </c:forEach>
@@ -256,10 +259,88 @@
 		
 	<!-- END: Theme JS-->
     <script>
+    
     function logoutsubmit(){
 	    var logoutform = document.logoutform;
 	    logoutform.submit();
-	} 
+	}
+    
+    function acceptFunc(memberId, teamId) {
+    	var conf = confirm("요청을 수락하시겠습니까?");
+    	
+    	if(conf){
+    	    var member=[];
+    	    member.push(memberId);
+    	    
+    	    $.ajax({
+		          type : 'POST',
+		          url : '/teamdetail/' + teamId,
+		          data : JSON.stringify(member),
+		          contentType : "application/json"
+    	    });
+    	    
+		    $.ajax({
+				url : '/request/delete/' + teamId + "/" + memberId,
+				type : 'DELETE'
+		    });
+		    
+		    location.reload();
+		    
+    	    
+    	}else {
+    		return false;
+    	}
+    }
+    
+    function rejectFunc(memberId, teamId) {
+    	var conf = confirm("요청을 거절하시겠습니까?");
+    	
+    	if(conf){
+    		$.ajax({
+				url : '/request/delete/' + teamId + "/" + memberId,
+				type : 'DELETE'
+			});
+    		location.reload();
+		    
+    	}else {
+    		return false;
+    	}
+    }
+    
+    
+/*
+    function requestFunc(memberId, teamId) {
+    	var conf = confirm("요청을 수락하시겠습니까?");
+    	
+    	if(conf){
+    	    var member=[];
+    	    member.push(memberId);
+    	    
+    	    $.ajax({
+		          type : 'POST',
+		          url : '/teamdetail/' + teamId,
+		          data : JSON.stringify(member),
+		          contentType : "application/json"
+    	    });
+    	    
+		    $.ajax({
+				url : '/request/delete/' + teamId + "/" + memberId,
+				type : 'DELETE'
+		    });
+		    
+		    location.reload();
+		    
+    	    
+    	}else {
+    		$.ajax({
+				url : '/request/delete/' + teamId + "/" + memberId,
+				type : 'DELETE'
+			});
+    		location.reload();
+    	}
+    }
+*/    
+    
     </script>
 
 </body>

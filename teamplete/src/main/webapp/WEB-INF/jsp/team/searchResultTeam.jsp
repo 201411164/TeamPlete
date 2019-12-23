@@ -89,14 +89,15 @@
 					<h5 style="color:#263747; font-weight:600;"> 
 																<strong>팀장 :</strong>  ${ team.name }															
 																</h5>
-					<h5 style="color:#152636;"><strong><i class="feather icon-users mr-1"></i> : </strong> <c:forEach items="${ allTeamMembers[status.index] }" var="member">
+					<h5 style="color:#152636;"><strong><i class="feather icon-users mr-1"></i> : </strong> 
+					<c:set var="cnt" value="0"/>
+					<c:forEach items="${ allTeamMembers[status.index] }" var="member">
 								${ member.name },
 								<c:if test="${ loginVO.memberid eq member.memberid }">
 									<c:set var="cnt" value="1"/>
 								</c:if>
 							</c:forEach></h5>												
 																<h6 class="text-muted">마지막 수정 일시 : <small style="font-size:14px;"> ${ updateTime[status.index] }</small> </h6>
-					<c:set var="cnt" value="0"/>
 											
 							
 					<c:if test="${ cnt eq 0 }">

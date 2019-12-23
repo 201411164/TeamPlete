@@ -1,6 +1,7 @@
 package kr.co.teamplete.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class RequestDAOImpl implements RequestDAO{
 	public List<RequestVO> selectMyRequest(String reqMemberid) {
 		List<RequestVO> requestList = session.selectList("kr.co.teamplete.dao.RequestDAO.selectMyRequest", reqMemberid);
 		return requestList;
+	}
+
+	@Override
+	public void deleteRequest(Map<String, Object> map) {
+		session.delete("kr.co.teamplete.dao.RequestDAO.deleteRequest", map);
 	}
 
 }

@@ -35,5 +35,11 @@
 	</select>
 	
 	
+	<!-- request 삭제 -->
+	<delete id="deleteRequest" parameterType="hashmap">
+		delete request_tb
+         where team_id = #{teamId} and req_memberid = #{reqMemberid}
+	</delete>
+	
    
 </mapper>
