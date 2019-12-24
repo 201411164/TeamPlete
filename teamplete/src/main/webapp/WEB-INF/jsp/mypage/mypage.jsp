@@ -36,6 +36,8 @@
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/horizontal-menu.css">
 <link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/users.css">
+<link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/palette-gradient.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/authentication.css">
@@ -58,7 +60,7 @@
 
 	    <div class="app-content content">
         <div class="content-wrapper">
-            <div class="content-header row">
+            <%-- <div class="content-header row">
                 <div class="content-header-left col-md-9 col-12 mb-2">
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">${user.name}'S Profile</h2>
@@ -71,9 +73,79 @@
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Chat</a><button type="button" name="deleteMember" class="dropdown-item" value="${ loginVO.memberid }">회원탈퇴하기</button><a class="dropdown-item" href="#">Email</a><a class="dropdown-item" href="#">Calendar</a></div>
                         </div> 
                 </div>
-            </div>
-
+            </div> --%>
+			<div id="user-profile">
 			<div class="row match-height">
+			
+				
+				<div class="col-12">
+                            <div class="profile-header mb-2">
+                                <div class="relative">
+                                    <div class="cover-container">
+                                        <img class="img-fluid rounded-0" src="${ pageContext.request.contextPath }/resources/images/${user.profilebg}" alt="User Profile Image" style="width:100%; max-height:300px;">
+                                    </div>
+                                    <div class="profile-img-container d-flex align-items-center justify-content-between">
+                                        
+										<div class="avatar mr-50">
+															<div
+																style="position: relative; text-align: center; color: white;">
+																<img src="${ pageContext.request.contextPath }/resources/images/${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
+																<div class="custom-avatar-container">
+																	<c:set var="membername" value="${ user.name }" />
+																	<c:set var="firstletter"
+																		value="${fn:substring(membername, 0, 1)}" /><strong style="font-size:2rem;">${firstletter}</strong>
+																</div>
+															</div>
+															<span
+																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
+														</div>						
+																
+																
+																
+                                        <div class="float-right">
+                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1">
+                                                <i class="feather icon-edit-2"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary">
+                                                <i class="feather icon-settings"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end align-items-center profile-header-nav">
+                                    <nav class="navbar navbar-expand-sm w-100 pr-0">
+                                        <button class="navbar-toggler pr-0" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                            <span class="navbar-toggler-icon"><i class="feather icon-align-justify"></i></span>
+                                        </button>
+                                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                            <ul class="navbar-nav justify-content-around w-75 ml-sm-auto">
+                                                <li class="nav-item px-sm-0">
+                                                    <a href="#" class="nav-link font-small-3">Timeline</a>
+                                                </li>
+                                                <li class="nav-item px-sm-0">
+                                                    <a href="#" class="nav-link font-small-3">About</a>
+                                                </li>
+                                                <li class="nav-item px-sm-0">
+                                                    <a href="#" class="nav-link font-small-3">Photos</a>
+                                                </li>
+                                                <li class="nav-item px-sm-0">
+                                                    <a href="#" class="nav-link font-small-3">Friends</a>
+                                                </li>
+                                                <li class="nav-item px-sm-0">
+                                                    <a href="#" class="nav-link font-small-3">Videos</a>
+                                                </li>
+                                                <li class="nav-item px-sm-0">
+                                                    <a href="#" class="nav-link font-small-3">Events</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+				
+			
+				
 
 				<div class="col-xl-3 col-md-6 col-sm-6">
 					
@@ -134,6 +206,7 @@
 
 
 		</div>
+		</div>
             </div>
                     
           
@@ -145,10 +218,7 @@
 	<!-- BEGIN: Page Vendor JS-->
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/jquery.sticky.js"></script>
-	<script
-		src="${ pageContext.request.contextPath }/resources/js/dragula.min.js"></script>
-	<script
-		src="${ pageContext.request.contextPath }/resources/js/drag-drop.js"></script>
+	
 	<!-- END: Page Vendor JS-->
 
 	<!-- BEGIN: Theme JS-->

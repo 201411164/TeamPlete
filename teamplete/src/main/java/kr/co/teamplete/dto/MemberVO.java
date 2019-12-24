@@ -15,6 +15,7 @@ public class MemberVO {
 	private String email, type, regDate;
 	private char kakao;
 	private String profile;
+	private String profilebg;
 	private String last_date;
 	private String status;
 	private int logincount;
@@ -26,7 +27,7 @@ public class MemberVO {
 	}
 
 	public MemberVO(String memberid, String name, String password, String email, String type, String regDate,
-			char kakao, String profile, String last_date, String status, int logincount) {
+			char kakao, String profile, String profilebg, String last_date, String status, int logincount) {
 		super();
 		this.memberid = memberid;
 		this.name = name;
@@ -36,6 +37,7 @@ public class MemberVO {
 		this.regDate = regDate;
 		this.kakao = kakao;
 		this.profile = profile;
+		this.profilebg = profilebg;
 		this.last_date=last_date;
 		this.status=status;
 		this.logincount=logincount;
@@ -104,13 +106,21 @@ public class MemberVO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	
+	public String getProfilebg() {
+		return profilebg;
+	}
+
+	public void setProfilebg(String profilebg) {
+		this.profilebg = profilebg;
+	}
 		
 	
 
 	@Override
 	public String toString() {
 		return "MemberVO [memberid=" + memberid + ", name=" + name + ", password=" + password + ", email=" + email
-				+ ", type=" + type + ", regDate=" + regDate + ", kakao=" + kakao + ", profile=" + profile
+				+ ", type=" + type + ", regDate=" + regDate + ", kakao=" + kakao + ", profile=" + profile + ", profilebg=" + profilebg
 				+ ", last_date=" + last_date + ", status=" + status + ", logincount=" + logincount + "]";
 	}
 

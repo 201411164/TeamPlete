@@ -12,13 +12,13 @@
 	<!-- 회원정보 삽입 -->
 	<insert id="insertMember" parameterType="MemberVO">
 		insert into
-		Member_tb(memberid, name, password, email, kakao, profile)
-		values(#{memberid}, #{name}, #{password}, #{email}, #{kakao}, #{profile})
+		Member_tb(memberid, name, password, email, kakao, profile, profilebg)
+		values(#{memberid}, #{name}, #{password}, #{email}, #{kakao}, #{profile}, #{profilebg})
 	</insert>
 	
 	<!-- 특정 회원의 정보 조회(아이디로 이름 조회) -->
 	<select id="selectMember" parameterType="String" resultMap="memberMap">
-		select memberid, name, email, logincount, status, last_date, profile, logincount, status, last_date
+		select memberid, name, email, logincount, status, last_date, profile, profilebg
 		from member_tb
 		where memberid = #{memberid}
 	</select>
@@ -34,7 +34,7 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="MemberVO"
 		resultMap="memberMap">
-		select memberid, name, password, email, profile, logincount, status, last_date
+		select memberid, name, password, email, profile, logincount, status, last_date, profilebg
 		from Member_tb
 		where
 		memberid = #{memberid} and

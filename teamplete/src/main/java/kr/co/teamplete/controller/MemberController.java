@@ -67,6 +67,32 @@ public class MemberController {
 			member.setProfile(imgList.get(index));
 		}
 		
+			List<String> imgList2 = new ArrayList<>();
+			imgList2.add("userbg1.jpg");
+			imgList2.add("userbg2.jpg");
+			imgList2.add("userbg3.jpg");
+			imgList2.add("userbg4.jpg");
+			imgList2.add("userbg5.jpg");
+			imgList2.add("userbg6.jpg");
+			imgList2.add("userbg7.jpg");
+			imgList2.add("userbg8.jpg");
+			imgList2.add("userbg9.jpg");
+			imgList2.add("userbg10.jpg");
+			imgList2.add("userbg11.jpg");
+			imgList2.add("userbg12.jpg");
+			imgList2.add("userbg13.jpg");
+			imgList2.add("userbg14.jpg");
+			imgList2.add("userbg15.jpg");
+			imgList2.add("userbg16.jpg");
+			imgList2.add("userbg17.jpg");
+			imgList2.add("userbg18.jpg");
+			imgList2.add("userbg19.jpg");
+			imgList2.add("userbg20.jpg");
+			Random random = new Random();
+			int index = random.nextInt(imgList2.size());
+			member.setProfilebg(imgList2.get(index));
+		
+		
 		
 		service.insertMember(member);
 		
