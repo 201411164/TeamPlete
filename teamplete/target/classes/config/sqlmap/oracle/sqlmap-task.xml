@@ -182,7 +182,7 @@
        from task_tb T
         full outer join charge_tb C
          on T.task_id = C.task_id
-          where C.submit = 'N'
+          where C.charge_memberid = #{memberId} and C.submit = 'N'
    </select>
 
 </mapper>

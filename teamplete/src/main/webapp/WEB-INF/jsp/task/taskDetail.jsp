@@ -27,7 +27,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-<title>Insert title here</title>
+<title>Teamplete - 카드 상세 화면</title>
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/bootstrap.css">
 <link rel="stylesheet" type="text/css"

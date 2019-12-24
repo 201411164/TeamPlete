@@ -32,18 +32,21 @@ public class MypageController {
 	
 	
 	
-	@RequestMapping(value="/mypage/{loginVO.memberid}", method=RequestMethod.GET)
-	public ModelAndView mypage(@PathVariable("loginVO.memberid") String memberid) {
+	@RequestMapping(value="/mypage/{memberVO.memberid}", method=RequestMethod.GET)
+	public ModelAndView mypage(@PathVariable("memberVO.memberid") String memberid) {
 		ModelAndView mav = new ModelAndView();
 		
+		  MemberVO user = new	MemberVO();
+		  
+		  user = memberService.selectMemberById(memberid);
 		
-		
-		  Map<String, Object> map = new HashMap<>(); List<TaskVO> notSubmitMyTask =
-		  taskService.notSubmitMyTaskAll(memberid);
+		  Map<String, Object> map = new HashMap<>(); 
+		  List<TaskVO> notSubmitMyTaskAll = taskService.notSubmitMyTaskAll(memberid);
 		  
 		  
 		  
-		  map.put("notSubmitMyTask", notSubmitMyTask);
+		  map.put("notSubmitMyTaskAll", notSubmitMyTaskAll);
+		  map.put("user", user);
 		  mav.addAllObjects(map);
 		  mav.setViewName("mypage/mypage");
 		

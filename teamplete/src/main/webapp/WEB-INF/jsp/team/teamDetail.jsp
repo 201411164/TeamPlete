@@ -16,7 +16,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-<title>Insert title here</title>
+<title>Teamplete - ${ team.teamName }</title>
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/bootstrap.css">
 <link rel="stylesheet" type="text/css"
@@ -191,6 +191,7 @@ border-style: none !important;
 													<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
+														<a href="${ pageContext.request.contextPath}/mypage/${member.memberid}">
 															<div
 																style="position: relative; text-align: center; color: white;">
 																<img
@@ -203,6 +204,7 @@ border-style: none !important;
 																</div>
 															</div><span
 																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
+														</a>
 														</div>
 														
 
@@ -231,6 +233,7 @@ border-style: none !important;
 												<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
+														<a href="${ pageContext.request.contextPath}/mypage/${member.memberid}">
 															<div
 																style="position: relative; text-align: center; color: white;">
 																<img
@@ -244,6 +247,7 @@ border-style: none !important;
 															</div>
 															<span
 																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
+														</a>		
 														</div>
 														
 
@@ -272,10 +276,12 @@ border-style: none !important;
 													<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
+														<a href="${ pageContext.request.contextPath}/mypage/${member.memberid}">
 															<img src="${ member.profile }" alt="avtar img holder"
 																height="35" width="35">
 																<span
 																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
+														</a>		
 														</div>
 														
 														<div class="user-page-info">
