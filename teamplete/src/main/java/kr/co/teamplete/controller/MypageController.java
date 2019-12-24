@@ -36,7 +36,7 @@ public class MypageController {
 	public ModelAndView mypage(@PathVariable("memberVO.memberid") String memberid) {
 		ModelAndView mav = new ModelAndView();
 		
-		  MemberVO user = new	MemberVO();
+		  MemberVO user = new MemberVO();
 		  
 		  user = memberService.selectMemberById(memberid);
 		
