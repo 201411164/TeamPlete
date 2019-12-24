@@ -235,5 +235,10 @@ public class TaskServiceImpl implements TaskService {
 		List<TaskVO> taskList = taskDAO.notSubmitMyTask(teamId);
 		return taskList;
 	}
+	@Override
+	public List<TaskVO> notSubmitMyTaskAll(String memberid){
+		List<TaskVO> taskList = taskDAO.notSubmitMyTaskAll(memberid);
+		return taskList;
+	}
 
 }

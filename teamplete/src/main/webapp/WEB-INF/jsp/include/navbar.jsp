@@ -203,7 +203,7 @@
                 
                 <li class=" navigation-header"><span>Teamplete</span>
                 </li>
-                <li class="nav-item"><a href="${ pageContext.request.contextPath}/mypage" data-i18n="Profile"><i class="feather icon-user"></i>마이페이지</a>
+                <li class="nav-item"><a href="${ pageContext.request.contextPath}/mypage/${loginVO.memberid}" data-i18n="Profile"><i class="feather icon-user"></i>마이페이지</a>
                 </li>
                 <li class=" nav-item"><a href="app-chat.html"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Chat">팀 작업</span></a>
                 </li>

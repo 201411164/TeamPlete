@@ -128,6 +128,12 @@ public class TaskDAOImpl implements TaskDAO{
 		List<TaskVO> taskList = session.selectList("kr.co.teamplete.dao.TaskDAO.notSubmitMyTask", teamId);
 		return taskList;
 	}
+	
+	@Override
+	public List<TaskVO> notSubmitMyTaskAll(String memberid){
+		List<TaskVO> taskList = session.selectList("kr.co.teamplete.dao.TaskDAO.notSubmitMyTaskAll", memberid);
+		return taskList;
+	}
 
 
 }

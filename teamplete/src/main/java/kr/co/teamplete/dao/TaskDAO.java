@@ -61,6 +61,9 @@ public interface TaskDAO {
 	//태스크 담당자가 아닌 팀의 멤버들만 조회
 	public List<MemberVO> selectNotChargeMembers(Map<String, Integer> map);
 	
-	// 모든 태스크 중 로그인 중인 사용자의 제출하지 않은 태스크 목록
+	// 특정 팀에서 사용자의 제출하지 않은 모든 태스크 목록
 	public List<TaskVO> notSubmitMyTask(int teamId);
+	
+	//  로그인 중인 사용자의 모든 제출하지 않은 태스크 목록
+	public List<TaskVO> notSubmitMyTaskAll(String memberId);
 }

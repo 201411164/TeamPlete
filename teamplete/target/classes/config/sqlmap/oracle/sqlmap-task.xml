@@ -175,5 +175,14 @@
          on T.task_id = C.task_id
           where T.team_id = #{teamId} and C.submit = 'N'
    </select>
+   
+   
+   <select id="notSubmitMyTaskAll" parameterType="String" resultMap="taskMap">
+      select T.task_id, writer_id, writer_name, team_id, title, content, deadline, task_date, C.charge_memberid
+       from task_tb T
+        full outer join charge_tb C
+         on T.task_id = C.task_id
+          where C.submit = 'N'
+   </select>
 
 </mapper>

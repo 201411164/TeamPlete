@@ -18,7 +18,7 @@ public class TaskDateController {
 	private TaskDateService service;
 
 	
-	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
+	@RequestMapping(value = "calendar/calendar", method = RequestMethod.GET)
 	public ModelAndView calendar(ModelAndView mav) {
 		
 		List<TaskDateVO> taskDate = service.selectAllTask();
