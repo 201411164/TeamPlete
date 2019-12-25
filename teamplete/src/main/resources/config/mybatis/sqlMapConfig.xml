@@ -20,6 +20,7 @@
       <typeAlias type="kr.co.teamplete.dto.TaskFileVO" alias="TaskFileVO"/>
       <typeAlias type="kr.co.teamplete.dto.ChargeVO" alias="ChargeVO"/>
       <typeAlias type="kr.co.teamplete.dto.RequestVO" alias="RequestVO"/>
+      <typeAlias type="kr.co.teamplete.dto.ActivityVO" alias="ActivityVO"/>
    </typeAliases>
 
 </configuration>

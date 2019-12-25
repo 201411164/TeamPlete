@@ -768,7 +768,7 @@ border-style: none !important;
 									
 
 									<form method="post" enctype="multipart/form-data"
-										action="${pageContext.request.contextPath}/teamdetail/${ team.teamId }/task"
+										action="${pageContext.request.contextPath}/task/write"
 										name="createTaskForm" id="createTaskForm" style="overflow-y:auto;">
 										<input type="hidden" name="writerId" id="writerId"
 											value="${ loginVO.memberid }"> <input type="hidden"

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.FileVO;
@@ -22,6 +24,7 @@ import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
 import kr.co.teamplete.method.Deadline;
+import kr.co.teamplete.service.ActivityService;
 import kr.co.teamplete.service.BoardService;
 import kr.co.teamplete.service.TaskService;
 import kr.co.teamplete.service.TeamService;
@@ -38,13 +41,25 @@ public class TaskController {
 	@Autowired
 	private TeamService teamService;
 	
+	@Autowired
+	private ActivityService activityService;
+	
 	//태스크 등록
-	@PostMapping("/teamdetail/{id}/task")
-	public String insertTask(TaskVO task, @PathVariable("id") int teamId, Model model) {
+	@PostMapping("/task/write")
+	public String insertTask(TaskVO task, Model model) {
 		
 		service.insertTaskS(task);
 		
-		return "redirect:/teamdetail/" + teamId;
+		ActivityVO activity = new ActivityVO();
+		
+		activity.setTeamId(task.getTeamId());
+		activity.setHostId(task.getWriterId());
+		activity.setMsg2(task.getTitle());
+		activity.setMsg3("카드를 추가했습니다.");
+		
+		activityService.insertActivity(activity);
+		
+		return "redirect:/teamdetail/" + task.getTeamId();
 		
 	}
 	
