@@ -456,7 +456,7 @@ border-style: none !important;
 																${ task.taskDate }
 															</c:when>
 															<c:otherwise>																
-																<h4 class="media-heading">${member.name }</h4>
+																<h4 class="mt-1 media-heading" style="font-weight: 600;">${member.name }</h4>
 																${ task.taskDate }
 															</c:otherwise>
 														</c:choose>	
@@ -465,6 +465,8 @@ border-style: none !important;
 														<div class="media-right avatar">
 															<div
 																style="position: relative; text-align: center; color: white;">
+																<c:choose>
+																<c:when test="${fn:startsWith(member.profile, 'circle')}">
 																<img
 																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
 																	alt="avtar img holder" height="64" width="64">
@@ -472,7 +474,14 @@ border-style: none !important;
 																	<c:set var="membername" value="${ member.name }" />
 																	<c:set var="firstletter"
 																		value="${fn:substring(membername, 0, 3)}" />${firstletter}
-																</div>
+																</div>	
+																</c:when>
+																<c:otherwise>
+																<img
+																	src="${member.profile}"
+																	alt="avtar img holder" height="64" width="64">
+																</c:otherwise>
+																</c:choose>																
 															</div>
 														</div>
 													</div>
