@@ -41,6 +41,7 @@
 	href="${ pageContext.request.contextPath }/resources/css/vendors.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://rsms.me/inter/inter.css">
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/bootstrap-extended.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/dark-layout.css">
