@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.teamplete.dao.ActivityDAO">
+
+	<resultMap type="ActivityVO" id="activityMap">
+		<result column="activity_id" property="activityId" />
+		<result column="team_id" property="teamId" />
+		<result column="task_id" property="taskId" />
+		<result column="host_id" property="hostId" />
+		<result column="act_date" property="actDate" />
+	</resultMap>
+	
+	<!-- 팀에 대한 request 삽입 -->
+	<insert id="insertActivity" parameterType="ActivityVO">
+		insert into activity_tb(activity_id, team_id, task_id, host_id, msg1, msg2, msg3)
+		 values(activity_seq.nextval, #{teamId}, #{taskId}, #{hostId}, #{msg1}, #{msg2}, #{msg3})
+	</insert>
+	
+	<!-- 팀의 activity 조회 -->
+	<select id="selectActivity" parameterType="int">
+		select activity_id, team_id, task_id, host_id, msg1, msg2, msg3, act_date, M.name
+		 from activity_tb A
+		  left outer join member_tb M
+		   on A.host_id = M.memberid
+		    where team_id = #{teamId}
+	</select>
+	
+   
+</mapper>

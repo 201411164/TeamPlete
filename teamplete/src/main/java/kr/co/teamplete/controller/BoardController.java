@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.TaskVO;
+import kr.co.teamplete.service.ActivityService;
 import kr.co.teamplete.service.BoardService;
 import kr.co.teamplete.service.TaskService;
 
@@ -24,14 +26,30 @@ public class BoardController {
 
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private ActivityService activityService;
 
 	// insert board
 	@RequestMapping(value = "/{taskId}/board/write", method = RequestMethod.POST)
 	public String writeBoard(BoardVO board, @PathVariable("taskId") int taskId, Model model) {
 
+		TaskVO task = taskService.selectTaskS(taskId);
+		
 		board.setTaskId(taskId);
 
 		service.insertBoardS(board);
+		
+		ActivityVO activity = new ActivityVO();
+		
+		activity.setTeamId(task.getTeamId());
+		activity.setTaskId(taskId);
+		activity.setHostId(board.getWriterId());
+		activity.setMsg1(task.getTitle());
+		activity.setMsg2(board.getTitle());
+		activity.setMsg3("을(를) 추가했습니다.");
+		
+		activityService.insertActivity(activity);
 
 		return "redirect:/taskdetail/" + taskId;
 	}
