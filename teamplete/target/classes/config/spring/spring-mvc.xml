@@ -31,6 +31,8 @@
                </list>
             </property>
          </bean>
+         
+         
 
       </mvc:message-converters>
    </mvc:annotation-driven>
@@ -41,7 +43,7 @@
       <property name="maxInMemorySize" value="104857600"/>
       <property name="defaultEncoding" value="utf-8" />
    </bean>
-   
+   	
    <mvc:view-resolvers>
       <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
    </mvc:view-resolvers>
@@ -64,6 +66,11 @@
       <property name="mapperLocations" value="classpath:config/sqlmap/oracle/*.xml"/>
    </bean>
    
+
+        
+
+   
+   
    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
       <constructor-arg ref="sqlSessionFactory"/>
    </bean>
@@ -73,11 +80,5 @@
               <property name="order" value="0"/>
     </bean>
     <bean id="download" class="kr.co.teamplete.file.FileDownload"/>
-    
-    
-    <!-- 업로드 패스 설정 -->
-    <bean class="java.lang.String" id="filePath">
-    	<constructor-arg value="teamplete"> </constructor-arg>
-    </bean>
    
 </beans>

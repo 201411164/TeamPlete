@@ -53,13 +53,7 @@
 			<version>1.4</version>
 		</dependency>
 		
-		<!-- socket communication -->
-		<dependency>
-	<groupId>org.springframework</groupId>
-	<artifactId>spring-websocket</artifactId>
-	<version>${org.springframework-version}</version>
-	</dependency>
-
+		
 
 		
 
