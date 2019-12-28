@@ -52,6 +52,16 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
+		
+		<!-- socket communication -->
+		<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-websocket</artifactId>
+	<version>${org.springframework-version}</version>
+	</dependency>
+
+
+		
 
 
 		<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
