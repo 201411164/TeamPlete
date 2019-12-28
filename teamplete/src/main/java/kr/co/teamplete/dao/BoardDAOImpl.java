@@ -64,4 +64,10 @@ public class BoardDAOImpl implements BoardDAO {
 		session.update("kr.co.teamplete.dao.BoardDAO.updateBoard", board);
 	}
 
+	@Override
+	public FileVO selectOneFile(int fileNo) {
+		FileVO file = session.selectOne("kr.co.teamplete.dao.BoardDAO.selectOneFile", fileNo);
+		return file;
+	}
+
 }

@@ -34,4 +34,7 @@ public interface BoardDAO {
 
 	// board 수정
 	public void updateBoard(BoardVO board);
+	
+	// 특정 파일 상세
+	public FileVO selectOneFile(int fileNo);
 }

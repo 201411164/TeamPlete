@@ -11,16 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.teamplete.S3.S3Util;
 import kr.co.teamplete.dao.BoardDAO;
 import kr.co.teamplete.dao.TaskDAO;
 import kr.co.teamplete.dao.TeamDAO;
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.FileVO;
-import kr.co.teamplete.dto.TaskFileVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
+	
 
+
+//    @Resource(name="filePath")
+//    private String filePath;
+    
 	@Autowired
 	private BoardDAO boardDAO;
 	
@@ -29,13 +34,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private TaskDAO taskDAO;
-
-	// insert board
-	// @Override
-	// public void insertBoardS(BoardVO board) {
-	//
-	// boardDAO.insertBoard(board);
-	// }
+	
 
 	// 모든 board 조회
 	@Override
@@ -67,8 +66,13 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
+	
 	/* 게시판 첨부파일 정보 조회 */
 	public List<FileVO> getBoardFileInfo(BoardVO board) throws IllegalStateException, IOException {
+		
+        S3Util s3 = new S3Util();
+        String bucketName = "teamplete";
+        
 
 		List<MultipartFile> files = board.getFiles();
 
@@ -111,10 +115,13 @@ public class BoardServiceImpl implements BoardService {
 				boardFile.setFileName(fileName);
 				boardFile.setFileNameKey(fileNameKey);
 				boardFile.setFilePath(URLEncoder.encode(filePath, "utf-8"));
+//				boardFile.setFilePath(s3.getFileURL(bucketName, fileNameKey));
 				boardFile.setFileSize(fileSize);
 				boardFile.setInsUserId(insUserId);
 				boardFile.setDelYN('N');
 				boardFileList.add(boardFile);
+				
+//				s3.fileUpload(bucketName + "/board", fileNameKey, multipartFile.getBytes());  //  추가
 
 			}
 		} else {
@@ -142,12 +149,29 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void deleteBoardS(int boardId) {
+		
+//		S3Util s3 = new S3Util();
+//		
+//		List<String> fileNames = new ArrayList<>();
+//		
+//		List<FileVO> files = boardDAO.selectAllFiles(boardId);
+//		
+//		for(FileVO file : files) {
+//			fileNames.add(boardDAO.selectOneFile(file.getFileNo()).getFileNameKey());
+//		}
+//		
+//		for(String name : fileNames) {
+//			s3.fileDelete(name);
+//		}
+		
 		boardDAO.deleteBoard(boardId);
 	}
 
 	
 	@Override
 	public void updateBoardS(BoardVO board) {
+		
+//        S3Util s3 = new S3Util();
 		
 		List<FileVO> boardFileList = null;
 		
@@ -167,6 +191,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		if(deleteFiles != null) {
 			for (Integer fileNo : deleteFiles) {
+//				s3.fileDelete(boardDAO.selectOneFile(fileNo).getFileNameKey());
 				boardDAO.deleteBoardFile(fileNo);
 			}
 		}

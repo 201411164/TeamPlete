@@ -93,5 +93,12 @@
     	title = #{title}, content = #{content}, board_date = SYSDATE
     	 where board_id = #{boardId}
    </update>
+   
+   <!-- 특정 파일 상세 -->
+   <select id="selectOneFile" parameterType="int" resultMap="fileMap">
+      select file_no, file_name_key
+       from board_file
+        where file_no = #{fileNo}
+   </select>
 
 </mapper>
