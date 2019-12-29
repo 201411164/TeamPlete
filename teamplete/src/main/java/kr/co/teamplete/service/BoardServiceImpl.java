@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,8 +25,8 @@ public class BoardServiceImpl implements BoardService {
 	
 
 
-//    @Resource(name="filePath")
-//    private String filePath;
+    @Resource(name="filePath")
+    private String filePath;
     
 	@Autowired
 	private BoardDAO boardDAO;
@@ -151,6 +153,7 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteBoardS(int boardId) {
 		
 //		S3Util s3 = new S3Util();
+//        String bucketName = "teamplete";
 //		
 //		List<String> fileNames = new ArrayList<>();
 //		
@@ -161,7 +164,7 @@ public class BoardServiceImpl implements BoardService {
 //		}
 //		
 //		for(String name : fileNames) {
-//			s3.fileDelete(name);
+//			s3.fileDelete(bucketName + "/board", name);
 //		}
 		
 		boardDAO.deleteBoard(boardId);
@@ -171,7 +174,8 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void updateBoardS(BoardVO board) {
 		
-//        S3Util s3 = new S3Util();
+        S3Util s3 = new S3Util();
+        String bucketName = "teamplete";
 		
 		List<FileVO> boardFileList = null;
 		
@@ -191,7 +195,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		if(deleteFiles != null) {
 			for (Integer fileNo : deleteFiles) {
-//				s3.fileDelete(boardDAO.selectOneFile(fileNo).getFileNameKey());
+//				s3.fileDelete(bucketName + "/board", boardDAO.selectOneFile(fileNo).getFileNameKey());
 				boardDAO.deleteBoardFile(fileNo);
 			}
 		}
