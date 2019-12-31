@@ -8,10 +8,18 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context   
     http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/websocket
+	http://www.springframework.org/schema/websocket/spring-websocket.xsd
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
    <context:component-scan base-package="kr.co.teamplete" />
+   
+  
+
+
+
+   
    <mvc:annotation-driven>
       <mvc:message-converters>
          <bean
@@ -66,6 +74,16 @@
       <property name="mapperLocations" value="classpath:config/sqlmap/oracle/*.xml"/>
    </bean>
    
+
+	<bean id="echoHandler" class="kr.co.teamplete.handler.EchoHandler" />
+
+        <websocket:handlers>
+
+               <websocket:mapping handler="echoHandler" path="/echo" />
+
+               <websocket:sockjs />
+
+        </websocket:handlers>
 
         
 
