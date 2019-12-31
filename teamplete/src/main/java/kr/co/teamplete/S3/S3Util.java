@@ -24,6 +24,7 @@ public class S3Util {
 
 	private static final String SECRET_ACCESS_KEY = "";
 	
+	
     private AmazonS3 conn;
 
     //bucketName
@@ -68,11 +69,11 @@ public class S3Util {
     }
 
     // 파일 삭제
-    public void fileDelete(String fileName) {
+    public void fileDelete(String buket, String fileName) {
 
         System.out.println("fileName : " + fileName);
         String filename = (fileName).replace(File.separatorChar, '/');
-        conn.deleteObject(this.getBucketName(), filename);
+        conn.deleteObject(buket, filename);
         System.out.println("삭제성공");
     }
 
