@@ -62,7 +62,7 @@
     	    left outer join team_member_tb TM
     	     on M.memberid = TM.member_id
     	      where T.team_id = #{teamId} or TM.team_id = #{teamId}
-    	       order by CONVERT (M.name, 'US8ICL')
+    	       order by CONVERT (M.name, 'ISO2022-KR')
     </select>
     
     <!-- 모든 멤버 조회 -->
