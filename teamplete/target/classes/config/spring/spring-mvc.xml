@@ -75,17 +75,22 @@
    </bean>
    
 
-	<bean id="echoHandler" class="kr.co.teamplete.handler.EchoHandler" />
+	<bean id="replyEchochoHandler"
+	class="kr.co.teamplete.handler.ReplyEchoHandler" />
 
-        <websocket:handlers>
+	<websocket:handlers>
+		<websocket:mapping handler="replyEchochoHandler"
+			path="/replyEcho" />
+		<websocket:handshake-interceptors>
+			<bean
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
 
-               <websocket:mapping handler="echoHandler" path="/echo" />
-
-               <websocket:sockjs />
-
-        </websocket:handlers>
-
-        
+    <bean class="java.lang.String" id="filePath">
+    	<constructor-arg value="teamplete"> </constructor-arg>
+    </bean>    
 
    
    
