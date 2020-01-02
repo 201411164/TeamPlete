@@ -49,7 +49,7 @@
 		select task_id, writer_id, writer_name, team_id, title, content, deadline, task_date
 		 from task_tb
 		  where team_id = #{teamId}
-		   order by task_id
+		   order by task_id desc
 	</select>
 	
 	<!-- 특정 태스크 상세 -->
