@@ -74,7 +74,7 @@ border-style: none !important;
 
 
 </head>
-<body>
+<body class="chat-application">
 	<c:choose>
 		<c:when test="${ empty loginVO }">
 			<%
@@ -336,7 +336,8 @@ border-style: none !important;
 													<i class="feather icon-plus mr-25"></i>초대하기
 												</button>
 											</form>
-										</div>
+										
+									</div>
 								</div>
 							</div>
 
@@ -400,31 +401,108 @@ border-style: none !important;
 
 
 
-							<c:set var="tcount" value="0" scope="page" />	
-							<c:forEach var="task" items="${ taskList }" varStatus="status">
-							<c:set var="tcount" value="${tcount+1 }" scope="page" />	
-								<div class="col-lg-6 col-12">
-									<div class="card" id="showdetail">
-										<div class="card-content">
+							<div class="col-lg-6 col-12">
+								<div class="card" id="showdetail">
+									<div class="card-content">
 
 
 
 
-											
-												
-												<div class="card-header d-flex justify-content-between">
-										<h4 class="text-primary" style="font-family:'Inter'; font-weight:700; font-size:26px;">${task.title }</h4>
-										<i class="feather icon-more-horizontal cursor-pointer"></i>
-									</div>
 
-											<div class="card-body">
 
-														<%-- <p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(task.content, newLineChar, "<br/>") }</p> --%>
-												
-												<div id="editor-readonly${tcount}">
-												<p></p>
+										<div class="card-header d-flex justify-content-between">
+											<h4 class="text-primary"
+												style="font-family: 'Inter'; font-weight: 700; font-size: 26px;">팀 채팅</h4>
+											<i class="feather icon-more-horizontal cursor-pointer"></i>
+										</div>
+
+										<div class="card-body">
+										
+										
+										<section class="chat-app-window">
+                            <div class="active-chat d-none">
+                                <div class="chat_navbar">
+                                    <header class="chat_header d-flex justify-content-between align-items-center p-1">
+                                        <div class="vs-con-items d-flex align-items-center">
+                                            <div class="sidebar-toggle d-block d-lg-none mr-1"><i class="feather icon-menu font-large-1"></i></div>
+                                            <div class="avatar user-profile-toggle m-0 m-0 mr-1">
+                                                <img src="${ pageContext.request.contextPath }/resources/images/${loginVO.profile}" alt="" height="40" width="40" />
+                                                <span class="avatar-status-busy"></span>
+                                            </div>
+                                            <h6 class="mb-0">${loginVO.memberid}</h6>
+                                        </div>
+                                        <span class="favorite"><i class="feather icon-star font-medium-5"></i></span>
+                                    </header>
+                                </div>
+                                </div>
+                                
+										
+										
+										
+										
+											<div class="user-chats">
+												<div class="chats" id="data">
+													
 												</div>
-												<script>
+											</div>
+											
+											<input type="text" class="form-control" id="message" />
+													<button type="button"
+														class="btn btn-primary round btn-block" id="sendBtn"
+														value="전송">전송</button>
+
+
+
+										
+										
+										</section>
+										
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							<c:set var="tcount" value="0" scope="page" />
+								<c:forEach var="task" items="${ taskList }" varStatus="status">
+									<c:set var="tcount" value="${tcount+1 }" scope="page" />
+									<div class="col-lg-6 col-12">
+										<div class="card" id="showdetail">
+											<div class="card-content">
+
+
+
+
+
+
+												<div class="card-header d-flex justify-content-between">
+													<h4 class="text-primary"
+														style="font-family: 'Inter'; font-weight: 700; font-size: 26px;">${task.title }</h4>
+													<i class="feather icon-more-horizontal cursor-pointer"></i>
+												</div>
+
+												<div class="card-body">
+
+													<%-- <p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(task.content, newLineChar, "<br/>") }</p> --%>
+
+													<div id="editor-readonly${tcount}">
+														<p></p>
+													</div>
+													<script>
 												var options = {
 														  debug: 'info',
 														  modules: {
@@ -438,56 +516,60 @@ border-style: none !important;
 												quill${tcount}.setContents(${task.taskContent});
 												</script>
 
-												<div class="col-12">
+													<div class="col-12">
 
 
-													<c:forEach items="${ members }" var="member">
-													<c:if test="${member.memberid eq task.writerId}">
+														<c:forEach items="${ members }" var="member">
+															<c:if test="${member.memberid eq task.writerId}">
 
-													<div class="media">
-														<div class="media-body text-right">
-															<c:choose>
-															<c:when test="${ member.memberid eq team.ownerId }">
-																<h4 class="mt-1 media-heading" style="font-weight: 600;">${member.name }
-																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
-																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
-																		height="18" width="18" style="margin-bottom:4px;">																
-																</h4>
+																<div class="media">
+																	<div class="media-body text-right">
+																		<c:choose>
+																			<c:when test="${ member.memberid eq team.ownerId }">
+																				<h4 class="mt-1 media-heading"
+																					style="font-weight: 600;">${member.name }
+																					<img data-toggle="tooltip" data-placement="top"
+																						title="이 팀의 팀장입니다!"
+																						src="${ pageContext.request.contextPath }/resources/images/crown.png"
+																						height="18" width="18" style="margin-bottom: 4px;">
+																				</h4>
 																${ task.taskDate }
 															</c:when>
-															<c:otherwise>																
-																<h4 class="mt-1 media-heading" style="font-weight: 600;">${member.name }</h4>
+																			<c:otherwise>
+																				<h4 class="mt-1 media-heading"
+																					style="font-weight: 600;">${member.name }</h4>
 																${ task.taskDate }
 															</c:otherwise>
-														</c:choose>	
-															
-														</div>
-														<div class="media-right avatar">
-															<div
-																style="position: relative; text-align: center; color: white;">
-																<c:choose>
-																<c:when test="${fn:startsWith(member.profile, 'circle')}">
-																<img
-																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
-																	alt="avtar img holder" height="64" width="64">
-																<div class="custom-avatar-container" style="font-size:1.2rem;">
-																	<c:set var="membername" value="${ member.name }" />
-																	<c:set var="firstletter"
-																		value="${fn:substring(membername, 0, 3)}" />${firstletter}
-																</div>	
-																</c:when>
-																<c:otherwise>
-																<img
-																	src="${member.profile}"
-																	alt="avtar img holder" height="64" width="64">
-																</c:otherwise>
-																</c:choose>																
-															</div>
-														</div>
-													</div>
-													</c:if>																	
+																		</c:choose>
+
+																	</div>
+																	<div class="media-right avatar">
+																		<div
+																			style="position: relative; text-align: center; color: white;">
+																			<c:choose>
+																				<c:when
+																					test="${fn:startsWith(member.profile, 'circle')}">
+																					<img
+																						src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
+																						alt="avtar img holder" height="64" width="64">
+																					<div class="custom-avatar-container"
+																						style="font-size: 1.2rem;">
+																						<c:set var="membername" value="${ member.name }" />
+																						<c:set var="firstletter"
+																							value="${fn:substring(membername, 0, 3)}" />${firstletter}
+																					</div>
+																				</c:when>
+																				<c:otherwise>
+																					<img src="${member.profile}" alt="avtar img holder"
+																						height="64" width="64">
+																				</c:otherwise>
+																			</c:choose>
+																		</div>
+																	</div>
+																</div>
+															</c:if>
 														</c:forEach>
-														</div>
+													</div>
 												</div>
 
 												<ul class="list-group list-group-flush">
@@ -495,14 +577,16 @@ border-style: none !important;
 													<li class="list-group-item d-flex">
 														<p class="float-left mb-0">
 															<i class="feather icon-calendar mr-1"></i>
-														</p> <span><strong style="color:#0188CC;">제출기한: </strong>${ task.deadline } (${ taskDeadline[status.index] })</span>
+														</p> <span><strong style="color: #0188CC;">제출기한:
+														</strong>${ task.deadline } (${ taskDeadline[status.index] })</span>
 													</li>
 
 													<li class="list-group-item d-flex">
 														<p class="float-left mb-0">
 															<i class="feather icon-download mr-1"></i>
-														</p> <span><strong style="color:#0188CC;">첨부파일 :</strong> <c:forEach
-																var="taskFile" items="${ taskFileList[status.index] }">
+														</p> <span><strong style="color: #0188CC;">첨부파일
+																:</strong> <c:forEach var="taskFile"
+																items="${ taskFileList[status.index] }">
 
 																<h6 class="text-nowrap"
 																	style="white-space: nowrap; display: inline;"
@@ -534,7 +618,8 @@ border-style: none !important;
 																<p class="float-left mb-0">
 																	<i class="feather icon-user-check mr-1"></i>
 																</p>
-																<span><strong style="color:#0188CC;">담당자 :</strong></span>
+																<span><strong style="color: #0188CC;">담당자
+																		:</strong></span>
 																<ul class="list-unstyled users-list d-flex">
 
 
@@ -547,9 +632,9 @@ border-style: none !important;
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ charge.name }"
 																					class="avatar pull-up ml-0">
-																					<div class="avatar" style="margin:0;">
+																					<div class="avatar" style="margin: 0;">
 																						<div
-																							style="position: relative; text-align: center; color: white; margin:0;">
+																							style="position: relative; text-align: center; color: white; margin: 0;">
 																							<img
 																								src="${ pageContext.request.contextPath }/resources/images/circle1.png"
 																								alt="avtar img holder" height="50" width="50">
@@ -562,14 +647,15 @@ border-style: none !important;
 																					</div>
 																				</li>
 																			</c:when>
-																			<c:when test="${fn:startsWith(charge.profile, 'circle')}">
+																			<c:when
+																				test="${fn:startsWith(charge.profile, 'circle')}">
 																				<li data-toggle="tooltip"
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ charge.name }"
 																					class="avatar pull-up ml-0">
-																					<div class="avatar" style="margin:0;">
+																					<div class="avatar" style="margin: 0;">
 																						<div
-																							style="position: relative; text-align: center; color: white; ">
+																							style="position: relative; text-align: center; color: white;">
 																							<img
 																								src="${ pageContext.request.contextPath }/resources/images/${charge.profile}"
 																								alt="avtar img holder" height="50" width="50">
@@ -588,11 +674,10 @@ border-style: none !important;
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ charge.name }"
 																					class="avatar pull-up ml-0">
-																					<div class="avatar" style="margin:0;">
+																					<div class="avatar" style="margin: 0;">
 																						<div
-																							style="position: relative; text-align: center; color: white; margin:0;">
-																							<img
-																								src="${charge.profile}"
+																							style="position: relative; text-align: center; color: white; margin: 0;">
+																							<img src="${charge.profile}"
 																								alt="avtar img holder" height="50" width="50">
 																							<div class="custom-avatar-container">
 																								<c:set var="membername" value="${ charge.name }" />
@@ -601,7 +686,7 @@ border-style: none !important;
 																							</div>
 																						</div>
 																					</div>
-																					</li>
+																				</li>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>
@@ -618,11 +703,12 @@ border-style: none !important;
 																<p class="float-left mb-0">
 																	<i class="feather icon-user-minus mr-1"></i>
 																</p>
-																<span><strong style="color:#0188CC;">미제출자 :</strong></span>
+																<span><strong style="color: #0188CC;">미제출자
+																		:</strong></span>
 
 																<ul class="list-unstyled users-list d-flex">
-																																	
-																	
+
+
 																	<c:forEach var="submitNmem"
 																		items="${ submitN[status.index] }">
 																		<c:choose>
@@ -631,14 +717,15 @@ border-style: none !important;
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ submitNmem.name }"
 																					class="avatar pull-up ml-0">
-																					<div class="avatar" style="margin:0;">
+																					<div class="avatar" style="margin: 0;">
 																						<div
-																							style="position: relative; text-align: center; color: white; margin:0;">
+																							style="position: relative; text-align: center; color: white; margin: 0;">
 																							<img
 																								src="${ pageContext.request.contextPath }/resources/images/circle1.png"
 																								alt="avtar img holder" height="50" width="50">
 																							<div class="custom-avatar-container">
-																								<c:set var="membername" value="${ submitNmem.name }" />
+																								<c:set var="membername"
+																									value="${ submitNmem.name }" />
 																								<c:set var="firstletter"
 																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																							</div>
@@ -646,19 +733,21 @@ border-style: none !important;
 																					</div>
 																				</li>
 																			</c:when>
-																			<c:when test="${fn:startsWith(submitNmem.profile, 'circle')}">
+																			<c:when
+																				test="${fn:startsWith(submitNmem.profile, 'circle')}">
 																				<li data-toggle="tooltip"
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ submitNmem.name }"
 																					class="avatar pull-up ml-0">
-																					<div class="avatar" style="margin:0;">
+																					<div class="avatar" style="margin: 0;">
 																						<div
-																							style="position: relative; text-align: center; color: white; ">
+																							style="position: relative; text-align: center; color: white;">
 																							<img
 																								src="${ pageContext.request.contextPath }/resources/images/${submitNmem.profile}"
 																								alt="avtar img holder" height="50" width="50">
 																							<div class="custom-avatar-container">
-																								<c:set var="membername" value="${ submitNmem.name }" />
+																								<c:set var="membername"
+																									value="${ submitNmem.name }" />
 																								<c:set var="firstletter"
 																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																							</div>
@@ -672,24 +761,24 @@ border-style: none !important;
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${ submitNmem.name }"
 																					class="avatar pull-up ml-0">
-																					<div class="avatar" style="margin:0;">
+																					<div class="avatar" style="margin: 0;">
 																						<div
-																							style="position: relative; text-align: center; color: white; margin:0;">
-																							<img
-																								src="${submitNmem.profile}"
+																							style="position: relative; text-align: center; color: white; margin: 0;">
+																							<img src="${submitNmem.profile}"
 																								alt="avtar img holder" height="50" width="50">
 																							<div class="custom-avatar-container">
-																								<c:set var="membername" value="${submitNmem.name }" />
+																								<c:set var="membername"
+																									value="${submitNmem.name }" />
 																								<c:set var="firstletter"
 																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																							</div>
 																						</div>
 																					</div>
-																					</li>
+																				</li>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:forEach>
-																	
+
 																</ul>
 															</div>
 														</div>
@@ -721,7 +810,7 @@ border-style: none !important;
 									</div>
 
 
-							</c:forEach>
+								</c:forEach>
 
 
 
@@ -731,11 +820,11 @@ border-style: none !important;
 
 
 
-						</div>
-						
-						
-						
-						<div class="row" >
+							</div>
+
+
+
+							<div class="row" >
 
 
 
@@ -937,6 +1026,111 @@ border-style: none !important;
 
 
 	<script>
+	
+	$(document).ready(function() {
+
+        $("#sendBtn").click(function() {
+
+                sendMessage();
+
+                $('#message').val('')
+
+        });
+
+
+
+        $("#message").keydown(function(key) {
+
+                if (key.keyCode == 13) {// 엔터
+
+                       sendMessage();
+
+                       $('#message').val('')
+
+                }
+
+        });
+
+ });
+
+
+
+ // 웹소켓을 지정한 url로 연결한다.
+
+ var sock = new SockJS("<c:url value="/echo"/>");
+
+ sock.onmessage = onMessage;
+
+ sock.onclose = onClose;
+
+
+
+ // 메시지 전송
+
+ function sendMessage() {
+
+        sock.send($("#message").val());
+
+ }
+
+
+ // 서버로부터 메시지를 받았을 때
+
+ function onMessage(msg) {
+
+        var data = msg.data;
+        
+        var currenttime =  new Date().toLocaleTimeString();
+        
+        var avatar=`
+		<div class="chat">
+        <div class="chat-avatar">
+            <a class="avatar m-0" data-toggle="tooltip" href="${ pageContext.request.contextPath}/mypage/${loginVO.memberid}" data-placement="right" title="" data-original-title="">
+                <img src="${ pageContext.request.contextPath }/resources/images/${loginVO.profile}" alt="avatar" height="40" width="40" />
+                	<div class="custom-avatar-container">
+                	${loginVO.memberid}
+				</div>
+            </a>
+        </div>
+        
+    </div>`;
+    
+		$("#data").append(avatar);
+		
+		var text=`
+		<div class="chat-body">
+        <div class="chat-content">
+            <p>
+        `;    	
+    	
+   		$("#data").append(text + data+ "</p>");
+   		
+   		var text2=`
+   			</div>
+   	    </div>`;
+   		
+        $("#data").append(currenttime+text2 + "<br/>");
+
+ }
+
+
+
+ // 서버와 연결을 끊었을 때
+
+ function onClose(evt) {
+
+        $("#data").append("연결 끊김");
+
+ }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	var index = 0;
 

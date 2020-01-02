@@ -94,7 +94,7 @@ input::placeholder {
 		<div class="content-overlay"></div>
 		<div class="header-navbar-shadow"></div>
 		<div class="content-wrapper">
-			<div class="content-header row"></div>
+			<div class="content-header row"> </div>
 			<div class="content-body">
 				<section class="row flexbox-container">
 				<div class="col-xl-8 col-11 d-flex justify-content-center">
@@ -656,6 +656,7 @@ input::placeholder {
 		src="${ pageContext.request.contextPath }/resources/js/components.js"></script>
 		<script
 		src="${ pageContext.request.contextPath }/resources/js/vegas.min.js"></script>
+		 <script src="${ pageContext.request.contextPath }/resources/js/sockjs.js"></script>
 	<!-- END: Theme JS-->
 
 	<!-- BEGIN: Page JS-->
@@ -665,11 +666,6 @@ input::placeholder {
 	
 
 	<script>
-	
-	
-	
-
-	
 	
 	
 	

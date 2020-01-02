@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.RequestVO;
 import kr.co.teamplete.method.UpdateTime;
+import kr.co.teamplete.service.LoginService;
+import kr.co.teamplete.service.MemberService;
 import kr.co.teamplete.service.RequestService;
 
 @Controller
@@ -41,6 +43,12 @@ public class NavbarController {
 		mav.addObject("requestCnt", allRequestList.size());
 		mav.addObject("requestTime", requestTime);
 		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
+	public ModelAndView chat(ModelAndView mav) {
+		mav.setViewName("chat/chattingview");
 		return mav;
 	}
 

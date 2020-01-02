@@ -75,16 +75,13 @@
    </bean>
    
 
-	<bean id="replyEchochoHandler"
-	class="kr.co.teamplete.handler.ReplyEchoHandler" />
+	<bean id="EchoHandler"
+	class="kr.co.teamplete.handler.EchoHandler" />
 
 	<websocket:handlers>
-		<websocket:mapping handler="replyEchochoHandler"
-			path="/replyEcho" />
-		<websocket:handshake-interceptors>
-			<bean
-				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-		</websocket:handshake-interceptors>
+		<websocket:mapping handler="EchoHandler"
+			path="/echo" />
+		<websocket:sockjs/>
 	</websocket:handlers>
 	
 

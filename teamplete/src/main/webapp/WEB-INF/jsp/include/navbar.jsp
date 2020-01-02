@@ -46,6 +46,7 @@
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/bootstrap-extended.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/semi-dark-layout.css">
+     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/app-chat.css">
 	<link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/quill.snow.css">
     <!-- BEGIN: Page CSS-->
