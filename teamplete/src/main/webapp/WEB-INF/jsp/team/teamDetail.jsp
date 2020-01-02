@@ -504,10 +504,14 @@ border-style: none !important;
 														</p> <span><strong style="color:#0188CC;">첨부파일 :</strong> <c:forEach
 																var="taskFile" items="${ taskFileList[status.index] }">
 
+<!-- 																<h6 class="text-nowrap" -->
+<!-- 																	style="white-space: nowrap; display: inline;" -->
+<!-- 																	id="fileName" -->
+<%-- 																	onClick="taskFileDown('filePath=${ taskFile.filePath }&fileNameKey=${ taskFile.fileNameKey }&fileName=${ taskFile.fileName }')">${ taskFile.fileName }</h6> --%>
 																<h6 class="text-nowrap"
 																	style="white-space: nowrap; display: inline;"
 																	id="fileName"
-																	onClick="taskFileDown('filePath=${ taskFile.filePath }&fileNameKey=${ taskFile.fileNameKey }&fileName=${ taskFile.fileName }')">${ taskFile.fileName }</h6>
+																	onClick="taskFileDown('${ taskFile.filePath }')">${ taskFile.fileName }</h6>
 																<c:choose>
 																	<c:when test="${ taskFile.fileSize >= 1024 }">
 																		<h6 id="strong" style="display: inline;">
@@ -1249,7 +1253,8 @@ border-style: none !important;
 	
 	
 	function taskFileDown(file){
-	    location.href = "${ pageContext.request.contextPath}/fileDownload?" + file;
+// 	    location.href = "${ pageContext.request.contextPath}/fileDownload?" + file;
+	    location.href = file;
 	}
 	
 	

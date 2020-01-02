@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
@@ -133,6 +134,12 @@ public class TaskDAOImpl implements TaskDAO{
 	public List<TaskVO> notSubmitMyTaskAll(String memberid){
 		List<TaskVO> taskList = session.selectList("kr.co.teamplete.dao.TaskDAO.notSubmitMyTaskAll", memberid);
 		return taskList;
+	}
+
+	@Override
+	public TaskFileVO selectOneFile(int fileNo) {
+		TaskFileVO file = session.selectOne("kr.co.teamplete.dao.TaskDAO.selectOneFile", fileNo);
+		return file;
 	}
 
 

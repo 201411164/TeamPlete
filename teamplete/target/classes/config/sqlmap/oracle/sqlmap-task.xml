@@ -184,5 +184,13 @@
          on T.task_id = C.task_id
           where C.charge_memberid = #{memberId} and C.submit = 'N'
    </select>
+   
+   
+   <!-- 특정 파일 상세 -->
+   <select id="selectOneFile" parameterType="int" resultMap="taskFileMap">
+      select file_no, file_name_key
+       from task_file
+        where file_no = #{fileNo}
+   </select>
 
 </mapper>

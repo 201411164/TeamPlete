@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
@@ -66,4 +67,7 @@ public interface TaskDAO {
 	
 	//  로그인 중인 사용자의 모든 제출하지 않은 태스크 목록
 	public List<TaskVO> notSubmitMyTaskAll(String memberId);
+	
+	// 특정 파일 상세
+	public TaskFileVO selectOneFile(int fileNo);
 }
