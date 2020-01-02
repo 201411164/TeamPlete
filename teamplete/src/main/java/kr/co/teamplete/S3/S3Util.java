@@ -4,7 +4,11 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -55,13 +59,17 @@ public class S3Util {
     public void createFolder(String bucketName, String folderName) {
         conn.putObject(bucketName, folderName + "/", new ByteArrayInputStream(new byte[0]), new ObjectMetadata());
     }
+    
+    
     // 파일 업로드
-    public void fileUpload(String bucketName, String fileName, byte[] fileData) throws FileNotFoundException {
+    public void fileUpload(String bucketName, String fileName, String realFileName, byte[] fileData) throws FileNotFoundException, UnsupportedEncodingException {
 
         String filePath = (fileName).replace(File.separatorChar, '/'); // 파일 구별자를 `/`로 설정(\->/)
         ObjectMetadata metaData = new ObjectMetadata();
-        //System.out.println("metaData 정보 : "+metaData);
-        metaData.setContentLength(fileData.length);   //메타데이터 설정 --> 파일크기만큼 버퍼를 설정
+        //encode 후 + 로 변경된 것을 공백(%20)으로 변경
+        String docName = URLEncoder.encode(realFileName,"UTF-8").replaceAll("\\+", "%20");
+        metaData.setContentDisposition("attachment;filename=\"" + docName + "\"");
+        metaData.setContentLength(fileData.length);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileData);
 
         conn.putObject(bucketName, filePath, byteArrayInputStream, metaData);
@@ -71,29 +79,9 @@ public class S3Util {
     // 파일 삭제
     public void fileDelete(String buket, String fileName) {
 
-        System.out.println("fileName : " + fileName);
+//        System.out.println("fileName : " + fileName);
         String filename = (fileName).replace(File.separatorChar, '/');
         conn.deleteObject(buket, filename);
-        System.out.println("삭제성공");
     }
-
-    // 파일 URL
-    public String getFileURL(String bucketName, String fileName) {
-        System.out.println("넘어오는 파일명 : "+fileName);
-        String filename = (fileName).replace(File.separatorChar, '/');
-        return conn.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, filename)).toString();
-    }
-
-    // src파일 읽어오기
-    public S3ObjectInputStream getSrcFile(String bucketName, String fileName) throws IOException{
-        System.out.println("넘어오는 파일명 : "+fileName);
-        fileName = (fileName).replace(File.separatorChar, '/');
-        S3Object s3object = conn.getObject(new GetObjectRequest(bucketName, fileName)); //해당 파일 s3객체에 담기
-        S3ObjectInputStream objectInputStream = s3object.getObjectContent();    //s3객체를 스트림으로 변환
-
-        return objectInputStream;
-    }
-
-
 
 }		

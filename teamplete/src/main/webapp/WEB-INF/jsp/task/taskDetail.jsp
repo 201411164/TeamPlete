@@ -62,6 +62,7 @@
 
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+
 <style>
 table {
 	border: 1px solid black;
@@ -410,10 +411,14 @@ border-style: none !important;
 																						items="${ boardFileList[status.index] }">
 
 
+<!-- 																						<h6 class="text-nowrap" -->
+<!-- 																							style="white-space: nowrap; display: inline;" -->
+<!-- 																							id="fileName" -->
+<%-- 																							onClick="fileDown('filePath=${ boardFile.filePath }&fileNameKey=${ boardFile.fileNameKey }&fileName=${ boardFile.fileName }')">${ boardFile.fileName }</h6> --%>
 																						<h6 class="text-nowrap"
 																							style="white-space: nowrap; display: inline;"
 																							id="fileName"
-																							onClick="fileDown('filePath=${ boardFile.filePath }&fileNameKey=${ boardFile.fileNameKey }&fileName=${ boardFile.fileName }')">${ boardFile.fileName }</h6>
+																							onClick="fileDown('${ boardFile.filePath }')">${ boardFile.fileName }</h6>
 																						<c:choose>
 																							<c:when test="${ boardFile.fileSize >= 1024 }">
 																								<h6 id="strong" style="display: inline;">
@@ -791,10 +796,14 @@ border-style: none !important;
 												</p> <span><strong>첨부파일 :</strong> <c:forEach var="file"
 														items="${ taskFileList }">
 														<li class="list-group-item">
+<!-- 															<h6 class="text-nowrap" -->
+<!-- 																style="white-space: nowrap; display: inline;" -->
+<!-- 																id="fileName" -->
+<%-- 																onClick="fileDown('filePath=${ file.filePath }&fileNameKey=${ file.fileNameKey }&fileName=${ file.fileName }')">${ file.fileName }</h6> --%>
 															<h6 class="text-nowrap"
 																style="white-space: nowrap; display: inline;"
 																id="fileName"
-																onClick="fileDown('filePath=${ file.filePath }&fileNameKey=${ file.fileNameKey }&fileName=${ file.fileName }')">${ file.fileName }</h6>
+																onClick="fileDown('${ file.filePath }')">${ file.fileName }</h6>
 															<c:choose>
 																<c:when test="${ file.fileSize >= 1024 }">
 																	<h6 id="strong" style="display: inline;">
@@ -1359,7 +1368,8 @@ border-style: none !important;
 	
 	
 	function fileDown(file){
-	    location.href = "${ pageContext.request.contextPath}/fileDownload?" + file;
+// 		location.href = "${ pageContext.request.contextPath}/fileDownload?" + file;
+	    location.href = file;
 	}
 	
 	

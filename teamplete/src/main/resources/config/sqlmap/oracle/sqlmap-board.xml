@@ -42,7 +42,7 @@
         left outer join member_tb M
          on B.writer_id = M.memberid
           where task_id = #{taskId}
-           order by board_id
+           order by board_id desc
    </select>
 
    

@@ -122,6 +122,14 @@ public class TeamController {
 		
 		TeamVO team = service.detailTeam(teamId);
 		List<MemberVO> members = service.selectAllMembers(teamId);
+		
+		for(MemberVO member : members) {
+			if(member.getMemberid().equals(service.detailTeam(teamId).getOwnerId())) {
+				members.remove(member);
+				members.add(0, member);
+				break;
+			}
+		}
 		List<MemberVO> allmembers = service.selectAllMembers();
 		List<TaskVO> taskList = taskService.selectAllTaskS(teamId);
 		List<List<TaskFileVO>> taskFileList = new ArrayList<>();

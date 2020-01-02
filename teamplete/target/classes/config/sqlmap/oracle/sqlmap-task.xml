@@ -49,7 +49,7 @@
 		select task_id, writer_id, writer_name, team_id, title, content, deadline, task_date
 		 from task_tb
 		  where team_id = #{teamId}
-		   order by task_id
+		   order by task_id desc
 	</select>
 	
 	<!-- 특정 태스크 상세 -->
@@ -183,6 +183,14 @@
         full outer join charge_tb C
          on T.task_id = C.task_id
           where C.charge_memberid = #{memberId} and C.submit = 'N'
+   </select>
+   
+   
+   <!-- 특정 파일 상세 -->
+   <select id="selectOneFile" parameterType="int" resultMap="taskFileMap">
+      select file_no, file_name_key
+       from task_file
+        where file_no = #{fileNo}
    </select>
 
 </mapper>

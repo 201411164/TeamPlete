@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.teamplete.S3.S3Util;
 import kr.co.teamplete.dao.TaskDAO;
 import kr.co.teamplete.dao.TeamDAO;
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
@@ -65,6 +67,9 @@ public class TaskServiceImpl implements TaskService {
 
 	/* 게시판 첨부파일 정보 조회 */
 	public List<TaskFileVO> getTaskFileInfo(TaskVO task) throws IllegalStateException, IOException {
+		
+        S3Util s3 = new S3Util();
+        String bucketName = "teamplete";
 
 		List<MultipartFile> files = task.getTaskFiles();
 
@@ -106,11 +111,14 @@ public class TaskServiceImpl implements TaskService {
 				taskFile.setTaskId(taskId);
 				taskFile.setFileName(fileName);
 				taskFile.setFileNameKey(fileNameKey);
-				taskFile.setFilePath(URLEncoder.encode(filePath, "utf-8"));
+//				taskFile.setFilePath(URLEncoder.encode(filePath, "utf-8"));
+				taskFile.setFilePath("https://teamplete.s3.ap-northeast-2.amazonaws.com/task/" + fileNameKey);
 				taskFile.setFileSize(fileSize);
 				taskFile.setInsUserId(insUserId);
 				taskFile.setDelYN('N');
 				taskFileList.add(taskFile);
+				
+				s3.fileUpload(bucketName + "/task", fileNameKey, fileName, multipartFile.getBytes());  //  추가
 
 			}
 		} else {
@@ -133,6 +141,9 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void updateTaskS(TaskVO task) {
 		
+        S3Util s3 = new S3Util();
+        String bucketName = "teamplete";
+		
 		List<TaskFileVO> taskFileList = null;
 		
 		List<String> chargeMems = task.getChargeMems();
@@ -153,6 +164,7 @@ public class TaskServiceImpl implements TaskService {
 		
 		if(deleteFiles != null) {
 			for (Integer fileNo : deleteFiles) {
+				s3.fileDelete(bucketName + "/task", taskDAO.selectOneFile(fileNo).getFileNameKey());
 				taskDAO.deleteTaskFile(fileNo);
 			}
 		}
@@ -184,6 +196,23 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void deleteTaskS(int taskId) {
+		
+		S3Util s3 = new S3Util();
+        String bucketName = "teamplete";
+        
+		List<String> fileNames = new ArrayList<>();
+		
+		List<TaskFileVO> files = taskDAO.selectAllTaskFiles(taskId);
+		
+		for(TaskFileVO file : files) {
+			fileNames.add(taskDAO.selectOneFile(file.getFileNo()).getFileNameKey());
+		}
+		
+		for(String name : fileNames) {
+			s3.fileDelete(bucketName + "/task", name);
+		}
+        
+        
 		taskDAO.deleteTask(taskId);
 
 	}
