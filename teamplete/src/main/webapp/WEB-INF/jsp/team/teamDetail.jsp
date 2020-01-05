@@ -1067,16 +1067,18 @@ border-style: none !important;
 	 
 
  <c:set var="teamid" value="${team.teamId}" />
+ 
+ 
+ 
+	 var sock = new SockJS("<c:url value="/echo/?=${teamid}=${loginVO.memberid}=${loginVO.profile}"/>",null,{sessionId: function(){
+		 var name= "${loginVO.name}";
+		 var random= Math.floor(Math.random() * 10001); //동명이인이 있을 경우를 생각해 세션ID에 랜덤 넘버를 뒤에 붙여줌.
+		 return name+"&"+random;
+		 
+	 }});
 
 
- var sock = new SockJS("<c:url value="/echo/?id=${teamid}"/>",null,{sessionId: function(){
-	 var memberid= "${ loginVO.memberid }";
-	 var membername = "${loginVO.name}";
-	 var profile= "${loginVO.profile}";
-	 var profile2 = profile.replace(".","DDD");
-	 return memberid+"&"+membername+"&"+profile2;
-	 
- }});
+
 
  sock.onmessage = onMessage;
  sock.onclose = onClose;
@@ -1098,16 +1100,10 @@ border-style: none !important;
 	 	
 	 	
         var data = msg.data;
-        var datasplit = data.split(":",4);
+        var datasplit = data.split("=",4);
         var memberid = datasplit[0];
         var membername = datasplit[1];
-        
-        
-        
-        
-        var memberprofilefake = datasplit[2];
-        var memberprofile = memberprofilefake.replace("DDD",".");
-        
+        var memberprofile = datasplit[2];
         var realmessage=datasplit[3];
         console.log(memberid);
         console.log(membername);
@@ -1126,7 +1122,7 @@ border-style: none !important;
         	$(".talk:last").append(talklast2);
         }        
         
-        else if("${loginVO.memberid}"==memberid){
+        else if("${loginVO.memberid}"==memberid ){
         
     	   var avatar=`
    	        
@@ -1145,8 +1141,14 @@ border-style: none !important;
    	        </div>
    	        
    	        `;
-   	    	var avatar2 = avatar.replace("replaced", memberprofile);
-   	    	var avatar3 = avatar2.replace("memberidhere",membername);
+   	        // 카카오 사진일 경우와 아닐 경우 나눠서 처리
+   	        if(memberprofile.startsWith("circle")){
+   	        	var avatar2 = avatar.replace("replaced", memberprofile);
+   	        	var avatar3 = avatar2.replace("memberidhere",membername);
+   	        }else{  //카카오일 경우
+   	        	var avatar2 = avatar.replace("${ pageContext.request.contextPath }/resources/images/replaced", memberprofile);
+   	        	var avatar3 = avatar2.replace("memberidhere","");
+   	        }
    			var avatar4 = avatar3.replace("realmessage",realmessage);
    			$("#data").append(currenttime+avatar4+ "<br/>");
         
@@ -1168,8 +1170,14 @@ border-style: none !important;
     	        </div>
     	        
     	        `;
-    	    	var avatar2 = avatar.replace("replaced", memberprofile);
-    	    	var avatar3 = avatar2.replace("memberidhere",membername);
+    	   if(memberprofile.startsWith("circle")){
+  	        	var avatar2 = avatar.replace("replaced", memberprofile);
+  	        	var avatar3 = avatar2.replace("memberidhere",membername);
+  	        }else{ //카카오일 경우
+  	        	var avatar2 = avatar.replace("${ pageContext.request.contextPath }/resources/images/replaced", memberprofile);
+  	        	var avatar3 = avatar2.replace("memberidhere","");
+  	        }
+    	    	
     			var avatar4 = avatar3.replace("realmessage",realmessage);
     			$("#data").append(currenttime+avatar4+ "<br/>");
     	   		

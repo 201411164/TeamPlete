@@ -25,11 +25,22 @@ public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor{
         ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
 		
 		  System.out.println("URI:"+ssreq.getURI());
-		  String[] teamiduri=ssreq.getURI().toString().split("=",2);
-		  String teamid=teamiduri[1];
-		  // HttpServletRequest req = ssreq.getServletRequest();
+		  String[] uri=ssreq.getURI().toString().split("=",4);
+		  
+		  
+		  String teamid = uri[1];
 		  attributes.put("teamid", teamid);
+		  
+		  String memberid=uri[2];
+		  attributes.put("memberid", memberid);
+		  
+		  String profile=uri[3];
+		  attributes.put("profile", profile);
+		  
+		  
 		  System.out.println("teamid="+teamid);
+		  System.out.println("memberid="+memberid);
+		  System.out.println("profile="+profile);
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
   

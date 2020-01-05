@@ -37,16 +37,18 @@ public class EchoHandler extends TextWebSocketHandler{
 		Map<String, Object> sessionMap = new HashMap<String,Object>();
 		sessionMap=session.getAttributes();
     	String teamid = ((String) sessionMap.get("teamid")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
-    	String userid = session.getId().split("&",3)[0];
-    	String membername = session.getId().split("&",3)[1];
-    	String profile = session.getId().split("&",3)[2];
-    	System.out.println("UserID="+userid);
+    	String memberid = ((String) sessionMap.get("memberid")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
+    	String profile = ((String) sessionMap.get("profile")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
+    	String name = session.getId().split("&",2)[0];
+    	
+    	
 		System.out.println("teamID="+teamid);
+		System.out.println("name =="+name);
     	System.out.println("메시지 보냄");
 		for (WebSocketSession sess : sessionList) {
 			System.out.println("session의 팀 id들"+((String)sess.getAttributes().get("teamid")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", ""));
 			if(teamid.equals(((String)sess.getAttributes().get("teamid")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", ""))==true) {
-			sess.sendMessage(new TextMessage(userid+":"+membername+":"+profile+":"+message.getPayload()));
+			sess.sendMessage(new TextMessage(memberid+"="+name+"="+profile+"="+message.getPayload()));
 			System.out.println(sess.getId()+"에게"+message.getPayload()+"에게만 메세지 보냄");
 			}
 						
