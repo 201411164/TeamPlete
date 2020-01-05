@@ -185,7 +185,6 @@ border-style: none !important;
 									<div class=" card-body nano" style="min-height:400px;">
 									<div class="nano-content " >
 										<c:forEach items="${ members }" var="member">
-
 											<c:choose>
 												 <c:when test="${fn:startsWith(member.profile, 'circle')}">
 
@@ -1072,9 +1071,10 @@ border-style: none !important;
 
  var sock = new SockJS("<c:url value="/echo/?id=${teamid}"/>",null,{sessionId: function(){
 	 var memberid= "${ loginVO.memberid }";
+	 var membername = "${loginVO.name}";
 	 var profile= "${loginVO.profile}";
 	 var profile2 = profile.replace(".","DDD");
-	 return memberid+"&"+profile2;
+	 return memberid+"&"+membername+"&"+profile2;
 	 
  }});
 
@@ -1098,16 +1098,21 @@ border-style: none !important;
 	 	
 	 	
         var data = msg.data;
-        var datasplit = data.split(":",3);
+        var datasplit = data.split(":",4);
         var memberid = datasplit[0];
+        var membername = datasplit[1];
         
-        var memberprofilefake = datasplit[1];
+        
+        
+        
+        var memberprofilefake = datasplit[2];
         var memberprofile = memberprofilefake.replace("DDD",".");
         
-        var realmessage=datasplit[2];
+        var realmessage=datasplit[3];
         console.log(memberid);
+        console.log(membername);
         console.log(memberprofile);
-        console.log(realmessage)
+        console.log(realmessage);
         
         var currenttime =  new Date().toLocaleTimeString();
         var lastmember = $('#lastsender').val();
@@ -1141,7 +1146,7 @@ border-style: none !important;
    	        
    	        `;
    	    	var avatar2 = avatar.replace("replaced", memberprofile);
-   	    	var avatar3 = avatar2.replace("memberidhere",memberid);
+   	    	var avatar3 = avatar2.replace("memberidhere",membername);
    			var avatar4 = avatar3.replace("realmessage",realmessage);
    			$("#data").append(currenttime+avatar4+ "<br/>");
         
@@ -1164,7 +1169,7 @@ border-style: none !important;
     	        
     	        `;
     	    	var avatar2 = avatar.replace("replaced", memberprofile);
-    	    	var avatar3 = avatar2.replace("memberidhere",memberid);
+    	    	var avatar3 = avatar2.replace("memberidhere",membername);
     			var avatar4 = avatar3.replace("realmessage",realmessage);
     			$("#data").append(currenttime+avatar4+ "<br/>");
     	   		
