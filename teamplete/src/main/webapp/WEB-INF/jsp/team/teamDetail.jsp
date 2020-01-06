@@ -73,8 +73,9 @@ border-style: none !important;
 </style>
 
 
+
 </head>
-<body class="chat-application">
+<body >
 	<c:choose>
 		<c:when test="${ empty loginVO }">
 			<%
@@ -234,7 +235,6 @@ border-style: none !important;
 									<div class=" card-body nano" style="min-height:400px;">
 									<div class="nano-content " >
 										<c:forEach items="${ members }" var="member">
-
 											<c:choose>
 												 <c:when test="${fn:startsWith(member.profile, 'circle')}">
 
@@ -454,7 +454,7 @@ border-style: none !important;
 
 
 							<div class="col-lg-6 col-12">
-								<div class="card" id="showdetail">
+								<div class="card chat-application" id="showdetail">
 									<div class="card-content">
 
 
@@ -467,6 +467,8 @@ border-style: none !important;
 												style="font-family: 'Inter'; font-weight: 700; font-size: 26px;">팀 채팅</h4>
 											<i class="feather icon-more-horizontal cursor-pointer"></i>
 										</div>
+										
+
 
 										<div class="card-body">
 										
@@ -490,10 +492,9 @@ border-style: none !important;
                                 
 										
 										
-										
-										
-											<div class="user-chats">
-												<div class="chats" id="data">
+											<p hidden id="lastsender"></p>
+											<div class="user-chats" style="overflow-y:auto;">
+												<div class="chats" id="data" >
 													
 												</div>
 											</div>
@@ -501,7 +502,7 @@ border-style: none !important;
 											<input type="text" class="form-control" id="message" />
 													<button type="button"
 														class="btn btn-primary round btn-block" id="sendBtn"
-														value="전송">전송</button>
+														value="전송">전송!</button>
 
 
 
@@ -1051,6 +1052,9 @@ border-style: none !important;
 
 
 
+
+
+
 	<!-- BEGIN: Vendor JS-->
 	
 	<!-- BEGIN Vendor JS-->
@@ -1112,11 +1116,23 @@ border-style: none !important;
 
 
  // 웹소켓을 지정한 url로 연결한다.
+	 
 
- var sock = new SockJS("<c:url value="/echo"/>");
+ <c:set var="teamid" value="${team.teamId}" />
+ 
+ 
+ 
+	 var sock = new SockJS("<c:url value="/echo/?=${teamid}=${loginVO.memberid}=${loginVO.profile}"/>",null,{sessionId: function(){
+		 var name= "${loginVO.name}";
+		 var random= Math.floor(Math.random() * 10001); //동명이인이 있을 경우를 생각해 세션ID에 랜덤 넘버를 뒤에 붙여줌.
+		 return name+"&"+random;
+		 
+	 }});
+
+
+
 
  sock.onmessage = onMessage;
-
  sock.onclose = onClose;
 
 
@@ -1133,39 +1149,94 @@ border-style: none !important;
  // 서버로부터 메시지를 받았을 때
 
  function onMessage(msg) {
-
+	 	
+	 	
         var data = msg.data;
+        var datasplit = data.split("=",4);
+        var memberid = datasplit[0];
+        var membername = datasplit[1];
+        var memberprofile = datasplit[2];
+        var realmessage=datasplit[3];
+        console.log(memberid);
+        console.log(membername);
+        console.log(memberprofile);
+        console.log(realmessage);
         
         var currenttime =  new Date().toLocaleTimeString();
+        var lastmember = $('#lastsender').val();
         
-        var avatar=`
-		<div class="chat">
-        <div class="chat-avatar">
-            <a class="avatar m-0" data-toggle="tooltip" href="${ pageContext.request.contextPath}/mypage/${loginVO.memberid}" data-placement="right" title="" data-original-title="">
-                <img src="${ pageContext.request.contextPath }/resources/images/${loginVO.profile}" alt="avatar" height="40" width="40" />
-                	<div class="custom-avatar-container">
-                	${loginVO.memberid}
-				</div>
-            </a>
-        </div>
+        if(lastmember == memberid){
+        	var x = $(".talk:last");
+        	var talklast=`
+   	            <p class="talk">realmessage</p>
+   	            `;
+        	var talklast2 = talklast.replace("realmessage",realmessage);	
+        	$(".talk:last").append(talklast2);
+        }        
         
-    </div>`;
-    
-		$("#data").append(avatar);
-		
-		var text=`
-		<div class="chat-body">
-        <div class="chat-content">
-            <p>
-        `;    	
-    	
-   		$("#data").append(text + data+ "</p>");
-   		
-   		var text2=`
-   			</div>
-   	    </div>`;
-   		
-        $("#data").append(currenttime+text2 + "<br/>");
+        else if("${loginVO.memberid}"==memberid ){
+        
+    	   var avatar=`
+   	        
+   			<div class="chat">
+   	        <div class="chat-avatar avatar">
+   	                <img src="${ pageContext.request.contextPath }/resources/images/replaced" alt="avatar" height="40" width="40" />
+   	                	<div class="custom-avatar-container">
+   	                	memberidhere
+   					</div>
+   	                	</div>       	
+   	                	<div class="chat-body">
+   	        	        <div class="chat-content">
+   	        	            <p class="talk">realmessage</p>
+   	        	            </div>
+   	            	   	 </div>
+   	        </div>
+   	        
+   	        `;
+   	        // 카카오 사진일 경우와 아닐 경우 나눠서 처리
+   	        if(memberprofile.startsWith("circle")){
+   	        	var avatar2 = avatar.replace("replaced", memberprofile);
+   	        	var avatar3 = avatar2.replace("memberidhere",membername);
+   	        }else{  //카카오일 경우
+   	        	var avatar2 = avatar.replace("${ pageContext.request.contextPath }/resources/images/replaced", memberprofile);
+   	        	var avatar3 = avatar2.replace("memberidhere","");
+   	        }
+   			var avatar4 = avatar3.replace("realmessage",realmessage);
+   			$("#data").append(currenttime+avatar4+ "<br/>");
+        
+       }else{
+    	   var avatar=`
+    	        
+    			<div class="chat chat-left">
+    	        <div class="chat-avatar avatar">
+    	                <img src="${ pageContext.request.contextPath }/resources/images/replaced" alt="avatar" height="40" width="40" />
+    	                	<div class="custom-avatar-container">
+    	                	memberidhere
+    					</div>
+    	                	</div>       	
+    	                	<div class="chat-body">
+    	        	        <div class="chat-content">
+    	        	            <p class="talk">realmessage</p>
+    	        	            </div>
+    	            	   	 </div>
+    	        </div>
+    	        
+    	        `;
+    	   if(memberprofile.startsWith("circle")){
+  	        	var avatar2 = avatar.replace("replaced", memberprofile);
+  	        	var avatar3 = avatar2.replace("memberidhere",membername);
+  	        }else{ //카카오일 경우
+  	        	var avatar2 = avatar.replace("${ pageContext.request.contextPath }/resources/images/replaced", memberprofile);
+  	        	var avatar3 = avatar2.replace("memberidhere","");
+  	        }
+    	    	
+    			var avatar4 = avatar3.replace("realmessage",realmessage);
+    			$("#data").append(currenttime+avatar4+ "<br/>");
+    	   		
+    	   
+       }
+        	
+       $('#lastsender').val(memberid); 
 
  }
 

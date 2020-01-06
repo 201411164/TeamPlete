@@ -81,6 +81,9 @@
 	<websocket:handlers>
 		<websocket:mapping handler="EchoHandler"
 			path="/echo" />
+		<websocket:handshake-interceptors>
+			<bean class="kr.co.teamplete.handler.HandshakeInterceptor"/>
+		</websocket:handshake-interceptors>	
 		<websocket:sockjs/>
 	</websocket:handlers>
 	

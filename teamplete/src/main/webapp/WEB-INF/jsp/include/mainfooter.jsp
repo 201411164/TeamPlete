@@ -17,7 +17,7 @@
 						<div class="col-md-5 col-lg-3 mb-5 mb-lg-0">
 							<h5 class="text-6 text-transform-none font-weight-semibold text-color-light mb-4">Contact Details</h5>
 							<p class="text-4 mb-1">Teamplete</p>
-							<p class="text-4 mb-4 pb-1">고동욱, 성예진, 오다경</p>
+							<p class="text-4 mb-4 pb-1">고동욱, 성예진</p>
 
 							<p class="text-5 mb-1 pt-2">Call: 010-2051-2131</p>
 							<p class="text-5 mb-0">Email: <a href="mailto:wkrleksm1@naver.com">wkrleksm1@naver.com</a></p>
