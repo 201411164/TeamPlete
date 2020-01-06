@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.teamplete.dao.ActivityDAO;
 import kr.co.teamplete.dao.TeamDAO;
+import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TeamMemberVO;
 import kr.co.teamplete.dto.TeamVO;
@@ -16,6 +18,9 @@ public class TeamServiceImpl implements TeamService{
 	
 	@Autowired
 	private TeamDAO teamDAO;
+	
+	@Autowired
+	ActivityDAO activityDAO;
 	
 	@Override
 	public void insertTeam(TeamVO team) {
@@ -38,6 +43,14 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public void insertTeamMem(TeamMemberVO teamMember) {
 		teamDAO.insertMember(teamMember);
+		
+		ActivityVO activity = new ActivityVO();
+		
+		activity.setTeamId(teamMember.getTeamId());
+		activity.setHostId(teamMember.getMemberId());
+		activity.setMsg3("초대되었습니다.");
+		
+		activityDAO.insertActivity(activity);
 		
 	}
 
@@ -75,6 +88,14 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public void outFromTeam(Map<String, Object> map) {
 		teamDAO.outFromTeam(map);
+		
+		ActivityVO activity = new ActivityVO();
+		
+		activity.setTeamId((int)map.get("teamId"));
+		activity.setHostId((String)map.get("memberId"));
+		activity.setMsg3("팀을 나갔습니다.");
+		
+		activityDAO.insertActivity(activity);
 	}
 
 	@Override

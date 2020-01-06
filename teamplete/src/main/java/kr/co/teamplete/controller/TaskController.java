@@ -150,6 +150,15 @@ public class TaskController {
 	public String updateTask(TaskVO task, @PathVariable("taskId") int taskId) {
 
 		service.updateTaskS(task);
+		
+		ActivityVO activity = new ActivityVO();
+		
+		activity.setTeamId(task.getTeamId());
+		activity.setHostId(task.getWriterId());
+		activity.setMsg2(task.getTitle());
+		activity.setMsg3("카드를 수정했습니다.");
+		
+		activityService.insertActivity(activity);
 	
 		return "redirect:/taskdetail/" + taskId;
 	}
@@ -159,9 +168,18 @@ public class TaskController {
 	@RequestMapping(value = "/task/delete/{taskId}", method = RequestMethod.DELETE)
 	public void deleteTask(@PathVariable("taskId") int taskId) {
 		
+		TaskVO task = service.selectTaskS(taskId);
+		
 		service.deleteTaskS(taskId);
+		
+		ActivityVO activity = new ActivityVO();
+		
+		activity.setTeamId(task.getTeamId());
+		activity.setHostId(task.getWriterId());
+		activity.setMsg2(task.getTitle());
+		activity.setMsg3("카드를 삭제했습니다.");
+		
+		activityService.insertActivity(activity);
 	}
 	
-	
-
 }

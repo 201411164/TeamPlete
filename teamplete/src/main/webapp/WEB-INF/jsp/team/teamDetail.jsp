@@ -113,9 +113,19 @@ border-style: none !important;
 								</div>
 							</div>
 							</div>
+							
+							
+							
+							
+							
+							
+							
 
 							<div
 								class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+								
+								
+								
 								<div class="form-group breadcrum-right">
 								<div class="dropdown mt-1 ">
 									<button
@@ -151,6 +161,46 @@ border-style: none !important;
 								
 								
 							</div>
+							
+							
+							<!-- 팀 활동내역 -->
+							<div class="col-xl-3 col-md-6 col-sm-6">
+									<div class="card bg-analytics text-white" id="dashboard-analytics" style="max-height:100%;">
+										<div class="card-content">
+										<div class="card-body text-center" style="color:#98a8b9">
+										
+												
+												
+											<h4 class="mt-2" style="font-family:'Inter';">Activity</h4>	
+											
+												
+												
+											
+											<c:set var="nScount" value="0" scope="page" />	
+											
+											<c:forEach items="${ activityList }" var="activity" varStatus="status">
+												
+												<c:choose>
+												<c:when test="${ activity.msg1 ne null }">
+												<p>${ activity.name }님이 <strong>${ activity.msg1 }</strong> 카드에서 <strong>${ activity.msg2 }</strong>${ activity.msg3 }</p>
+												<p style="color: red;">${ activityTime[status.index] }</p>
+												</c:when>
+												<c:when test="${ activity.msg1 eq null and activity.msg2 eq null }">
+												<p>${ activity.name }님이 ${ activity.msg3 }</p>
+												<p style="color: red;">${ activityTime[status.index] }</p>
+												</c:when>
+												<c:otherwise>
+												<p>${ activity.name }님이 <strong>${ activity.msg2 }</strong> ${ activity.msg3 }</p>
+												<p style="color: red;">${ activityTime[status.index] }</p>
+												</c:otherwise>
+												</c:choose>												
+													
+											</c:forEach>
+											
+											</div>
+										</div>
+									</div>
+								</div>
 							
 							
 
@@ -398,6 +448,8 @@ border-style: none !important;
 										</div>
 									</div>
 								</div>
+
+
 
 
 

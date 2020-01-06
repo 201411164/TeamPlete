@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.FileVO;
@@ -27,6 +28,7 @@ import kr.co.teamplete.dto.TeamMemberVO;
 import kr.co.teamplete.dto.TeamVO;
 import kr.co.teamplete.method.Deadline;
 import kr.co.teamplete.method.UpdateTime;
+import kr.co.teamplete.service.ActivityService;
 import kr.co.teamplete.service.BoardService;
 import kr.co.teamplete.service.MemberService;
 import kr.co.teamplete.service.RequestService;
@@ -50,6 +52,9 @@ public class TeamController {
 	
 	@Autowired
 	private RequestService requestService;
+	
+	@Autowired
+	private ActivityService activityService;
 	
 
 	// 팀 등록한 뒤 팀 조회 페이지로 돌아감
@@ -117,6 +122,15 @@ public class TeamController {
 	// 상세 팀 조회 (태스크 조회)
 	@RequestMapping(value = "/teamdetail/{id}", method = {RequestMethod.GET})
 	public ModelAndView teamDetail(@PathVariable("id") int teamId) {
+		
+		//activity 시간 계산
+		List<String> activityTime = new ArrayList<>();
+		
+		List<ActivityVO> activityList = activityService.selectAllActivity(teamId);
+		
+		for(ActivityVO activity : activityList) {
+			activityTime.add(UpdateTime.updateTime(activity.getActDate()));
+		}
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -201,7 +215,10 @@ public class TeamController {
 		map.put("notSubmitMyTask", notSubmitMyTask);
 		map.put("notSubmitMyTaskDeadline", deadline2);
 		map.put("totalFileSize",totalFileSize);
-				
+		map.put("activityList", activityList);
+		map.put("activityTime", activityTime);
+		
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("team/teamDetail");
 		mav.addAllObjects(map);

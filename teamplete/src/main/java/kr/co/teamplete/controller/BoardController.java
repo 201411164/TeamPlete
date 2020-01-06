@@ -81,6 +81,19 @@ public class BoardController {
 				
 //		service.updateTaskS(task);
 		service.updateBoardS(board);
+		
+		TaskVO task = taskService.selectTaskS(boardDetail.getTaskId());
+		
+		ActivityVO activity = new ActivityVO();
+		
+		activity.setTeamId(task.getTeamId());
+		activity.setTaskId(task.getTaskId());
+		activity.setHostId(board.getWriterId());
+		activity.setMsg1(task.getTitle());
+		activity.setMsg2(board.getTitle());
+		activity.setMsg3("을(를) 수정했습니다.");
+		
+		activityService.insertActivity(activity);
 	
 		return "redirect:/taskdetail/" + boardDetail.getTaskId();
 	}
@@ -88,8 +101,23 @@ public class BoardController {
 	// board 삭제
 	@RequestMapping(value = "/board/delete/{boardId}", method = RequestMethod.DELETE)
 	public void deleteBoard(@PathVariable("boardId") int boardId) {
+		
+		BoardVO boardDetail = service.selectBoardById(boardId);
+		
+		TaskVO task = taskService.selectTaskS(boardDetail.getTaskId());
 
 		service.deleteBoardS(boardId);
+		
+		ActivityVO activity = new ActivityVO();
+		
+		activity.setTeamId(task.getTeamId());
+		activity.setTaskId(task.getTaskId());
+		activity.setHostId(boardDetail.getWriterId());
+		activity.setMsg1(task.getTitle());
+		activity.setMsg2(boardDetail.getTitle());
+		activity.setMsg3("을(를) 삭제했습니다.");
+		
+		activityService.insertActivity(activity);
 	}
 	
 
