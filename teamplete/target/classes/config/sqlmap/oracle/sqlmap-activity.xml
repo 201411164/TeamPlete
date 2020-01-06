@@ -19,12 +19,13 @@
 	</insert>
 	
 	<!-- 팀의 activity 조회 -->
-	<select id="selectActivity" parameterType="int">
+	<select id="selectActivity" parameterType="int" resultMap="activityMap">
 		select activity_id, team_id, task_id, host_id, msg1, msg2, msg3, act_date, M.name
 		 from activity_tb A
 		  left outer join member_tb M
 		   on A.host_id = M.memberid
 		    where team_id = #{teamId}
+		     order by activity_id desc
 	</select>
 	
    
