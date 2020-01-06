@@ -135,18 +135,39 @@ const options2 = {
 							</div>
 							
 							
-							
-							
-							
-							
+
+
+
+
+						
+                                    
+                                    	
+                                        
+
 							
 
-							<div
+
+
+
+						<div
 								class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
 								
-								
-								
 								<div class="form-group breadcrum-right">
+								
+								<div class="dropdown mt-1 ">
+								<button
+										class="btn-icon btn btn-success btn-round btn-sm dropdown-toggle"
+										type="button" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">
+										<i class="feather icon-plus"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right">
+								<button type="button" class="dropdown-item" id="createTaskBtn" data-toggle="modal" data-target="#createTask">
+											<i class="feather icon-plus mr-1"></i>글 작성하기
+										</button>
+								</div>
+								</div>
+								
 								<div class="dropdown mt-1 ">
 									<button
 										class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
@@ -184,49 +205,81 @@ const options2 = {
 							
 							
 							<!-- 팀 활동내역 -->
-							<div class="col-xl-3 col-md-6 col-sm-6">
-									<div class="card bg-analytics text-white" id="dashboard-analytics" style="max-height:100%;">
-										<div class="card-content">
-										<div class="card-body text-center" style="color:#98a8b9">
-										
-												
-												
-											<h4 class="mt-2" style="font-family:'Inter';">Activity</h4>	
-											
-												
-												
-											
-											<c:set var="nScount" value="0" scope="page" />	
+							
+							
+							
+                    <div class="row">
+                    <section id="timeline-card">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title" style="font-family:'Inter';'" >Activity</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <ul class="activity-timeline timeline-left list-unstyled">
+                                        
+                                        
 											
 											<c:forEach items="${ activityList }" var="activity" varStatus="status">
 												
 												<c:choose>
-												<c:when test="${ activity.msg1 ne null }">
-												<p>${ activity.name }님이 <strong>${ activity.msg1 }</strong> 카드에서 <strong>${ activity.msg2 }</strong>${ activity.msg3 }</p>
-												<p style="color: red;">${ activityTime[status.index] }</p>
-												</c:when>
-												<c:when test="${ activity.msg1 eq null and activity.msg2 eq null }">
-												<p>${ activity.name }님이 ${ activity.msg3 }</p>
-												<p style="color: red;">${ activityTime[status.index] }</p>
-												</c:when>
+														<c:when test="${ activity.msg1 ne null }">
+															<li>
+																<div class="timeline-icon bg-success">
+																	<i class="feather icon-plus font-medium-2"></i>
+																</div>
+																<div class="timeline-info">
+																	<p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">활동 추가됨</p>
+																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 <strong class="text-success">${ activity.msg1 }</strong>
+																		카드에서 <strong>${ activity.msg2 }</strong>${ activity.msg3 }</span>
+																</div> <small class="text-primary">${ activityTime[status.index] }</small>
+															</li>
+
+
+														</c:when>
+														<c:when test="${ activity.msg1 eq null and activity.msg2 eq null }">
+															<li>
+																<div class="timeline-icon bg-warning">
+																	<i class="feather icon-alert-circle font-medium-2"></i>
+																</div>
+																<div class="timeline-info">
+																	<p class="font-weight-bold " style="color:#263747; font-size:1.35rem;">{ activity.msg3 }</p>
+																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
+																</div> <small class="text-primary">${ activityTime[status.index] }</small>
+															</li>
+														</c:when>
+														
 												<c:otherwise>
-												<p>${ activity.name }님이 <strong>${ activity.msg2 }</strong> ${ activity.msg3 }</p>
-												<p style="color: red;">${ activityTime[status.index] }</p>
+												<li>
+                                                <div class="timeline-icon bg-primary">
+                                                    <i class="feather icon-check font-medium-2"></i>
+                                                </div>
+                                                <div class="timeline-info">
+                                                    <p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">카드 추가됨</p>
+                                                    <span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
+                                                </div>
+                                                <small class="text-primary">${ activityTime[status.index] }</small>
+                                            </li>
 												</c:otherwise>
 												</c:choose>												
 													
 											</c:forEach>
-											
-											</div>
-										</div>
-									</div>
-								</div>
-							
-							
-
-							
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </section>	
+                        </div>
 						
-					</div>
+												
+						</div>						
+											
+											
+											
+											
 					
 					
 					
@@ -487,27 +540,9 @@ const options2 = {
 											<i class="feather icon-more-horizontal cursor-pointer"></i>
 										</div>
 										
-
-
-										<div class="card-body">
-										
 										
 										<section class="chat-app-window">
-                            <div class="active-chat d-none">
-                                <div class="chat_navbar">
-                                    <header class="chat_header d-flex justify-content-between align-items-center p-1">
-                                        <div class="vs-con-items d-flex align-items-center">
-                                            <div class="sidebar-toggle d-block d-lg-none mr-1"><i class="feather icon-menu font-large-1"></i></div>
-                                            <div class="avatar user-profile-toggle m-0 m-0 mr-1">
-                                                <img src="${ pageContext.request.contextPath }/resources/images/${loginVO.profile}" alt="" height="40" width="40" />
-                                                <span class="avatar-status-busy"></span>
-                                            </div>
-                                            <h6 class="mb-0">${loginVO.memberid}</h6>
-                                        </div>
-                                        <span class="favorite"><i class="feather icon-star font-medium-5"></i></span>
-                                    </header>
-                                </div>
-                                </div>
+                            
                                 
 										
 										
@@ -518,10 +553,14 @@ const options2 = {
 												</div>
 											</div>
 											
-											<input type="text" class="form-control" id="message" />
-													<button type="button"
-														class="btn btn-primary round btn-block" id="sendBtn"
-														value="전송">전송!</button>
+																								
+														
+														<div class="chat-footer">
+                                        <div class="card-body d-flex justify-content-around pt-0">
+                                            <input type="text" class="form-control mr-50" id="message" placeholder="Type your Message">
+                                            <button type="button" class="btn btn-icon btn-primary" id="sendBtn"><i class="feather icon-navigation"></i></button>
+                                        </div>
+                                    </div>
 
 
 
@@ -529,7 +568,6 @@ const options2 = {
 										
 										</section>
 										
-										</div>
 
 									</div>
 								</div>
@@ -919,26 +957,7 @@ const options2 = {
 
 
 
-							<div class="row" >
-
-
-
-
-						<div class="col-xl-3 col-md-6 col-sm-6">
-						<div class="card">
-						
-						<div class="card-content">
-                                    <div class="card-body">
-                                    
-                                    	
-                                        <h1 class="btn btn-outline-primary btn-block" id="createTaskBtn"
-										data-toggle="modal" data-target="#createTask" style="font-size:230px">+</h1>
-                                    </div>
-                               
-                       </div>
-                       </div>
-						</div>
-						</div>	
+								
 						<!-- 태스크 등록 Modal -->
 						
 
