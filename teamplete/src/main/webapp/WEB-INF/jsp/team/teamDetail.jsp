@@ -71,7 +71,26 @@ border-style: none !important;
 }
 
 </style>
+<script>
 
+
+
+
+const options2 = {
+		root: null,
+	  rootMargin: '0px 0px 30px 0px',
+	  threshold: 0
+	}
+
+//관찰할 대상을 선언하고, 해당 속성을 관찰시킨다.
+
+
+
+
+
+
+
+</script>
 
 
 </head>
@@ -500,7 +519,7 @@ border-style: none !important;
 
 													<%-- <p class="font-medium-3" style="line-height: 1.8rem;">${ fn:replace(task.content, newLineChar, "<br/>") }</p> --%>
 
-													<div id="editor-readonly${tcount}">
+													<div id="editor-readonly${tcount}" class="quill-lazy">
 														<p></p>
 													</div>
 													<script>
@@ -514,7 +533,26 @@ border-style: none !important;
 														};
 												var quill${tcount} = new Quill('#editor-readonly${tcount}', options);
 												
-												quill${tcount}.setContents(${task.taskContent});
+												
+												
+												//IntersectionObserver 를 등록한다.
+												const io${tcount} = new IntersectionObserver((entries, observer) => {
+												  entries.forEach(entry => {
+												  	// 관찰 대상이 viewport 안에 들어온 경우 image 로드
+												    if (entry.isIntersecting) {
+												    	console.log(entry);
+												    	quill${tcount}.setContents(${task.taskContent});
+												      observer.unobserve(entry.target);
+												    }
+												  })
+												}, options2)
+												
+												Array.from(document.querySelectorAll('.quill-lazy')).forEach(el => {
+												    io${tcount}.observe(el);
+												});
+												
+												//quill${tcount}.setContents(${task.taskContent});
+												
 												</script>
 
 													<div class="col-12">
