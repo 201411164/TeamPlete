@@ -1,5 +1,7 @@
 package kr.co.teamplete.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +45,11 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.deleteMember(memberid);
 		
 	}
-	
-	
 
+	@Override
+	public int checkPw(Map<String, String> map) {
+		int count = memberDAO.checkPw(map);
+		return count;
+	}
+	
 }

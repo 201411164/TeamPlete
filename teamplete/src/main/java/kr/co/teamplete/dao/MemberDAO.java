@@ -1,5 +1,7 @@
 package kr.co.teamplete.dao;
 
+import java.util.Map;
+
 import kr.co.teamplete.dto.MemberVO;
 
 public interface MemberDAO {
@@ -19,5 +21,8 @@ public interface MemberDAO {
 	
 	// 회원탈퇴
 	public void deleteMember(String memberid);
+	
+	//회원 정보 수정 시 비밀번호 체크
+	public int checkPw(Map<String, String> map);
 
 }

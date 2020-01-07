@@ -1,6 +1,7 @@
 package kr.co.teamplete.service;
 
-import kr.co.teamplete.dto.BoardVO;
+import java.util.Map;
+
 import kr.co.teamplete.dto.MemberVO;
 
 public interface MemberService {
@@ -19,5 +20,8 @@ public interface MemberService {
 
 	// 회원 탈퇴
 	public void deleteMember(String memberid);
+	
+	//회원정보 수정 시 비밀번호 체크
+	public int checkPw(Map<String, String> map);
 
 }

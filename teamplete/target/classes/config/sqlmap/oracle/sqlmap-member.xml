@@ -35,7 +35,7 @@
 	<select id="login" parameterType="MemberVO"
 		resultMap="memberMap">
 		select memberid, name, password, email, profile, logincount, status, last_date, profilebg
-		from Member_tb
+		from member_tb
 		where
 		memberid = #{memberid} and
 		password = #{password}		
@@ -53,5 +53,12 @@
       delete member_tb
         where memberid = #{memberid}
    </delete>
+  
+   <!-- 회원정보 수정 시 비밀번호 체크 -->
+   <select id="checkPw" parameterType="hashmap" resultType="int">
+		select count(*)
+		 from member_tb
+		  where memberid = #{memberid} and password = #{password}
+   </select>
    
 </mapper>

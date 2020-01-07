@@ -51,7 +51,6 @@ public class EchoHandler extends TextWebSocketHandler{
 			sess.sendMessage(new TextMessage(memberid+"="+name+"="+profile+"="+message.getPayload()));
 			System.out.println(sess.getId()+"에게"+message.getPayload()+"에게만 메세지 보냄");
 			}
-						
 			
 		}
 	}

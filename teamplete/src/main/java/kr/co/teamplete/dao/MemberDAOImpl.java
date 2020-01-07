@@ -1,5 +1,7 @@
 package kr.co.teamplete.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,6 +41,14 @@ public class MemberDAOImpl implements MemberDAO{
 	public void deleteMember(String memberid) {
 		session.delete("kr.co.teamplete.dao.MemberDAO.deleteMember", memberid);
 		
+	}
+
+	@Override
+	public int checkPw(Map<String, String> map) {
+		
+		int count = session.selectOne("kr.co.teamplete.dao.MemberDAO.checkPw", map);
+		
+		return count;
 	}
 
 }

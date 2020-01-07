@@ -43,8 +43,6 @@ public class MypageController {
 		  Map<String, Object> map = new HashMap<>(); 
 		  List<TaskVO> notSubmitMyTaskAll = taskService.notSubmitMyTaskAll(memberid);
 		  
-		  
-		  
 		  map.put("notSubmitMyTaskAll", notSubmitMyTaskAll);
 		  map.put("user", user);
 		  mav.addAllObjects(map);
@@ -52,5 +50,10 @@ public class MypageController {
 		
 		return mav;
 	}
+	
+//	@RequestMapping(value="/member/update", method=RequestMethod.GET)
+//	public ModelAndView updateMember() {
+//		
+//	}
 
 }
