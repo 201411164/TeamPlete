@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.ChargeVO;
+import kr.co.teamplete.dto.ChatRoomVO;
 import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
+import kr.co.teamplete.dto.MsgVO;
 import kr.co.teamplete.dto.RequestVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
@@ -30,7 +32,9 @@ import kr.co.teamplete.method.Deadline;
 import kr.co.teamplete.method.UpdateTime;
 import kr.co.teamplete.service.ActivityService;
 import kr.co.teamplete.service.BoardService;
+import kr.co.teamplete.service.ChatRoomService;
 import kr.co.teamplete.service.MemberService;
+import kr.co.teamplete.service.MsgService;
 import kr.co.teamplete.service.RequestService;
 import kr.co.teamplete.service.TaskService;
 import kr.co.teamplete.service.TeamService;
@@ -55,6 +59,12 @@ public class TeamController {
 	
 	@Autowired
 	private ActivityService activityService;
+	
+	@Autowired
+	private ChatRoomService chatRoomService;
+	
+	@Autowired
+	private MsgService msgService;
 	
 
 	// 팀 등록한 뒤 팀 조회 페이지로 돌아감
@@ -83,6 +93,12 @@ public class TeamController {
 //		String ownerName = memberService.selectMemberById(memberid).getName();
 		
 		service.insertTeam(team);
+		
+		ChatRoomVO chatRoom = new ChatRoomVO();
+		
+		chatRoom.setGroupYN('Y');
+		
+		chatRoomService.insertGroupChatRoom(chatRoom);
 		
 		return "redirect:/team/" + memberid;
 	}
@@ -122,6 +138,9 @@ public class TeamController {
 	// 상세 팀 조회 (태스크 조회)
 	@RequestMapping(value = "/teamdetail/{id}", method = {RequestMethod.GET})
 	public ModelAndView teamDetail(@PathVariable("id") int teamId) {
+		
+		//채팅내용 조회
+		List<MsgVO> msgList = msgService.selectMsg(service.detailTeam(teamId).getRoomId());
 		
 		//activity 시간 계산
 		List<String> activityTime = new ArrayList<>();
@@ -217,6 +236,7 @@ public class TeamController {
 		map.put("totalFileSize",totalFileSize);
 		map.put("activityList", activityList);
 		map.put("activityTime", activityTime);
+		map.put("msgList", msgList);
 		
 		
 		ModelAndView mav = new ModelAndView();

@@ -10,6 +10,7 @@
 		<result column="owner_id" property="ownerId" />
 		<result column="task_latest" property="taskLatest" />
 		<result column="board_latest" property="boardLatest" />
+		<result column="room_id" property="roomId" />
 	</resultMap>
 	
 	<resultMap type="MemberVO" id="teamMemberMap">
@@ -36,9 +37,11 @@
 	
 	<!-- 특정 팀 조회 -->
 	<select id="selectTeam" parameterType="int" resultMap="teamMap">
-		select team_id, team_name, owner_id, deadline, task_latest, board_latest
-		 from team_tb
-		  where team_id = #{teamId}
+		select T.team_id, team_name, owner_id, deadline, task_latest, board_latest, C.room_id
+		 from team_tb T
+		  full outer join chat_room C
+		   on T.team_id = C.team_id
+		    where T.team_id = #{teamId}
 	</select>
 	
     <!-- 팀멤버 추가 -->

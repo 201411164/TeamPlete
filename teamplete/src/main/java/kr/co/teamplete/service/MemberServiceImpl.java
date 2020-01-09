@@ -13,7 +13,7 @@ import kr.co.teamplete.dto.MemberVO;
 public class MemberServiceImpl implements MemberService{
 
 	@Autowired
-	MemberDAO memberDAO;
+	private MemberDAO memberDAO;
 	
 	
 	@Override

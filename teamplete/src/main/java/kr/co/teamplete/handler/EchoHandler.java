@@ -1,20 +1,31 @@
 package kr.co.teamplete.handler;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import kr.co.teamplete.dto.MsgVO;
+import kr.co.teamplete.service.MsgService;
 
+@Controller
 public class EchoHandler extends TextWebSocketHandler{
+	
+	@Autowired
+	private MsgService msgService;
+	
     
 	private static Logger logger = LoggerFactory.getLogger(EchoHandler.class);
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
@@ -39,6 +50,7 @@ public class EchoHandler extends TextWebSocketHandler{
     	String teamid = ((String) sessionMap.get("teamid")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
     	String memberid = ((String) sessionMap.get("memberid")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
     	String profile = ((String) sessionMap.get("profile")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
+    	String roomId = ((String) sessionMap.get("roomId")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
     	String name = session.getId().split("&",2)[0];
     	
     	
@@ -50,6 +62,17 @@ public class EchoHandler extends TextWebSocketHandler{
 			if(teamid.equals(((String)sess.getAttributes().get("teamid")).replaceAll("(^\\p{Z}+|\\p{Z}+$)", ""))==true) {
 			sess.sendMessage(new TextMessage(memberid+"="+name+"="+profile+"="+message.getPayload()));
 			System.out.println(sess.getId()+"에게"+message.getPayload()+"에게만 메세지 보냄");
+			MsgVO msg = new MsgVO();
+			msg.setWriterId(memberid);
+			msg.setWriterName(name);
+			msg.setProfile(profile);
+			msg.setText(message.getPayload());
+			msg.setRoomId(Integer.parseInt(roomId));
+			SimpleDateFormat sdf = new SimpleDateFormat("a h:mm");
+			String currT = sdf.format(new Date());
+			msg.setMsgTime(currT);
+			msgService.insertMsg(msg);
+			
 			}
 			
 		}

@@ -5,6 +5,8 @@ public class TeamVO {
 	private String teamName, ownerId, deadline, img, taskLatest, boardLatest;
 	private String keyword, name;
 	
+	private int roomId;
+	
 	
 	public TeamVO() {
 		super();
@@ -115,6 +117,18 @@ public class TeamVO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+
+
+	public int getRoomId() {
+		return roomId;
+	}
+
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 
 

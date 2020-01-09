@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.teamplete.dao.ChatRoomDAO">
+
+	<resultMap type="ChatRoomVO" id="chatRoomMap">
+		<result column="room_id" property="roomId" />
+		<result column="team_id" property="teamId" />
+	</resultMap>
+	
+	<!-- 팀의 '단체' 채팅방 insert -->
+	<insert id="insertGroupChatRoom" parameterType="ChatRoomVO">
+		insert into chat_room(room_id, team_id, groupYN)
+		 values(chat_room_seq.nextval, team_seq.currval, #{groupYN})
+	</insert>
+	
+   
+</mapper>

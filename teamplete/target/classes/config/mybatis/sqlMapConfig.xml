@@ -21,6 +21,8 @@
       <typeAlias type="kr.co.teamplete.dto.ChargeVO" alias="ChargeVO"/>
       <typeAlias type="kr.co.teamplete.dto.RequestVO" alias="RequestVO"/>
       <typeAlias type="kr.co.teamplete.dto.ActivityVO" alias="ActivityVO"/>
+      <typeAlias type="kr.co.teamplete.dto.ChatRoomVO" alias="ChatRoomVO"/>
+      <typeAlias type="kr.co.teamplete.dto.MsgVO" alias="MsgVO"/>
    </typeAliases>
 
 </configuration>

@@ -549,7 +549,9 @@ const options2 = {
 											<p hidden id="lastsender"></p>
 											<div class="user-chats" style="overflow-y:auto;">
 												<div class="chats" id="data" >
-													
+													<c:forEach items="${ msgList }" var="msg">
+														${ msg.writerName } : ${ msg.text } ${ msg.msgTime }</br>
+													</c:forEach>
 												</div>
 											</div>
 											
@@ -1176,10 +1178,11 @@ const options2 = {
 	 
 
  <c:set var="teamid" value="${team.teamId}" />
+ <c:set var="roomId" value="${ team.roomId }" />
  
  
  
-	 var sock = new SockJS("<c:url value="/echo/?=${teamid}=${loginVO.memberid}=${loginVO.profile}"/>",null,{sessionId: function(){
+	 var sock = new SockJS("<c:url value="/echo/?=${teamid}=${loginVO.memberid}=${loginVO.profile}=${roomId}"/>",null,{sessionId: function(){
 		 var name= "${loginVO.name}";
 		 var random= Math.floor(Math.random() * 10001); //동명이인이 있을 경우를 생각해 세션ID에 랜덤 넘버를 뒤에 붙여줌.
 		 return name+"&"+random;
