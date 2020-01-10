@@ -72,8 +72,16 @@ border-style: none !important;
 
 </style>
 <script>
+var newMsg;
 
-
+function addMessage(newMsg){
+	 
+	talklast=`
+           <p class="talk">realmessage</p>
+           `;
+	talklast2 = talklast.replace("realmessage",newMsg);	
+	$(".talk:last").append(talklast2);
+}
 
 
 const options2 = {
@@ -615,7 +623,56 @@ const options2 = {
 											<div class="user-chats" style="overflow-y:auto;">
 												<div class="chats" id="data" >
 													<c:forEach items="${ msgList }" var="msg">
-														${ msg.writerName } : ${ msg.text } ${ msg.msgTime }</br>
+													
+													<c:choose>
+													<c:when test="${ lastsender eq msg.writerId && lastdate eq msg.msgDate && lasttime eq msg.msgTime }">
+													<script>
+													addMessage("${msg.text}");
+													</script>
+													</c:when>
+													<c:otherwise>
+													
+													
+														${ msg.msgTime }
+														
+													<c:choose>
+													<c:when test="${msg.writerId eq loginVO.memberid}">
+													<div class="chat">
+													</c:when>
+													<c:otherwise>
+													<div class="chat chat-left">
+													</c:otherwise>
+													</c:choose>	
+														
+														
+   	        <div class="chat-avatar avatar">
+   	        
+   	        <c:choose>
+													<c:when test="${fn:startsWith(msg.profile, 'circle')}">
+													<img src="${ pageContext.request.contextPath }/resources/images/${msg.profile}" alt="avatar" height="40" width="40" />
+													</c:when>
+													<c:otherwise>
+													<img src="${msg.profile}" alt="avatar" height="40" width="40" />
+													</c:otherwise>
+													</c:choose>	
+   	        
+   	                	<div class="custom-avatar-container">
+   	                	${msg.writerId }
+   					</div>
+   	                	</div>       	
+   	                	<div class="chat-body">
+   	        	        <div class="chat-content">
+   	        	        
+   	        	            <p class="talk">${msg.text}</p>
+   	        	            </div>
+   	            	   	 </div>
+   	            	   	 
+   	        </div> </br>
+   	        </c:otherwise>
+													</c:choose>
+   	        										<c:set var="lastsender" value="${msg.writerId}" />
+   	        										<c:set var="lasttime" value="${msg.msgTime}" />
+   	        										<c:set var="lastdate" value="${msg.msgDate}" />   	        						
 													</c:forEach>
 												</div>
 											</div>
@@ -1269,6 +1326,7 @@ const options2 = {
         sock.send($("#message").val());
 
  }
+
 
 
  // 서버로부터 메시지를 받았을 때
