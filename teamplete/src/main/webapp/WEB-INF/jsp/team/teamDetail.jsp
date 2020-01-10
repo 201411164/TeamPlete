@@ -258,7 +258,7 @@ const options2 = {
 														<ul class="activity-timeline timeline-left list-unstyled">
 															<li>
 																<div class="timeline-icon bg-success">
-																	<i class="feather icon-plus font-medium-2"></i>
+																	<i class="feather icon-${activity.type} font-medium-2"></i>
 																</div>
 																<div class="timeline-info">
 																	<p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">활동 추가됨</p>
@@ -274,7 +274,7 @@ const options2 = {
 														<ul class="activity-timeline timeline-left list-unstyled">
 															<li>
 																<div class="timeline-icon bg-success">
-																	<i class="feather icon-plus font-medium-2"></i>
+																	<i class="feather icon-${activity.type} font-medium-2"></i>
 																</div>
 																<div class="timeline-info">
 																	<p class="font-weight-bold " style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
@@ -289,7 +289,7 @@ const options2 = {
 															<li>
 														
                                                 <div class="timeline-icon bg-primary">
-                                                    <i class="feather icon-check font-medium-2"></i>
+                                                    <i class="feather icon-${activity.type} font-medium-2"></i>
                                                 </div>
                                                 <div class="timeline-info">
                                                     <p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
@@ -309,7 +309,7 @@ const options2 = {
 															<ul class="activity-timeline timeline-left list-unstyled">
 															<li>
 																<div class="timeline-icon bg-success">
-																	<i class="feather icon-plus font-medium-2"></i>
+																	<i class="feather icon-${activity.type} font-medium-2"></i>
 																</div>
 																<div class="timeline-info">
 																	<p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">활동 추가됨</p>
@@ -327,7 +327,7 @@ const options2 = {
 															<ul class="activity-timeline timeline-left list-unstyled">
 															<li>
 																<div class="timeline-icon bg-success">
-																	<i class="feather icon-check font-medium-2"></i>
+																	<i class="feather icon-${activity.type} font-medium-2"></i>
 																</div>
 																<div class="timeline-info">
 																	<p class="font-weight-bold " style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
@@ -343,7 +343,7 @@ const options2 = {
 												<ul class="activity-timeline timeline-left list-unstyled">
 															<li>
                                                 <div class="timeline-icon bg-primary">
-                                                    <i class="feather icon-check font-medium-2"></i>
+                                                    <i class="feather icon-${activity.type} font-medium-2"></i>
                                                 </div>
                                                 <div class="timeline-info">
                                                     <p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
@@ -657,7 +657,7 @@ const options2 = {
 													</c:choose>	
    	        
    	                	<div class="custom-avatar-container">
-   	                	${msg.writerId }
+   	                	${msg.writerName }
    					</div>
    	                	</div>       	
    	                	<div class="chat-body">

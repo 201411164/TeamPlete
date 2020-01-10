@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.teamplete.dao.MsgDAO">
+
+	<resultMap type="MsgVO" id="msgMap">
+		<result column="msg_id" property="msgId" />
+		<result column="writer_id" property="writerId" />
+		<result column="writer_name" property="writerName" />
+		<result column="room_id" property="roomId" />
+		<result column="msg_date" property="msgDate" />
+		<result column="msg_time" property="msgTime" />
+	</resultMap>
+	
+	<!-- insert message -->
+	<insert id="insertMsg" parameterType="MsgVO">
+		insert into msg_tb(msg_id, writer_id, writer_name, profile, text, room_id, msg_time)
+		 values(msg_seq.nextval, #{writerId}, #{writerName}, #{profile}, #{text}, #{roomId}, #{msgTime})
+	</insert>
+	
+	<!-- select message -->
+	<select id="selectMsg" parameterType="int" resultMap="msgMap">
+		select msg_id, writer_id, writer_name, profile, text, room_id, to_char(msg_date, 'yyyy-mm-dd') as msg_date, msg_time
+		 from msg_tb
+		  where room_id = #{roomId}
+	</select>
+	
+   
+</mapper>
