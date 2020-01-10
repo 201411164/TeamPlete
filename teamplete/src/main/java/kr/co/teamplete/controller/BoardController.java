@@ -48,6 +48,7 @@ public class BoardController {
 		activity.setMsg1(task.getTitle());
 		activity.setMsg2(board.getTitle());
 		activity.setMsg3("을(를) 추가했습니다.");
+		activity.setType("file-plus");
 		
 		activityService.insertActivity(activity);
 
@@ -92,6 +93,7 @@ public class BoardController {
 		activity.setMsg1(task.getTitle());
 		activity.setMsg2(board.getTitle());
 		activity.setMsg3("을(를) 수정했습니다.");
+		activity.setType("edit");
 		
 		activityService.insertActivity(activity);
 	
@@ -116,6 +118,7 @@ public class BoardController {
 		activity.setMsg1(task.getTitle());
 		activity.setMsg2(boardDetail.getTitle());
 		activity.setMsg3("을(를) 삭제했습니다.");
+		activity.setType("file-minus");
 		
 		activityService.insertActivity(activity);
 	}

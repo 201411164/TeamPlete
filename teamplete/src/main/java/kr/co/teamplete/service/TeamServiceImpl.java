@@ -49,6 +49,7 @@ public class TeamServiceImpl implements TeamService{
 		activity.setTeamId(teamMember.getTeamId());
 		activity.setHostId(teamMember.getMemberId());
 		activity.setMsg3("초대되었습니다.");
+		activity.setType("user-plus");
 		
 		activityDAO.insertActivity(activity);
 		
@@ -94,6 +95,7 @@ public class TeamServiceImpl implements TeamService{
 		activity.setTeamId((int)map.get("teamId"));
 		activity.setHostId((String)map.get("memberId"));
 		activity.setMsg3("팀을 나갔습니다.");
+		activity.setType("user-minus");
 		
 		activityDAO.insertActivity(activity);
 	}
