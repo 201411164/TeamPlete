@@ -198,33 +198,56 @@ const options2 = {
 									</div>
 								</div>
 							</div>
-								
-								
-								
+																							
 							</div>
+													
+												
+                    						
+												
+						</div>						
+											
+					
+
+
+					<div>
+					
+						<div class="row">
+						<!-- 팀 활동내역 -->
 							
-							
-							<!-- 팀 활동내역 -->
-							
-							
-							
-                    <div class="row">
-                    <section id="timeline-card">
-                        <div class="col-12">
+						<div class="col-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title" style="font-family:'Inter';'" >Activity</h4>
+                                <div class="card-header mt-0">
+                                    <h3 class="card-title text-primary mb-1" style="font-family:'Inter';'" >팀 활동내역</h3>
                                 </div>
                                 <div class="card-content">
-                                    <div class="card-body">
-                                        <ul class="activity-timeline timeline-left list-unstyled">
+                                    <div class="card-body pt-0 pb-0 mb-0">
+                                    
+                                    	<div id="carousel-timeline" class="carousel carousel-fade" data-ride="carousel">
+                                    		<%-- <ol class="carousel-indicators">
+											<c:forEach items="${ activityList }" var="activity" varStatus="status">
+											<c:choose>
+											<c:when test="${status.first}">
+											<li data-target="#carousel-timeline" data-slide-to="${status.index}" class="active"></li>
+											</c:when>
+											<c:otherwise>
+											<li data-target="#carousel-timeline" data-slide-to="${status.count}"></li>
+											</c:otherwise>											
+											</c:choose>
+											</c:forEach>
+											</ol> --%>
                                         
                                         
+                                        
+                                    		
+											<div class="carousel-inner" role="listbox">
 											
 											<c:forEach items="${ activityList }" var="activity" varStatus="status">
-												
-												<c:choose>
+											<c:choose>
+											<c:when test="${status.first}">
+											<div class="carousel-item active">
+											<c:choose>
 														<c:when test="${ activity.msg1 ne null }">
+														<ul class="activity-timeline timeline-left list-unstyled">
 															<li>
 																<div class="timeline-icon bg-success">
 																	<i class="feather icon-plus font-medium-2"></i>
@@ -235,64 +258,107 @@ const options2 = {
 																		카드에서 <strong>${ activity.msg2 }</strong>${ activity.msg3 }</span>
 																</div> <small class="text-primary">${ activityTime[status.index] }</small>
 															</li>
+														</ul>	
 
 
 														</c:when>
 														<c:when test="${ activity.msg1 eq null and activity.msg2 eq null }">
+														<ul class="activity-timeline timeline-left list-unstyled">
 															<li>
-																<div class="timeline-icon bg-warning">
-																	<i class="feather icon-alert-circle font-medium-2"></i>
+																<div class="timeline-icon bg-success">
+																	<i class="feather icon-plus font-medium-2"></i>
 																</div>
 																<div class="timeline-info">
-																	<p class="font-weight-bold " style="color:#263747; font-size:1.35rem;">{ activity.msg3 }</p>
+																	<p class="font-weight-bold " style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
 																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
 																</div> <small class="text-primary">${ activityTime[status.index] }</small>
 															</li>
+															</ul>
 														</c:when>
 														
 												<c:otherwise>
-												<li>
+												<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+														
                                                 <div class="timeline-icon bg-primary">
                                                     <i class="feather icon-check font-medium-2"></i>
                                                 </div>
                                                 <div class="timeline-info">
-                                                    <p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">카드 추가됨</p>
+                                                    <p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
                                                     <span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
                                                 </div>
                                                 <small class="text-primary">${ activityTime[status.index] }</small>
                                             </li>
+                                            </ul>
 												</c:otherwise>
-												</c:choose>												
-													
+												</c:choose>				
+											</div>
+											</c:when>
+											<c:otherwise>
+												<c:choose>
+														<c:when test="${ activity.msg1 ne null }">
+														<div class="carousel-item">
+															<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+																<div class="timeline-icon bg-success">
+																	<i class="feather icon-plus font-medium-2"></i>
+																</div>
+																<div class="timeline-info">
+																	<p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">활동 추가됨</p>
+																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 <strong class="text-success">${ activity.msg1 }</strong>
+																		카드에서 <strong>${ activity.msg2 }</strong>${ activity.msg3 }</span>
+																</div> <small class="text-primary">${ activityTime[status.index] }</small>
+															</li>
+															</ul>
+														</div>	
+
+
+														</c:when>
+														<c:when test="${ activity.msg1 eq null and activity.msg2 eq null }">
+														<div class="carousel-item">
+															<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+																<div class="timeline-icon bg-success">
+																	<i class="feather icon-check font-medium-2"></i>
+																</div>
+																<div class="timeline-info">
+																	<p class="font-weight-bold " style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
+																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
+																</div> <small class="text-primary">${ activityTime[status.index] }</small>
+															</li>
+															</ul>
+														</div>	
+														</c:when>
+														
+												<c:otherwise>
+												<div class="carousel-item">
+												<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+                                                <div class="timeline-icon bg-primary">
+                                                    <i class="feather icon-check font-medium-2"></i>
+                                                </div>
+                                                <div class="timeline-info">
+                                                    <p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
+                                                    <span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
+                                                </div>
+                                                <small class="text-primary">${ activityTime[status.index] }</small>
+                                            </li>
+                                            </ul>
+                                            </div>
+												</c:otherwise>
+												</c:choose>
+												</c:otherwise>												
+												</c:choose>		
 											</c:forEach>
-                                            
-                                        </ul>
+                                        </div>    
+                                        
+                                    </div>    
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        </section>	
-                        </div>
 						
-												
-						</div>						
-											
-											
-											
-											
-					
-					
-					
-					
-					
-					
-					
-					
-
-
-
-
-					<div>
+						</div>
 
 
 						<div class="row" >
@@ -314,8 +380,7 @@ const options2 = {
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
 														<a href="${ pageContext.request.contextPath}/mypage/${member.memberid}">
-															<div
-																style="position: relative; text-align: center; color: white;">
+															<div style="position: relative; text-align: center; color: white;">
 																<img
 																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
 																	alt="avtar img holder" height="35" width="35">
