@@ -14,13 +14,13 @@
 	
 	<!-- 팀에 대한 request 삽입 -->
 	<insert id="insertActivity" parameterType="ActivityVO">
-		insert into activity_tb(activity_id, team_id, task_id, host_id, msg1, msg2, msg3)
-		 values(activity_seq.nextval, #{teamId}, #{taskId}, #{hostId}, #{msg1}, #{msg2}, #{msg3})
+		insert into activity_tb(activity_id, team_id, task_id, host_id, msg1, msg2, msg3, type)
+		 values(activity_seq.nextval, #{teamId}, #{taskId}, #{hostId}, #{msg1}, #{msg2}, #{msg3}, #{type})
 	</insert>
 	
 	<!-- 팀의 activity 조회 -->
 	<select id="selectActivity" parameterType="int" resultMap="activityMap">
-		select activity_id, team_id, task_id, host_id, msg1, msg2, msg3, act_date, M.name
+		select activity_id, team_id, task_id, host_id, msg1, msg2, msg3, act_date, A.type, M.name
 		 from activity_tb A
 		  left outer join member_tb M
 		   on A.host_id = M.memberid

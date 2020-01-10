@@ -56,6 +56,7 @@ public class TaskController {
 		activity.setHostId(task.getWriterId());
 		activity.setMsg2(task.getTitle());
 		activity.setMsg3("카드를 추가했습니다.");
+		activity.setType("plus");
 		
 		activityService.insertActivity(activity);
 		
@@ -157,6 +158,7 @@ public class TaskController {
 		activity.setHostId(task.getWriterId());
 		activity.setMsg2(task.getTitle());
 		activity.setMsg3("카드를 수정했습니다.");
+		activity.setType("edit");
 		
 		activityService.insertActivity(activity);
 	
@@ -178,6 +180,7 @@ public class TaskController {
 		activity.setHostId(task.getWriterId());
 		activity.setMsg2(task.getTitle());
 		activity.setMsg3("카드를 삭제했습니다.");
+		activity.setType("trash-2");
 		
 		activityService.insertActivity(activity);
 	}

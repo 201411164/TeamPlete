@@ -3,7 +3,7 @@ package kr.co.teamplete.dto;
 public class ActivityVO {
 	
 	private int activityId, teamId, taskId;
-	private String hostId, msg1, msg2, msg3, actDate;
+	private String hostId, msg1, msg2, msg3, actDate, type;
 	private String name;
 	
 	public ActivityVO() {
@@ -12,7 +12,7 @@ public class ActivityVO {
 	}
 
 	public ActivityVO(int activityId, int teamId, int taskId, String hostId, String msg1, String msg2, String msg3,
-			String actDate) {
+			String actDate, String type, String name) {
 		super();
 		this.activityId = activityId;
 		this.teamId = teamId;
@@ -22,6 +22,8 @@ public class ActivityVO {
 		this.msg2 = msg2;
 		this.msg3 = msg3;
 		this.actDate = actDate;
+		this.type = type;
+		this.name = name;
 	}
 
 	public int getActivityId() {
@@ -87,7 +89,14 @@ public class ActivityVO {
 	public void setActDate(String actDate) {
 		this.actDate = actDate;
 	}
-	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getName() {
 		return name;
@@ -96,13 +105,14 @@ public class ActivityVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 
 	@Override
 	public String toString() {
 		return "ActivityVO [activityId=" + activityId + ", teamId=" + teamId + ", taskId=" + taskId + ", hostId="
-				+ hostId + ", msg1=" + msg1 + ", msg2=" + msg2 + ", msg3=" + msg3 + ", actDate=" + actDate + "]";
+				+ hostId + ", msg1=" + msg1 + ", msg2=" + msg2 + ", msg3=" + msg3 + ", actDate=" + actDate + ", type="
+				+ type + ", name=" + name + "]";
 	}
-
+	
+	
 
 }
