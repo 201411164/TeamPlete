@@ -620,7 +620,7 @@ const options2 = {
 										
 										
 											<p hidden id="lastsender"></p>
-											<div class="user-chats" style="overflow-y:auto;">
+											<div class="user-chats" id="user-chats" style="overflow-y:auto;">
 												<div class="chats" id="data" >
 													<c:forEach items="${ msgList }" var="msg">
 													
@@ -1419,7 +1419,8 @@ const options2 = {
     	   
        }
         	
-       $('#lastsender').val(memberid); 
+       $('#lastsender').val(memberid);
+       $("#user-chats").scrollTop($("#user-chats")[0].scrollHeight);
 
  }
 
@@ -1435,7 +1436,7 @@ const options2 = {
 	
 	
 	
-	
+
 	
 	
 	
@@ -1633,7 +1634,7 @@ const options2 = {
    	var taskId = '';
 	$(document).ready(function() {
 		 
-		
+		 $("#user-chats").scrollTop($("#user-chats")[0].scrollHeight);
 				
 		
 		
