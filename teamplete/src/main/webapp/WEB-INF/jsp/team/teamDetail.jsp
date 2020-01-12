@@ -231,18 +231,18 @@ const options2 = {
                                     <div class="card-body pt-0 pb-0 mb-0">
                                     
                                     	<div id="carousel-timeline" class="carousel carousel-fade" data-ride="carousel">
-                                    		<%-- <ol class="carousel-indicators">
+                                    		<ol class="carousel-indicators" >
 											<c:forEach items="${ activityList }" var="activity" varStatus="status">
 											<c:choose>
 											<c:when test="${status.first}">
-											<li data-target="#carousel-timeline" data-slide-to="${status.index}" class="active"></li>
+											<li data-target="#carousel-timeline" data-slide-to="${status.index}" class="active" style="background-color:#7367f0;"></li>
 											</c:when>
 											<c:otherwise>
-											<li data-target="#carousel-timeline" data-slide-to="${status.count}"></li>
+											<li data-target="#carousel-timeline" data-slide-to="${status.count}" style="background-color:#98a8b9;"></li>
 											</c:otherwise>											
 											</c:choose>
 											</c:forEach>
-											</ol> --%>
+											</ol>
                                         
                                         
                                         
@@ -250,6 +250,7 @@ const options2 = {
 											<div class="carousel-inner" role="listbox">
 											
 											<c:forEach items="${ activityList }" var="activity" varStatus="status">
+											
 											<c:choose>
 											<c:when test="${status.first}">
 											<div class="carousel-item active">
@@ -633,7 +634,9 @@ const options2 = {
 													<c:otherwise>
 													
 													
-														${ msg.msgTime }
+													<h5 style="color:#a7b5c3;" data-toggle="tooltip"
+																					data-popup="tooltip-custom" data-placement="bottom"
+																					data-original-title="${msg.msgDate }">${ msg.msgTime }</h5>	
 														
 													<c:choose>
 													<c:when test="${msg.writerId eq loginVO.memberid}">
@@ -649,16 +652,29 @@ const options2 = {
    	        
    	        <c:choose>
 													<c:when test="${fn:startsWith(msg.profile, 'circle')}">
-													<img src="${ pageContext.request.contextPath }/resources/images/${msg.profile}" alt="avatar" height="40" width="40" />
+													<a href="${ pageContext.request.contextPath}/mypage/${msg.writerId}">
+													<img src="${ pageContext.request.contextPath }/resources/images/${msg.profile}" alt="avatar" height="40" width="40"
+													data-toggle="tooltip"
+																					data-popup="tooltip-custom" data-placement="bottom"
+																					data-original-title="${msg.writerName }" />
+													<div class="custom-avatar-container">
+   	                	${msg.writerName }
+   					</div></a>	
 													</c:when>
 													<c:otherwise>
-													<img src="${msg.profile}" alt="avatar" height="40" width="40" />
+													<div>
+													<a href="${ pageContext.request.contextPath}/mypage/${msg.writerId}">
+													<img src="${msg.profile}" alt="avatar" height="40" width="40"  data-toggle="tooltip"
+																					data-popup="tooltip-custom" data-placement="bottom"
+																					data-original-title="${msg.writerName }"
+																					/>
+													</a>								
+													</div>								
+													
 													</c:otherwise>
 													</c:choose>	
    	        
-   	                	<div class="custom-avatar-container">
-   	                	${msg.writerName }
-   					</div>
+   	                	
    	                	</div>       	
    	                	<div class="chat-body">
    	        	        <div class="chat-content">
