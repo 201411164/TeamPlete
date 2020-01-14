@@ -270,7 +270,7 @@
 													</button>
 												</div>
 												<form method="post"
-													action="${pageContext.request.contextPath}/team/${loginVO.memberid}"
+													action="${pageContext.request.contextPath}/team"
 													name="createTeamForm">
 													<input type="hidden" name="ownerId"
 														value="${ loginVO.memberid }">

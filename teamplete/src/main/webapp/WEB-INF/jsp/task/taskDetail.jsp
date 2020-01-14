@@ -107,7 +107,7 @@ border-style: none !important;
 									<div class="breadcrumb-wrapper col-12">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a
-												href="${ pageContext.request.contextPath }/team/${loginVO.memberid}">Home</a>
+												href="${ pageContext.request.contextPath }/team">Home</a>
 											</li>
 											<li class="breadcrumb-item"><a
 												href="${ pageContext.request.contextPath }/teamdetail/${taskDetail.teamId}">Team</a>
