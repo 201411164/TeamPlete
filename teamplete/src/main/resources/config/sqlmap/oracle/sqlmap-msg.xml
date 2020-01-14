@@ -24,6 +24,7 @@
 		select msg_id, writer_id, writer_name, profile, text, room_id, to_char(msg_date, 'yyyy-mm-dd') as msg_date, msg_time
 		 from msg_tb
 		  where room_id = #{roomId}
+		   order by msg_id asc
 	</select>
 	
    

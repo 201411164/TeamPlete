@@ -20,7 +20,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import kr.co.teamplete.dto.MsgVO;
 import kr.co.teamplete.service.MsgService;
 
-@Controller
 public class EchoHandler extends TextWebSocketHandler{
 	
 	@Autowired

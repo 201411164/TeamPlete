@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -201,6 +202,66 @@
 
 
 			</div>
+			
+			<div class="form-group">
+															<input type="password" name="password" id="password" class="form-control">
+														</div>
+														<div class="modal-footer">
+										<button type="button" id="checkPWBtn" class="btn btn-primary" data-dismiss="modal">확인</button>
+
+														</div>
+			
+			<div class="col-xl-3 col-md-6 col-sm-6">
+								<div class="card">
+						<div class="card-header d-flex justify-content-between">
+										<h4 class="text-primary mr-1" style="font-family:'Inter'; font-weight:700; font-size:26px;">${ user.name }님의 정보</h4>
+										<i class="feather icon-more-horizontal cursor-pointer"></i>
+									</div>
+
+						<div class="card-content">
+							<div class="card-body">
+							아이디: ${ user.memberid }<br/>
+							이메일: ${ user.email }
+							
+							</div>
+							</div>
+							<button type="button" data-toggle="modal" data-target="#checkPWForm">수정</button>
+							</div>
+			</div>
+			
+			<!-- Modal -->
+									<div class="modal fade text-left" id="checkPWForm" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel33"
+										aria-hidden="true">
+										<div
+											class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+											role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel33">비밀번호를 입력해주세요.
+														</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+<%-- 												<form method="post" --%>
+<%-- 													action="${pageContext.request.contextPath}/${ loginVO.memberid }/checkPW" --%>
+<%-- 													name="checkPW"> --%>
+													<div class="modal-body">
+														<label>Password: </label>
+<!-- 														<div class="form-group"> -->
+<!-- 															<input type="password" name="password" value="tjddPwls" id="password" class="form-control"> -->
+<!-- 														</div> -->
+<!-- 														<div class="modal-footer"> -->
+<!-- 										<button type="button" id="checkPWBtn" class="btn btn-primary" data-dismiss="modal">확인</button> -->
+
+<!-- 														</div> -->
+													</div>
+<%-- 												</form> --%>
+											</div>
+										</div>
+									</div>
 
 
 
@@ -239,6 +300,40 @@
 
 
 <script>
+
+
+     
+
+
+$(document).ready(function() {
+    $('#checkPWBtn').on('click', function() {
+    	var pw = $('#password').val();
+    	var data = {
+    	        "password" : pw
+    	     };
+    	console.log(data);
+    	console.log('/${ loginVO.memberid }/checkPW');
+       $.ajax({
+          type : 'POST',
+          url : '/${ loginVO.memberid }/checkPW',
+		  data : data,
+          success : function(result) {
+             if ($.trim(result) == 1) {
+            	console.log(result);
+                alert("비밀번호가 맞습니다.")
+             } else {
+            	console.log(result);
+            	alert("비밀번호가 틀렸습니다.");
+             }
+          },
+          error : function(request, status, error) {
+              alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+              console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+              }
+       });
+    });
+});
+
 
 var memberid="";
 
