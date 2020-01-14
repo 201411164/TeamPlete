@@ -46,7 +46,7 @@ public class UpdateTime {
 	    	result = t + "분 전";
 	    }
 
-		
+	    System.out.println(currentTime);
 		return result;
 	}
 	
