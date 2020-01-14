@@ -176,6 +176,14 @@ document.addEventListener('DOMContentLoaded', function () {
       endDate = $("#cal-end-date").val(),
       eventDescription = $("#cal-description").val(),
       correctEndDate = new Date(endDate);
+    
+    console.log("Title:"+eventTitle);
+    console.log("start:"+startDate);
+    console.log("Description:"+eventDescription);
+    console.log("end:"+correctEndDate);
+    console.log("color:"+evtColor);
+    console.log("dataEventColor:"+eventColor);
+    
     calendar.addEvent({
       id: "newEvent",
       title: eventTitle,

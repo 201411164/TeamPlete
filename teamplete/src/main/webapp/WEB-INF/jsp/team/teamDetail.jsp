@@ -193,7 +193,8 @@ const options2 = {
 									<div class="dropdown-menu dropdown-menu-right">
 										<c:if test="${ loginVO.memberid eq team.ownerId }">
 										<button type="button" name="modify" id="modifyBtn"
-											class="dropdown-item" data-toggle="modal"
+											class="dropdown-item"
+											onclick="modifyFunc(${ team.teamId })" data-toggle="modal"
 											data-target="#updateTeam">
 											<i class="feather icon-edit mr-1"></i>팀 정보 수정
 										</button>
@@ -630,7 +631,7 @@ const options2 = {
 								
 								
 								
-								<div class="col-6">
+								<div class="col-lg-6 col-12">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-body">
@@ -1353,7 +1354,6 @@ const options2 = {
 					</button>
 				</div>
 				<form method="post" name="modifyTeam">
-					<input type="hidden" name="teamId" value="${ team.teamId }" />
 
 					<div class="modal-body">
 						<div class="form-group">
@@ -1461,7 +1461,7 @@ const options2 = {
 	      dataEventColor: eventColor,
 	      allDay: true
 	    });
-	  });
+	  }
 	
 	
 	
@@ -1470,44 +1470,6 @@ const options2 = {
 	
 	
 
-	   function submitEvent(event){
-		   var eventTitle =event.eventTitle,
-		      startDate = event.startDate,
-		      // endDate = event.endDate,
-		      eventDescription = event.eventDescription,
-		      correctEndDate = event.correctEndDate;
-		      //correctEndDate = new Date(endDate);
-		   
-		   var newcalendar = {
-				   id: "newEvent",
-				      title: eventTitle,
-				      start: startDate,
-				      end: correctEndDate,
-				      description: eventDescription,
-				      color: evtColor,
-				      dataEventColor: eventColor,
-				      allDay: true 
-		   }
-		   
-		   $.ajax({
-		          type : 'POST',
-		          url : '/teamdetail/${ team.teamId }/calendar',
-		          data : JSON.stringify(newcalendar),
-		          contentType : "application/json",
-		          success : function(data) {
-		        	  console.log(data);
-
-//	 	         	  $('#membersView').load(document.URL +  ' #membersView');
-		        	  location.reload();
-		          },
-		          error : function(error) {
-		        	  console.log(error);
-		          }
-		       }); 
-			    
-			    
-
-		};
 	   
 	
 	
@@ -1725,9 +1687,17 @@ const options2 = {
 	   console.log(idx);
 	}
 	
+	var id = '';
+	
+	function modifyFunc(modifyTeamId) {
+		   id = modifyTeamId;
+		   
+	}
+
+	
 	   function submit2(){
 		    var form2 = document.modifyTeam;
-		    form2.action = "${pageContext.request.contextPath}/team/update";
+		    form2.action = "${pageContext.request.contextPath}/team/update/" + id;
 		    form2.submit();
 		}
 	   
@@ -1979,7 +1949,7 @@ const options2 = {
 								type : 'DELETE'
 							});
 							
-							location.href = "${ pageContext.request.contextPath}/team";
+							location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
 						  
 					  });
 					 
@@ -2013,7 +1983,7 @@ const options2 = {
 						});
 						
 						
-						location.href = "${ pageContext.request.contextPath}/team";
+						location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
 					  
 				  });
 				 
