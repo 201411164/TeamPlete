@@ -262,6 +262,25 @@ public class TeamController {
 		return memberList;
 	}
 	
+	
+	
+	/*
+	 * @RequestMapping(value = "/teamdetail/{id}/calendar", method =
+	 * RequestMethod.POST)
+	 * 
+	 * @ResponseBody public String addCalendarEvent( @RequestBody CalendarVO
+	 * mycalendar, @PathVariable("id") int teamId) { for (String s : memberList) {
+	 * //teamMember.setMemberId(s); TeamMemberVO teamMember = new TeamMemberVO();
+	 * teamMember.setMemberId(s); teamMember.setTeamId(teamId);
+	 * service.insertTeamMem(teamMember); }
+	 * 
+	 * return "redirect:/team/" }
+	 */
+	
+	
+	
+	
+	
 	//팀 정보 수정
 	@RequestMapping(value = "/team/update/{teamId}", method = { RequestMethod.POST, RequestMethod.GET })
 	public String updateTeam(TeamVO team, @PathVariable("teamId") int teamId) {

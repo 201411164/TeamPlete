@@ -186,6 +186,19 @@ document.addEventListener('DOMContentLoaded', function () {
       dataEventColor: eventColor,
       allDay: true
     });
+    $.ajax({
+        type : 'POST',
+        url : '/teamdetail/${ team.teamId }/calendar',
+        data : JSON.stringify(calendar),
+        contentType : "application/json",
+        success : function(data) {
+      	  console.log(data);
+      	  location.reload();
+        },
+        error : function(error) {
+      	  console.log(error);
+        }
+     }); 
   });
 
   // date picker
