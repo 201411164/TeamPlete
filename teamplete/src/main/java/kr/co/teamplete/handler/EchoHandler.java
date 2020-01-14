@@ -3,15 +3,15 @@ package kr.co.teamplete.handler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -67,8 +67,10 @@ public class EchoHandler extends TextWebSocketHandler{
 			msg.setProfile(profile);
 			msg.setText(message.getPayload());
 			msg.setRoomId(Integer.parseInt(roomId));
-			SimpleDateFormat sdf = new SimpleDateFormat("a h:mm");
-			String currT = sdf.format(new Date());
+			SimpleDateFormat sdf = new SimpleDateFormat("a h:mm", Locale.KOREA);
+//			String currT = sdf.format(new Date());
+			Calendar time = Calendar.getInstance();
+			String currT = sdf.format(time.getTime());
 			msg.setMsgTime(currT);
 			msgService.insertMsg(msg);
 			

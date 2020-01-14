@@ -203,14 +203,6 @@
 
 			</div>
 			
-			<div class="form-group">
-															<input type="password" name="password" id="password" class="form-control">
-														</div>
-														<div class="modal-footer">
-										<button type="button" id="checkPWBtn" class="btn btn-primary" data-dismiss="modal">확인</button>
-
-														</div>
-			
 			<div class="col-xl-3 col-md-6 col-sm-6">
 								<div class="card">
 						<div class="card-header d-flex justify-content-between">
@@ -221,6 +213,7 @@
 						<div class="card-content">
 							<div class="card-body">
 							아이디: ${ user.memberid }<br/>
+							이름: ${ user.name }<br/>
 							이메일: ${ user.email }
 							
 							</div>
@@ -229,7 +222,7 @@
 							</div>
 			</div>
 			
-			<!-- Modal -->
+									<!-- 비밀번호 체크 Modal -->
 									<div class="modal fade text-left" id="checkPWForm" tabindex="-1"
 										role="dialog" aria-labelledby="myModalLabel33"
 										aria-hidden="true">
@@ -245,20 +238,68 @@
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-<%-- 												<form method="post" --%>
-<%-- 													action="${pageContext.request.contextPath}/${ loginVO.memberid }/checkPW" --%>
-<%-- 													name="checkPW"> --%>
 													<div class="modal-body">
+														<input type="hidden" name="memberid" id="memberid" 
+														value="${ loginVO.memberid }">
+													
 														<label>Password: </label>
-<!-- 														<div class="form-group"> -->
-<!-- 															<input type="password" name="password" value="tjddPwls" id="password" class="form-control"> -->
-<!-- 														</div> -->
-<!-- 														<div class="modal-footer"> -->
-<!-- 										<button type="button" id="checkPWBtn" class="btn btn-primary" data-dismiss="modal">확인</button> -->
+														<div class="form-group">
+															<input type="password" name="password" id="password" class="form-control">
+														</div>
+														<div class="modal-footer">
+										<button type="button" id="checkPWBtn" onclick="checkpw()" class="btn btn-primary">확인</button>
 
-<!-- 														</div> -->
+														</div>
 													</div>
-<%-- 												</form> --%>
+											</div>
+										</div>
+									</div>
+									
+									
+									<!-- 개인정보 수정 Modal (이름, 비밀번호, 이메일 수정 가능 -->
+									<div class="modal fade text-left" id="modifyMyInfo" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel33"
+										aria-hidden="true">
+										<div
+											class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+											role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel33">개인정보를 수정해주세요.
+														</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<form method="post"
+												action="${pageContext.request.contextPath}/task/write"
+												name="createTaskForm" id="modifyMyInfoForm" style="overflow-y:auto;">
+													<div class="modal-body">
+														아이디: ${ user.memberid }
+														<br/>
+														<label>이름: </label>
+														<div class="form-group">
+														<input type="text" name="name" id="name" class="form-control" value="${ user.name }">											
+														</div>
+														<label>이메일: </label>
+														<div class="form-group">
+														<input type="text" name="email" id="email" class="form-control" value="${ user.email }">											
+														</div>
+														<label>변경할 비밀번호: </label>
+														<div class="form-group">
+															<input type="password" name="password" id="pwModify" class="form-control">
+														</div>
+														<label>변경할 비밀번호 재확인: </label>
+														<div class="form-group">
+															<input type="password" id="pwModify2" class="form-control">
+														</div>
+														<div class="modal-footer">
+										<button type="button" id="checkPWBtn" class="btn btn-primary" data-dismiss="modal">수정</button>
+
+														</div>
+													</div>
+													</form>
 											</div>
 										</div>
 									</div>
@@ -301,37 +342,42 @@
 
 <script>
 
+function checkpw() {
+    $.ajax({
+        type : 'POST',
+        url : '/checkPW',
+		  data : {
+			  "memberid" : $('#memberid').val(),
+			  "password" : $('#password').val()
+		  },
+        success : function(result) {
+           if ($.trim(result) == 1) {
+//               alert("비밀번호가 맞습니다.");
+				var input = document.getElementById('password');
+          	input.value = "";
+          	$('#checkPWForm').modal("hide");
+				$("#modifyMyInfo").modal();
+           } else {
+          	alert("비밀번호가 틀렸습니다. 다시 입력해주세요.");
+          	var input = document.getElementById('password');
+          	input.value = "";
+           }
+        },
+        error : function(request, status, error) {
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+     });
+};
 
-     
+// $(document).ready(function() {
+//     $('#checkPWBtn').on('click', checkpw());
+// });
 
 
-$(document).ready(function() {
-    $('#checkPWBtn').on('click', function() {
-    	var pw = $('#password').val();
-    	var data = {
-    	        "password" : pw
-    	     };
-    	console.log(data);
-    	console.log('/${ loginVO.memberid }/checkPW');
-       $.ajax({
-          type : 'POST',
-          url : '/${ loginVO.memberid }/checkPW',
-		  data : data,
-          success : function(result) {
-             if ($.trim(result) == 1) {
-            	console.log(result);
-                alert("비밀번호가 맞습니다.")
-             } else {
-            	console.log(result);
-            	alert("비밀번호가 틀렸습니다.");
-             }
-          },
-          error : function(request, status, error) {
-              alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-              console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-              }
-       });
-    });
+$("#password").keydown(function(key) {
+    if (key.keyCode == 13) {// 엔터
+    	checkpw();
+    }
 });
 
 

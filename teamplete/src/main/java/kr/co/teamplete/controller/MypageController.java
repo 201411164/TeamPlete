@@ -54,8 +54,8 @@ public class MypageController {
 	}
 	
 	// 개인 정보 수정시 비밀번호 확인
-	@RequestMapping(value="/{memberid}/checkPW", method=RequestMethod.POST)
-	public @ResponseBody String checkPW(@PathVariable("memberid") String memberid, @RequestParam("password") String password) {
+	@RequestMapping(value="/checkPW", method=RequestMethod.POST)
+	public @ResponseBody String checkPW(@RequestParam("memberid") String memberid, @RequestParam("password") String password) {
 		
 		Map<String, String> hm = new HashMap<>();
 		
