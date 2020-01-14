@@ -22,6 +22,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
     <!-- BEGIN: Vendor CSS-->
 
+    <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/fullcalendar.min.css">
+    <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/daygrid.min.css">
+    <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/timegrid.min.css">
+    <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/pickadate.css">
+     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/fullcalendar.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -64,8 +69,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/palette-gradient.css">
 <script data-ad-client="ca-pub-2653440415528337" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script
-		src="${ pageContext.request.contextPath }/resources/js/quill.min.js"></script>	
+
 </head>
 <body>
 
@@ -223,12 +227,13 @@
     
 	<!-- BEGIN: Vendor JS-->
 	<script
+		src="${ pageContext.request.contextPath }/resources/js/jquery.sticky.js"></script>
+	<script
 		src="${ pageContext.request.contextPath }/resources/js/vendors.min.js"></script>
 	<!-- BEGIN Vendor JS-->
 
 	<!-- BEGIN: Page Vendor JS-->
-	<script
-		src="${ pageContext.request.contextPath }/resources/js/jquery.sticky.js"></script>
+	
 	<!-- END: Page Vendor JS-->
 
 	<!-- BEGIN: Theme JS-->
@@ -243,7 +248,9 @@
 	<script src="${ pageContext.request.contextPath }/resources/js/app.js"></script>
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/components.js"></script>
-		
+	<script
+		src="${ pageContext.request.contextPath }/resources/js/quill.min.js"></script>	
+
 		
 		
 	<!-- END: Theme JS-->
