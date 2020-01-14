@@ -186,8 +186,7 @@ const options2 = {
 									<div class="dropdown-menu dropdown-menu-right">
 										<c:if test="${ loginVO.memberid eq team.ownerId }">
 										<button type="button" name="modify" id="modifyBtn"
-											class="dropdown-item"
-											onclick="modifyFunc(${ team.teamId })" data-toggle="modal"
+											class="dropdown-item" data-toggle="modal"
 											data-target="#updateTeam">
 											<i class="feather icon-edit mr-1"></i>팀 정보 수정
 										</button>
@@ -1212,6 +1211,7 @@ const options2 = {
 					</button>
 				</div>
 				<form method="post" name="modifyTeam">
+					<input type="hidden" name="teamId" value="${ team.teamId }" />
 
 					<div class="modal-body">
 						<div class="form-group">
@@ -1477,17 +1477,9 @@ const options2 = {
 	   console.log(idx);
 	}
 	
-	var id = '';
-	
-	function modifyFunc(modifyTeamId) {
-		   id = modifyTeamId;
-		   
-	}
-
-	
 	   function submit2(){
 		    var form2 = document.modifyTeam;
-		    form2.action = "${pageContext.request.contextPath}/team/update/" + id;
+		    form2.action = "${pageContext.request.contextPath}/team/update";
 		    form2.submit();
 		}
 	   
@@ -1723,7 +1715,7 @@ const options2 = {
 								type : 'DELETE'
 							});
 							
-							location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
+							location.href = "${ pageContext.request.contextPath}/team";
 						  
 					  });
 					 
@@ -1757,7 +1749,7 @@ const options2 = {
 						});
 						
 						
-						location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
+						location.href = "${ pageContext.request.contextPath}/team";
 					  
 				  });
 				 

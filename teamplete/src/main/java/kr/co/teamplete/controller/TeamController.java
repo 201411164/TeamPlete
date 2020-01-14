@@ -68,8 +68,8 @@ public class TeamController {
 	
 
 	// 팀 등록한 뒤 팀 조회 페이지로 돌아감
-	@RequestMapping(value="/team/{loginVO.memberid}", method = RequestMethod.POST)
-	public String createTeam(TeamVO team, @PathVariable("loginVO.memberid") String memberid) {
+	@RequestMapping(value="/team", method = RequestMethod.POST)
+	public String createTeam(TeamVO team) {
 		
 		List<String> imgList = new ArrayList<>();
 		imgList.add("action-2277292_1920.jpg");
@@ -100,38 +100,7 @@ public class TeamController {
 		
 		chatRoomService.insertGroupChatRoom(chatRoom);
 		
-		return "redirect:/team/" + memberid;
-	}
-	
-	// 팀 조회
-	@RequestMapping(value = "/team/{loginVO.memberid}", method = RequestMethod.GET)
-	public ModelAndView teamList(@PathVariable("loginVO.memberid") String memberid) {
-		
-		List<String> updateTime = new ArrayList<>();
-		
-		List<String> deadline = new ArrayList<>();
-		List<TeamVO> teamList = service.selectAllTeam(memberid);
-		List<List<MemberVO>> teamMemberList = new ArrayList<>();
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("team/team");
-		mav.addObject("teamList", teamList);
-		for(int i=0; i<teamList.size(); i++) {
-			deadline.add(Deadline.deadline(teamList.get(i).getDeadline()));
-			teamMemberList.add(service.selectAllMembers(teamList.get(i).getTeamId()));
-			if(teamList.get(i).getTaskLatest() != null && teamList.get(i).getBoardLatest() != null) {
-				if(UpdateTime.calcLatest(teamList.get(i).getTaskLatest(), teamList.get(i).getBoardLatest()) >= 0) {
-					updateTime.add(UpdateTime.updateTime(teamList.get(i).getTaskLatest()));
-				}else updateTime.add(UpdateTime.updateTime(teamList.get(i).getBoardLatest()));
-			}else if(teamList.get(i).getTaskLatest() != null && teamList.get(i).getBoardLatest() == null) {
-				updateTime.add(UpdateTime.updateTime(teamList.get(i).getTaskLatest()));
-			}else updateTime.add("업데이트 없음");
-			
-		}
-		mav.addObject("deadline", deadline);
-		mav.addObject("teamMemberList", teamMemberList);
-		mav.addObject("updateTime", updateTime);
-
-		return mav;
+		return "redirect:/team";
 	}
 	
 	
@@ -263,11 +232,10 @@ public class TeamController {
 	}
 	
 	//팀 정보 수정
-	@RequestMapping(value = "/team/update/{teamId}", method = { RequestMethod.POST, RequestMethod.GET })
-	public String updateTeam(TeamVO team, @PathVariable("teamId") int teamId) {
-		TeamVO team2= service.detailTeam(teamId);
+	@RequestMapping(value = "/team/update", method = RequestMethod.POST)
+	public String updateTeam(TeamVO team) {
 		service.updateTeamInfo(team);
-		return "redirect:/team/" + team2.getOwnerId();
+		return "redirect:/team";
 	}
 	
 	@RequestMapping(value = "/team/delete/{teamId}", method = RequestMethod.DELETE)
