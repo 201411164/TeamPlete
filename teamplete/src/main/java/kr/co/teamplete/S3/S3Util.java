@@ -28,7 +28,6 @@ public class S3Util {
 
 	private static final String SECRET_ACCESS_KEY = "";
 	
-	
     private AmazonS3 conn;
 
     //bucketName
