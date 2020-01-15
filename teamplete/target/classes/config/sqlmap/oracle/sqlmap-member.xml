@@ -60,5 +60,13 @@
 		 from member_tb
 		  where memberid = #{memberid} and password = #{password}
    </select>
+
+	<!-- 회원 정보 수정 -->
+	<update id="modifyMemberInfo" parameterType="MemberVO">
+		update member_tb
+		 set
+		  name = #{name}, password = #{password}, email = #{email}
+		   where memberid = #{memberid}
+	</update>
    
 </mapper>

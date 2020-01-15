@@ -51,5 +51,10 @@ public class MemberServiceImpl implements MemberService{
 		int count = memberDAO.checkPw(map);
 		return count;
 	}
+
+	@Override
+	public void modifyMemberInfo(MemberVO member) {
+		memberDAO.modifyMemberInfo(member);
+	}
 	
 }

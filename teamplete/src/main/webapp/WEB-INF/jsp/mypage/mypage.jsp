@@ -56,6 +56,14 @@
 </head>
 <body>
 
+	<c:choose>
+		<c:when test="${ empty loginVO }">
+			<%
+				response.sendRedirect("/");
+			%>
+		</c:when>
+		<c:otherwise>
+
 <c:import url="/navbar/${ loginVO.memberid }" />
 
 
@@ -295,7 +303,7 @@
 															<input type="password" id="pwModify2" class="form-control">
 														</div>
 														<div class="modal-footer">
-										<button type="button" id="checkPWBtn" class="btn btn-primary" data-dismiss="modal">수정</button>
+														<button type="button" id="modifyInfoBtn" class="btn btn-primary">수정</button>
 
 														</div>
 													</div>
@@ -310,6 +318,9 @@
 		</div>
 		</div>
             </div>
+            
+    </c:otherwise>
+	</c:choose>
                     
           
           
@@ -346,10 +357,10 @@ function checkpw() {
     $.ajax({
         type : 'POST',
         url : '/checkPW',
-		  data : {
+		data : {
 			  "memberid" : $('#memberid').val(),
 			  "password" : $('#password').val()
-		  },
+		},
         success : function(result) {
            if ($.trim(result) == 1) {
 //               alert("비밀번호가 맞습니다.");
@@ -379,6 +390,58 @@ $("#password").keydown(function(key) {
     	checkpw();
     }
 });
+
+
+//회원정보 수정
+$("#modifyInfoBtn").click(function() {
+	
+	var password1 = $('#pwModify').val();
+	var password2 = $('#pwModify2').val();
+	var pw;
+   
+	if(password1 != password2){
+		alert("비밀번호와 비밀번호 확인에 입력된 값이 다릅니다");
+		var input = document.getElementById('pwModify2');
+        input.value = "";
+          	
+	} else if(password1 != "" && password2 == "") {
+		
+		alert("비밀번호 확인을 입력해주세요");
+		
+	} else {
+		
+		if (password1 == "" && password2 == "") {
+			pw = "${ loginVO.password }";
+		} else {
+			pw = $('#pwModify').val();
+		}
+	
+	var data = {
+			"memberid" : $('#memberid').val(),
+			"name" : $('#name').val(),
+			"password" : pw,
+			"email" : $('#email').val()
+		};
+	
+	$.ajax({
+		type : 'PUT',
+		url : '/mypage/modify',
+		data : JSON.stringify(data),
+        contentType : "application/json",
+		success : function(result) {
+			console.log(data);
+			$('#modifyMyInfo').modal("hide");
+			location.reload();
+		},
+		error : function(request, status, error) {
+			console.log(data);
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
+	}
+});
+
+
 
 
 var memberid="";

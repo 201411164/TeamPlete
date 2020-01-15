@@ -2,8 +2,10 @@ package kr.co.teamplete.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.ChatRoomVO;
 import kr.co.teamplete.dto.MemberVO;
+import kr.co.teamplete.dto.TaskVO;
 import kr.co.teamplete.dto.TeamVO;
 import kr.co.teamplete.method.Deadline;
 import kr.co.teamplete.method.UpdateTime;
 import kr.co.teamplete.service.ChatRoomService;
 import kr.co.teamplete.service.LoginService;
 import kr.co.teamplete.service.MemberService;
+import kr.co.teamplete.service.TaskService;
 import kr.co.teamplete.service.TeamService;
 
 
@@ -42,6 +46,9 @@ public class LoginController {
 	
 	@Autowired
 	private TeamService teamService;
+	
+	@Autowired
+	private TaskService taskService;
 	
 	String loginId;
 	
@@ -127,6 +134,27 @@ public class LoginController {
 		mav.addObject("deadline", deadline);
 		mav.addObject("teamMemberList", teamMemberList);
 		mav.addObject("updateTime", updateTime);
+
+		return mav;
+	}
+	
+	
+	// 세션에 저장된 아이디의 마이페이지
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public ModelAndView mypage() {
+		ModelAndView mav = new ModelAndView();
+
+		MemberVO user = new MemberVO();
+
+		user = memberService.selectMemberById(loginId);
+
+		Map<String, Object> map = new HashMap<>();
+		List<TaskVO> notSubmitMyTaskAll = taskService.notSubmitMyTaskAll(loginId);
+
+		map.put("notSubmitMyTaskAll", notSubmitMyTaskAll);
+		map.put("user", user);
+		mav.addAllObjects(map);
+		mav.setViewName("mypage/mypage");
 
 		return mav;
 	}

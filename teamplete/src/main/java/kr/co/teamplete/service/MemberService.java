@@ -23,5 +23,8 @@ public interface MemberService {
 	
 	//회원정보 수정 시 비밀번호 체크
 	public int checkPw(Map<String, String> map);
+	
+	//회원 정보 수정
+	public void modifyMemberInfo(MemberVO member);
 
 }
