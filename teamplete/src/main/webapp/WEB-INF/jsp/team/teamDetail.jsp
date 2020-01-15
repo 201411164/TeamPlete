@@ -110,6 +110,8 @@ const options2 = {
 
 </head>
 <body >
+<c:set var="teamID" value="${ team.teamId }" />
+
 	<c:choose>
 		<c:when test="${ empty loginVO }">
 			<%
@@ -1571,7 +1573,7 @@ const options2 = {
         console.log(memberprofile);
         console.log(realmessage);
         
-        var currenttime =  new Date().toLocaleTimeString();
+        var currenttime =  new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}); //시간과 분만 출력
         var lastmember = $('#lastsender').val();
         
         if(lastmember == memberid){

@@ -194,11 +194,29 @@ document.addEventListener('DOMContentLoaded', function () {
       dataEventColor: eventColor,
       allDay: true
     });
+    
+    var teamid = '<c:out value="${teamID}"/>';
+    
+
+										    var ajaxcalendar = {
+											"id" : "newEvent",
+											"title" : eventTitle,
+											"start" : startDate,
+											"end" : correctEndDate,
+											"description" : eventDescription,
+											"color" : evtColor,
+											"dataEventColor" : eventColor,
+											"allDay" : true,
+											"teamid" : teamid
+										}
+    
+    
     $.ajax({
         type : 'POST',
-        url : '/teamdetail/${ team.teamId }/calendar',
-        data : JSON.stringify(calendar),
+        url : '/teamdetail/calendar',
+        data : JSON.stringify(ajaxcalendar),
         contentType : "application/json",
+        traditional: true,
         success : function(data) {
       	  console.log(data);
       	  location.reload();

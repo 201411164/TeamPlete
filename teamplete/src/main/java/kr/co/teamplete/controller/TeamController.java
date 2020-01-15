@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.BoardVO;
+import kr.co.teamplete.dto.CalendarVO;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.ChatRoomVO;
 import kr.co.teamplete.dto.FileVO;
@@ -277,7 +278,14 @@ public class TeamController {
 	 * return "redirect:/team/" }
 	 */
 	
+	@RequestMapping(value = "/teamdetail/calendar", method = { RequestMethod.POST})
 	
+	public void addCalendar(CalendarVO calendar) {
+		System.out.println("calendar description:"+calendar.getDescription());
+		System.out.println("calendar title:"+calendar.getTitle());
+		System.out.println("calendar start:"+calendar.getStart());
+		System.out.println("calendar End:"+calendar.getEnd());
+	}
 	
 	
 	
