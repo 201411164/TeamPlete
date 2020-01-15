@@ -210,7 +210,7 @@
 															alt="avatar">
 
 														<div class="overlay">
-															<a class="info" onclick="teamDetail(${ team.teamId })" style="color:white; font-weight:600;">팀 확인하기</a>
+															<a class="info" onclick="teamDetail(${ team.teamId })" style="color:#ffffff; font-weight:600;">팀 확인하기</a>
 														</div>
 													</div>
 

@@ -176,6 +176,14 @@ document.addEventListener('DOMContentLoaded', function () {
       endDate = $("#cal-end-date").val(),
       eventDescription = $("#cal-description").val(),
       correctEndDate = new Date(endDate);
+    
+    console.log("Title:"+eventTitle);
+    console.log("start:"+startDate);
+    console.log("Description:"+eventDescription);
+    console.log("end:"+correctEndDate);
+    console.log("color:"+evtColor);
+    console.log("dataEventColor:"+eventColor);
+    
     calendar.addEvent({
       id: "newEvent",
       title: eventTitle,
@@ -186,6 +194,37 @@ document.addEventListener('DOMContentLoaded', function () {
       dataEventColor: eventColor,
       allDay: true
     });
+    
+    var teamid = '<c:out value="${teamID}"/>';
+    
+
+										    var ajaxcalendar = {
+											"id" : "newEvent",
+											"title" : eventTitle,
+											"start" : startDate,
+											"end" : correctEndDate,
+											"description" : eventDescription,
+											"color" : evtColor,
+											"dataEventColor" : eventColor,
+											"allDay" : true,
+											"teamid" : teamid
+										}
+    
+    
+    $.ajax({
+        type : 'POST',
+        url : '/teamdetail/calendar',
+        data : JSON.stringify(ajaxcalendar),
+        contentType : "application/json",
+        traditional: true,
+        success : function(data) {
+      	  console.log(data);
+      	  location.reload();
+        },
+        error : function(error) {
+      	  console.log(error);
+        }
+     }); 
   });
 
   // date picker

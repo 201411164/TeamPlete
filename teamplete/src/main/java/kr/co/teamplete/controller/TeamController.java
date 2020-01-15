@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.BoardVO;
+import kr.co.teamplete.dto.CalendarVO;
 import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.ChatRoomVO;
 import kr.co.teamplete.dto.FileVO;
@@ -68,8 +69,8 @@ public class TeamController {
 	
 
 	// 팀 등록한 뒤 팀 조회 페이지로 돌아감
-	@RequestMapping(value="/team", method = RequestMethod.POST)
-	public String createTeam(TeamVO team) {
+	@RequestMapping(value="/team/{loginVO.memberid}", method = RequestMethod.POST)
+	public String createTeam(TeamVO team, @PathVariable("loginVO.memberid") String memberid) {
 		
 		List<String> imgList = new ArrayList<>();
 		imgList.add("action-2277292_1920.jpg");
@@ -100,7 +101,38 @@ public class TeamController {
 		
 		chatRoomService.insertGroupChatRoom(chatRoom);
 		
-		return "redirect:/team";
+		return "redirect:/team/" + memberid;
+	}
+	
+	// 팀 조회
+	@RequestMapping(value = "/team/{loginVO.memberid}", method = RequestMethod.GET)
+	public ModelAndView teamList(@PathVariable("loginVO.memberid") String memberid) {
+		
+		List<String> updateTime = new ArrayList<>();
+		
+		List<String> deadline = new ArrayList<>();
+		List<TeamVO> teamList = service.selectAllTeam(memberid);
+		List<List<MemberVO>> teamMemberList = new ArrayList<>();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("team/team");
+		mav.addObject("teamList", teamList);
+		for(int i=0; i<teamList.size(); i++) {
+			deadline.add(Deadline.deadline(teamList.get(i).getDeadline()));
+			teamMemberList.add(service.selectAllMembers(teamList.get(i).getTeamId()));
+			if(teamList.get(i).getTaskLatest() != null && teamList.get(i).getBoardLatest() != null) {
+				if(UpdateTime.calcLatest(teamList.get(i).getTaskLatest(), teamList.get(i).getBoardLatest()) >= 0) {
+					updateTime.add(UpdateTime.updateTime(teamList.get(i).getTaskLatest()));
+				}else updateTime.add(UpdateTime.updateTime(teamList.get(i).getBoardLatest()));
+			}else if(teamList.get(i).getTaskLatest() != null && teamList.get(i).getBoardLatest() == null) {
+				updateTime.add(UpdateTime.updateTime(teamList.get(i).getTaskLatest()));
+			}else updateTime.add("업데이트 없음");
+			
+		}
+		mav.addObject("deadline", deadline);
+		mav.addObject("teamMemberList", teamMemberList);
+		mav.addObject("updateTime", updateTime);
+
+		return mav;
 	}
 	
 	
@@ -231,11 +263,38 @@ public class TeamController {
 		return memberList;
 	}
 	
+	
+	
+	/*
+	 * @RequestMapping(value = "/teamdetail/{id}/calendar", method =
+	 * RequestMethod.POST)
+	 * 
+	 * @ResponseBody public String addCalendarEvent( @RequestBody CalendarVO
+	 * mycalendar, @PathVariable("id") int teamId) { for (String s : memberList) {
+	 * //teamMember.setMemberId(s); TeamMemberVO teamMember = new TeamMemberVO();
+	 * teamMember.setMemberId(s); teamMember.setTeamId(teamId);
+	 * service.insertTeamMem(teamMember); }
+	 * 
+	 * return "redirect:/team/" }
+	 */
+	
+	@RequestMapping(value = "/teamdetail/calendar", method = { RequestMethod.POST})
+	
+	public void addCalendar(CalendarVO calendar) {
+		System.out.println("calendar description:"+calendar.getDescription());
+		System.out.println("calendar title:"+calendar.getTitle());
+		System.out.println("calendar start:"+calendar.getStart());
+		System.out.println("calendar End:"+calendar.getEnd());
+	}
+	
+	
+	
 	//팀 정보 수정
-	@RequestMapping(value = "/team/update", method = RequestMethod.POST)
-	public String updateTeam(TeamVO team) {
+	@RequestMapping(value = "/team/update/{teamId}", method = { RequestMethod.POST, RequestMethod.GET })
+	public String updateTeam(TeamVO team, @PathVariable("teamId") int teamId) {
+		TeamVO team2= service.detailTeam(teamId);
 		service.updateTeamInfo(team);
-		return "redirect:/team";
+		return "redirect:/team/" + team2.getOwnerId();
 	}
 	
 	@RequestMapping(value = "/team/delete/{teamId}", method = RequestMethod.DELETE)
