@@ -93,7 +93,7 @@
                                     <div class="cover-container">
                                         <img class="img-fluid rounded-0" src="${ pageContext.request.contextPath }/resources/images/${user.profilebg}" alt="User Profile Image" style="width:100%; max-height:300px;">
                                     </div>
-                                    <div class="profile-img-container d-flex align-items-center justify-content-between">
+                                    <div data-toggle="modal" data-target="#profileOption" class="profile-img-container d-flex align-items-center justify-content-between">
                                         
 										<div class="avatar mr-50">
 															<div
@@ -229,93 +229,167 @@
 							<button type="button" data-toggle="modal" data-target="#checkPWForm">수정</button>
 							</div>
 			</div>
-			
-									<!-- 비밀번호 체크 Modal -->
-									<div class="modal fade text-left" id="checkPWForm" tabindex="-1"
-										role="dialog" aria-labelledby="myModalLabel33"
-										aria-hidden="true">
-										<div
-											class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-											role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title" id="myModalLabel33">비밀번호를 입력해주세요.
-														</h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-													<div class="modal-body">
-														<input type="hidden" name="memberid" id="memberid" 
-														value="${ loginVO.memberid }">
-													
-														<label>Password: </label>
-														<div class="form-group">
-															<input type="password" name="password" id="password" class="form-control">
-														</div>
-														<div class="modal-footer">
-										<button type="button" id="checkPWBtn" onclick="checkpw()" class="btn btn-primary">확인</button>
 
-														</div>
-													</div>
+							<!-- 비밀번호 체크 Modal -->
+							<div class="modal fade text-left" id="checkPWForm" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel33"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel33">비밀번호를
+												입력해주세요.</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<input type="hidden" name="memberid" id="memberid"
+												value="${ loginVO.memberid }"> <label>Password:
+											</label>
+											<div class="form-group">
+												<input type="password" name="password" id="password"
+													class="form-control">
+											</div>
+											<div class="modal-footer">
+												<button type="button" id="checkPWBtn" onclick="checkpw()"
+													class="btn btn-primary">확인</button>
+
 											</div>
 										</div>
 									</div>
-									
-									
-									<!-- 개인정보 수정 Modal (이름, 비밀번호, 이메일 수정 가능 -->
-									<div class="modal fade text-left" id="modifyMyInfo" tabindex="-1"
-										role="dialog" aria-labelledby="myModalLabel33"
-										aria-hidden="true">
-										<div
-											class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-											role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title" id="myModalLabel33">개인정보를 수정해주세요.
-														</h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<form method="post"
-												action="${pageContext.request.contextPath}/task/write"
-												name="createTaskForm" id="modifyMyInfoForm" style="overflow-y:auto;">
-													<div class="modal-body">
-														아이디: ${ user.memberid }
-														<br/>
-														<label>이름: </label>
-														<div class="form-group">
-														<input type="text" name="name" id="name" class="form-control" value="${ user.name }">											
-														</div>
-														<label>이메일: </label>
-														<div class="form-group">
-														<input type="text" name="email" id="email" class="form-control" value="${ user.email }">											
-														</div>
-														<label>변경할 비밀번호: </label>
-														<div class="form-group">
-															<input type="password" name="password" id="pwModify" class="form-control">
-														</div>
-														<label>변경할 비밀번호 재확인: </label>
-														<div class="form-group">
-															<input type="password" id="pwModify2" class="form-control">
-														</div>
-														<div class="modal-footer">
-														<button type="button" id="modifyInfoBtn" class="btn btn-primary">수정</button>
+								</div>
+							</div>
 
-														</div>
-													</div>
-													</form>
-											</div>
+
+							<!-- 개인정보 수정 Modal (이름, 비밀번호, 이메일 수정 가능) -->
+							<div class="modal fade text-left" id="modifyMyInfo" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel33"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel33">개인정보를
+												수정해주세요.</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
 										</div>
+										<form method="post"
+											action="${pageContext.request.contextPath}/task/write"
+											name="createTaskForm" id="modifyMyInfoForm"
+											style="overflow-y: auto;">
+											<div class="modal-body">
+												아이디: ${ user.memberid } <br /> <label>이름: </label>
+												<div class="form-group">
+													<input type="text" name="name" id="name"
+														class="form-control" value="${ user.name }">
+												</div>
+												<label>이메일: </label>
+												<div class="form-group">
+													<input type="text" name="email" id="email"
+														class="form-control" value="${ user.email }">
+												</div>
+												<label>변경할 비밀번호: </label>
+												<div class="form-group">
+													<input type="password" name="password" id="pwModify"
+														class="form-control">
+												</div>
+												<label>변경할 비밀번호 재확인: </label>
+												<div class="form-group">
+													<input type="password" id="pwModify2" class="form-control">
+												</div>
+												<div class="modal-footer">
+													<button type="button" id="modifyInfoBtn"
+														class="btn btn-primary">수정</button>
+
+												</div>
+											</div>
+										</form>
 									</div>
+								</div>
+							</div>
+
+							<!-- 프로필 수정 안내 Modal -->
+							<div class="modal fade text-left" id="profileOption"
+								tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel33">프로필을
+												수정하시겠습니까?</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+										<button type="button" id="modify" class="btn btn-primary" 
+										data-toggle="modal" data-target="#modifyProfile" data-dismiss="modal">수정하기</button>
+										<button type="button" id="initImg" class="btn btn-primary">기본
+											이미지로 변경하기</button>
+											</div>
+											<div class="modal-footer">
+
+												</div>
+									</div>
+								</div>
+							</div>
+
+
+
+							<!-- 프로필 수정 Modal -->
+							<div class="modal fade text-left" id="modifyProfile"
+								tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel33">프로필을 수정해주세요.
+											</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<form method="post" enctype="multipart/form-data"
+											action="${pageContext.request.contextPath}/mypage/profile"
+											name="modifyProfileForm" id="modifyProfileForm"
+											style="overflow-y: auto;">
+											<div class="modal-body">
+												<input type="hidden" name="pid" id="pid"
+													value="${ loginVO.memberid }"> <br /> <label>파일업로드:
+												</label>
+												<div class="form-group">
+													<input type="file" accept="image/*" name="pfile" id="pfile"
+														class="form-control" value="">
+												</div>
+												<div class="modal-footer">
+													<button type="submit" id="modifyProfileBtn"
+														class="btn btn-primary">수정</button>
+
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
 
 
 
 
-		</div>
+						</div>
 		</div>
             </div>
             

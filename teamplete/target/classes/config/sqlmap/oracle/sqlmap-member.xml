@@ -6,7 +6,17 @@
 
 	<resultMap type="MemberVO" id="memberMap">
 		<result column="reg_date" property="regDate" />
-		<result column="last_date" property="lastdate" />
+		<result column="file_path" property="filePath" />
+	</resultMap>
+
+	<resultMap type="ProfileVO" id="profileMap">
+		<result column="p_memberid" property="pMemberid" />
+		<result column="file_name_key" property="fileNameKey" />
+		<result column="file_name" property="fileName" />
+		<result column="file_path" property="filePath" />
+		<result column="file_size" property="fileSize" />
+		<result column="del_yn" property="delYN" />
+		<result column="ins_date" property="insDate" />
 	</resultMap>
 
 	<!-- 회원정보 삽입 -->
@@ -36,9 +46,8 @@
 		resultMap="memberMap">
 		select memberid, name, password, email, profile, logincount, status, last_date, profilebg
 		from member_tb
-		where
-		memberid = #{memberid} and
-		password = #{password}		
+		where memberid = #{memberid} and
+		password = #{password}	
 	</select>
 	
 	<update id="updateMember" parameterType="MemberVO">
@@ -68,5 +77,31 @@
 		  name = #{name}, password = #{password}, email = #{email}
 		   where memberid = #{memberid}
 	</update>
+	
+	<!-- 회원테이블의 profile 업데이트 -->
+	<update id="updateProfile" parameterType="hashmap">
+		update member_tb
+		 set
+		  profile = #{profile}
+		   where memberid = #{memberid}
+	</update>
+	
+	<!-- 프로필 변경 insert -->
+	<insert id="insertProfile" parameterType="ProfileVO">
+		insert into profile_tb(p_memberid, file_name_key, file_name, file_path, file_size, del_yn)
+		 values(#{pMemberid}, #{fileNameKey}, #{fileName}, #{filePath}, #{fileSize}, #{delYN})
+	</insert>
+	
+	<!-- 해당 아이디의 profile 이미지가 이미 업로드 되어있는지 확인 -->
+	<select id="checkProfile" parameterType="String" resultType="int">
+		select count(*)
+		 from profile_tb
+		  where p_memberid = #{pMemberid}
+	</select>
+	
+	<!-- 프로필 변경(modify) update -->
+	
+	<!-- 프로필 변경 delete -->
+	
    
 </mapper>

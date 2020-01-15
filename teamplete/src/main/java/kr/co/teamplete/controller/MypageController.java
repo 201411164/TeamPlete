@@ -1,5 +1,6 @@
 package kr.co.teamplete.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.teamplete.dto.MemberVO;
+import kr.co.teamplete.dto.ProfileVO;
 import kr.co.teamplete.service.MemberService;
 
 @Controller
@@ -40,4 +43,34 @@ public class MypageController {
 	public void modifyMemberInfo(@RequestBody MemberVO member) {
 		service.modifyMemberInfo(member);
 	}
+	
+	// 프로필 수정(insert)
+	@RequestMapping(value = "/mypage/profile", method = RequestMethod.POST)
+	public String modifyProfile(String pid, MultipartFile pfile) {
+		
+		Map<String, String> hm = new HashMap<>();
+		
+		ProfileVO profile = null;
+		
+		try {
+			profile = service.getProfileInfo(pid, pfile);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//checkProfile로 insert 할지 update할지 결정(일단 insert만)
+		service.insertProfile(profile);
+		
+		hm.put("memberid", pid);
+		hm.put("profile", profile.getFilePath());
+		
+		service.updateProfile(hm);
+		
+		return "redirect:/mypage";
+	}
+	
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.teamplete.dto.MemberVO;
+import kr.co.teamplete.dto.ProfileVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
@@ -54,6 +55,22 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void modifyMemberInfo(MemberVO member) {
 		session.update("kr.co.teamplete.dao.MemberDAO.modifyMemberInfo", member);
+	}
+
+	@Override
+	public void updateProfile(Map<String, String> map) {
+		session.update("kr.co.teamplete.dao.MemberDAO.updateProfile", map);
+	}
+
+	@Override
+	public void insertProfile(ProfileVO profile) {
+		session.insert("kr.co.teamplete.dao.MemberDAO.insertProfile", profile);
+	}
+
+	@Override
+	public int checkProfile(String memberid) {
+		int cnt = session.selectOne("kr.co.teamplete.dao.MemberDAO.checkProfile", memberid);
+		return cnt;
 	}
 
 }

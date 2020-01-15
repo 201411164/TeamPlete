@@ -1,8 +1,12 @@
 package kr.co.teamplete.service;
 
+import java.io.IOException;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.co.teamplete.dto.MemberVO;
+import kr.co.teamplete.dto.ProfileVO;
 
 public interface MemberService {
 
@@ -26,5 +30,16 @@ public interface MemberService {
 	
 	//회원 정보 수정
 	public void modifyMemberInfo(MemberVO member);
+	
+	//회원테이블의 profile 업데이트
+	public void updateProfile(Map<String, String> map);
+	
+	//프로필 변경 insert
+	public void insertProfile(ProfileVO profile);
+	
+	public ProfileVO getProfileInfo(String memberid, MultipartFile pfile) throws IllegalStateException, IOException;
+	
+	//해당 아이디의 profile 이미지가 이미 업로드 되어있는지 확인
+	public int checkProfile(String memberid);
 
 }

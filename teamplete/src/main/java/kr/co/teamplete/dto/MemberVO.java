@@ -1,8 +1,11 @@
 package kr.co.teamplete.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 //@Alias("MemberVO")
 public class MemberVO {
@@ -19,8 +22,8 @@ public class MemberVO {
 	private String last_date;
 	private String status;
 	private int logincount;
-	
-	
+	private String filePath;
+
 	public MemberVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -106,7 +109,7 @@ public class MemberVO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	
+
 	public String getProfilebg() {
 		return profilebg;
 	}
@@ -114,21 +117,12 @@ public class MemberVO {
 	public void setProfilebg(String profilebg) {
 		this.profilebg = profilebg;
 	}
-		
-	
-
-	@Override
-	public String toString() {
-		return "MemberVO [memberid=" + memberid + ", name=" + name + ", password=" + password + ", email=" + email
-				+ ", type=" + type + ", regDate=" + regDate + ", kakao=" + kakao + ", profile=" + profile + ", profilebg=" + profilebg
-				+ ", last_date=" + last_date + ", status=" + status + ", logincount=" + logincount + "]";
-	}
 
 	public String getLast_date() {
 		return last_date;
 	}
 
-	public void setLastdate(String last_date) {
+	public void setLast_date(String last_date) {
 		this.last_date = last_date;
 	}
 
@@ -149,7 +143,20 @@ public class MemberVO {
 	}
 	
 	
-	
-	
-	
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberVO [memberid=" + memberid + ", name=" + name + ", password=" + password + ", email=" + email
+				+ ", type=" + type + ", regDate=" + regDate + ", kakao=" + kakao + ", profile=" + profile
+				+ ", profilebg=" + profilebg + ", last_date=" + last_date + ", status=" + status + ", logincount="
+				+ logincount + "]";
+	}
+
 }
