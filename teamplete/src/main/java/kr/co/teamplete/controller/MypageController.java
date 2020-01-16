@@ -1,11 +1,15 @@
 package kr.co.teamplete.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -63,7 +67,15 @@ public class MypageController {
 		}
 		
 		//checkProfile로 insert 할지 update할지 결정(일단 insert만)
-		service.insertProfile(profile);
+		int profileCnt = service.checkProfile(pid);
+		System.out.println("프로필 업로드 확인 cnt: " + profileCnt);
+		
+		if(profileCnt == 0) {
+			service.insertProfile(profile);
+		} else {
+			service.modifyProfile(profile);
+		}
+		
 		
 		hm.put("memberid", pid);
 		hm.put("profile", profile.getFilePath());
@@ -71,6 +83,30 @@ public class MypageController {
 		service.updateProfile(hm);
 		
 		return "redirect:/mypage";
+	}
+	
+	//프로필 수정(기본이미지로 변경)
+	@RequestMapping(value = "/mypage/delProfile/{pid}", method = RequestMethod.DELETE)
+	public void deleteProfile(@PathVariable("pid") String pid) {
+		
+		List<String> imgList = new ArrayList<>();
+		imgList.add("circle1.png");
+		imgList.add("circle2.png");
+		imgList.add("circle3.png");
+		imgList.add("circle4.png");
+		imgList.add("circle5.png");
+		
+		Random random = new Random();
+		int index = random.nextInt(imgList.size()); // (0 ~ imgList.size()-1)
+		
+		Map<String, String> hm = new HashMap<>();
+		
+		hm.put("memberid", pid);
+		hm.put("profile", imgList.get(index));
+		
+		service.updateProfile(hm);
+		
+		service.deleteProfile(pid);
 	}
 	
 }

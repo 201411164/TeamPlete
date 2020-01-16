@@ -15,7 +15,7 @@ public class TaskVO {
 	List<Integer> deleteCharge;
 
 	private int taskId;
-	private String writerId, writerName;
+	private String writerId, name;
 	private int teamId;
 	private String title, taskContent, deadline, taskDate;
 	
@@ -27,7 +27,7 @@ public class TaskVO {
 	}
 
 	public TaskVO(List<MultipartFile> taskFiles, List<Integer> deleteFiles, List<String> chargeMems,
-			List<Integer> deleteCharge, int taskId, String writerId, String writerName, int teamId, String title,
+			List<Integer> deleteCharge, int taskId, String writerId, String name, int teamId, String title,
 			String taskContent, String deadline, String taskDate, String chargeMemberid) {
 		super();
 		this.taskFiles = taskFiles;
@@ -36,7 +36,7 @@ public class TaskVO {
 		this.deleteCharge = deleteCharge;
 		this.taskId = taskId;
 		this.writerId = writerId;
-		this.writerName = writerName;
+		this.name = name;
 		this.teamId = teamId;
 		this.title = title;
 		this.taskContent = taskContent;
@@ -93,12 +93,12 @@ public class TaskVO {
 		this.writerId = writerId;
 	}
 
-	public String getWriterName() {
-		return writerName;
+	public String getName() {
+		return name;
 	}
 
-	public void setWriterName(String writerName) {
-		this.writerName = writerName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getTeamId() {
@@ -152,11 +152,11 @@ public class TaskVO {
 	@Override
 	public String toString() {
 		return "TaskVO [taskFiles=" + taskFiles + ", deleteFiles=" + deleteFiles + ", chargeMems=" + chargeMems
-				+ ", deleteCharge=" + deleteCharge + ", taskId=" + taskId + ", writerId=" + writerId + ", writerName="
-				+ writerName + ", teamId=" + teamId + ", title=" + title + ", taskContent=" + taskContent
-				+ ", deadline=" + deadline + ", taskDate=" + taskDate + ", chargeMemberid=" + chargeMemberid + "]";
+				+ ", deleteCharge=" + deleteCharge + ", taskId=" + taskId + ", writerId=" + writerId + ", name=" + name
+				+ ", teamId=" + teamId + ", title=" + title + ", taskContent=" + taskContent + ", deadline=" + deadline
+				+ ", taskDate=" + taskDate + ", chargeMemberid=" + chargeMemberid + "]";
 	}
-
+	
 	
 	
 		

@@ -3,29 +3,25 @@ package kr.co.teamplete.dto;
 public class MsgVO {
 	
 	private int msgId, roomId;
-	private String writerId, writerName, profile, text, msgDate, msgTime;
+	private String writerId, name, profile, text, msgDate, msgTime;
 	
 	public MsgVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-
-	public MsgVO(int msgId, int roomId, String writerId, String writerName, String profile, String text, String msgDate,
+	public MsgVO(int msgId, int roomId, String writerId, String name, String profile, String text, String msgDate,
 			String msgTime) {
 		super();
 		this.msgId = msgId;
 		this.roomId = roomId;
 		this.writerId = writerId;
-		this.writerName = writerName;
+		this.name = name;
 		this.profile = profile;
 		this.text = text;
 		this.msgDate = msgDate;
 		this.msgTime = msgTime;
 	}
-
-
 
 	public int getMsgId() {
 		return msgId;
@@ -51,12 +47,12 @@ public class MsgVO {
 		this.writerId = writerId;
 	}
 
-	public String getWriterName() {
-		return writerName;
+	public String getName() {
+		return name;
 	}
 
-	public void setWriterName(String writerName) {
-		this.writerName = writerName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getProfile() {
@@ -83,23 +79,19 @@ public class MsgVO {
 		this.msgDate = msgDate;
 	}
 
-	
 	public String getMsgTime() {
 		return msgTime;
 	}
-
 
 	public void setMsgTime(String msgTime) {
 		this.msgTime = msgTime;
 	}
 
-
 	@Override
 	public String toString() {
-		return "MsgVO [msgId=" + msgId + ", roomId=" + roomId + ", writerId=" + writerId + ", writerName=" + writerName
+		return "MsgVO [msgId=" + msgId + ", roomId=" + roomId + ", writerId=" + writerId + ", name=" + name
 				+ ", profile=" + profile + ", text=" + text + ", msgDate=" + msgDate + ", msgTime=" + msgTime + "]";
 	}
-	
 	
 	
 }

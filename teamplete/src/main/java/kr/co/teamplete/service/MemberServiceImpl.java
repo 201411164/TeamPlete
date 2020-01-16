@@ -128,4 +128,32 @@ public class MemberServiceImpl implements MemberService {
 		int cnt = memberDAO.checkProfile(memberid);
 		return cnt;
 	}
+
+	@Override
+	public void modifyProfile(ProfileVO profile) {
+		
+        S3Util s3 = new S3Util();
+        String bucketName = "teamplete";
+        
+        s3.fileDelete(bucketName + "/profile", memberDAO.selectProfile(profile.getpMemberid()).getFileNameKey());
+        
+		memberDAO.modifyProfile(profile);
+	}
+
+	@Override
+	public void deleteProfile(String memberid) {
+		
+        S3Util s3 = new S3Util();
+        String bucketName = "teamplete";
+        
+        s3.fileDelete(bucketName + "/profile", memberDAO.selectProfile(memberid).getFileNameKey());
+        
+		memberDAO.deleteProfile(memberid);
+	}
+
+	@Override
+	public ProfileVO selectProfile(String memberid) {
+		ProfileVO profile = memberDAO.selectProfile(memberid);
+		return profile;
+	}
 }

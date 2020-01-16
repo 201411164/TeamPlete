@@ -7,7 +7,6 @@
    <resultMap type="BoardVO" id="boardMap">
       <result column="board_id" property="boardId" />
       <result column="writer_id" property="writerId" />
-      <result column="writer_name" property="writerName" />
       <result column="board_date" property="boardDate" />
       <result column="task_id" property="taskId" />
    </resultMap>
@@ -28,8 +27,8 @@
    <!-- board 생성 -->
    <insert id="insertBoard" parameterType="BoardVO">
       insert into
-      board_tb(board_id, writer_id, writer_name, title, content, task_id)
-      values(board_seq.nextval, #{writerId}, #{writerName}, #{title},
+      board_tb(board_id, writer_id, title, content, task_id)
+      values(board_seq.nextval, #{writerId}, #{title},
       #{content}, #{taskId})
    </insert>
 
@@ -37,7 +36,7 @@
    <!-- 모든 board 조회 -->
    <select id="selectAllBoard" parameterType="int"
       resultMap="boardMap">
-      select board_id, writer_id, writer_name, title, content, to_char(board_date, 'yyyy-mm-dd') as board_date, task_id, M.profile
+      select board_id, writer_id, M.name, title, content, to_char(board_date, 'yyyy-mm-dd') as board_date, task_id, M.profile
        from board_tb B
         left outer join member_tb M
          on B.writer_id = M.memberid
@@ -48,9 +47,11 @@
    
    <!-- board 상세 -->
    <select id="selectBoardById" parameterType="int" resultMap="boardMap">
-      select board_id, writer_id, writer_name, title, content, board_date, task_id
-       from board_tb
-        where board_id = #{boardId}
+      select board_id, writer_id, M.name, title, content, board_date, task_id
+       from board_tb B
+        left outer join member_tb M
+         on B.writer_id = M.memberid
+          where board_id = #{boardId}
    </select>
 
 

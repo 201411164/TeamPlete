@@ -28,7 +28,7 @@
 	
 	<!-- 특정 회원의 정보 조회(아이디로 이름 조회) -->
 	<select id="selectMember" parameterType="String" resultMap="memberMap">
-		select memberid, name, email, logincount, status, last_date, profile, profilebg
+		select memberid, name, password, email, kakao, logincount, status, last_date, profile, profilebg
 		from member_tb
 		where memberid = #{memberid}
 	</select>
@@ -44,7 +44,7 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="MemberVO"
 		resultMap="memberMap">
-		select memberid, name, password, email, profile, logincount, status, last_date, profilebg
+		select memberid, logincount, status, last_date, profilebg
 		from member_tb
 		where memberid = #{memberid} and
 		password = #{password}	
@@ -92,6 +92,13 @@
 		 values(#{pMemberid}, #{fileNameKey}, #{fileName}, #{filePath}, #{fileSize}, #{delYN})
 	</insert>
 	
+	<!-- 해당 아이디로 업로드된 프로필 정보 불러오기 -->
+	<select id="selectProfile" parameterType="String" resultMap="profileMap">
+		select file_name_key
+		 from profile_tb
+		  where p_memberid = #{pMemberid}
+	</select>
+	
 	<!-- 해당 아이디의 profile 이미지가 이미 업로드 되어있는지 확인 -->
 	<select id="checkProfile" parameterType="String" resultType="int">
 		select count(*)
@@ -100,8 +107,17 @@
 	</select>
 	
 	<!-- 프로필 변경(modify) update -->
+	<update id="modifyProfile" parameterType="ProfileVO">
+		update profile_tb
+		 set
+		  file_name_key = #{fileNameKey}, file_name = #{fileName}, file_path = #{filePath}, file_size = #{fileSize}
+		   where p_memberid = #{pMemberid}
+	</update>
 	
 	<!-- 프로필 변경 delete -->
-	
+	<delete id="deleteProfile" parameterType="String">
+		delete profile_tb
+		 where p_memberid = #{pMemberid}
+	</delete>
    
 </mapper>

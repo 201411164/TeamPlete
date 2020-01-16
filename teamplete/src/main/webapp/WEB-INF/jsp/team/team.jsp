@@ -179,7 +179,7 @@
                         </div>
                 </div>
                 <div class="content-header-right col-md-9 col-12 mb-2">
-                <form method="get" action="${pageContext.request.contextPath}/${ loginVO.memberid }/team/search" name="searchTeamForm">
+                <form method="get" action="${pageContext.request.contextPath}/team/search" name="searchTeamForm">
 								<div class="form-group has-search">
 									<span class="fa fa-search form-control-feedback"></span> <input
 										type="text" name="keyword" id="keyword" class="form-control" placeholder="팀 이름을 입력">

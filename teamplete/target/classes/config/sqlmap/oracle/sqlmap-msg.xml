@@ -7,7 +7,6 @@
 	<resultMap type="MsgVO" id="msgMap">
 		<result column="msg_id" property="msgId" />
 		<result column="writer_id" property="writerId" />
-		<result column="writer_name" property="writerName" />
 		<result column="room_id" property="roomId" />
 		<result column="msg_date" property="msgDate" />
 		<result column="msg_time" property="msgTime" />
@@ -15,16 +14,18 @@
 	
 	<!-- insert message -->
 	<insert id="insertMsg" parameterType="MsgVO">
-		insert into msg_tb(msg_id, writer_id, writer_name, profile, text, room_id, msg_time)
-		 values(msg_seq.nextval, #{writerId}, #{writerName}, #{profile}, #{text}, #{roomId}, #{msgTime})
+		insert into msg_tb(msg_id, writer_id, text, room_id, msg_time)
+		 values(msg_seq.nextval, #{writerId}, #{text}, #{roomId}, #{msgTime})
 	</insert>
 	
 	<!-- select message -->
 	<select id="selectMsg" parameterType="int" resultMap="msgMap">
-		select msg_id, writer_id, writer_name, profile, text, room_id, to_char(msg_date, 'yyyy-mm-dd') as msg_date, msg_time
-		 from msg_tb
-		  where room_id = #{roomId}
-		   order by msg_id asc
+		select msg_id, writer_id, M.name, M.profile, text, room_id, to_char(msg_date, 'yyyy-mm-dd') as msg_date, msg_time
+		 from msg_tb S
+		  full outer join member_tb M
+		   on S.writer_id = M.memberid 
+		    where room_id = #{roomId}
+		     order by msg_id asc
 	</select>
 	
    

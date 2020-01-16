@@ -42,4 +42,13 @@ public interface MemberService {
 	//해당 아이디의 profile 이미지가 이미 업로드 되어있는지 확인
 	public int checkProfile(String memberid);
 
+	//프로필 변경(modify) update
+	public void modifyProfile(ProfileVO profile);
+	
+	//프로필 변경 delete
+	public void deleteProfile(String memberid);
+	
+	//해당 아이디로 업로드된 프로필 정보 불러오기
+	public ProfileVO selectProfile(String memberid);
+
 }

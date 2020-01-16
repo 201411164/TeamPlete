@@ -71,11 +71,9 @@
 <script
 		src="${ pageContext.request.contextPath }/resources/js/quill.min.js"></script>	
 </head>
-<body>
-
 
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-
+<div id="navDiv">
     <!-- BEGIN: Header-->
     <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
         <div class="navbar-wrapper">
@@ -147,19 +145,19 @@
                             </ul>
                         </li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">${ loginVO.name }</span><span class="user-status">online</span></div>
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">${ user.name }</span><span class="user-status">online</span></div>
                                 <c:choose>
-                                <c:when test="${fn:startsWith(loginVO.profile, 'circle')}">
+                                <c:when test="${fn:startsWith(user.profile, 'circle')}">
 
 									<div class="avatar">
 										<div
 											style="position: relative; text-align: center; color: white;">
 											<img
-												src="${ pageContext.request.contextPath }/resources/images/${loginVO.profile}"
+												src="${ pageContext.request.contextPath }/resources/images/${user.profile}"
 												alt="avtar img holder" height="40" width="40">
 											<div
 												class="custom-avatar-container">
-												<c:set var="membername" value="${ loginVO.name }" />
+												<c:set var="membername" value="${ user.name }" />
 												<c:set var="firstletter"
 													value="${fn:substring(membername, 0, 1)}" />${firstletter}
 											</div>
@@ -168,7 +166,7 @@
 
 								</c:when>
                             	<c:otherwise>
-                            	<span><img class="round" src="${ loginVO.profile }" alt="avatar" height="40" width="40"></span>
+                            	<span><img class="round" src="${ user.profile }" alt="avatar" height="40" width="40"></span>
                             	</c:otherwise>
                             	</c:choose>
                             </a>
@@ -349,6 +347,6 @@
      
     
     </script>
-
+</div>
 </body>
 </html>

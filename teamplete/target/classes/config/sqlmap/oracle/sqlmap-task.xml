@@ -7,7 +7,6 @@
 		<resultMap type="TaskVO" id="taskMap">
 			<result column="task_id" property="taskId" />
 			<result column="writer_id" property="writerId" />
-			<result column="writer_name" property="writerName" />
 			<result column="content" property="taskContent" />
 			<result column="team_id" property="teamId" />
 			<result column="task_date" property="taskDate" />
@@ -39,24 +38,28 @@
 
 	<!-- 태스크 생성 -->
 	<insert id="insertTask" parameterType="TaskVO">
-		insert into task_tb(task_id, writer_id, writer_name, team_id, title, content, deadline)
-		values(task_seq.nextval, #{writerId}, #{writerName}, #{teamId}, #{title}, #{taskContent}, #{deadline})
+		insert into task_tb(task_id, writer_id, team_id, title, content, deadline)
+		values(task_seq.nextval, #{writerId}, #{teamId}, #{title}, #{taskContent}, #{deadline})
 	</insert>
 	
 	
 	<!-- 모든 태스크 조회 -->
 	<select id="selectAllTask" parameterType="int" resultMap="taskMap">
-		select task_id, writer_id, writer_name, team_id, title, content, deadline, task_date
-		 from task_tb
-		  where team_id = #{teamId}
-		   order by task_id desc
+		select task_id, writer_id, M.name, team_id, title, content, deadline, task_date
+		 from task_tb T
+		  left outer join member_tb M
+           on T.writer_id = M.memberid
+		    where team_id = #{teamId}
+		     order by task_id desc
 	</select>
 	
 	<!-- 특정 태스크 상세 -->
 	<select id="selectTask" parameterType="int" resultMap="taskMap">
-		select task_id, writer_id, writer_name, team_id, title, content, deadline, task_date
-		 from task_tb
-		  where task_id = #{taskId}
+		select task_id, writer_id, M.name, team_id, title, content, deadline, task_date
+		 from task_tb T
+		  left outer join member_tb M
+           on T.writer_id = M.memberid
+		    where task_id = #{taskId}
 	</select>
 	
 	<!-- 태스크 업데이트 -->
@@ -169,7 +172,7 @@
    
    <!-- 모든 태스크 중 로그인 중인 사용자의 제출하지 않은 태스크 목록  -->
    <select id="notSubmitMyTask" parameterType="int" resultMap="taskMap">
-      select T.task_id, writer_id, writer_name, team_id, title, content, deadline, task_date, C.charge_memberid
+      select T.task_id, writer_id, team_id, title, content, deadline, task_date, C.charge_memberid
        from task_tb T
         full outer join charge_tb C
          on T.task_id = C.task_id
@@ -178,7 +181,7 @@
    
    
    <select id="notSubmitMyTaskAll" parameterType="String" resultMap="taskMap">
-      select T.task_id, writer_id, writer_name, team_id, title, content, deadline, task_date, C.charge_memberid
+      select T.task_id, writer_id, team_id, title, content, deadline, task_date, C.charge_memberid
        from task_tb T
         full outer join charge_tb C
          on T.task_id = C.task_id

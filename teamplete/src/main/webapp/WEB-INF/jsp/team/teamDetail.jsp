@@ -587,7 +587,7 @@ const options2 = {
 													</div>
 												</div>
 												
-											<h4 class="mt-2" style="font-family:'Inter';"><strong>${loginVO.name}</strong>님, 환영합니다.</h4>	
+											<h4 class="mt-2" style="font-family:'Inter';"><strong>${user.name}</strong>님, 환영합니다.</h4>	
 											
 												
 												
@@ -796,24 +796,65 @@ const options2 = {
    	        
    	        <c:choose>
 													<c:when test="${fn:startsWith(msg.profile, 'circle')}">
-													<a href="${ pageContext.request.contextPath}/mypage/${msg.writerId}">
-													<img src="${ pageContext.request.contextPath }/resources/images/${msg.profile}" alt="avatar" height="40" width="40"
+<%-- 													<a href="${ pageContext.request.contextPath}/mypage/${msg.writerId}"> --%>
+<%-- 													<img src="${ pageContext.request.contextPath }/resources/images/${msg.profile}" alt="avatar" height="40" width="40" --%>
+<!-- 													data-toggle="tooltip" -->
+<!-- 																					data-popup="tooltip-custom" data-placement="bottom" -->
+<%-- 																					data-original-title="${msg.writerName }" /> --%>
+<!-- 													<div class="custom-avatar-container"> -->
+<%--    	                	${msg.writerName } --%>
+<!--    					</div></a>	 -->
+   					
+   					
+   					
+   					<div class="media-right avatar">
+															<div
+																style="position: relative; text-align: center; color: white;">
+																<img src="${ pageContext.request.contextPath }/resources/images/${msg.profile}" alt="avatar" height="40" width="40"
 													data-toggle="tooltip"
 																					data-popup="tooltip-custom" data-placement="bottom"
-																					data-original-title="${msg.writerName }" />
-													<div class="custom-avatar-container">
-   	                	${msg.writerName }
-   					</div></a>	
+																					data-original-title="${msg.name }" />
+																<div class="custom-avatar-container" style="font-size:1.2rem;">
+																	<c:set var="msgWriter" value="${ msg.name }" />
+																	<c:set var="firstletter"
+																		value="${fn:substring(msgWriter, 0, 1)}" />${firstletter}
+																</div>
+															</div>
+														</div>
+   					
+   					
+   					
+   					
 													</c:when>
 													<c:otherwise>
-													<div>
-													<a href="${ pageContext.request.contextPath}/mypage/${msg.writerId}">
-													<img src="${msg.profile}" alt="avatar" height="40" width="40"  data-toggle="tooltip"
+<!-- 													<div> -->
+<%-- 													<a href="${ pageContext.request.contextPath}/mypage/${msg.writerId}"> --%>
+<%-- 													<img src="${msg.profile}" alt="avatar" height="40" width="40"  data-toggle="tooltip" --%>
+<!-- 																					data-popup="tooltip-custom" data-placement="bottom" -->
+<%-- 																					data-original-title="${ msg.writerName }" --%>
+<!-- 																					/> -->
+													
+<!-- 													</a>								 -->
+<!-- 													</div>		 -->
+													
+													
+													<div class="media-right avatar">
+															<div
+																style="position: relative; text-align: center; color: white;">
+																<img src="${msg.profile}" alt="avatar" height="40" width="40"  data-toggle="tooltip"
 																					data-popup="tooltip-custom" data-placement="bottom"
-																					data-original-title="${msg.writerName }"
+																					data-original-title="${msg.name }"
 																					/>
-													</a>								
-													</div>								
+																<div class="custom-avatar-container" style="font-size:1.2rem;">
+																	<c:set var="msgWriter" value="${ msg.name }" />
+																	<c:set var="firstletter"
+																		value="${fn:substring(msgWriter, 0, 1)}" />${firstletter}
+																</div>
+															</div>
+														</div>
+													
+													
+																			
 													
 													</c:otherwise>
 													</c:choose>	
@@ -969,7 +1010,7 @@ const options2 = {
 																						style="font-size: 1.2rem;">
 																						<c:set var="membername" value="${ member.name }" />
 																						<c:set var="firstletter"
-																							value="${fn:substring(membername, 0, 3)}" />${firstletter}
+																							value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																					</div>
 																				</c:when>
 																				<c:otherwise>
@@ -1267,8 +1308,9 @@ const options2 = {
 										action="${pageContext.request.contextPath}/task/write"
 										name="createTaskForm" id="createTaskForm" style="overflow-y:auto;">
 										<input type="hidden" name="writerId" id="writerId"
-											value="${ loginVO.memberid }"> <input type="hidden"
-											name="writerName" id="writerName" value="${ loginVO.name }">
+											value="${ loginVO.memberid }"> 
+<!-- 											<input type="hidden" -->
+<%-- 											name="writerName" id="writerName" value="${ loginVO.name }"> --%>
 										<input type="hidden" name="teamId" id="teamId"
 											value="${ team.teamId }">
 										<div class="modal-body" ">
@@ -1532,8 +1574,8 @@ const options2 = {
  
  
  
-	 var sock = new SockJS("<c:url value="/echo/?=${teamid}=${loginVO.memberid}=${loginVO.profile}=${roomId}"/>",null,{sessionId: function(){
-		 var name= "${loginVO.name}";
+	 var sock = new SockJS("<c:url value="/echo/?=${teamid}=${loginVO.memberid}=${user.profile}=${roomId}"/>",null,{sessionId: function(){
+		 var name= "${user.name}";
 		 var random= Math.floor(Math.random() * 10001); //동명이인이 있을 경우를 생각해 세션ID에 랜덤 넘버를 뒤에 붙여줌.
 		 return name+"&"+random;
 		 

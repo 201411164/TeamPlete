@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.RequestVO;
 import kr.co.teamplete.method.UpdateTime;
 import kr.co.teamplete.service.LoginService;
@@ -22,6 +23,9 @@ public class NavbarController {
 	@Autowired
 	private RequestService requestService;
 	
+	@Autowired
+	private MemberService memberService;
+	
 	
 	@RequestMapping(value = "/navbar/{loginVO.memberid}", method = RequestMethod.GET)
 	public ModelAndView navbar(@PathVariable("loginVO.memberid") String memberid) {
@@ -31,6 +35,8 @@ public class NavbarController {
 		
 		// 나에게 온 request
 		List<RequestVO> allRequestList = requestService.selectAllRequest(memberid);
+		
+		MemberVO user = memberService.selectMemberById(memberid);
 		
 		for(RequestVO request : allRequestList) {
 			requestTime.add(UpdateTime.updateTime(request.getReqDate()));
@@ -42,6 +48,7 @@ public class NavbarController {
 		mav.addObject("allRequestList", allRequestList);
 		mav.addObject("requestCnt", allRequestList.size());
 		mav.addObject("requestTime", requestTime);
+		mav.addObject("user", user);
 		
 		return mav;
 	}

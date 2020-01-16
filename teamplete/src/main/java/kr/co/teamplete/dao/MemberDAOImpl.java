@@ -73,4 +73,20 @@ public class MemberDAOImpl implements MemberDAO{
 		return cnt;
 	}
 
+	@Override
+	public void modifyProfile(ProfileVO profile) {
+		session.update("kr.co.teamplete.dao.MemberDAO.modifyProfile", profile);
+	}
+
+	@Override
+	public void deleteProfile(String memberid) {
+		session.delete("kr.co.teamplete.dao.MemberDAO.deleteProfile", memberid);
+	}
+
+	@Override
+	public ProfileVO selectProfile(String memberid) {
+		ProfileVO profile = session.selectOne("kr.co.teamplete.dao.MemberDAO.selectProfile", memberid);
+		return profile;
+	}
+
 }

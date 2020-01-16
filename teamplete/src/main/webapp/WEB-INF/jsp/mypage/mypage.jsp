@@ -265,7 +265,7 @@
 										</div>
 										<div class="modal-body">
 											<input type="hidden" name="memberid" id="memberid"
-												value="${ loginVO.memberid }"> <label>Password:
+												value="${ user.memberid }"> <label>Password:
 											</label>
 											<div class="form-group">
 												<input type="password" name="password" id="password"
@@ -352,9 +352,11 @@
 										<div class="modal-body">
 										<button type="button" id="modify" class="btn btn-primary" 
 										data-toggle="modal" data-target="#modifyProfile" data-dismiss="modal">수정하기</button>
-										<button type="button" id="initImg" class="btn btn-primary">기본
+										<c:if test="${not fn:startsWith(user.profile, 'circle')}">
+										<button type="button" name="initImg" id="initImg" class="btn btn-primary" value="${ user.memberid }">기본
 											이미지로 변경하기</button>
-											</div>
+										</c:if>
+										</div>
 											<div class="modal-footer">
 
 												</div>
@@ -386,7 +388,7 @@
 											style="overflow-y: auto;">
 											<div class="modal-body">
 												<input type="hidden" name="pid" id="pid"
-													value="${ loginVO.memberid }"> <br /> <label>파일업로드:
+													value="${ user.memberid }"> <br /> <label>파일업로드:
 												</label>
 												<div class="form-group">
 													<input type="file" accept="image/*" name="pfile" id="pfile"
@@ -589,7 +591,7 @@ $("#modifyInfoBtn").click(function() {
 	} else {
 		
 		if (password1 == "" && password2 == "") {
-			pw = "${ loginVO.password }";
+			pw = "${ user.password }";
 		} else {
 			pw = $('#pwModify').val();
 		}
@@ -618,6 +620,23 @@ $("#modifyInfoBtn").click(function() {
 	});
 	}
 });
+
+
+// 프로필 기본 이미지로 변경
+var pid = "";
+$("button[name='initImg']").click(function() {
+	pid = this.value;
+	
+	$.ajax({
+		url : '/mypage/delProfile/' + pid,
+		type : 'DELETE'
+	});
+	
+	alert("기본이미지로 변경되었습니다.");
+// 	$("#navDiv").load(window.location.href + " #navDiv");
+	location.reload();
+});
+	
 
 
 

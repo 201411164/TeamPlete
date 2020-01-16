@@ -329,7 +329,7 @@ border-style: none !important;
 																								alt="avtar img holder" height="35" width="35">
 																							<div class="custom-avatar-container">
 																								<c:set var="membername"
-																									value="${ board.writerName }" />
+																									value="${ board.name }" />
 																								<c:set var="firstletter"
 																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																							</div>
@@ -347,7 +347,7 @@ border-style: none !important;
 																								alt="avtar img holder" height="35" width="35">
 																							<div class="custom-avatar-container">
 																								<c:set var="membername"
-																									value="${ board.writerName }" />
+																									value="${ board.name }" />
 																								<c:set var="firstletter"
 																									value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																							</div>
@@ -373,7 +373,7 @@ border-style: none !important;
 																			</c:choose>
 																			<div class="user-page-info">
 																				<h5 class="mb-0"
-																					style="font-weight: 600; display: inline;">${board.writerName }</h5>
+																					style="font-weight: 600; display: inline;">${board.name }</h5>
 																				<p style="display: inline;">${ board.boardDate }</p>
 																				<h6>${board.title }</h6>
 
@@ -658,8 +658,9 @@ border-style: none !important;
 								action="${ pageContext.request.contextPath}/${ taskDetail.taskId }/board/write"
 								name="boardWriteForm">
 								<input type="hidden" name="writerId"
-									value="${ loginVO.memberid }"> <input type="hidden"
-									name="writerName" value="${ loginVO.name }">
+									value="${ loginVO.memberid }"> 
+<!-- 									<input type="hidden" -->
+<%-- 									name="writerName" value="${ loginVO.name }"> --%>
 								<div class="card">
 									<div class="card-content">
 										<div class="card-header">
@@ -771,7 +772,7 @@ border-style: none !important;
 																<div class="custom-avatar-container" style="font-size:1.2rem;">
 																	<c:set var="membername" value="${ member.name }" />
 																	<c:set var="firstletter"
-																		value="${fn:substring(membername, 0, 3)}" />${firstletter}
+																		value="${fn:substring(membername, 0, 1)}" />${firstletter}
 																</div>
 															</div>
 														</div>

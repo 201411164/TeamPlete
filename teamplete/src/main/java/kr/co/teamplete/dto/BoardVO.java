@@ -11,7 +11,7 @@ public class BoardVO {
 	List<Integer> deleteBoardFiles;
 
 	private int boardId;
-	private String writerId, writerName, title, content, boardDate, profile;
+	private String writerId, name, title, content, boardDate, profile;
 	private int taskId;
 
 	public BoardVO() {
@@ -19,16 +19,18 @@ public class BoardVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardVO(List<MultipartFile> files, int boardId, String writerId, String writerName, String title,
-			String content, String boardDate, int taskId) {
+	public BoardVO(List<MultipartFile> files, List<Integer> deleteBoardFiles, int boardId, String writerId, String name,
+			String title, String content, String boardDate, String profile, int taskId) {
 		super();
 		this.files = files;
+		this.deleteBoardFiles = deleteBoardFiles;
 		this.boardId = boardId;
 		this.writerId = writerId;
-		this.writerName = writerName;
+		this.name = name;
 		this.title = title;
 		this.content = content;
 		this.boardDate = boardDate;
+		this.profile = profile;
 		this.taskId = taskId;
 	}
 
@@ -38,6 +40,14 @@ public class BoardVO {
 
 	public void setFiles(List<MultipartFile> files) {
 		this.files = files;
+	}
+
+	public List<Integer> getDeleteBoardFiles() {
+		return deleteBoardFiles;
+	}
+
+	public void setDeleteBoardFiles(List<Integer> deleteBoardFiles) {
+		this.deleteBoardFiles = deleteBoardFiles;
 	}
 
 	public int getBoardId() {
@@ -56,12 +66,12 @@ public class BoardVO {
 		this.writerId = writerId;
 	}
 
-	public String getWriterName() {
-		return writerName;
+	public String getName() {
+		return name;
 	}
 
-	public void setWriterName(String writerName) {
-		this.writerName = writerName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getTitle() {
@@ -88,6 +98,14 @@ public class BoardVO {
 		this.boardDate = boardDate;
 	}
 
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
 	public int getTaskId() {
 		return taskId;
 	}
@@ -96,30 +114,13 @@ public class BoardVO {
 		this.taskId = taskId;
 	}
 
-	public String getProfile() {
-		return profile;
-	}
-
-	public void setProfile(String profile) {
-		this.profile = profile;
-	}
-	
-	
-	
-
-	public List<Integer> getDeleteBoardFiles() {
-		return deleteBoardFiles;
-	}
-
-	public void setDeleteBoardFiles(List<Integer> deleteBoardFiles) {
-		this.deleteBoardFiles = deleteBoardFiles;
-	}
-
 	@Override
 	public String toString() {
-		return "BoardVO [files=" + files + ", boardId=" + boardId + ", writerId=" + writerId + ", writerName="
-				+ writerName + ", title=" + title + ", content=" + content + ", boardDate=" + boardDate + ", taskId="
-				+ taskId + "]";
+		return "BoardVO [files=" + files + ", deleteBoardFiles=" + deleteBoardFiles + ", boardId=" + boardId
+				+ ", writerId=" + writerId + ", name=" + name + ", title=" + title + ", content=" + content
+				+ ", boardDate=" + boardDate + ", profile=" + profile + ", taskId=" + taskId + "]";
 	}
+	
+	
 
 }
