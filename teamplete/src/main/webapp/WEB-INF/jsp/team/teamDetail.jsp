@@ -792,7 +792,7 @@ const options2 = {
 													</c:choose>	
 														
 														
-   	        <div class="chat-avatar avatar">
+   	        <div class="chat-avatar avatar ">
    	        
    	        <c:choose>
 													<c:when test="${fn:startsWith(msg.profile, 'circle')}">
@@ -845,11 +845,7 @@ const options2 = {
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${msg.name }"
 																					/>
-																<div class="custom-avatar-container" style="font-size:1.2rem;">
-																	<c:set var="msgWriter" value="${ msg.name }" />
-																	<c:set var="firstletter"
-																		value="${fn:substring(msgWriter, 0, 1)}" />${firstletter}
-																</div>
+																
 															</div>
 														</div>
 													

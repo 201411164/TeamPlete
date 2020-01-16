@@ -1714,7 +1714,7 @@ body.fixed-footer .main-menu.menu-fixed {
   font-size : 0.75rem;
   text-align : center;
   vertical-align : middle;
-  margin : 5px;
+  margin : 0px;
 }
 .avatar .avatar-content {
   width : 32px;
