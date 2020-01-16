@@ -24,9 +24,9 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 
 public class S3Util {
 	
-	private static final String KEY_ID = "";
+	   private static final String KEY_ID = "AKIA5XWHMNO7PUVFLPKX";
 
-	private static final String SECRET_ACCESS_KEY = "";
+	   private static final String SECRET_ACCESS_KEY = "oT04R4wdiZvsyG+33W9L/6NP6Qanz1VlONCGzt7s";
 	
     private AmazonS3 conn;
 

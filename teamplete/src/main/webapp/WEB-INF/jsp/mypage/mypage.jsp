@@ -98,12 +98,20 @@
 										<div class="avatar mr-50">
 															<div
 																style="position: relative; text-align: center; color: white;">
+																	<c:choose>
+												 <c:when test="${fn:startsWith(user.profile, 'circle')}">
 																<img src="${ pageContext.request.contextPath }/resources/images/${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
 																<div class="custom-avatar-container">
 																	<c:set var="membername" value="${ user.name }" />
 																	<c:set var="firstletter"
 																		value="${fn:substring(membername, 0, 1)}" /><strong style="font-size:2rem;">${firstletter}</strong>
 																</div>
+																</c:when>
+																<c:otherwise>
+																<img src="${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
+																</c:otherwise>																	
+																</c:choose>
+																
 															</div>
 															<span
 																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
@@ -223,6 +231,17 @@
 							아이디: ${ user.memberid }<br/>
 							이름: ${ user.name }<br/>
 							이메일: ${ user.email }
+							<c:choose>
+							<c:when test="${user.type eq 'U'}">
+							유저등급 : 일반 사용자
+							</c:when>
+							<c:when test="${user.type eq 'G'}">
+							유저등급 : 골드 사용자
+							</c:when>
+							<c:when test="${user.type eq 'D'}">
+							유저등급 : 다이아몬드 클래스 사용자
+							</c:when>
+							</c:choose>
 							
 							</div>
 							</div>
@@ -475,13 +494,13 @@ $("#check_module").click(function () {
 	*/
 	name: 'Teamplete : 프리미엄 유저 업그레이드',
 	//결제창에서 보여질 이름
-	amount: 1500,
+	amount: 3000,
 	//가격
-	buyer_email: 'wkrleksm1@naver.com',
+	//buyer_email: 'wkrleksm1@naver.com',
 	buyer_name: '고동욱',
-	buyer_tel: '010-2051-2131',
-	buyer_addr: '경기도 파주시 와석순환로 307',
-	buyer_postcode: '10892',
+	//buyer_tel: '010-2051-2131',
+	//buyer_addr: '경기도 파주시 와석순환로 307',
+	//buyer_postcode: '10892',
 	m_redirect_url: 'https://www.teamplete.net'
 	/*
 	모바일 결제시,
@@ -491,6 +510,27 @@ $("#check_module").click(function () {
 	}, function (rsp) {
 	console.log(rsp);
 	if (rsp.success) {
+	
+		var data = {
+				"memberid" : $('#memberid').val(),
+				"type" : "G"
+			};
+		
+		$.ajax({
+			type : 'PUT',
+			url : '/mypage/updatetype',
+			data : JSON.stringify(data),
+	        contentType : "application/json",
+			success : function(result) {
+				console.log(data);
+				location.reload();
+			},
+			error : function(request, status, error) {
+				console.log(data);
+	            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+		
 	var msg = '결제가 완료되었습니다.';
 	msg += '고유ID : ' + rsp.imp_uid;
 	msg += '상점 거래ID : ' + rsp.merchant_uid;

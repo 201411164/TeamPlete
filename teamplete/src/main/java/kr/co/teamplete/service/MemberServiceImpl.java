@@ -61,6 +61,11 @@ public class MemberServiceImpl implements MemberService {
 	public void modifyMemberInfo(MemberVO member) {
 		memberDAO.modifyMemberInfo(member);
 	}
+	
+	@Override
+	public void updateType(MemberVO member) {
+		memberDAO.updateType(member);
+	}
 
 	@Override
 	public void updateProfile(Map<String, String> map) {

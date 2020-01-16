@@ -743,7 +743,7 @@ const options2 = {
 
 
 
-							<div class="col-lg-6 col-12">
+							<div class="col-lg-4 col-12">
 								<div class="card chat-application" id="showdetail">
 									<div class="card-content">
 
@@ -874,7 +874,7 @@ const options2 = {
 							<c:set var="tcount" value="0" scope="page" />
 								<c:forEach var="task" items="${ taskList }" varStatus="status">
 									<c:set var="tcount" value="${tcount+1 }" scope="page" />
-									<div class="col-lg-6 col-12">
+									<div class="col-lg-4 col-12">
 										<div class="card" id="showdetail">
 											<div class="card-content">
 

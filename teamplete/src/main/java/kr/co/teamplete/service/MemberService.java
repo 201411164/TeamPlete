@@ -31,6 +31,9 @@ public interface MemberService {
 	//회원 정보 수정
 	public void modifyMemberInfo(MemberVO member);
 	
+	//회원 등급 수정
+	public void updateType(MemberVO member);
+	
 	//회원테이블의 profile 업데이트
 	public void updateProfile(Map<String, String> map);
 	

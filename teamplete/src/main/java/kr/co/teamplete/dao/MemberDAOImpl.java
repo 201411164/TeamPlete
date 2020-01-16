@@ -51,6 +51,11 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return count;
 	}
+	
+	@Override
+	public void updateType(MemberVO member) {
+		session.update("kr.co.teamplete.dao.MemberDAO.updateType", member);
+	}
 
 	@Override
 	public void modifyMemberInfo(MemberVO member) {

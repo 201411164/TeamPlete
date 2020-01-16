@@ -29,6 +29,9 @@ public interface MemberDAO {
 	//회원 정보 수정
 	public void modifyMemberInfo(MemberVO member);
 	
+	//회원 등급 수정
+	public void updateType(MemberVO member);
+	
 	//회원테이블의 profile 업데이트
 	public void updateProfile(Map<String, String> map);
 	
@@ -37,4 +40,7 @@ public interface MemberDAO {
 	
 	//해당 아이디의 profile 이미지가 이미 업로드 되어있는지 확인
 	public int checkProfile(String memberid);
+
+
+	
 }
