@@ -28,7 +28,7 @@
 	
 	<!-- 특정 회원의 정보 조회(아이디로 이름 조회) -->
 	<select id="selectMember" parameterType="String" resultMap="memberMap">
-		select memberid, name, password, email, kakao, logincount, status, last_date, profile, profilebg
+		select memberid, name, password, type, email, kakao, logincount, status, last_date, profile, profilebg
 		from member_tb
 		where memberid = #{memberid}
 	</select>
@@ -44,7 +44,7 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="MemberVO"
 		resultMap="memberMap">
-		select memberid, logincount, status, last_date, profilebg
+		select memberid, logincount, type, status, last_date, profilebg
 		from member_tb
 		where memberid = #{memberid} and
 		password = #{password}	
@@ -85,6 +85,15 @@
 		  profile = #{profile}
 		   where memberid = #{memberid}
 	</update>
+	
+	<update id="updateType" parameterType="MemberVO">
+		update member_tb
+		 set
+		  type = #{type}
+		   where memberid = #{memberid}
+	</update>
+	
+	
 	
 	<!-- 프로필 변경 insert -->
 	<insert id="insertProfile" parameterType="ProfileVO">

@@ -48,6 +48,14 @@ public class MypageController {
 		service.modifyMemberInfo(member);
 	}
 	
+	
+	// 개인 정보 수정
+	@ResponseBody
+	@RequestMapping(value = "/mypage/updatetype", method = RequestMethod.PUT)
+	public void updateType(@RequestBody MemberVO member) {
+		service.updateType(member);
+	}
+	
 	// 프로필 수정(insert)
 	@RequestMapping(value = "/mypage/profile", method = RequestMethod.POST)
 	public String modifyProfile(String pid, MultipartFile pfile) {
