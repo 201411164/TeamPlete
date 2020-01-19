@@ -585,9 +585,9 @@ input::placeholder {
 </div><!-- END REVOLUTION SLIDER -->
 
 		</section>
-				
-				
-				
+		<div class="cover-container img-fluid bg-cover">		
+		<img class="img-fluid bg-cover" src="${ pageContext.request.contextPath }/resources/images/Teampletead1.png">	
+		</div>		
 				
 				
 				

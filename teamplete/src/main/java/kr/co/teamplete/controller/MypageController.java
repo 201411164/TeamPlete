@@ -49,7 +49,7 @@ public class MypageController {
 	}
 	
 	
-	// 개인 정보 수정
+	// 개인 등급 수정
 	@ResponseBody
 	@RequestMapping(value = "/mypage/updatetype", method = RequestMethod.PUT)
 	public void updateType(@RequestBody MemberVO member) {

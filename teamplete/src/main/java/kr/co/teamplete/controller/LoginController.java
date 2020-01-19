@@ -352,4 +352,30 @@ public class LoginController {
 		return mav;
 	}
 	
+	// 세션에 저장된 아이디의 상점
+		@RequestMapping(value = "/shop", method = RequestMethod.GET)
+		public ModelAndView myshop() {
+			ModelAndView mav = new ModelAndView();
+
+			MemberVO user = new MemberVO();
+
+			user = memberService.selectMemberById(loginId);
+
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("user", user);
+			mav.addAllObjects(map);
+			mav.setViewName("shop/shop");
+
+			return mav;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
