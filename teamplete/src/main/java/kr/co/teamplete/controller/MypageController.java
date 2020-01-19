@@ -56,6 +56,8 @@ public class MypageController {
 		service.updateType(member);
 	}
 	
+	
+	
 	// 프로필 수정(insert)
 	@RequestMapping(value = "/mypage/profile", method = RequestMethod.POST)
 	public String modifyProfile(String pid, MultipartFile pfile) {

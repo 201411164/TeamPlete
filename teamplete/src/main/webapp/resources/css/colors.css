@@ -719,7 +719,7 @@ input:focus ~ .bg-black {
 }
 
 .bg-dark {
-  background-color: #1e1e1e !important;
+  background-color: #1e1e1e;
 }
 
 .bg-dark .card-header,

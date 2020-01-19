@@ -238,8 +238,8 @@
 							<c:when test="${user.type eq 'G'}">
 							유저등급 : 골드 사용자
 							</c:when>
-							<c:when test="${user.type eq 'D'}">
-							유저등급 : 다이아몬드 클래스 사용자
+							<c:when test="${user.type eq 'P'}">
+							유저등급 : 프리미엄 클래스 사용자
 							</c:when>
 							</c:choose>
 							

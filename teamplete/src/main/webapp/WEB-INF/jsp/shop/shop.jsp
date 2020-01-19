@@ -17,6 +17,8 @@
 	href="${ pageContext.request.contextPath }/resources/css/colors.css">
 <link rel="stylesheet" type="text/css"
 	href="${ pageContext.request.contextPath }/resources/css/components.css">
+	<link rel="stylesheet" type="text/css"
+	href="${ pageContext.request.contextPath }/resources/css/theme-elements.css">
 
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
@@ -65,8 +67,11 @@
 		<c:otherwise>
 
 <c:import url="/navbar/${ loginVO.memberid }" />
+		
+		<input type="hidden" name="memberid" id="memberid"
+												value="${ user.memberid }">
 
-
+		
 	    <div class="app-content content">
         <div class="content-wrapper">
             <%-- <div class="content-header row">
@@ -87,88 +92,15 @@
 			<div class="row match-height">
 			
 				
-				<div class="col-12">
-                            <div class="profile-header mb-2">
-                                <div class="relative">
-                                    <div class="cover-container">
-                                        <img class="img-fluid rounded-0" src="${ pageContext.request.contextPath }/resources/images/${user.profilebg}" alt="User Profile Image" style="width:100%; max-height:300px;">
-                                    </div>
-                                    <div data-toggle="modal" data-target="#profileOption" class="profile-img-container d-flex align-items-center justify-content-between">
-                                        
-										<div class="avatar mr-50">
-															<div
-																style="position: relative; text-align: center; color: white;">
-																	<c:choose>
-												 <c:when test="${fn:startsWith(user.profile, 'circle')}">
-																<img src="${ pageContext.request.contextPath }/resources/images/${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
-																<div class="custom-avatar-container">
-																	<c:set var="membername" value="${ user.name }" />
-																	<c:set var="firstletter"
-																		value="${fn:substring(membername, 0, 1)}" /><strong style="font-size:2rem;">${firstletter}</strong>
-																</div>
-																</c:when>
-																<c:otherwise>
-																<img src="${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
-																</c:otherwise>																	
-																</c:choose>
-																
-															</div>
-															<span
-																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
-														</div>						
-																
-																
-																
-                                        <div class="float-right">
-                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1">
-                                                <i class="feather icon-edit-2"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary">
-                                                <i class="feather icon-settings"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end align-items-center profile-header-nav">
-                                    <nav class="navbar navbar-expand-sm w-100 pr-0">
-                                        <button class="navbar-toggler pr-0" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                            <span class="navbar-toggler-icon"><i class="feather icon-align-justify"></i></span>
-                                        </button>
-                                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                            <ul class="navbar-nav justify-content-around w-75 ml-sm-auto">
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Timeline</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">About</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Photos</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Friends</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Videos</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Events</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
 				
 			
 				
 
-				<div class="col-xl-3 col-md-6 col-sm-6">
+				<div class="col-12">
 					
 					<div class="card">
 						<div class="card-header d-flex justify-content-between">
-										<h4 class="text-primary mr-1" style="font-family:'Inter'; font-weight:700; font-size:26px;">미제출한 과제</h4>
+										<h4 class="text-primary mr-1" style="font-family:'Inter'; font-weight:700; font-size:26px;">상점</h4>
 										<i class="feather icon-more-horizontal cursor-pointer"></i>
 									</div>
 
@@ -177,38 +109,98 @@
 											
 											
 											
-							<c:set var="nScount" value="0" scope="page" />	
-											<h5 style="font-family:'Inter'; font-weight:400;">총  ${fn:length(notSubmitMyTaskAll)}개의 과제가 남아있어요.</h5>
-											<c:forEach items="${ notSubmitMyTaskAll }" var="nsmt"
-												varStatus="status">
-												
-												<c:if test="${ nsmt.chargeMemberid eq loginVO.memberid }">
-												<c:set var="nScount" value="${nScount + 1}" scope="page" />
-													<a onClick="taskDetail(${ nsmt.taskId })"><h5 class="mt-1 text-primary" id="nsmttitle">${ nsmt.title }</h5></a>
-													<p>제출기한: ${ nsmt.deadline } (${ notSubmitMyTaskDeadline[status.index] })</p>
-													
-												</c:if>
-											</c:forEach>
-											<div class="text-center">
-													
-													<c:choose>
-											<c:when test="${nScount eq 0 }">>
-											<h4 class="mt-2" style="font-family:'Inter'; font-weight:600;">모든 과제를 다 제출했어요.</h4>
-											</c:when>
-											<c:otherwise>
-											<h4 class="mt-2" style="font-family:'Inter';">총 <strong>${nScount}</strong>개의 과제가 남아있어요</h4>
-											</c:otherwise>
-											</c:choose>	
-							
-							
-							
-							
-							
-							
-							
-							
-							
+							 <div class="pricing-table pricing-table-no-gap mb-4">
+						<div class="col-md-4">
+							<div class="plan">
+								<div class="plan-header">
+									<h3>Basic</h3>
+								</div>
+								<div class="plan-price">
+								<span class="price">무료</span>
+									<label class="price-label">1개월</label>
+									
+								</div>
+								<div class="plan-features">
+									<ul>
+										<li><strong>1</strong>개의 팀 생성 가능</li>
+										<li>최대 <strong>5</strong>명의 팀원 수</li>
+										<li><strong>15</strong>개의 게시글 작성 가능</li>
+										<li><strong>100</strong>MByte의 저장 공간</li>
+									</ul>
+								</div>
+								<div class="plan-footer">
+								<c:choose>
+							<c:when test="${user.type eq 'U'}">
+							<a href="#" class="btn btn-dark btn-modern btn-outline py-2 px-4">현재 사용중인 플랜</a>
+							</c:when>
+							</c:choose>
+								</div>
 							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="plan plan-featured">
+								<div class="plan-header bg-primary">
+									<h3>Gold</h3>
+								</div>
+								<div class="plan-price">
+									<span class="price"><small><del class="muted">7,900</del></small>-> <mark>4,900</mark><span class="price-unit">₩</span></span>
+									<label class="price-label">1개월</label>
+								</div>
+								
+								<div class="plan-features">
+									<ul>
+										<li>최대 <strong>5</strong>개의 팀 생성 가능</li>
+										<li>최대 <strong>20</strong>명의 팀원 수</li>
+										<li>무제한 게시글 작성 가능</li>
+										<li><strong>2</strong>GByte의 저장 공간</li>
+									</ul>
+								</div>
+								<div class="plan-footer">
+								<c:choose>
+							<c:when test="${user.type eq 'G'}">
+							<a href="#" class="btn btn-primary btn-modern py-2 px-4">현재 사용중인 플랜</a>
+							</c:when>
+							<c:when test="${user.type eq 'U'}">
+							<a href="#" id="upGold" class="btn btn-primary btn-modern py-2 px-4">구독하기</a>
+							</c:when>
+							</c:choose>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="plan">
+								<div class="plan-header">
+									<h3>Premium</h3>
+								</div>
+								<div class="plan-price">
+									
+									<span class="price">13,900<span class="price-unit">₩</span></span>
+									<label class="price-label">1개월</label>
+								</div>
+								
+								<div class="plan-features">
+									<ul>
+										<li>무제한 팀 생성</li>
+										<li>무제한 팀원 수</li>
+										<li>무제한 게시글 작성 가능</li>
+										<li>10GB의 저장 공간</li>
+									</ul>
+								</div>
+								<div class="plan-footer">
+								<c:choose>
+							<c:when test="${user.type eq 'P'}">
+							<a href="#" class="btn btn-dark btn-modern btn-outline py-2 px-4">현재 사용중인 플랜</a>
+							</c:when>
+							
+							<c:otherwise>
+							<a href="#" id="upPremium" class="btn btn-dark btn-modern btn-outline py-2 px-4">구독하기</a>
+							</c:otherwise>
+							</c:choose>
+								</div>
+							</div>
+						</div>
+					</div>
 							
 						</div>
 						
@@ -219,208 +211,24 @@
 
 			</div>
 			
-			<div class="col-xl-3 col-md-6 col-sm-6">
-								<div class="card">
-						<div class="card-header d-flex justify-content-between">
-										<h4 class="text-primary mr-1" style="font-family:'Inter'; font-weight:700; font-size:26px;">${ user.name }님의 정보</h4>
-										<i class="feather icon-more-horizontal cursor-pointer"></i>
-									</div>
+			
 
-						<div class="card-content">
-							<div class="card-body">
-							아이디: ${ user.memberid }<br/>
-							이름: ${ user.name }<br/>
-							이메일: ${ user.email }
-							<c:choose>
-							<c:when test="${user.type eq 'U'}">
-							유저등급 : 일반 사용자
-							</c:when>
-							<c:when test="${user.type eq 'G'}">
-							유저등급 : 골드 사용자
-							</c:when>
-							<c:when test="${user.type eq 'D'}">
-							유저등급 : 다이아몬드 클래스 사용자
-							</c:when>
-							</c:choose>
 							
-							</div>
-							</div>
-							<button type="button" data-toggle="modal" data-target="#checkPWForm">수정</button>
-							</div>
-			</div>
-
-
-							<div class="col-xl-3 col-md-6 col-sm-6">
-								<div class="card">
-									<div class="card-content">
-										<div class="card-body">
-											<p>아임 서포트 결제 모듈 테스트 해보기</p>
-											<button id="check_module" type="button">아임 서포트 결제 모듈
-												테스트 해보기</button>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
 
 
 
 
-							<!-- 비밀번호 체크 Modal -->
-							<div class="modal fade text-left" id="checkPWForm" tabindex="-1"
-								role="dialog" aria-labelledby="myModalLabel33"
-								aria-hidden="true">
-								<div
-									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-									role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="myModalLabel33">비밀번호를
-												입력해주세요.</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<input type="hidden" name="memberid" id="memberid"
-												value="${ loginVO.memberid }"> <label>Password:
-											</label>
-											<div class="form-group">
-												<input type="password" name="password" id="password"
-													class="form-control">
-											</div>
-											<div class="modal-footer">
-												<button type="button" id="checkPWBtn" onclick="checkpw()"
-													class="btn btn-primary">확인</button>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							
 
 
-							<!-- 개인정보 수정 Modal (이름, 비밀번호, 이메일 수정 가능) -->
-							<div class="modal fade text-left" id="modifyMyInfo" tabindex="-1"
-								role="dialog" aria-labelledby="myModalLabel33"
-								aria-hidden="true">
-								<div
-									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-									role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="myModalLabel33">개인정보를
-												수정해주세요.</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<form method="post"
-											action="${pageContext.request.contextPath}/task/write"
-											name="createTaskForm" id="modifyMyInfoForm"
-											style="overflow-y: auto;">
-											<div class="modal-body">
-												아이디: ${ user.memberid } <br /> <label>이름: </label>
-												<div class="form-group">
-													<input type="text" name="name" id="name"
-														class="form-control" value="${ user.name }">
-												</div>
-												<label>이메일: </label>
-												<div class="form-group">
-													<input type="text" name="email" id="email"
-														class="form-control" value="${ user.email }">
-												</div>
-												<label>변경할 비밀번호: </label>
-												<div class="form-group">
-													<input type="password" name="password" id="pwModify"
-														class="form-control">
-												</div>
-												<label>변경할 비밀번호 재확인: </label>
-												<div class="form-group">
-													<input type="password" id="pwModify2" class="form-control">
-												</div>
-												<div class="modal-footer">
-													<button type="button" id="modifyInfoBtn"
-														class="btn btn-primary">수정</button>
+							
+							
 
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-
-							<!-- 프로필 수정 안내 Modal -->
-							<div class="modal fade text-left" id="profileOption"
-								tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
-								aria-hidden="true">
-								<div
-									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-									role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="myModalLabel33">프로필을
-												수정하시겠습니까?</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-										<button type="button" id="modify" class="btn btn-primary" 
-										data-toggle="modal" data-target="#modifyProfile" data-dismiss="modal">수정하기</button>
-										<button type="button" id="initImg" class="btn btn-primary">기본
-											이미지로 변경하기</button>
-											</div>
-											<div class="modal-footer">
-
-												</div>
-									</div>
-								</div>
-							</div>
+							
 
 
 
-							<!-- 프로필 수정 Modal -->
-							<div class="modal fade text-left" id="modifyProfile"
-								tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
-								aria-hidden="true">
-								<div
-									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-									role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="myModalLabel33">프로필을 수정해주세요.
-											</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<form method="post" enctype="multipart/form-data"
-											action="${pageContext.request.contextPath}/mypage/profile"
-											name="modifyProfileForm" id="modifyProfileForm"
-											style="overflow-y: auto;">
-											<div class="modal-body">
-												<input type="hidden" name="pid" id="pid"
-													value="${ loginVO.memberid }"> <br /> <label>파일업로드:
-												</label>
-												<div class="form-group">
-													<input type="file" accept="image/*" name="pfile" id="pfile"
-														class="form-control" value="">
-												</div>
-												<div class="modal-footer">
-													<button type="submit" id="modifyProfileBtn"
-														class="btn btn-primary">수정</button>
-
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
+							
 
 
 
@@ -463,7 +271,8 @@
 
 <script>
 
-$("#check_module").click(function () {
+	
+$("#upGold").click(function () {
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp83333023');
 	// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -492,21 +301,16 @@ $("#check_module").click(function () {
 	merchant_uid: 'merchant_' + new Date().getTime(),
 	/*
 	*/
-	name: 'Teamplete : 프리미엄 유저 업그레이드',
+	name: 'Teamplete : 골드 유저 업그레이드',
 	//결제창에서 보여질 이름
-	amount: 3000,
+	amount: 4900,
 	//가격
 	//buyer_email: 'wkrleksm1@naver.com',
 	buyer_name: '고동욱',
 	//buyer_tel: '010-2051-2131',
 	//buyer_addr: '경기도 파주시 와석순환로 307',
 	//buyer_postcode: '10892',
-	m_redirect_url: 'https://www.teamplete.net'
-	/*
-	모바일 결제시,
-	결제가 끝나고 랜딩되는 URL을 지정
-	(카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-	*/
+	
 	}, function (rsp) {
 	console.log(rsp);
 	if (rsp.success) {
@@ -543,6 +347,84 @@ $("#check_module").click(function () {
 	alert(msg);
 	});
 	});
+	
+	
+$("#upPremium").click(function () {
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp83333023');
+	// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+	IMP.request_pay({
+	pg: 'kakao', // version 1.1.0부터 지원.
+	/*
+	'kakao':카카오페이,
+	html5_inicis':이니시스(웹표준결제)
+	'nice':나이스페이
+	'jtnet':제이티넷
+	'uplus':LG유플러스
+	'danal':다날
+	'payco':페이코
+	'syrup':시럽페이
+	'paypal':페이팔
+	*/
+	pay_method: 'card',
+	/*
+	'samsung':삼성페이,
+	'card':신용카드,
+	'trans':실시간계좌이체,
+	'vbank':가상계좌,
+	'phone':휴대폰소액결제
+	*/
+	merchant_uid: 'merchant_' + new Date().getTime(),
+	/*
+	*/
+	name: 'Teamplete : 프리미엄 유저 업그레이드',
+	//결제창에서 보여질 이름
+	amount: 13900,
+	//가격
+	//buyer_email: 'wkrleksm1@naver.com',
+	buyer_name: '고동욱',
+	//buyer_tel: '010-2051-2131',
+	//buyer_addr: '경기도 파주시 와석순환로 307',
+	//buyer_postcode: '10892',
+	
+	}, function (rsp) {
+	console.log(rsp);
+	if (rsp.success) {
+	
+		var data = {
+				"memberid" : $('#memberid').val(),
+				"type" : "P"
+			};
+		
+		$.ajax({
+			type : 'PUT',
+			url : '/mypage/updatetype',
+			data : JSON.stringify(data),
+	        contentType : "application/json",
+			success : function(result) {
+				console.log(data);
+				location.reload();
+			},
+			error : function(request, status, error) {
+				console.log(data);
+	            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
+		
+	var msg = '결제가 완료되었습니다.';
+	msg += '고유ID : ' + rsp.imp_uid;
+	msg += '상점 거래ID : ' + rsp.merchant_uid;
+	msg += '결제 금액 : ' + rsp.paid_amount;
+	msg += '카드 승인번호 : ' + rsp.apply_num;
+	} else {
+	var msg = '결제에 실패하였습니다.';
+	msg += '에러내용 : ' + rsp.error_msg;
+	}
+	alert(msg);
+	});
+	});	
+	
 
 
 
