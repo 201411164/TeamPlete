@@ -769,6 +769,11 @@ const options2 = {
 												<div class="chats" id="data" >
 													<c:forEach items="${ msgList }" var="msg">
 													
+													<fmt:parseDate value="${msg.msgTime}" pattern="yy/MM/dd" var="submitDate"/>
+                                 <c:if test="${submitDate <now}">
+                                     We have not yet reached the submit date.
+                                 </c:if>
+												
 													<c:choose>
 													<c:when test="${ lastsender eq msg.writerId && lastdate eq msg.msgDate && lasttime eq msg.msgTime }">
 													<script>
@@ -777,10 +782,19 @@ const options2 = {
 													</c:when>
 													<c:otherwise>
 													
-													
+													<c:choose>
+													<c:when test="${ lastdate ne msg.msgDate }">
+													<h5 style="color:#a7b5c3;" data-toggle="tooltip"
+																					data-popup="tooltip-custom" data-placement="bottom"
+																					data-original-title="${msg.msgDate }">${msg.msgDate} ${ msg.msgTime }</h5>
+																					</c:when>
+													<c:otherwise>
 													<h5 style="color:#a7b5c3;" data-toggle="tooltip"
 																					data-popup="tooltip-custom" data-placement="bottom"
 																					data-original-title="${msg.msgDate }">${ msg.msgTime }</h5>	
+													</c:otherwise>									
+													</c:choose>
+													
 														
 													<c:choose>
 													<c:when test="${msg.writerId eq loginVO.memberid}">
@@ -837,6 +851,9 @@ const options2 = {
 <!-- 													</a>								 -->
 <!-- 													</div>		 -->
 													
+													<div class="media" style="background-color:transparent !important;">
+													
+													
 													
 													<div class="media-right avatar">
 															<div
@@ -848,7 +865,7 @@ const options2 = {
 																
 															</div>
 														</div>
-													
+													</div>
 													
 																			
 													
@@ -858,8 +875,16 @@ const options2 = {
    	                	
    	                	</div>       	
    	                	<div class="chat-body">
+   	                	<c:choose>
+   	                	<c:when test="${msg.writerId eq loginVO.memberid}">
+   	                	<h5 class="text-right" style="font-weight:400; font-family:'Noto Sans KR'; margin:0 20px 10px 0;">${msg.name}</h5>
+   	                	</c:when>
+   	                	<c:otherwise>
+   	                	<h5 class="text-left text-primary" style="font-weight:400; font-family:'Noto Sans KR'; margin:0 0px 10px 20px;">${msg.name}</h5>
+   	                	</c:otherwise>
+   	                	</c:choose>
+   	                	
    	        	        <div class="chat-content">
-   	        	        
    	        	            <p class="talk">${msg.text}</p>
    	        	            </div>
    	            	   	 </div>
@@ -1635,6 +1660,7 @@ const options2 = {
    					</div>
    	                	</div>       	
    	                	<div class="chat-body">
+   	                	<h5 class="text-right" style="font-weight:400; font-family:'Noto Sans KR'; margin:0 20px 10px 0;">membername</h5>
    	        	        <div class="chat-content">
    	        	            <p class="talk">realmessage</p>
    	        	            </div>
@@ -1650,8 +1676,10 @@ const options2 = {
    	        	var avatar2 = avatar.replace("${ pageContext.request.contextPath }/resources/images/replaced", memberprofile);
    	        	var avatar3 = avatar2.replace("memberidhere","");
    	        }
+   	        
    			var avatar4 = avatar3.replace("realmessage",realmessage);
-   			$("#data").append(currenttime+avatar4+ "<br/>");
+   			var avatar5 = avatar4.replace("membername",membername);
+   			$("#data").append(currenttime+avatar5+ "<br/>");
         
        }else{
     	   var avatar=`
@@ -1664,6 +1692,7 @@ const options2 = {
     					</div>
     	                	</div>       	
     	                	<div class="chat-body">
+    	                	<h5 class="text-right" style="font-weight:400; font-family:'Noto Sans KR'; margin:0 20px 10px 0;">membername</h5>
     	        	        <div class="chat-content">
     	        	            <p class="talk">realmessage</p>
     	        	            </div>
@@ -1680,7 +1709,8 @@ const options2 = {
   	        }
     	    	
     			var avatar4 = avatar3.replace("realmessage",realmessage);
-    			$("#data").append(currenttime+avatar4+ "<br/>");
+    			var avatar5 = avatar4.replace("membername",membername);
+    			$("#data").append(currenttime+avatar5+ "<br/>");
     	   		
     	   
        }
