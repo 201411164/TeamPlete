@@ -245,7 +245,14 @@
 							
 							</div>
 							</div>
+							<c:choose>
+							<c:when test="${ user.kakao eq 'N'.charAt(0) }">
 							<button type="button" data-toggle="modal" data-target="#checkPWForm">수정</button>
+							</c:when>
+							<c:otherwise>
+							<button type="button" data-toggle="modal" data-target="#modifyKakaoInfo">수정</button>
+							</c:otherwise>
+							</c:choose>
 							</div>
 			</div>
 
@@ -317,10 +324,6 @@
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
-										<form method="post"
-											action="${pageContext.request.contextPath}/task/write"
-											name="createTaskForm" id="modifyMyInfoForm"
-											style="overflow-y: auto;">
 											<div class="modal-body">
 												아이디: ${ user.memberid } <br /> <label>이름: </label>
 												<div class="form-group">
@@ -347,10 +350,51 @@
 
 												</div>
 											</div>
-										</form>
 									</div>
 								</div>
 							</div>
+							
+							
+							
+							<!-- 카카오 회원정보 수정 Modal (이름, 이메일 수정 가능) -->
+							<div class="modal fade text-left" id="modifyKakaoInfo" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel33"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel33">개인정보를
+												수정해주세요.</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+											<div class="modal-body">
+												아이디: ${ user.memberid } <br /> <label>이름: </label>
+												<div class="form-group">
+													<input type="text" name="name" id="Kname"
+														class="form-control" value="${ user.name }">
+												</div>
+												<label>이메일: </label>
+												<div class="form-group">
+													<input type="text" name="email" id="Kemail"
+														class="form-control" value="${ user.email }">
+												</div>
+												<div class="modal-footer">
+													<button type="button" id="modifyKakaoBtn"
+														class="btn btn-primary">수정</button>
+
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+							
+							
+							
 
 							<!-- 프로필 수정 안내 Modal -->
 							<div class="modal fade text-left" id="profileOption"
@@ -651,6 +695,7 @@ $("#modifyInfoBtn").click(function() {
 		success : function(result) {
 			console.log(data);
 			$('#modifyMyInfo').modal("hide");
+			alert("정보 수정 완료되었습니다.");
 			location.reload();
 		},
 		error : function(request, status, error) {
@@ -659,6 +704,34 @@ $("#modifyInfoBtn").click(function() {
         }
 	});
 	}
+});
+
+
+
+//카카오 회원정보 수정
+$("#modifyKakaoBtn").click(function() {
+	var data = {
+			"memberid" : "${ user.memberid }",
+			"name" : $('#Kname').val(),
+			"email" : $('#Kemail').val()
+		};
+	
+	$.ajax({
+		type : 'PUT',
+		url : '/mypage/modify',
+		data : JSON.stringify(data),
+        contentType : "application/json",
+		success : function(result) {
+			console.log(data);
+			$('#modifyMyInfo').modal("hide");
+			alert("정보 수정 완료되었습니다.");
+			location.reload();
+		},
+		error : function(request, status, error) {
+			console.log(data);
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+	});
 });
 
 
@@ -673,7 +746,6 @@ $("button[name='initImg']").click(function() {
 	});
 	
 	alert("기본이미지로 변경되었습니다.");
-// 	$("#navDiv").load(window.location.href + " #navDiv");
 	location.reload();
 });
 	

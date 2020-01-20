@@ -94,4 +94,9 @@ public class MemberDAOImpl implements MemberDAO{
 		return profile;
 	}
 
+	@Override
+	public void modifyKakaoInfo(MemberVO member) {
+		session.update("kr.co.teamplete.dao.MemberDAO.modifyKakaoInfo", member);
+	}
+
 }

@@ -27,8 +27,8 @@ public class NavbarController {
 	private MemberService memberService;
 	
 	
-	@RequestMapping(value = "/navbar/{loginVO.memberid}", method = RequestMethod.GET)
-	public ModelAndView navbar(@PathVariable("loginVO.memberid") String memberid) {
+	@RequestMapping(value = "/navbar/{memberid:.+}", method = RequestMethod.GET)
+	public ModelAndView navbar(@PathVariable("memberid") String memberid) {
 		
 		// 요청온 시간 계산
 		List<String> requestTime = new ArrayList<>();
@@ -50,12 +50,6 @@ public class NavbarController {
 		mav.addObject("requestTime", requestTime);
 		mav.addObject("user", user);
 		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
-	public ModelAndView chat(ModelAndView mav) {
-		mav.setViewName("chat/chattingview");
 		return mav;
 	}
 

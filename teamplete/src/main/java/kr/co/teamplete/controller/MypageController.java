@@ -45,7 +45,17 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value = "/mypage/modify", method = RequestMethod.PUT)
 	public void modifyMemberInfo(@RequestBody MemberVO member) {
-		service.modifyMemberInfo(member);
+		
+		MemberVO memberDetail = service.selectMemberById(member.getMemberid());
+		
+		if(memberDetail.getKakao() == 'N') {
+//			System.out.println("일반로그인입니다. Kakao: " + memberDetail.getKakao());
+			service.modifyMemberInfo(member);
+		}
+		else {
+//			System.out.println("카카오 로그인입니다. Kakao: " + memberDetail.getKakao());
+			service.modifyKakaoInfo(member);
+		}
 	}
 	
 	
@@ -96,7 +106,7 @@ public class MypageController {
 	}
 	
 	//프로필 수정(기본이미지로 변경)
-	@RequestMapping(value = "/mypage/delProfile/{pid}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/mypage/delProfile/{pid:.+}", method = RequestMethod.DELETE)
 	public void deleteProfile(@PathVariable("pid") String pid) {
 		
 		List<String> imgList = new ArrayList<>();

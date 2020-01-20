@@ -31,6 +31,9 @@ public interface MemberService {
 	//회원 정보 수정
 	public void modifyMemberInfo(MemberVO member);
 	
+	//카카오 회원 정보 수정
+	public void modifyKakaoInfo(MemberVO member);
+	
 	//회원 등급 수정
 	public void updateType(MemberVO member);
 	

@@ -161,4 +161,9 @@ public class MemberServiceImpl implements MemberService {
 		ProfileVO profile = memberDAO.selectProfile(memberid);
 		return profile;
 	}
+
+	@Override
+	public void modifyKakaoInfo(MemberVO member) {
+		memberDAO.modifyKakaoInfo(member);
+	}
 }

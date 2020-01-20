@@ -63,7 +63,6 @@ public class EchoHandler extends TextWebSocketHandler{
 			System.out.println(sess.getId()+"에게"+message.getPayload()+"에게만 메세지 보냄");
 			MsgVO msg = new MsgVO();
 			msg.setWriterId(memberid);
-			msg.setProfile(profile);
 			msg.setText(message.getPayload());
 			msg.setRoomId(Integer.parseInt(roomId));
 			SimpleDateFormat sdf = new SimpleDateFormat("a h:mm", Locale.KOREA);

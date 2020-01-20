@@ -78,6 +78,14 @@
 		   where memberid = #{memberid}
 	</update>
 	
+	<!-- 카카오 회원정보 수정 -->
+	<update id="modifyKakaoInfo" parameterType="MemberVO">
+		update member_tb
+		 set
+		  name = #{name}, email = #{email}
+		   where memberid = #{memberid}
+	</update>
+	
 	<!-- 회원테이블의 profile 업데이트 -->
 	<update id="updateProfile" parameterType="hashmap">
 		update member_tb

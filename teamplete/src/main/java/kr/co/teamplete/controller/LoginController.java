@@ -33,6 +33,7 @@ import kr.co.teamplete.dto.RequestVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
 import kr.co.teamplete.dto.TeamVO;
+import kr.co.teamplete.kakaoAPI.KakaoRestAPI;
 import kr.co.teamplete.method.Deadline;
 import kr.co.teamplete.method.UpdateTime;
 import kr.co.teamplete.service.ActivityService;
@@ -77,6 +78,9 @@ public class LoginController {
 	@Autowired
 	private MsgService msgService;
 	
+    @Autowired
+    private KakaoRestAPI kakao;
+	
 	
 	String loginId;
 	
@@ -110,6 +114,47 @@ public class LoginController {
 			return "redirect:/team";
 		}
 	}
+	
+	// 카카오 로그인
+    @RequestMapping(value="/kakaologin")
+    public String login(@RequestParam("code") String code, Model model) {
+        String access_Token = kakao.getAccessToken(code);
+        HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+        System.out.println("login Controller : " + userInfo);
+        
+        MemberVO member = new MemberVO();
+        member.setMemberid((String) userInfo.get("email"));
+        member.setName((String) userInfo.get("nickname"));
+        member.setPassword((String) userInfo.get("kakaoId"));
+        member.setEmail((String) userInfo.get("email"));
+        member.setKakao('Y');
+
+        
+        if((String) userInfo.get("thumbnail_image") != null ) {
+            member.setProfile((String) userInfo.get("thumbnail_image"));
+        }
+        
+        if(memberService.checkIdSignUp(member.getMemberid()) == 0) {
+        	memberService.insertMember(member);
+        }
+       
+        //    클라이언트의 이메일이 존재할 때
+        if (userInfo.get("email") != null) {
+        	
+            member.setStatus("online");
+            int temp=member.getLogincount()+1;
+            member.setLogincount(temp);
+            memberService.updateMember(member);
+        	
+            model.addAttribute("loginVO", member);
+            
+            loginId = member.getMemberid();
+            
+            return "redirect:/team";
+        } else return "redirect:/";
+        
+    }
+
 	
 	
 	//세션 정보 삭제
@@ -340,6 +385,7 @@ public class LoginController {
 		MemberVO user = new MemberVO();
 
 		user = memberService.selectMemberById(loginId);
+		
 
 		Map<String, Object> map = new HashMap<>();
 		List<TaskVO> notSubmitMyTaskAll = taskService.notSubmitMyTaskAll(loginId);
