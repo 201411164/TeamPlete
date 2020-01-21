@@ -672,7 +672,7 @@ input::placeholder {
 	
 	
  	<c:if test = '${ not empty loginVO }'>
-    	location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }"
+    	location.href = "${ pageContext.request.contextPath}/team"
 	</c:if>
 
 		
