@@ -632,8 +632,8 @@ const options2 = {
 								
 								
 								
-								
-								<div class="col-lg-6 col-12">
+							<!-- 캘린더 (Calendar) -->
+							<div class="col-lg-6 col-12">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-body">
@@ -769,10 +769,7 @@ const options2 = {
 												<div class="chats" id="data" >
 													<c:forEach items="${ msgList }" var="msg">
 													
-													<fmt:parseDate value="${msg.msgTime}" pattern="yy/MM/dd" var="submitDate"/>
-                                 <c:if test="${submitDate <now}">
-                                     We have not yet reached the submit date.
-                                 </c:if>
+												
 												
 													<c:choose>
 													<c:when test="${ lastsender eq msg.writerId && lastdate eq msg.msgDate && lasttime eq msg.msgTime }">
@@ -1022,8 +1019,7 @@ const options2 = {
 																		<div
 																			style="position: relative; text-align: center; color: white;">
 																			<c:choose>
-																				<c:when
-																					test="${fn:startsWith(member.profile, 'circle')}">
+																				<c:when test="${fn:startsWith(member.profile, 'circle')}">
 																					<img
 																						src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
 																						alt="avtar img holder" height="64" width="64">
@@ -1500,6 +1496,16 @@ const options2 = {
 
 
 	<script>
+	
+	
+// 	$(".fc-day").append("테스트");
+$(document).ready(function() {
+var section = document.getElementById("2020-01-20");
+console.log(section);
+console.log("콘솔테스트: " + section.dataset.date);
+section.innerHTML="테스트";
+
+});
 	
 	
 	
