@@ -769,10 +769,7 @@ const options2 = {
 												<div class="chats" id="data" >
 													<c:forEach items="${ msgList }" var="msg">
 													
-													<fmt:parseDate value="${msg.msgTime}" pattern="yy/MM/dd" var="submitDate"/>
-                                 <c:if test="${submitDate <now}">
-                                     We have not yet reached the submit date.
-                                 </c:if>
+													
 												
 													<c:choose>
 													<c:when test="${ lastsender eq msg.writerId && lastdate eq msg.msgDate && lasttime eq msg.msgTime }">
@@ -1270,8 +1267,7 @@ const options2 = {
 
 
 
-
-
+												
 
 
 												<button type="button"
@@ -1508,7 +1504,6 @@ const options2 = {
 	
 	
 	
-	
 	function displayEvent(event) {
 	    var eventTitle =event.eventTitle,
 	      startDate = event.startDate,
@@ -1582,6 +1577,21 @@ const options2 = {
                 }
 
         });
+        
+    
+    	
+    	
+    	
+    		/* var sections = document.querySelectorAll("td[data-date]");
+    		
+    		console.log(sections);
+    		
+    		Array.from(sections).forEach(section => {
+    		    section.innerHTML="<h4>안녕하세요</h4>";
+    		    console.log("section!!!!!!!!!!"+section);
+    		}); */
+    		
+    	
 
  });
 
