@@ -1582,14 +1582,14 @@ const options2 = {
     	
     	
     	
-    		/* var sections = document.querySelectorAll("td[data-date]");
+    		 var sections = document.querySelectorAll("td[data-date]");
     		
     		console.log(sections);
     		
     		Array.from(sections).forEach(section => {
     		    section.innerHTML="<h4>안녕하세요</h4>";
     		    console.log("section!!!!!!!!!!"+section);
-    		}); */
+    		}); 
     		
     	
 
