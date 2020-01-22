@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('fc-default');
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
-    plugins: ["dayGrid", "timeGrid", "interaction"],
+    plugins: ["dayGrid"],
     customButtons: {
       addNew: {
-        text: ' Add',
+        text: ' 추가하기',
         click: function () {
           var calDate = new Date,
             todaysDate = calDate.toISOString().slice(0, 10);
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     header: {
       left: "addNew",
-      center: "dayGridMonth,timeGridWeek,timeGridDay",
+      //center: "dayGridMonth,timeGridWeek,timeGridDay",
       right: "prev,title,next"
     },
     displayEventTime: false,
@@ -70,24 +70,36 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     // displays saved event values on click
     eventClick: function (info) {
-      $(".modal-calendar").modal("show");
-      $(".modal-calendar #cal-event-title").val(info.event.title);
-      $(".modal-calendar #cal-start-date").val(moment(info.event.start).format('YYYY-MM-DD'));
-      $(".modal-calendar #cal-end-date").val(moment(info.event.end).format('YYYY-MM-DD'));
-      $(".modal-calendar #cal-description").val(info.event.extendedProps.description);
-      $(".modal-calendar .cal-submit-event").removeClass("d-none");
-      $(".modal-calendar .remove-event").removeClass("d-none");
-      $(".modal-calendar .cal-add-event").addClass("d-none");
-      $(".modal-calendar .cancel-event").addClass("d-none");
-      $(".calendar-dropdown .dropdown-menu").find(".selected").removeClass("selected");
-      var eventCategory = info.event.extendedProps.dataEventColor;
-      var eventText = categoryText[eventCategory]
-      $(".modal-calendar .chip-wrapper .chip").remove();
-      $(".modal-calendar .chip-wrapper").append($("<div class='chip chip-" + eventCategory + "'>" +
-        "<div class='chip-body'>" +
-        "<span class='chip-text'> " + eventText + " </span>" +
-        "</div>" +
-        "</div>"));
+    
+      //task로 불러오는 경우일 때!!
+      if((info.event.extendedProps.description)=="taskCalendar"){
+    	  
+    	  let taskId = info.event.title;
+    	  console.log("taskId"+taskId);
+    	  location.href = "/taskdetail/" + taskId;
+      //DB에 저장되어 있는 Calendar 일정을 불러오는 경우일 때!!   
+      }else{
+    	  console.log("벨류값"+(info.event.extendedProps.description));
+    	  $(".modal-calendar").modal("show");
+          $(".modal-calendar #cal-event-title").val(info.event.title);
+          $(".modal-calendar #cal-start-date").val(moment(info.event.start).format('YYYY-MM-DD'));
+          $(".modal-calendar #cal-end-date").val(moment(info.event.end).format('YYYY-MM-DD'));
+          $(".modal-calendar #cal-description").val(info.event.extendedProps.description);
+          $(".modal-calendar .cal-submit-event").removeClass("d-none");
+          $(".modal-calendar .remove-event").removeClass("d-none");
+          $(".modal-calendar .cal-add-event").addClass("d-none");
+          $(".modal-calendar .cancel-event").addClass("d-none");
+          $(".calendar-dropdown .dropdown-menu").find(".selected").removeClass("selected");
+          var eventCategory = info.event.extendedProps.dataEventColor;
+          var eventText = categoryText[eventCategory]
+          $(".modal-calendar .chip-wrapper .chip").remove();
+          $(".modal-calendar .chip-wrapper").append($("<div class='chip chip-" + eventCategory + "'>" +
+            "<div class='chip-body'>" +
+            "<span class='chip-text'> " + eventText + " </span>" +
+            "</div>" +
+            "</div>"));  
+      }
+      
     },
   });
 
