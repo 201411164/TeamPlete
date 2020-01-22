@@ -27,6 +27,31 @@
       alertValidationMsg.css("display", "block");
     }
   });
+  
+  
+  var i;
+	
+	function displayEvent(){
+		for (i=0;i<taskIdList.length;i++){
+      	
+      	eventTitle =taskIdList[i];
+      	startDate = taskDateList[i];
+      	eventDescription = 'taskCalendar';
+      	correctEndDate = taskdeadlineList[i];
+      	
+      	calendar.addEvent({
+      	      id: "newEvent",
+      	      title: eventTitle,
+      	      start: startDate,
+      	      end: correctEndDate,
+      	      description: eventDescription,
+      	      allDay: true
+      	    });
+      }	
+		
+	}
+  
+  
 
   /***** Carousel *****/
   // For Carousel With Enabled Keyboard Controls

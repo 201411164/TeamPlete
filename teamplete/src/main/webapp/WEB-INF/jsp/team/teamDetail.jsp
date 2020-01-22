@@ -62,6 +62,9 @@
 
 
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/moment.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/fullcalendar.min.js"></script>    
+    <script src="${ pageContext.request.contextPath }/resources/js/fullcalendar.js"></script>	
 
 <style>
 #fileName:hover {
@@ -79,6 +82,15 @@ border-style: none !important;
 
 </style>
 <script>
+
+
+
+
+
+
+
+
+
 var newMsg;
 
 function addMessage(newMsg){
@@ -636,6 +648,7 @@ const options2 = {
 								<div class="col-lg-6 col-12">
                             <div class="card">
                                 <div class="card-content">
+                                
                                     <div class="card-body">
                                         <div class="cal-category-bullets d-none">
                                             <div class="bullets-group-1 mt-2">
@@ -931,7 +944,43 @@ const options2 = {
 
 
 							<c:set var="tcount" value="0" scope="page" />
+							
+								<script>
+								var taskIdList = new Array();
+								var taskDateList = new Array();
+								var tasktitleList = new Array();
+								var taskdeadlineList = new Array();
+								
+								</script>
 								<c:forEach var="task" items="${ taskList }" varStatus="status">
+								
+								<script>
+								
+								eventTitle =${task.taskId},
+							      startDate = "${task.taskDate}".substring(0,10);
+							      // endDate = event.endDate,
+							     // eventDescription = 'taskCalendar';
+							      if("${task.deadline}" == "")
+							    	  {
+							    	  correctEndDate=startDate;
+							    	  }
+							      //correctEndDate = event.deadline;
+							      correctEndDate = "${task.deadline}".substring(0,10);
+							      var tasktitle = "${task.title}";
+							      taskIdList.push(eventTitle);
+							      taskDateList.push(startDate);
+							      tasktitleList.push(tasktitle);
+						          taskdeadlineList.push(correctEndDate);
+						        /* calendar.addEvent({
+						    	      id: "newEvent",
+						    	      title: eventTitle,
+						    	      start: startDate,
+						    	      end: correctEndDate,
+						    	      description: eventDescription,
+						    	      allDay: true
+						    	    }); */
+								</script>
+								
 									<c:set var="tcount" value="${tcount+1 }" scope="page" />
 									<div class="col-lg-4 col-12">
 										<div class="card" id="showdetail">
@@ -1481,15 +1530,14 @@ const options2 = {
 	<script
 		src="${ pageContext.request.contextPath }/resources/js/form-select2.js"></script>
 		
-	<script src="${ pageContext.request.contextPath }/resources/js/moment.min.js"></script>
-    <script src="${ pageContext.request.contextPath }/resources/js/fullcalendar.min.js"></script>
+	
     <script src="${ pageContext.request.contextPath }/resources/js/daygrid.min.js"></script>
     <script src="${ pageContext.request.contextPath }/resources/js/timegrid.min.js"></script>
     <script src="${ pageContext.request.contextPath }/resources/js/interactions.min.js"></script>
     <script src="${ pageContext.request.contextPath }/resources/js/picker.js"></script>
     <script src="${ pageContext.request.contextPath }/resources/js/picker.date.js"></script>
     
-    <script src="${ pageContext.request.contextPath }/resources/js/fullcalendar.js"></script>		
+    	
 	
 	<!-- BEGIN: Page JS-->
 	<!-- END: Page JS-->
@@ -1502,26 +1550,10 @@ const options2 = {
 	
 	
 	
+		
 	
 	
-	function displayEvent(event) {
-	    var eventTitle =event.eventTitle,
-	      startDate = event.startDate,
-	      // endDate = event.endDate,
-	      eventDescription = event.eventDescription,
-	      correctEndDate = event.correctEndDate;
-	      //correctEndDate = new Date(endDate);
-	    calendar.addEvent({
-	      id: "newEvent",
-	      title: eventTitle,
-	      start: startDate,
-	      end: correctEndDate,
-	      description: eventDescription,
-	      color: evtColor,
-	      dataEventColor: eventColor,
-	      allDay: true
-	    });
-	  }
+	
 	
 	
 	
@@ -1578,6 +1610,93 @@ const options2 = {
 
         });
         
+        var i;
+    	
+    	function displayEvent(){
+    		for (i=0;i<taskIdList.length;i++){
+            	
+            	eventTitle =tasktitleList[i];
+            	startDate = taskDateList[i];
+            	eventDescription = 'taskCalendar'+taskIdList[i];
+            	correctEndDate = taskdeadlineList[i];
+            	
+            	calendar.addEvent({
+            	      id: "newEvent",
+            	      title: eventTitle,
+            	      start: startDate,
+            	      end: correctEndDate,
+            	      description: eventDescription,
+            	      allDay: true
+            	    });
+            }	
+    		
+    	}
+    	displayEvent();
+	
+        
+        /* var taskIdList = new Array();
+		var taskDateList = new Array();
+		var tasktitleList = new Array();
+		var taskdeadlineList = new Array(); */
+		
+		
+        
+        
+        /* Array.from(${taskList}).forEach(task) => {
+        
+        	eventTitle =${task.taskId},
+  	      startDate = "${task.taskDate}".substring(0,10);
+  	      // endDate = event.endDate,
+  	      eventDescription = 'taskCalendar';
+  	      if("${task.deadline}" == "")
+  	    	  {
+  	    	  correctEndDate=startDate;
+  	    	  }
+  	      //correctEndDate = event.deadline;
+  	      correctEndDate = "${task.deadline}".substring(0,10);
+  	    calendar.addEvent({
+  	      id: "newEvent",
+  	      title: eventTitle,
+  	      start: startDate,
+  	      end: correctEndDate,
+  	      description: eventDescription,
+  	      allDay: true
+  	    });
+        	
+        } */
+        
+        
+        
+       /*  function displayEvent(event) {
+    	    var eventTitle =event.taskId,
+    	      startDate = new Date(event.taskDate),
+    	      // endDate = event.endDate,
+    	      eventDescription = 'taskCalendar';
+    	      if(deadline == '')
+    	    	  {
+    	    	  correctEndDate=startDate;
+    	    	  }
+    	      //correctEndDate = event.deadline;
+    	      correctEndDate = new Date(event.deadline);
+    	    calendar.addEvent({
+    	      id: "newEvent",
+    	      title: eventTitle,
+    	      start: startDate,
+    	      end: correctEndDate,
+    	      description: eventDescription,
+    	      color: evtColor,
+    	      dataEventColor: eventColor,
+    	      allDay: true
+    	    });
+    	  }
+        
+        Array.from(${taskList}).forEach(tak => {
+		    displayEvent(task);
+		}); */
+        
+        
+        
+        
     
     	
     	
@@ -1594,6 +1713,10 @@ const options2 = {
     	
 
  });
+	
+	
+	
+
 
 
 
@@ -1932,6 +2055,8 @@ const options2 = {
 	    
 	  	createTaskForm.submit();
    }
+   
+   
    
    
    

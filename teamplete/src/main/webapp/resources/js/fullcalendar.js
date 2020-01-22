@@ -1,5 +1,6 @@
 /*=========================================================================================
     File Name: fullcalendar.js
+
     Description: Fullcalendar
     --------------------------------------------------------------------------------------
     Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
@@ -8,7 +9,7 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-document.addEventListener('DOMContentLoaded', function () {
+  $(document).ready(function() {
 
   // color object for different event types
   var colors = {
@@ -30,9 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
     eventColor = "";
 
   // calendar init
-  var calendarEl = document.getElementById('fc-default');
+  calendarEl = document.getElementById('fc-default');
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+  calendar = new FullCalendar.Calendar(calendarEl, {
     plugins: ["dayGrid"],
     customButtons: {
       addNew: {
@@ -72,9 +73,11 @@ document.addEventListener('DOMContentLoaded', function () {
     eventClick: function (info) {
     
       //task로 불러오는 경우일 때!!
-      if((info.event.extendedProps.description)=="taskCalendar"){
-    	  
-    	  let taskId = info.event.title;
+     var taskdescription=(info.event.extendedProps.description);	
+    	
+      if(taskdescription.substring(0,12)=="taskCalendar"){
+    	  taskdescription.substring(12,taskdescription.length);
+    	  let taskId = taskdescription.substring(12,taskdescription.length);
     	  console.log("taskId"+taskId);
     	  location.href = "/taskdetail/" + taskId;
       //DB에 저장되어 있는 Calendar 일정을 불러오는 경우일 때!!   
@@ -105,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // render calendar
   calendar.render();
+  
 
   // appends bullets to left class of header
   $("#basic-examples .fc-right").append(categoryBullets);
@@ -151,6 +155,8 @@ document.addEventListener('DOMContentLoaded', function () {
     evtColor = colors.primary;
     eventColor = "primary";
   });
+  
+  
 
   // change chip's and event's color according to event type
   $(".calendar-dropdown .dropdown-menu .dropdown-item").on("click", function () {
@@ -179,6 +185,9 @@ document.addEventListener('DOMContentLoaded', function () {
       "</div>" +
       "</div>"));
   });
+  
+ 
+ 
 
   // calendar add event
   $(".cal-add-event").on("click", function () {
@@ -238,9 +247,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
      }); 
   });
+  
+  
+  
 
   // date picker
   $(".pickadate").pickadate({
     format: 'yyyy-mm-dd'
   });
-});
+
+  });
