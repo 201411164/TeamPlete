@@ -134,7 +134,7 @@ public class TeamController {
 	public String updateTeam(TeamVO team, @PathVariable("teamId") int teamId) {
 		TeamVO team2= service.detailTeam(teamId);
 		service.updateTeamInfo(team);
-		return "redirect:/team/" + team2.getOwnerId();
+		return "redirect:/team";
 	}
 	
 	@RequestMapping(value = "/team/delete/{teamId}", method = RequestMethod.DELETE)
