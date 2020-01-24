@@ -47,25 +47,7 @@ public class TeamController {
 	private TeamService service;
 	
 	@Autowired
-	private MemberService memberService;
-	
-	@Autowired
-	private TaskService taskService;
-	
-	@Autowired
-	private BoardService boardService;
-	
-	@Autowired
-	private RequestService requestService;
-	
-	@Autowired
-	private ActivityService activityService;
-	
-	@Autowired
 	private ChatRoomService chatRoomService;
-	
-	@Autowired
-	private MsgService msgService;
 	
 
 	// 팀 등록한 뒤 팀 조회 페이지로 돌아감

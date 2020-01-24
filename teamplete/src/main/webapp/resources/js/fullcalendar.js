@@ -193,11 +193,16 @@
   $(".cal-add-event").on("click", function () {
     $(".modal-calendar").modal("hide");
     var eventTitle = $("#cal-event-title").val(),
+      teamId = $("#CalendarTeamId").val(),
+      regMemberid = $("#regMemberid").val(),
       startDate = $("#cal-start-date").val(),
       endDate = $("#cal-end-date").val(),
       eventDescription = $("#cal-description").val(),
       correctEndDate = new Date(endDate);
     
+    console.log("teamId:" + teamId);
+    console.log("regMemberid: " + regMemberid);
+    console.log("id: " + id);
     console.log("Title:"+eventTitle);
     console.log("start:"+startDate);
     console.log("Description:"+eventDescription);
@@ -216,10 +221,12 @@
       allDay: true
     });
     
-    var teamid = '<c:out value="${teamID}"/>';
+//    var teamid = '<c:out value="${teamID}"/>';
     
 
 										    var ajaxcalendar = {
+										    "teamId" : teamId,
+										    "regMemberid" : regMemberid,
 											"id" : "newEvent",
 											"title" : eventTitle,
 											"start" : startDate,
@@ -227,14 +234,13 @@
 											"description" : eventDescription,
 											"color" : evtColor,
 											"dataEventColor" : eventColor,
-											"allDay" : true,
-											"teamid" : teamid
+											"allDay" : true
 										}
     
     
     $.ajax({
         type : 'POST',
-        url : '/teamdetail/calendar',
+        url : '/calendar/write',
         data : JSON.stringify(ajaxcalendar),
         contentType : "application/json",
         traditional: true,
@@ -242,8 +248,9 @@
       	  console.log(data);
       	  location.reload();
         },
-        error : function(error) {
-      	  console.log(error);
+		error : function(request, status, error) {
+			console.log(data);
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
      }); 
   });

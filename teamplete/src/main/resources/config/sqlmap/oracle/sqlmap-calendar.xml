@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.teamplete.dao.CalendarDAO">
+
+	<resultMap type="CalendarVO" id="calendarMap">
+		<result column="calendar_id" property="calendarId" />
+		<result column="team_id" property="teamId" />
+		<result column="reg_memberid" property="regMemberid" />
+		<result column="data_event_color" property="dataEventColor" />
+		<result column="all_day" property="allDay" />
+	</resultMap>
+
+	<!-- 캘린더 insert -->
+	<insert id="insertCalendar" parameterType="CalendarVO">
+		insert into
+		calendar_tb(calendar_id, team_id, reg_memberid, id, title, "START", end,
+		description)
+		values(calendar_seq.nextval, #{teamId}, #{regMemberid}, #{id},
+		#{title}, #{start}, #{end}, #{description})
+	</insert>
+	
+   
+</mapper>

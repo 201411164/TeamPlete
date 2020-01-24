@@ -32,7 +32,7 @@ public class BoardController {
 
 	// insert board
 	@RequestMapping(value = "/{taskId}/board/write", method = RequestMethod.POST)
-	public String writeBoard(BoardVO board, @PathVariable("taskId") int taskId, Model model) {
+	public String writeBoard(BoardVO board, @PathVariable("taskId") int taskId) {
 
 		TaskVO task = taskService.selectTaskS(taskId);
 		

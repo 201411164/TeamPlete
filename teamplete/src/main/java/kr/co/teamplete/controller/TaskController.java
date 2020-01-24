@@ -46,7 +46,7 @@ public class TaskController {
 	
 	//태스크 등록
 	@PostMapping("/task/write")
-	public String insertTask(TaskVO task, Model model) {
+	public String insertTask(TaskVO task) {
 		
 		service.insertTaskS(task);
 		

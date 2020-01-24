@@ -122,7 +122,6 @@ const options2 = {
 
 </head>
 <body >
-<c:set var="teamID" value="${ team.teamId }" />
 
 	<c:choose>
 		<c:when test="${ empty loginVO }">
@@ -711,6 +710,8 @@ const options2 = {
                                                 </div>
                                             </div>
                                         </div>
+                                        <input type="hidden" nama="teamId" id="CalendarTeamId" value="${ team.teamId }">
+                                        <input type="hidden" nama="regMemberid" id="regMemberid" value="${ loginVO.memberid }">
                                         <fieldset class="form-label-group">
                                             <input type="text" class="form-control" id="cal-event-title" placeholder="Event Title">
                                             <label for="cal-event-title">Event Title</label>
