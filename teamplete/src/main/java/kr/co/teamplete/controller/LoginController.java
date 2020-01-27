@@ -1,18 +1,13 @@
 package kr.co.teamplete.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.BoardVO;
+import kr.co.teamplete.dto.CalendarVO;
 import kr.co.teamplete.dto.ChargeVO;
-import kr.co.teamplete.dto.ChatRoomVO;
 import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.MsgVO;
@@ -38,6 +33,7 @@ import kr.co.teamplete.method.Deadline;
 import kr.co.teamplete.method.UpdateTime;
 import kr.co.teamplete.service.ActivityService;
 import kr.co.teamplete.service.BoardService;
+import kr.co.teamplete.service.CalendarService;
 import kr.co.teamplete.service.ChatRoomService;
 import kr.co.teamplete.service.LoginService;
 import kr.co.teamplete.service.MemberService;
@@ -80,6 +76,9 @@ public class LoginController {
 	
     @Autowired
     private KakaoRestAPI kakao;
+    
+    @Autowired
+    private CalendarService calendarService;
 	
 	
 	String loginId;
@@ -216,6 +215,8 @@ public class LoginController {
 	@RequestMapping(value = "/teamdetail/{id}", method = {RequestMethod.GET})
 	public ModelAndView teamDetail(@PathVariable("id") int teamId) {
 		
+		List<CalendarVO> calendarList = calendarService.selectAllCalendar(teamId);
+		
 		MemberVO user = memberService.selectMemberById(loginId);
 		
 		//채팅내용 조회
@@ -317,6 +318,7 @@ public class LoginController {
 		map.put("activityTime", activityTime);
 		map.put("msgList", msgList);
 		map.put("user", user);
+		map.put("calendarList", calendarList);
 		
 		
 		ModelAndView mav = new ModelAndView();

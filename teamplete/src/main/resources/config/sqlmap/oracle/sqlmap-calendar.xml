@@ -21,5 +21,18 @@
 		#{title}, #{start}, #{end}, #{description})
 	</insert>
 	
+	<!-- 모든 캘린더 select -->
+	<select id="selectAllCalendar" parameterType="int" resultMap="calendarMap">
+		select *
+		 from calendar_tb
+		  where team_id = #{teamId}
+	</select>
+	
+	<!-- 특정 캘린더 상세 -->
+	<select id="selectCalendarById" parameterType="int" resultMap="calendarMap">
+		select *
+		 from calendar_tb
+		  where calendar_id = #{calendarId}
+	</select>
    
 </mapper>
