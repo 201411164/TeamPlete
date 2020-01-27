@@ -1636,48 +1636,23 @@ const options2 = {
     	
     	
     	
-    	/* 캘린더 */
-		var CalendarIdList = new Array();
-		var CalendarDateList = new Array();
-		var CalendartitleList = new Array();
-		var CalendardeadlineList = new Array();
-		var CalendarDescriptionList = new Array();
-		var calendarTitle = "";
-		
-		'<c:forEach items="${calendarList}" var="calendarOne">'
-		  eventTitle = "${calendarOne.calendarId}",
-	      startDate = "${calendarOne.start}",
-	      endDate = "${calendarOne.end}",
-	      eventDescription = "${calendarOne.description}";
-	      calendarTitle = "${calendarOne.title}";
-	      CalendarIdList.push(eventTitle);
-	      CalendarDateList.push(startDate);
-	      CalendartitleList.push(calendarTitle);
-	      CalendardeadlineList.push(endDate);
-	      CalendarDescriptionList.push(eventDescription);
-		
-    	'</c:forEach>'
-    	
+    		/* 캘린더 */
 	    	function displayEventCalendar(){
-	    		for (var i=0; i<CalendarIdList.length; i++){
-	            	
-	            	eventTitle =CalendartitleList[i];
-	            	startDate = CalendarDateList[i];
-	            	eventDescription = CalendarDescriptionList[i];
-	            	correctEndDate = CalendardeadlineList[i];
-	            	
+	    		'<c:forEach items="${calendarList}" var="calendarOne">'
 	            	calendar.addEvent({
 	            	      id: "newEvent",
-	            	      title: eventTitle,
-	            	      start: startDate,
-	            	      end: correctEndDate,
-	            	      description: eventDescription,
+	            	      title: "${calendarOne.title}",
+	            	      start: "${calendarOne.start}",
+	            	      end: "${calendarOne.end}",
+	            	      description: "${calendarOne.description}",
+	            	      color : "${calendarOne.color}",
+	            	      dataEventColor: "${calendarOne.dataEventColor}",
 	            	      allDay: true
 	            	    });
-	            }	
+	            '</c:forEach>'
 	    		
 	    	}
-	    	displayEventCalendar();   	
+	    	displayEventCalendar();
     	
     	
     	
