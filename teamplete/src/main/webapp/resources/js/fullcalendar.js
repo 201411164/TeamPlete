@@ -40,7 +40,10 @@
         text: ' 추가하기',
         click: function () {
           var calDate = new Date,
-            todaysDate = calDate.toISOString().slice(0, 10);
+            todaysDate = new Date(calDate.getTime() - (calDate.getTimezoneOffset() * 60000 ))
+            .toISOString()
+            .split("T")[0];          
+          
           $(".modal-calendar").modal("show");
           $(".modal-calendar .cal-submit-event").addClass("d-none");
           $(".modal-calendar .remove-event").addClass("d-none");
@@ -59,11 +62,14 @@
       right: "prev,title,next"
     },
     displayEventTime: false,
-    navLinks: true,
+    navLinks: false,
     editable: true,
-    allDay: true,
+    allDay: false,
     navLinkDayClick: function (date) {
       $(".modal-calendar").modal("show");
+      console.log("this.dataset.goto:"+this.dataset);
+      //$(".modal-calendar #cal-start-date").val(new Date(this.dataset.goto).toISOString().slice(0, 10));
+      //$(".modal-calendar #cal-end-date").val(new Date(this.dataset.goto).toISOString().slice(0, 10));
     },
     dateClick: function (info) {
       $(".modal-calendar #cal-start-date").val(info.dateStr).attr("disabled", true);
@@ -150,6 +156,8 @@
     $(".modal-calendar .remove-event").addClass("d-none");
     $(".modal-calendar .cal-add-event").removeClass("d-none");
     $(".modal-calendar .cancel-event").removeClass("d-none");
+    $(".modal-calendar #cal-start-date").val(new Date(this.dataset.date).toISOString().slice(0, 10));
+    $(".modal-calendar #cal-end-date").val(new Date(this.dataset.date).toISOString().slice(0, 10));
     $(".modal-calendar .add-category .chip").remove();
     $(".modal-calendar .modal-footer .btn").attr("disabled", true);
     evtColor = colors.primary;
@@ -218,7 +226,7 @@
       description: eventDescription,
       color: evtColor,
       dataEventColor: eventColor,
-      allDay: true
+      allDay: false
     });
     
 //    var teamid = '<c:out value="${teamID}"/>';
@@ -234,7 +242,7 @@
 											"description" : eventDescription,
 											"color" : evtColor,
 											"dataEventColor" : eventColor,
-											"allDay" : true
+											"allDay" : false
 										}
     
     

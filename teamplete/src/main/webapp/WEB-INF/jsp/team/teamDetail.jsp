@@ -1627,7 +1627,7 @@ const options2 = {
             	      start: startDate,
             	      end: correctEndDate,
             	      description: eventDescription,
-            	      allDay: true
+            	      allDay: false
             	    });
             }	
     		
@@ -1647,7 +1647,7 @@ const options2 = {
 	            	      description: "${calendarOne.description}",
 	            	      color : "${calendarOne.color}",
 	            	      dataEventColor: "${calendarOne.dataEventColor}",
-	            	      allDay: true
+	            	      allDay: false
 	            	    });
 	            '</c:forEach>'
 	    		
