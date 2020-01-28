@@ -961,17 +961,20 @@ const options2 = {
 							      startDate = "${task.taskDate}".substring(0,10);
 							      // endDate = event.endDate,
 							     // eventDescription = 'taskCalendar';
-							      if("${task.deadline}" == "")
+							       if("${task.deadline}" == "")
 							    	  {
-							    	  correctEndDate=startDate;
 							    	  }
-							      //correctEndDate = event.deadline;
-							      correctEndDate = "${task.deadline}".substring(0,10);
-							      var tasktitle = "${task.title}";
-							      taskIdList.push(eventTitle);
-							      taskDateList.push(startDate);
-							      tasktitleList.push(tasktitle);
-						          taskdeadlineList.push(correctEndDate);
+							       else{
+							    	   console.log("deadline");
+							    	   console.log(${task.deadline});
+							    	   correctEndDate = "${task.deadline}".substring(0,10);
+									      var tasktitle = "${task.title}";
+									      taskIdList.push(eventTitle);
+									      taskDateList.push(startDate);
+									      tasktitleList.push(tasktitle);
+								          taskdeadlineList.push(correctEndDate);
+							       }
+							     
 						        /* calendar.addEvent({
 						    	      id: "newEvent",
 						    	      title: eventTitle,
@@ -1620,7 +1623,12 @@ const options2 = {
             	startDate = taskDateList[i];
             	eventDescription = 'taskCalendar'+taskIdList[i];
             	correctEndDate = taskdeadlineList[i];
-            	
+            	/*  var calDate = new Date(taskdeadlineList[i]),
+                 todaysDate = new Date(calDate.getTime() - (calDate.getTimezoneOffset() * 60000 ))
+                 .toISOString()
+                 .split("T")[0];
+            	 correctEndDate = todaysDate; */
+            	console.log("날짜가어떻게나오는지보자"+correctEndDate);
             	calendar.addEvent({
             	      id: "newEvent",
             	      title: eventTitle,
