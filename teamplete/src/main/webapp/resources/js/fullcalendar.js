@@ -65,7 +65,7 @@
       right: "prev,title,next"
     },
     displayEventTime: false,
-    navLinks: false,
+    navLinks: true,
     editable: true,
     allDay: false,
     navLinkDayClick: function (date) {
@@ -225,6 +225,23 @@
     evtColor = colors.primary;
     eventColor = "primary";
   });
+  
+  
+  
+  $(document).on("click", ".fc-day-top", function () {
+	    $(".modal-calendar").modal("show");
+	    $(".calendar-dropdown .dropdown-menu").find(".selected").removeClass("selected");
+	    $(".modal-calendar .cal-submit-event").addClass("d-none");
+	    $(".modal-calendar .remove-event").addClass("d-none");
+	    $(".modal-calendar .cal-add-event").removeClass("d-none");
+	    $(".modal-calendar .cancel-event").removeClass("d-none");
+	    $(".modal-calendar #cal-start-date").val(new Date(this.dataset.date).toISOString().slice(0, 10));
+	    $(".modal-calendar #cal-end-date").val(new Date(this.dataset.date).toISOString().slice(0, 10));
+	    $(".modal-calendar .add-category .chip").remove();
+	    $(".modal-calendar .modal-footer .btn").attr("disabled", true);
+	    evtColor = colors.primary;
+	    eventColor = "primary";
+	  });
   
   
 
