@@ -10,7 +10,6 @@
 	</settings>
 	
    <typeAliases>
-      <typeAlias type="kr.co.teamplete.dto.TaskDateVO" alias="TaskDateVO"/>
       <typeAlias type="kr.co.teamplete.dto.MemberVO" alias="MemberVO"/>
       <typeAlias type="kr.co.teamplete.dto.TeamVO" alias="TeamVO"/>
       <typeAlias type="kr.co.teamplete.dto.TeamMemberVO" alias="TeamMemberVO"/>
