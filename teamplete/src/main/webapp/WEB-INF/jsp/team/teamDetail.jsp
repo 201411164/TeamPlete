@@ -246,13 +246,23 @@ const options2 = {
                             <div class="card">
                                 <div class="card-header mt-0">
                                     <h3 class="card-title text-primary mb-1" style="font-family:'Inter';'" >팀 활동내역</h3>
+                                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li ><a data-action="collapse" id="teamcollapsebutton"><i class="feather icon-chevron-down"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    
                                 </div>
-                                <div class="card-content">
-                                    <div class="card-body pt-0 pb-0 mb-0">
+                                    <div class="card-body pt-0 pb-0 mb-0" id="teamcarousel">
+                                    
+                                                                                   
+                                    
+                                    
                                     
                                     	<div id="carousel-timeline" class="carousel carousel-fade" data-ride="carousel">
                                     		<ol class="carousel-indicators" >
-											<c:forEach items="${ activityList }" var="activity" varStatus="status">
+											<c:forEach items="${ activityList }" begin="0" end="4" var="activity" varStatus="status">
 											<c:choose>
 											<c:when test="${status.first}">
 											<li data-target="#carousel-timeline" data-slide-to="${status.index}" class="active" style="background-color:#7367f0;"></li>
@@ -263,9 +273,7 @@ const options2 = {
 											</c:choose>
 											</c:forEach>
 											</ol>
-                                        
-                                        
-                                        
+											
                                     		
 											<div class="carousel-inner" role="listbox">
 											
@@ -383,7 +391,112 @@ const options2 = {
                                         
                                     </div>    
                                     </div>
-                                </div>
+                                 <div class="card-content collapse" id="teamcollapse">
+                                 <div class="card-body mt-0 pt-0">
+                                 <c:forEach items="${ activityList }" var="activity" varStatus="status">
+											
+											<c:choose>
+											<c:when test="${status.first}">
+											<c:choose>
+														<c:when test="${ activity.msg1 ne null }">
+														<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+																<div class="timeline-icon bg-success">
+																	<i class="feather icon-${activity.type} font-medium-2"></i>
+																</div>
+																<div class="timeline-info">
+																	<p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">활동 추가됨</p>
+																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 <strong class="text-success">${ activity.msg1 }</strong>
+																		카드에서 <strong>${ activity.msg2 }</strong>${ activity.msg3 }</span>
+																</div> <small class="text-primary">${ activityTime[status.index] }</small>
+															</li>
+														</ul>	
+
+
+														</c:when>
+														<c:when test="${ activity.msg1 eq null and activity.msg2 eq null }">
+														<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+																<div class="timeline-icon bg-success">
+																	<i class="feather icon-${activity.type} font-medium-2"></i>
+																</div>
+																<div class="timeline-info">
+																	<p class="font-weight-bold " style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
+																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
+																</div> <small class="text-primary">${ activityTime[status.index] }</small>
+															</li>
+															</ul>
+														</c:when>
+														
+												<c:otherwise>
+												<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+														
+                                                <div class="timeline-icon bg-primary">
+                                                    <i class="feather icon-${activity.type} font-medium-2"></i>
+                                                </div>
+                                                <div class="timeline-info">
+                                                    <p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
+                                                    <span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
+                                                </div>
+                                                <small class="text-primary">${ activityTime[status.index] }</small>
+                                            </li>
+                                            </ul>
+												</c:otherwise>
+												</c:choose>				
+											</c:when>
+											<c:otherwise>
+												<c:choose>
+														<c:when test="${ activity.msg1 ne null }">
+															<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+																<div class="timeline-icon bg-success">
+																	<i class="feather icon-${activity.type} font-medium-2"></i>
+																</div>
+																<div class="timeline-info">
+																	<p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">활동 추가됨</p>
+																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 <strong class="text-success">${ activity.msg1 }</strong>
+																		카드에서 <strong>${ activity.msg2 }</strong>${ activity.msg3 }</span>
+																</div> <small class="text-primary">${ activityTime[status.index] }</small>
+															</li>
+															</ul>
+
+
+														</c:when>
+														<c:when test="${ activity.msg1 eq null and activity.msg2 eq null }">
+															<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+																<div class="timeline-icon bg-success">
+																	<i class="feather icon-${activity.type} font-medium-2"></i>
+																</div>
+																<div class="timeline-info">
+																	<p class="font-weight-bold " style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
+																	<span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
+																</div> <small class="text-primary">${ activityTime[status.index] }</small>
+															</li>
+															</ul>
+														</c:when>
+														
+												<c:otherwise>
+												<ul class="activity-timeline timeline-left list-unstyled">
+															<li>
+                                                <div class="timeline-icon bg-primary">
+                                                    <i class="feather icon-${activity.type} font-medium-2"></i>
+                                                </div>
+                                                <div class="timeline-info">
+                                                    <p class="font-weight-bold" style="color:#263747; font-size:1.35rem;">${ activity.msg3 }</p>
+                                                    <span><strong class="font-weight-bold mt-1" style="color:#263747">${ activity.name }</strong>님이 ${ activity.msg3 }</span>
+                                                </div>
+                                                <small class="text-primary">${ activityTime[status.index] }</small>
+                                            </li>
+                                            </ul>
+												</c:otherwise>
+												</c:choose>
+												</c:otherwise>												
+												</c:choose>		
+											</c:forEach>
+                                 </div>
+                                 </div>
                             </div>
                         </div>
 						
@@ -1553,7 +1666,14 @@ const options2 = {
 	
 	
 	
-	
+	$("#teamcollapsebutton").click(function(){
+		var x = document.getElementById("teamcarousel");
+		  if (x.style.display === "none") {
+		    x.style.display = "block";
+		  } else {
+		    x.style.display = "none";
+		  }
+    });
 		
 	
 	
