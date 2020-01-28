@@ -2,7 +2,7 @@ package kr.co.teamplete.dto;
 
 public class CalendarVO {
 
-	private String id, title, start, end, description, color, dataEventColor; 
+	private String title, start, end, description, color, dataEventColor; 
 	
 	//이상 캘린더 생성시 필수적인 요소들(front에서 ajax로 받아올 자료들)
 	// 여기서 id는 "newEvent"와 같이 이벤트 종류를 구분하는 id, 따라서 프라이머리 키를 위해 calendarid int 추가
@@ -23,10 +23,9 @@ public class CalendarVO {
 
 
 
-	public CalendarVO(String id, String title, String start, String end, String description, String color,
-			String dataEventColor, int calendarId, int teamId, String regMemberid) {
+	public CalendarVO(String title, String start, String end, String description, String color, String dataEventColor,
+			int calendarId, int teamId, String regMemberid) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.start = start;
 		this.end = end;
@@ -36,18 +35,6 @@ public class CalendarVO {
 		this.calendarId = calendarId;
 		this.teamId = teamId;
 		this.regMemberid = regMemberid;
-	}
-
-
-
-	public String getId() {
-		return id;
-	}
-
-
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 
@@ -162,11 +149,12 @@ public class CalendarVO {
 
 	@Override
 	public String toString() {
-		return "CalendarVO [id=" + id + ", title=" + title + ", start=" + start + ", end=" + end + ", description="
-				+ description + ", color=" + color + ", dataEventColor=" + dataEventColor + ", calendarId=" + calendarId
-				+ ", teamId=" + teamId + ", regMemberid=" + regMemberid + "]";
+		return "CalendarVO [title=" + title + ", start=" + start + ", end=" + end + ", description=" + description
+				+ ", color=" + color + ", dataEventColor=" + dataEventColor + ", calendarId=" + calendarId + ", teamId="
+				+ teamId + ", regMemberid=" + regMemberid + "]";
 	}
 
+	
 	
 	
 

@@ -30,5 +30,18 @@ public class CalendarDAOImpl implements CalendarDAO{
 		CalendarVO calendar = session.selectOne("kr.co.teamplete.dao.CalendarDAO.selectCalendarById", calendarId);
 		return calendar;
 	}
+
+	@Override
+	public void modifyCalendar(CalendarVO calendar) {
+		// TODO Auto-generated method stub
+		session.update("kr.co.teamplete.dao.CalendarDAO.modifyCalendar", calendar);
+	}
+
+	@Override
+	public void deleteCalendar(int calendarId) {
+		// TODO Auto-generated method stub
+		session.delete("kr.co.teamplete.dao.CalendarDAO.deleteCalendar", calendarId);
+		
+	}
 	
 }

@@ -31,4 +31,16 @@ public class CalendarServiceImpl implements CalendarService{
 		return calendar;
 	}
 
+	@Override
+	public void modifyCalendar(CalendarVO calendar) {
+		// TODO Auto-generated method stub
+		calendarDAO.modifyCalendar(calendar);
+	}
+
+	@Override
+	public void deleteCalendar(int calendarId) {
+		// TODO Auto-generated method stub
+		calendarDAO.deleteCalendar(calendarId);
+	}
+
 }

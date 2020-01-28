@@ -1636,11 +1636,11 @@ const options2 = {
     	
     	
     	
-    		/* 캘린더 */
+    		/* 캘린더 보여주는 코드 */
 	    	function displayEventCalendar(){
 	    		'<c:forEach items="${calendarList}" var="calendarOne">'
 	            	calendar.addEvent({
-	            	      id: "newEvent",
+	            	      id: "${calendarOne.calendarId}",
 	            	      title: "${calendarOne.title}",
 	            	      start: "${calendarOne.start}",
 	            	      end: "${calendarOne.end}",

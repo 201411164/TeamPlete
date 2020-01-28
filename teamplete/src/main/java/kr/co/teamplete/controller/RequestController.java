@@ -23,11 +23,10 @@ public class RequestController {
 	// insert request
 	@RequestMapping(value="/team/request", method = RequestMethod.POST)
 	@ResponseBody
-	public RequestVO requestTeam(@RequestBody RequestVO request) {
+	public void requestTeam(@RequestBody RequestVO request) {
 		
 		service.insertRequest(request);
 		
-		return request;
 	}
 
 	// delete request

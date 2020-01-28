@@ -109,13 +109,11 @@
 						</c:forEach>
 						<c:choose>
 						<c:when test="${ cnt2 eq 0 }">
-						<form method="post" action="${pageContext.request.contextPath}/team/request" name="requestForm">
-						<input type="hidden" name="ownerId" id="ownerId" value="${ team.ownerId }">
-						<input type="hidden" name="teamId" id="teamId" value="${ team.teamId}">
-						<input type="hidden" name="reqMemberid" id="reqMemberid" value="${ loginVO.memberid }">
-						<input type="hidden" name="teamName" id="teamName" value="${ team.teamName }">
-						<button type="button" class="btn btn-sm btn-primary round" name="requestBtn">초대 요청</button>
-						</form>
+						<input type="hidden" name="ownerId" id="ownerId${ team.teamId }" value="${ team.ownerId }">
+						<input type="hidden" name="teamId" id="teamId${ team.teamId }" value="${ team.teamId }">
+						<input type="hidden" name="reqMemberid" id="reqMemberid${ team.teamId }" value="${ loginVO.memberid }">
+						<input type="hidden" name="teamName" id="teamName${ team.teamId }" value="${ team.teamName }">
+						<button type="button" class="btn btn-sm btn-primary round" name="requestBtn" value="${ team.teamId }">초대 요청</button>
 						</c:when>
 						<c:otherwise>
 						<h4>초대 요청 완료.</h4>
@@ -183,7 +181,9 @@
 
 $("button[name='requestBtn']").click(function() {
 	
-	var form = document.requestForm;
+// 	var form = document.requestForm;
+	
+	var id = this.value;
 
 	Swal.fire({
 		 title: '초대 요청을 보내시겠습니까?',
@@ -204,10 +204,10 @@ $("button[name='requestBtn']").click(function() {
 					  type: 'success',
 					  confirmButtonText: '좋아요'
 			  }).then((result) => {
-				  var data = {ownerId : $('#ownerId').val(),
-		    		   	   	  teamId : $('#teamId').val(),
-		    		   	      reqMemberid : $('#reqMemberid').val(),
-		    		   	      teamName : $('#teamName').val()
+				  var data = {ownerId : $('#ownerId'+id).val(),
+		    		   	   	  teamId : $('#teamId'+id).val(),
+		    		   	      reqMemberid : $('#reqMemberid'+id).val(),
+		    		   	      teamName : $('#teamName'+id).val()
 		    		   	   };
 		       $.ajax({
 		          type : 'POST',

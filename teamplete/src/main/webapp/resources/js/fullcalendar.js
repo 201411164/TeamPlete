@@ -29,6 +29,9 @@
   var categoryBullets = $(".cal-category-bullets").html(),
     evtColor = "",
     eventColor = "";
+  
+  
+  var calendarId = "";
 
   // calendar init
   calendarEl = document.getElementById('fc-default');
@@ -90,6 +93,8 @@
       }else{
     	  console.log("벨류값"+(info.event.extendedProps.description));
     	  $(".modal-calendar").modal("show");
+    	  calendarId = info.event.id;
+    	  console.log("캘린더 아이디 확인: " + calendarId);
           $(".modal-calendar #cal-event-title").val(info.event.title);
           $(".modal-calendar #cal-start-date").val(moment(info.event.start).format('YYYY-MM-DD'));
           $(".modal-calendar #cal-end-date").val(moment(info.event.end).format('YYYY-MM-DD'));
@@ -122,12 +127,69 @@
   // Close modal on submit button
   $(".modal-calendar .cal-submit-event").on("click", function () {
     $(".modal-calendar").modal("hide");
+    
+    var removeEvent = calendar.getEventById(calendarId);
+    removeEvent.remove();
+    
+    calendar.addEvent({
+        id: calendarId,
+        title: $("#cal-event-title").val(),
+        start: $("#cal-start-date").val(),
+        end: new Date($("#cal-end-date").val()),
+        description: $("#cal-description").val(),
+        color: evtColor,
+        dataEventColor: eventColor,
+        allDay: false
+      });
+  
+    
+    var calendarData = {
+    		"calendarId" : calendarId,
+    		"title" : $("#cal-event-title").val(),
+    		"start" : $("#cal-start-date").val(),
+    		"end" : new Date($("#cal-end-date").val()),
+			"description" : $("#cal-description").val(),
+			"color" : evtColor,
+			"dataEventColor" : eventColor
+			}
+    
+  
+  $.ajax({
+      type : 'PUT',
+      url : '/calendar/modify',
+      data : JSON.stringify(calendarData),
+      contentType : "application/json",
+      traditional: true,
+      success : function(data) {
+    	  console.log(data);
+//    	  location.reload();
+      },
+		error : function(request, status, error) {
+		  console.log(data);
+          console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      }
+   }); 
+    
   });
 
   // Remove Event
   $(".remove-event").on("click", function () {
-    var removeEvent = calendar.getEventById('newEvent');
+    var removeEvent = calendar.getEventById(calendarId);
     removeEvent.remove();
+    
+    $.ajax({
+        type : 'DELETE',
+        url : '/calendar/delete/' + calendarId,
+        success : function(data) {
+      	  console.log(data);
+//      	  location.reload();
+        },
+  		error : function(request, status, error) {
+  			console.log(data);
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+     }); 
+    
   });
 
 
@@ -219,7 +281,7 @@
     console.log("dataEventColor:"+eventColor);
     
     calendar.addEvent({
-      id: "newEvent",
+      id: null,
       title: eventTitle,
       start: startDate,
       end: correctEndDate,
@@ -229,21 +291,16 @@
       allDay: false
     });
     
-//    var teamid = '<c:out value="${teamID}"/>';
-    
-
-										    var ajaxcalendar = {
-										    "teamId" : teamId,
-										    "regMemberid" : regMemberid,
-											"id" : "newEvent",
-											"title" : eventTitle,
-											"start" : startDate,
-											"end" : correctEndDate,
-											"description" : eventDescription,
-											"color" : evtColor,
-											"dataEventColor" : eventColor,
-											"allDay" : false
-										}
+    var ajaxcalendar = {
+    		"teamId" : teamId,
+    		"regMemberid" : regMemberid,
+    		"title" : eventTitle,
+			"start" : startDate,
+			"end" : correctEndDate,
+			"description" : eventDescription,
+			"color" : evtColor,
+			"dataEventColor" : eventColor
+			}
     
     
     $.ajax({

@@ -12,32 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import kr.co.teamplete.dto.ActivityVO;
-import kr.co.teamplete.dto.BoardVO;
 import kr.co.teamplete.dto.CalendarVO;
-import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.ChatRoomVO;
-import kr.co.teamplete.dto.FileVO;
-import kr.co.teamplete.dto.MemberVO;
-import kr.co.teamplete.dto.MsgVO;
-import kr.co.teamplete.dto.RequestVO;
-import kr.co.teamplete.dto.TaskFileVO;
-import kr.co.teamplete.dto.TaskVO;
 import kr.co.teamplete.dto.TeamMemberVO;
 import kr.co.teamplete.dto.TeamVO;
-import kr.co.teamplete.method.Deadline;
-import kr.co.teamplete.method.UpdateTime;
-import kr.co.teamplete.service.ActivityService;
-import kr.co.teamplete.service.BoardService;
 import kr.co.teamplete.service.ChatRoomService;
-import kr.co.teamplete.service.MemberService;
-import kr.co.teamplete.service.MsgService;
-import kr.co.teamplete.service.RequestService;
-import kr.co.teamplete.service.TaskService;
 import kr.co.teamplete.service.TeamService;
 
 @Controller
@@ -104,20 +85,6 @@ public class TeamController {
 	}
 	
 	
-	
-	/*
-	 * @RequestMapping(value = "/teamdetail/{id}/calendar", method =
-	 * RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String addCalendarEvent( @RequestBody CalendarVO
-	 * mycalendar, @PathVariable("id") int teamId) { for (String s : memberList) {
-	 * //teamMember.setMemberId(s); TeamMemberVO teamMember = new TeamMemberVO();
-	 * teamMember.setMemberId(s); teamMember.setTeamId(teamId);
-	 * service.insertTeamMem(teamMember); }
-	 * 
-	 * return "redirect:/team/" }
-	 */
-	
 	@RequestMapping(value = "/teamdetail/calendar", method = { RequestMethod.POST})
 	
 	public void addCalendar(CalendarVO calendar) {
@@ -132,7 +99,6 @@ public class TeamController {
 	//팀 정보 수정
 	@RequestMapping(value = "/team/update/{teamId}", method = { RequestMethod.POST, RequestMethod.GET })
 	public String updateTeam(TeamVO team, @PathVariable("teamId") int teamId) {
-		TeamVO team2= service.detailTeam(teamId);
 		service.updateTeamInfo(team);
 		return "redirect:/team";
 	}
