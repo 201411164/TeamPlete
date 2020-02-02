@@ -7,13 +7,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.ActivityVO;
@@ -23,6 +21,7 @@ import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.TaskFileVO;
 import kr.co.teamplete.dto.TaskVO;
+import kr.co.teamplete.dto.TeamVO;
 import kr.co.teamplete.method.Deadline;
 import kr.co.teamplete.service.ActivityService;
 import kr.co.teamplete.service.BoardService;
@@ -69,7 +68,9 @@ public class TaskController {
 	public ModelAndView taskDetail(@PathVariable("taskId") int taskId) {
 		
 		TaskVO task = service.selectTaskS(taskId);
-		
+
+		TeamVO teamDetail = teamService.detailTeam(task.getTeamId());
+				
 		Map<String, Object> objectMap = new HashMap<>();
 		
 		String deadline = Deadline.deadline(task.getDeadline());
@@ -134,6 +135,7 @@ public class TaskController {
 		objectMap.put("chargeListAllcnt", chargeListAll.size());
 		objectMap.put("chargeListNcnt", chargeListN.size());
 		objectMap.put("chargeListYcnt", chargeListY.size());
+		objectMap.put("teamDetail", teamDetail);
 		
 		ModelAndView mav = new ModelAndView();
 		

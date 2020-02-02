@@ -306,7 +306,7 @@ border-style: none !important;
 																<c:set var="count4" value="${count4 + 1}" scope="page" />
 
 
-																<div class="card collapse-header">
+																<div class="card collapse-header" name="boardDiv${ board.boardId }">
 																	<div id="heading${count4}"
 																		class="card-header collapse-header"
 																		data-toggle="collapse" role="button"
@@ -390,7 +390,7 @@ border-style: none !important;
 
 
 
-																<div id="accordion${count4}" role="tabpanel"
+																<div id="accordion${count4}" role="tabpanel" name="boardDiv${ board.boardId }"
 																	data-parent="#accordionWrapa1"
 																	aria-labelledby="heading${count4}" class="collapse">
 																	<div class="card-content">
@@ -422,8 +422,7 @@ border-style: none !important;
 																						<c:choose>
 																							<c:when test="${ boardFile.fileSize >= 1024 }">
 																								<h6 id="strong" style="display: inline;">
-																									(
-																									<fmt:formatNumber
+																									(<fmt:formatNumber
 																										value="${ boardFile.fileSize / 1024 }"
 																										pattern=".00" />
 																									MB)
@@ -517,9 +516,12 @@ border-style: none !important;
 																			</div>
 																		</div>
 																</div>
-
 																<button name="deleteBoard" id="deleteBoard"
-																	onClick="deleteBoard(${ board.boardId })">삭제</button>
+																onClick="deleteBoard(${ board.boardId })"
+																class="btn round btn-warning mb-3 mr-1">
+																<i class="feather icon-trash-2 mr-1"></i>삭제
+																</button>
+																
 																</c:if>
 														</div>
 
@@ -748,7 +750,7 @@ border-style: none !important;
 													<div class="media">
 														<div class="media-body text-right">
 															<c:choose>
-															<c:when test="${ member.memberid eq team.ownerId }">
+															<c:when test="${ member.memberid eq teamDetail.ownerId }">
 																<h4 class="mt-1 media-heading" style="font-weight: 600;">${member.name }
 																<img data-toggle="tooltip" data-placement="top" title="이 팀의 팀장입니다!"
 																		src="${ pageContext.request.contextPath }/resources/images/crown.png"
@@ -766,14 +768,37 @@ border-style: none !important;
 														<div class="media-right avatar">
 															<div
 																style="position: relative; text-align: center; color: white;">
-																<img
-																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
-																	alt="avtar img holder" height="64" width="64">
-																<div class="custom-avatar-container" style="font-size:1.2rem;">
-																	<c:set var="membername" value="${ member.name }" />
-																	<c:set var="firstletter"
-																		value="${fn:substring(membername, 0, 1)}" />${firstletter}
-																</div>
+<!-- 																<img -->
+<%-- 																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}" --%>
+<!-- 																	alt="avtar img holder" height="64" width="64"> -->
+<!-- 																<div class="custom-avatar-container" style="font-size:1.2rem;"> -->
+<%-- 																	<c:set var="membername" value="${ member.name }" /> --%>
+<%-- 																	<c:set var="firstletter" --%>
+<%-- 																		value="${fn:substring(membername, 0, 1)}" />${firstletter} --%>
+<!-- 																</div> -->
+																
+																
+																<c:choose>
+																				<c:when
+																					test="${fn:startsWith(member.profile, 'circle')}">
+																					<img
+																						src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
+																						alt="avtar img holder" height="64" width="64">
+																					<div class="custom-avatar-container"
+																						style="font-size: 1.2rem;">
+																						<c:set var="membername" value="${ member.name }" />
+																						<c:set var="firstletter"
+																							value="${fn:substring(membername, 0, 1)}" />${firstletter}
+																					</div>
+																				</c:when>
+																				<c:otherwise>
+																					<img src="${member.profile}" alt="avtar img holder"
+																						height="64" width="64">
+																				</c:otherwise>
+																			</c:choose>
+																
+																
+																
 															</div>
 														</div>
 													</div>
@@ -808,8 +833,7 @@ border-style: none !important;
 															<c:choose>
 																<c:when test="${ file.fileSize >= 1024 }">
 																	<h6 id="strong" style="display: inline;">
-																		(
-																		<fmt:formatNumber value="${ file.fileSize / 1024 }"
+																		(<fmt:formatNumber value="${ file.fileSize / 1024 }"
 																			pattern=".00" />
 																		MB)
 																	</h6>
@@ -1307,7 +1331,7 @@ border-style: none !important;
 							url : '/board/delete/' + boardId,
 							type : 'DELETE'
 						});
-					  location.reload();
+					  $("div[name='boardDiv" + boardId + "']").remove();
 					  
 				  });
 				 

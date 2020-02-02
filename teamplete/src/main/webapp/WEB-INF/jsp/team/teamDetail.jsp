@@ -542,7 +542,6 @@ const options2 = {
 													<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
-														<a href="${ pageContext.request.contextPath}/mypage/${member.memberid}">
 															<div style="position: relative; text-align: center; color: white;">
 																<img
 																	src="${ pageContext.request.contextPath }/resources/images/${member.profile}"
@@ -554,7 +553,6 @@ const options2 = {
 																</div>
 															</div><span
 																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
-														</a>
 														</div>
 														
 
@@ -583,7 +581,6 @@ const options2 = {
 												<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
-														<a href="${ pageContext.request.contextPath}/mypage/${member.memberid}">
 															<div
 																style="position: relative; text-align: center; color: white;">
 																<img
@@ -597,7 +594,6 @@ const options2 = {
 															</div>
 															<span
 																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
-														</a>		
 														</div>
 														
 
@@ -626,12 +622,10 @@ const options2 = {
 													<div
 														class="d-flex justify-content-start align-items-center mb-1">
 														<div class="avatar mr-50">
-														<a href="${ pageContext.request.contextPath}/mypage/${member.memberid}">
 															<img src="${ member.profile }" alt="avtar img holder"
 																height="35" width="35">
 																<span
 																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
-														</a>		
 														</div>
 														
 														<div class="user-page-info">
@@ -1237,8 +1231,7 @@ const options2 = {
 																<c:choose>
 																	<c:when test="${ taskFile.fileSize >= 1024 }">
 																		<h6 id="strong" style="display: inline;">
-																			(
-																			<fmt:formatNumber
+																			(<fmt:formatNumber
 																				value="${ taskFile.fileSize / 1024 }" pattern=".00" />
 																			MB)
 																		</h6>
