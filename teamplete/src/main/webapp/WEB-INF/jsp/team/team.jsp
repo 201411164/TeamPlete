@@ -175,7 +175,7 @@
 		<div class="content-header row">
                 <div class="content-header-left col-md-9 col-12 mb-2">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0 ">최신 업데이트</h2>    
+<!--                             <h2 class="content-header-title float-left mb-0 ">최신 업데이트</h2>     -->
                         </div>
                 </div>
                 <div class="content-header-right col-md-9 col-12 mb-2">

@@ -2345,7 +2345,7 @@ const options2 = {
 						});
 						
 						
-						location.href = "${ pageContext.request.contextPath}/team/${ loginVO.memberid }";
+						location.href = "${ pageContext.request.contextPath}/team";
 					  
 				  });
 				 

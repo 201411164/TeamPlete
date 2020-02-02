@@ -65,7 +65,7 @@ opacity:0.8;
                         <div class="card bg-authentication rounded-0 mb-0" style="background-color:transparent !important;">
                             <div class="row m-0">
                                 <div class="col-lg-6 d-lg-block d-none text-center align-self-center pl-0 pr-3 py-0">
-                                    <a href="${ pageContext.request.contextPath }/main.jsp"><img src="${ pageContext.request.contextPath }/resources/images/register.png" id="logoimg" alt="branding logo"></a>
+                                    <a href="${ pageContext.request.contextPath }/"><img src="${ pageContext.request.contextPath }/resources/images/register.png" id="logoimg" alt="branding logo"></a>
                                 </div>
                                 <div class="col-lg-6 col-12 col-sm-6 p-0">
                                     <div class="rounded-0 mb-0 p-2" style="background-color:transparent; color:white !important">

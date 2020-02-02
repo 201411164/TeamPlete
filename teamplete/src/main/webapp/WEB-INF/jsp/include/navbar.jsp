@@ -87,35 +87,35 @@
                             <!-- li.nav-item.mobile-menu.d-xl-none.mr-auto-->
                             <!--   a.nav-link.nav-menu-main.menu-toggle.hidden-xs(href='#')-->
                             <!--     i.ficon.feather.icon-menu-->
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-todo.html" data-toggle="tooltip" data-placement="top" title="팀 작업"><i class="ficon feather icon-check-square"></i></a></li>
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-chat.html" data-toggle="tooltip" data-placement="top" title="최근 기록"><i class="ficon feather icon-message-square"></i></a></li>
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calender.html" data-toggle="tooltip" data-placement="top" title="일정 관리"><i class="ficon feather icon-calendar"></i></a></li>
+<%--                             <li class="nav-item d-none d-lg-block"><a class="nav-link" href="${ pageContext.request.contextPath }/team" data-toggle="tooltip" data-placement="top" title="팀 작업"><i class="ficon feather icon-check-square"></i></a></li> --%>
+<!--                             <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-chat.html" data-toggle="tooltip" data-placement="top" title="최근 기록"><i class="ficon feather icon-message-square"></i></a></li> -->
+<!--                             <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calender.html" data-toggle="tooltip" data-placement="top" title="일정 관리"><i class="ficon feather icon-calendar"></i></a></li> -->
                         </ul>
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
-                                <div class="bookmark-input search-input">
-                                    <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div>
-                                    <input class="form-control input" type="text" placeholder="검색할 단어를 입력하세요..." tabindex="0" data-search="template-list">
-                                    <ul class="search-list"></ul>
-                                </div>
-                                <!-- select.bookmark-select-->
-                                <!--   option Chat-->
-                                <!--   option email-->
-                                <!--   option todo-->
-                                <!--   option Calendar-->
-                            </li>
-                        </ul>
+<!--                         <ul class="nav navbar-nav"> -->
+<!--                             <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a> -->
+<!--                                 <div class="bookmark-input search-input"> -->
+<!--                                     <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div> -->
+<!--                                     <input class="form-control input" type="text" placeholder="검색할 단어를 입력하세요..." tabindex="0" data-search="template-list"> -->
+<!--                                     <ul class="search-list"></ul> -->
+<!--                                 </div> -->
+<!--                                 select.bookmark-select -->
+<!--                                   option Chat -->
+<!--                                   option email -->
+<!--                                   option todo -->
+<!--                                   option Calendar -->
+<!--                             </li> -->
+<!--                         </ul> -->
                     </div>
                     <ul class="nav navbar-nav float-right">
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
-                        <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
-                            <div class="search-input">
-                                <div class="search-input-icon"><i class="feather icon-search primary"></i></div>
-                                <input class="input" type="text" placeholder="검색할 단어를 입력하세요..." tabindex="-1" data-search="template-list">
-                                <div class="search-input-close"><i class="feather icon-x"></i></div>
-                                <ul class="search-list"></ul>
-                            </div>
-                        </li>	
+<!--                         <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a> -->
+<!--                             <div class="search-input"> -->
+<!--                                 <div class="search-input-icon"><i class="feather icon-search primary"></i></div> -->
+<!--                                 <input class="input" type="text" placeholder="검색할 단어를 입력하세요..." tabindex="-1" data-search="template-list"> -->
+<!--                                 <div class="search-input-close"><i class="feather icon-x"></i></div> -->
+<!--                                 <ul class="search-list"></ul> -->
+<!--                             </div> -->
+<!--                         </li>	 -->
                         <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">${ requestCnt }</span></a>
                             <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                                 <li class="dropdown-menu-header">
@@ -170,7 +170,7 @@
                             	</c:otherwise>
                             	</c:choose>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> Chats</a>
+                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="${ pageContext.request.contextPath }/mypage"><i class="feather icon-user"></i> Edit Profile</a>
                                 <form method="post" 
 												action="${ pageContext.request.contextPath }/logout"
 												name="logoutform"

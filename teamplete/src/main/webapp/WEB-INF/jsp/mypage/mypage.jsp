@@ -93,14 +93,14 @@
                                     <div class="cover-container">
                                         <img class="img-fluid rounded-0" src="${ pageContext.request.contextPath }/resources/images/${user.profilebg}" alt="User Profile Image" style="width:100%; max-height:300px;">
                                     </div>
-                                    <div data-toggle="modal" data-target="#profileOption" class="profile-img-container d-flex align-items-center justify-content-between">
+                                    <div class="profile-img-container d-flex align-items-center justify-content-between">
                                         
 										<div class="avatar mr-50">
 															<div
 																style="position: relative; text-align: center; color: white;">
 																	<c:choose>
 												 <c:when test="${fn:startsWith(user.profile, 'circle')}">
-																<img src="${ pageContext.request.contextPath }/resources/images/${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
+																<img data-toggle="modal" data-target="#profileOption" src="${ pageContext.request.contextPath }/resources/images/${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
 																<div class="custom-avatar-container">
 																	<c:set var="membername" value="${ user.name }" />
 																	<c:set var="firstletter"
@@ -108,7 +108,7 @@
 																</div>
 																</c:when>
 																<c:otherwise>
-																<img src="${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
+																<img data-toggle="modal" data-target="#profileOption" src="${user.profile}" class="rounded-circle img-border box-shadow-1" alt="Card image">
 																</c:otherwise>																	
 																</c:choose>
 																
