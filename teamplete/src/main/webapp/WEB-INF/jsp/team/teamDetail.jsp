@@ -1752,7 +1752,7 @@ const options2 = {
             	calendar.addEvent({
             	      id: "newEvent",
             	      title: eventTitle,
-            	      start: startDate,
+            	      start: correctEndDate,
             	      end: correctEndDate,
             	      description: eventDescription,
             	      allDay: false

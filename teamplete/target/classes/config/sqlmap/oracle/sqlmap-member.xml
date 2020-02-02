@@ -28,7 +28,7 @@
 	
 	<!-- 특정 회원의 정보 조회(아이디로 이름 조회) -->
 	<select id="selectMember" parameterType="String" resultMap="memberMap">
-		select memberid, name, password, type, email, kakao, logincount, status, last_date, profile, profilebg
+		select memberid, name, reg_date, password, type, email, kakao, logincount, status, last_date, profile, profilebg
 		from member_tb
 		where memberid = #{memberid}
 	</select>

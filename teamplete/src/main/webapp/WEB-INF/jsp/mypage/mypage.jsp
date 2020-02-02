@@ -117,16 +117,19 @@
 																class="avatar-status-${member.status }" data-toggle="tooltip" data-placement="top" title="현재 상태 : ${member.status }"></span>
 														</div>						
 																
+											<div class="float-right">
+                                           <c:choose>
+							<c:when test="${ user.kakao eq 'N'.charAt(0) }">
+							<button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary" data-toggle="modal" data-target="#checkPWForm"><i class="feather icon-settings"></i></button>
+							</c:when>
+							<c:otherwise>
+							<button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary" data-toggle="modal" data-target="#modifyKakaoInfo"><i class="feather icon-settings"></i></button>
+							</c:otherwise>
+							</c:choose>
+                                                
+                                        </div>					
 																
-																
-                                        <div class="float-right">
-                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1">
-                                                <i class="feather icon-edit-2"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary">
-                                                <i class="feather icon-settings"></i>
-                                            </button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end align-items-center profile-header-nav">
@@ -135,26 +138,10 @@
                                             <span class="navbar-toggler-icon"><i class="feather icon-align-justify"></i></span>
                                         </button>
                                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                            <ul class="navbar-nav justify-content-around w-75 ml-sm-auto">
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Timeline</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">About</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Photos</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Friends</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Videos</a>
-                                                </li>
-                                                <li class="nav-item px-sm-0">
-                                                    <a href="#" class="nav-link font-small-3">Events</a>
-                                                </li>
-                                            </ul>
+                                            <div class="navbar-nav justify-content-left w-75 ml-sm-auto">
+                                                    <h2><strong class="text-primary font-large-2">${user.name}</strong>님, 환영합니다.</h2>
+                                               
+                                            </div>
                                         </div>
                                     </nav>
                                 </div>
@@ -163,117 +150,150 @@
 				
 			
 				
-
-				<div class="col-xl-3 col-md-6 col-sm-6">
-					
-					<div class="card">
-						<div class="card-header d-flex justify-content-between">
-										<h4 class="text-primary mr-1" style="font-family:'Inter'; font-weight:700; font-size:26px;">미제출한 과제</h4>
-										<i class="feather icon-more-horizontal cursor-pointer"></i>
-									</div>
-
-						<div class="card-content">
-							<div class="card-body">
-											
-											
-											
-							<c:set var="nScount" value="0" scope="page" />	
-											<h5 style="font-family:'Inter'; font-weight:400;">총  ${fn:length(notSubmitMyTaskAll)}개의 과제가 남아있어요.</h5>
-											<c:forEach items="${ notSubmitMyTaskAll }" var="nsmt"
-												varStatus="status">
-												
-												<c:if test="${ nsmt.chargeMemberid eq loginVO.memberid }">
-												<c:set var="nScount" value="${nScount + 1}" scope="page" />
-													<a onClick="taskDetail(${ nsmt.taskId })"><h5 class="mt-1 text-primary" id="nsmttitle">${ nsmt.title }</h5></a>
-													<p>제출기한: ${ nsmt.deadline } (${ notSubmitMyTaskDeadline[status.index] })</p>
-													
-												</c:if>
-											</c:forEach>
-											<div class="text-center">
-													
-													<c:choose>
-											<c:when test="${nScount eq 0 }">>
-											<h4 class="mt-2" style="font-family:'Inter'; font-weight:600;">모든 과제를 다 제출했어요.</h4>
-											</c:when>
-											<c:otherwise>
-											<h4 class="mt-2" style="font-family:'Inter';">총 <strong>${nScount}</strong>개의 과제가 남아있어요</h4>
-											</c:otherwise>
-											</c:choose>	
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							</div>
-							
-						</div>
-						
-					</div>
-					
-				</div>
-
-
-			</div>
+				
+				
 			
-			<div class="col-xl-3 col-md-6 col-sm-6">
-								<div class="card">
-						<div class="card-header d-flex justify-content-between">
-										<h4 class="text-primary mr-1" style="font-family:'Inter'; font-weight:700; font-size:26px;">${ user.name }님의 정보</h4>
-										<i class="feather icon-more-horizontal cursor-pointer"></i>
-									</div>
-
-						<div class="card-content">
-							<div class="card-body">
-							아이디: ${ user.memberid }<br/>
-							이름: ${ user.name }<br/>
-							이메일: ${ user.email }
-							<c:choose>
-							<c:when test="${user.type eq 'U'}">
-							유저등급 : 일반 사용자
-							</c:when>
-							<c:when test="${user.type eq 'G'}">
-							유저등급 : 골드 사용자
-							</c:when>
-							<c:when test="${user.type eq 'P'}">
-							유저등급 : 프리미엄 클래스 사용자
-							</c:when>
-							</c:choose>
-							
-							</div>
-							</div>
-							<c:choose>
-							<c:when test="${ user.kakao eq 'N'.charAt(0) }">
-							<button type="button" data-toggle="modal" data-target="#checkPWForm">수정</button>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/email.jpg" alt="Card image">
+                                    <div class="card-img-overlay overlay-danger overlay-lighten-2">
+                                        <h1 class="card-title text-white">Email</h1>
+                                        <p class="card-text font-large-2 text-white text-weight-bold mt-3"><c:choose>
+							<c:when test="${user.email eq null}">
+							등록되지 않음
 							</c:when>
 							<c:otherwise>
-							<button type="button" data-toggle="modal" data-target="#modifyKakaoInfo">수정</button>
+							${user.email}
 							</c:otherwise>
 							</c:choose>
-							</div>
-			</div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card text-white border-0 box-shadow-0">
+                                <div class="card-content">
+                                    <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/team.jpg" alt="Card image">
+                                    <div class="card-img-overlay overlay-success">
+                                       <h1 class="card-title text-white">내가 속한 팀</h1>
+                                        <p class="card-text text-center font-large-2 text-white text-weight-bold mt-3">${teamCnt}<small>개</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/homework.jpg" alt="Card image">
+                                    <div class="card-img-overlay justify-content-center overlay-warning">
+                                       <h1 class="card-title text-white ">남은 과제 갯수</h1>
+                                        <p class="card-text text-center font-large-2 text-white text-weight-bold mt-3">${fn:length(notSubmitMyTaskAll)}<small>개</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card text-white border-0 box-shadow-0">
+                                <div class="card-content">
+                                    <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/rank.jpg" alt="Card image">
+                                    <div class="card-img-overlay justify-content-center overlay-info ">
+                                        <h1 class="card-title text-white">내 회원등급</h1>
+                                        <p class="card-text text-center font-large-2 text-white text-weight-bold mt-3"><c:choose>
+							<c:when test="${user.type eq 'U'}">
+							Basic
+							</c:when>
+							<c:when test="${user.type eq 'G'}">
+							Gold
+							</c:when>
+							<c:when test="${user.type eq 'P'}">
+							Premium
+							</c:when>
+							</c:choose>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            
+                        </div>
+                        
+                        
+							<div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/alarm.jpg" alt="Card image">
+                                    <div class="card-img-overlay overlay-warning">
+                                        <h1 class="card-title text-white ">미확인 알림</h1>
+                                        <p class="card-text text-center  font-large-2 text-white text-weight-bold mt-3">${requestCnt}<small>개</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card text-white border-0 box-shadow-0">
+                                <div class="card-content">
+                                    <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/number.jpg" alt="Card image">
+                                    <div class="card-img-overlay overlay-info">
+                                       <h1 class="card-title text-white text-weight-bold">로그인 횟수</h1>
+                                        <p class="card-text text-center font-large-2 text-white text-weight-bold mt-3">${user.logincount}<small>개</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/calendar.jpg" alt="Card image">
+                                    <div class="card-img-overlay justify-content-center overlay-success">
+                                       <h1 class="card-title text-white ">등록일</h1>
+                                        <p class="card-text text-center font-large-1 text-white text-weight-bold mt-3">${user.regDate}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card text-white border-0 box-shadow-0">
+                                <div class="card-content">
+                                    <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/write.jpg" alt="Card image">
+                                    <div class="card-img-overlay justify-content-center overlay-danger ">
+                                        <h1 class="card-title text-white">작성한 게시글 수</h1>
+                                        <p class="card-text text-center font-large-2 text-white text-weight-bold mt-3">작업중
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            
+                        </div>
 
 
-							<div class="col-xl-3 col-md-6 col-sm-6">
-								<div class="card">
-									<div class="card-content">
-										<div class="card-body">
-											<p>아임 서포트 결제 모듈 테스트 해보기</p>
-											<button id="check_module" type="button">아임 서포트 결제 모듈
-												테스트 해보기</button>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
+							
 
 
 
 
-							<!-- 비밀번호 체크 Modal -->
+
+
+
+
+							
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- 비밀번호 체크 Modal -->
 							<div class="modal fade text-left" id="checkPWForm" tabindex="-1"
 								role="dialog" aria-labelledby="myModalLabel33"
 								aria-hidden="true">

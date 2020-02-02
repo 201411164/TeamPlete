@@ -451,6 +451,9 @@ border-style: none !important;
 																			data-target="#updateBoard${ board.boardId }">
 																			<i class="feather icon-edit mr-1"></i>수정
 																		</button>
+																		
+																		
+																	
 
 
 																		<!-- board 수정  -->

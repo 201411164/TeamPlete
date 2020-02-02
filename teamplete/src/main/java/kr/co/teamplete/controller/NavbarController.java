@@ -12,10 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.MemberVO;
 import kr.co.teamplete.dto.RequestVO;
+import kr.co.teamplete.dto.TeamVO;
 import kr.co.teamplete.method.UpdateTime;
 import kr.co.teamplete.service.LoginService;
 import kr.co.teamplete.service.MemberService;
 import kr.co.teamplete.service.RequestService;
+import kr.co.teamplete.service.TeamService;
 
 @Controller
 public class NavbarController {
@@ -25,6 +27,7 @@ public class NavbarController {
 	
 	@Autowired
 	private MemberService memberService;
+	
 	
 	
 	@RequestMapping(value = "/navbar/{memberid:.+}", method = RequestMethod.GET)

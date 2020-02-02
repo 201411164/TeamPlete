@@ -391,9 +391,13 @@ public class LoginController {
 
 		Map<String, Object> map = new HashMap<>();
 		List<TaskVO> notSubmitMyTaskAll = taskService.notSubmitMyTaskAll(loginId);
+		List<TeamVO> teamList = teamService.selectAllTeam(loginId);
+		List<RequestVO> allRequestList = requestService.selectAllRequest(loginId);
 
 		map.put("notSubmitMyTaskAll", notSubmitMyTaskAll);
 		map.put("user", user);
+		map.put("teamCnt",teamList.size());
+		mav.addObject("requestCnt", allRequestList.size());
 		mav.addAllObjects(map);
 		mav.setViewName("mypage/mypage");
 
