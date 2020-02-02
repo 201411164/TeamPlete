@@ -33,6 +33,13 @@
 		    where T.owner_id = #{memberid} or M.member_id = #{memberid}
 		     order by T.team_id desc
 	</select>
+	
+	<!-- 회원이 생성한(팀장인) 팀 조회 -->
+	<select id="selectOwnerAll" parameterType="String" resultType="int">
+		select NVL(count(*), 0)
+		 from team_tb T
+		    where T.owner_id = #{memberid} 
+	</select>
 
 	
 	<!-- 특정 팀 조회 -->

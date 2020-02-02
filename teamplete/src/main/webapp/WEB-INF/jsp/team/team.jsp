@@ -243,13 +243,39 @@
 						<div class="card">
 						
 						<div class="card-content">
-                                    <div class="card-body">
-                                    
-                                    	<h1 class="btn btn-outline-success btn-block"
-										data-toggle="modal" data-target="#inlineForm" style="font-size:270px">+</h1>
-                                        
+						
+								
+								<div class="card-content">
+						
+                                    <div class="card-body justify-content-center">
+                                    <c:choose>
+								<c:when test="${teamNumber >= 1 and user.type eq 'U'}">
+											<h1 style="color:#837af2"><i class="feather icon-slash mr-1"></i>팀 생성 한도 초과</h1>
+										<h1 class="mt-2" style="line-height:4rem; text-align:center;"><mark>Teamplete Gold</mark><br><small>를 만나보세요<small></small></h1>
+										<p class="mt-1 text-info text-center font-large-1" style="line-height:3rem; ">최대 <mark class="text-success">5</mark>개의 팀</p>
+										<p class="mt-1 text-info text-center font-large-1" style="line-height:3rem; "><mark class="text-success">무제한</mark> 게시글 수</p>
+								</c:when>
+								<c:when test="${teamNumber ge 5 and user.type eq 'U' or 'G'}">
+											<h1 style="color:#837af2"><i class="feather icon-slash mr-1"></i>팀 생성 한도 초과</h1>
+										<h1 class="mt-2" style="line-height:5rem; text-align:center; "><mark>Teamplete Premium</mark></h1>
+										<p class="mt-1 text-info tex-center text-bold-600 font-large-1" style="line-height:3rem; "><mark class="text-info">무제한</mark> 팀</p>
+										<p class="mt-1 text-info text-center text-bold-600 font-large-1" style="line-height:3rem; "><mark class="text-info">무제한</mark> 게시글 수</p>
+								</c:when>
+								<c:otherwise>
+								<h1 class="btn btn-outline-success btn-block"
+										data-toggle="modal" data-target="#inlineForm" style="font-size:270px">+ ${teamNumber}개 ${user.type }</h1>
+								</c:otherwise>
+								
+								</c:choose>   
+                                    	
+                                   
                                     </div>
-                               
+                                    </div>
+                                <div class="card-footer text-muted">
+                                    <span class="float-right">
+                                        <li class=" nav-item mb-1"><a href="${ pageContext.request.contextPath}/shop"><i class="feather icon-shopping-cart mr-1"></i><span class="menu-title" data-i18n="Chat"> 구독하기</span></a> <i class="fa fa-angle-right"></i>
+                                    </span>
+                                </div>
                             </div>							
 									
 										

@@ -53,6 +53,12 @@
 		     order by task_id desc
 	</select>
 	
+	<select id="selectmemberAllTask" parameterType="String" resultType="int">
+		select NVL(count(*), 0)
+		 from task_tb T		  
+		    where T.writer_id = #{memberid}
+	</select>
+	
 	<!-- 특정 태스크 상세 -->
 	<select id="selectTask" parameterType="int" resultMap="taskMap">
 		select task_id, writer_id, M.name, team_id, title, content, deadline, task_date

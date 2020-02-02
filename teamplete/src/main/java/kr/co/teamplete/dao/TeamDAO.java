@@ -48,4 +48,7 @@ public interface TeamDAO {
 	
 	// 팀 검색
 	public List<TeamVO> searchTeam(String keyword);
+
+	// 생성한 모든 팀 개수 조회
+	public int selectOwnerAll(String memberid);
 }

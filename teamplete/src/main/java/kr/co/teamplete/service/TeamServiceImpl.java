@@ -33,6 +33,12 @@ public class TeamServiceImpl implements TeamService{
 		List<TeamVO> teamList = teamDAO.selectAll(memberid);
 		return teamList;
 	}
+	
+	@Override
+	public int selectOwnerAll(String memberid) {
+		int allnumber = teamDAO.selectOwnerAll(memberid);
+		return allnumber;
+	}
 
 	@Override
 	public TeamVO detailTeam(int teamId) {

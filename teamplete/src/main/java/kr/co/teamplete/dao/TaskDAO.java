@@ -70,4 +70,6 @@ public interface TaskDAO {
 	
 	// 특정 파일 상세
 	public TaskFileVO selectOneFile(int fileNo);
+	
+	public int selectMemberAllTask(String memberid);
 }

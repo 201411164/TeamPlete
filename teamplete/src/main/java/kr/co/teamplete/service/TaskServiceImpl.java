@@ -137,6 +137,12 @@ public class TaskServiceImpl implements TaskService {
 		List<TaskVO> taskList = taskDAO.selectAllTask(teamId);
 		return taskList;
 	}
+	
+	@Override
+	public int selectMemberAllTask(String memberid) {
+		int allnumber = taskDAO.selectMemberAllTask(memberid);
+		return allnumber;
+	}
 
 	@Override
 	public void updateTaskS(TaskVO task) {

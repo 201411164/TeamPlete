@@ -139,7 +139,7 @@
                                         </button>
                                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                             <div class="navbar-nav justify-content-left w-75 ml-sm-auto">
-                                                    <h2><strong class="text-primary font-large-2">${user.name}</strong>님, 환영합니다.</h2>
+                                                    <h2><strong class="text-primary font-large-2">${user.name}</strong>(${user.memberid})님, 환영합니다.</h2>
                                                
                                             </div>
                                         </div>
@@ -251,7 +251,7 @@
                                 <div class="card-content">
                                     <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/calendar.jpg" alt="Card image">
                                     <div class="card-img-overlay justify-content-center overlay-success">
-                                       <h1 class="card-title text-white ">등록일</h1>
+                                       <h1 class="card-title text-white ">가입일</h1>
                                         <p class="card-text text-center font-large-1 text-white text-weight-bold mt-3">${user.regDate}
                                         </p>
                                     </div>
@@ -264,7 +264,7 @@
                                     <img class="card-img img-fluid" src="${ pageContext.request.contextPath }/resources/images/write.jpg" alt="Card image">
                                     <div class="card-img-overlay justify-content-center overlay-danger ">
                                         <h1 class="card-title text-white">작성한 게시글 수</h1>
-                                        <p class="card-text text-center font-large-2 text-white text-weight-bold mt-3">작업중
+                                        <p class="card-text text-center font-large-2 text-white text-weight-bold mt-3">${taskNumber}<small>개</small>
                                         </p>
                                     </div>
                                 </div>

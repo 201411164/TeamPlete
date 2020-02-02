@@ -16,6 +16,9 @@ public interface TeamService {
 	//모든 팀 조회
 	List<TeamVO> selectAllTeam(String memberid);
 	
+	//내가 생성한 팀 갯수 조회
+	int selectOwnerAll(String memberid);
+	
 	//특정 팀 조회
 	TeamVO detailTeam(int teamId);
 	

@@ -48,5 +48,7 @@ public interface TaskService {
 	
 	// 로그인 중인 사용자의 제출하지 않은 모든 태스크 목록
 	public List<TaskVO> notSubmitMyTaskAll(String memberid);
+	
+	public int selectMemberAllTask(String memberid);
 
 }

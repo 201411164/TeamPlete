@@ -27,6 +27,12 @@ public class TeamDAOImpl implements TeamDAO{
 		List<TeamVO> teamList = session.selectList("kr.co.teamplete.dao.TeamDAO.selectAll", memberid);
 		return teamList;
 	}
+	
+	@Override
+	public int selectOwnerAll(String memberid) {
+		int allnumber = session.selectOne("kr.co.teamplete.dao.TeamDAO.selectOwnerAll", memberid);
+		return allnumber;
+	}
 
 	@Override
 	public TeamVO selectByTeam(int teamId) {

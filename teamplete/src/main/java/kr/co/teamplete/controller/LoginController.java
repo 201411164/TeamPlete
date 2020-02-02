@@ -206,6 +206,10 @@ public class LoginController {
 		mav.addObject("deadline", deadline);
 		mav.addObject("teamMemberList", teamMemberList);
 		mav.addObject("updateTime", updateTime);
+		int teamNumber = teamService.selectOwnerAll(loginId);
+		mav.addObject("teamNumber",teamNumber);
+		MemberVO user = memberService.selectMemberById(loginId);
+		mav.addObject("user", user);
 
 		return mav;
 	}
@@ -302,6 +306,9 @@ public class LoginController {
 			deadline2.add(Deadline.deadline(notSubmitMyTask.get(i).getDeadline()));
 		}
 		
+		
+		int taskNumber = taskService.selectMemberAllTask(loginId);
+		
 		map.put("team", team);
 		map.put("members", members);
 		map.put("taskList", taskList);
@@ -318,6 +325,8 @@ public class LoginController {
 		map.put("activityTime", activityTime);
 		map.put("msgList", msgList);
 		map.put("user", user);
+		map.put("taskNumber", taskNumber);
+		
 		map.put("calendarList", calendarList);
 		
 		
@@ -393,10 +402,12 @@ public class LoginController {
 		List<TaskVO> notSubmitMyTaskAll = taskService.notSubmitMyTaskAll(loginId);
 		List<TeamVO> teamList = teamService.selectAllTeam(loginId);
 		List<RequestVO> allRequestList = requestService.selectAllRequest(loginId);
+		int taskNumber = taskService.selectMemberAllTask(loginId);
 
 		map.put("notSubmitMyTaskAll", notSubmitMyTaskAll);
 		map.put("user", user);
 		map.put("teamCnt",teamList.size());
+		map.put("taskNumber", taskNumber);
 		mav.addObject("requestCnt", allRequestList.size());
 		mav.addAllObjects(map);
 		mav.setViewName("mypage/mypage");

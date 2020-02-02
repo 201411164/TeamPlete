@@ -30,6 +30,12 @@ public class TaskDAOImpl implements TaskDAO{
 		List<TaskVO> taskList = session.selectList("kr.co.teamplete.dao.TaskDAO.selectAllTask", teamId);
 		return taskList;
 	}
+	
+	@Override
+	public int selectMemberAllTask(String memberid) {
+		int allnumber = session.selectOne("kr.co.teamplete.dao.TaskDAO.selectmemberAllTask",memberid);
+		return allnumber;
+	}
 
 	@Override
 	public void updateTask(TaskVO task) {

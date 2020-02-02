@@ -190,9 +190,23 @@ const options2 = {
 										<i class="feather icon-plus"></i>
 								</button>
 								<div class="dropdown-menu dropdown-menu-right">
+								<c:choose>
+								<c:when test="${taskNumber ge 15 and user.type eq 'U'}">
+								<button type="button" class="dropdown-item">
+											<i class="feather icon-slash mr-1"></i>글 작성 한도 초과
+										</button>
+								</c:when>
+								
+								<c:otherwise>
 								<button type="button" class="dropdown-item" id="createTaskBtn" data-toggle="modal" data-target="#createTask">
 											<i class="feather icon-plus mr-1"></i>글 작성하기
 										</button>
+								</c:otherwise>
+								
+								</c:choose>
+								
+								
+								
 								</div>
 								</div>
 								
