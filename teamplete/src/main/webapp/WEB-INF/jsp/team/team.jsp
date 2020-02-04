@@ -239,7 +239,133 @@
 
 
 								<!-- BEGIN: 팀 추가-->
-                    <div class="col-xl-3 col-md-6 col-sm-6">
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					 
+					
+					
+										
+										
+										
+										
+								
+                                    	
+                                   
+                                    </div>
+                                    
+                                    
+                                    <c:choose>
+								<c:when test="${teamNumber >= 1 and user.type eq 'U'}">
+									
+										
+										<div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="card overlay-img-card text-white">
+                                <img src="${ pageContext.request.contextPath }/resources/images/teamlong.jpg" class="card-img" alt="card-img-6">
+                                <div class="card-img-overlay overlay-black">
+                                    <h5 class="font-large-1 text-success text-center mt-1"><i class="feather icon-slash mr-1"></i>팀 생성 한도 초과</h5>
+                                    <p class="text-white text-center">현재 사용중인 플랜 : 베이직</p>
+                                    <div class="card-content">
+                                        <div class="d-flex justify-content-around mt-2">
+                                            <div class="icon">
+                                                <i class="feather icon-shopping-cart font-large-5"></i>
+                                            </div>
+                                            <div class="temprature mt-3">
+                                                <a href="${ pageContext.request.contextPath}/shop" style="color:white;"><p class="font-large-1">Gold 구독</p></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <div class="precipitation">
+                                                    <span class="font-medium-3">생성 가능한 팀 개수</span>
+                                                </div>
+                                                <div class="degree">
+                                                    <span class="font-medium-3"><del>1개</del>->5개</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-3">
+                                                <div class="humidity">
+                                                    <span class="font-medium-3">최대 팀원 수 </span>
+                                                </div>
+                                                <div class="degree">
+                                                    <span class="font-medium-3"><del>5명</del>->20명</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-3">
+                                                <div class="wind">
+                                                    <span class="font-medium-3">최대 게시글 수</span>
+                                                </div>
+                                                <div class="degree">
+                                                    <span class="font-medium-3"><del>15개</del>->무제한</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>		
+										
+										
+								</c:when>
+								<c:when test="${teamNumber ge 5 and user.type eq 'G'}">
+												<div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="card overlay-img-card text-white">
+                                <img src="${ pageContext.request.contextPath }/resources/images/teamlong.jpg" class="card-img" alt="card-img-6">
+                                <div class="card-img-overlay overlay-black">
+                                    <h5 class="font-large-1 text-success text-center mt-1"><i class="feather icon-slash mr-1"></i>팀 생성 한도 초과</h5>
+                                    <p class="text-white text-center">현재 사용중인 플랜 : 골드</p>
+                                    <div class="card-content">
+                                        <div class="d-flex justify-content-around mt-2">
+                                            <div class="icon">
+                                                <i class="feather icon-shopping-cart font-large-5"></i>
+                                            </div>
+                                            <div class="temprature mt-3">
+                                                <a href="${ pageContext.request.contextPath}/shop" style="color:white;"><p class="font-large-1">프리미엄 구독</p></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <div class="precipitation">
+                                                    <span class="font-medium-3">생성 가능한 팀 개수</span>
+                                                </div>
+                                                <div class="degree">
+                                                    <span class="font-medium-3"><del>5개</del>->무제한</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-3">
+                                                <div class="humidity">
+                                                    <span class="font-medium-3">최대 팀원 수 </span>
+                                                </div>
+                                                <div class="degree">
+                                                    <span class="font-medium-3"><del>20명</del>->무제한</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-3">
+                                                <div class="wind">
+                                                    <span class="font-medium-3">최대 게시글 수</span>
+                                                </div>
+                                                <div class="degree">
+                                                    <span class="font-medium-3"><del>무제한</del>->무제한</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>		
+								</c:when>
+								<c:otherwise>
+								
+								
+								
+								<div class="col-xl-3 col-md-6 col-sm-6">
 						<div class="card">
 						
 						<div class="card-content">
@@ -248,35 +374,21 @@
 								<div class="card-content">
 						
                                     <div class="card-body justify-content-center">
-                                    <c:choose>
-								<c:when test="${teamNumber >= 1 and user.type eq 'U'}">
-											<h1 style="color:#837af2"><i class="feather icon-slash mr-1"></i>팀 생성 한도 초과</h1>
-										<h1 class="mt-2" style="line-height:4rem; text-align:center;"><mark>Teamplete Gold</mark><br><small>를 만나보세요<small></small></h1>
-										<p class="mt-1 text-info text-center font-large-1" style="line-height:3rem; ">최대 <mark class="text-success">5</mark>개의 팀</p>
-										<p class="mt-1 text-info text-center font-large-1" style="line-height:3rem; "><mark class="text-success">무제한</mark> 게시글 수</p>
-								</c:when>
-								<c:when test="${teamNumber ge 5 and user.type eq 'U' or 'G'}">
-											<h1 style="color:#837af2"><i class="feather icon-slash mr-1"></i>팀 생성 한도 초과</h1>
-										<h1 class="mt-2" style="line-height:5rem; text-align:center; "><mark>Teamplete Premium</mark></h1>
-										<p class="mt-1 text-info tex-center text-bold-600 font-large-1" style="line-height:3rem; "><mark class="text-info">무제한</mark> 팀</p>
-										<p class="mt-1 text-info text-center text-bold-600 font-large-1" style="line-height:3rem; "><mark class="text-info">무제한</mark> 게시글 수</p>
-								</c:when>
-								<c:otherwise>
 								<h1 class="btn btn-outline-success btn-block"
-										data-toggle="modal" data-target="#inlineForm" style="font-size:270px">+ ${teamNumber}개 ${user.type }</h1>
+										data-toggle="modal" data-target="#inlineForm" style="font-size:270px">+</h1>
+										</div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
 								</c:otherwise>
 								
 								</c:choose>   
-                                    	
-                                   
+                                    
+                                    
+                                    
                                     </div>
-                                    </div>
-                                <div class="card-footer text-muted">
-                                    <span class="float-right">
-                                        <li class=" nav-item mb-1"><a href="${ pageContext.request.contextPath}/shop"><i class="feather icon-shopping-cart mr-1"></i><span class="menu-title" data-i18n="Chat"> 구독하기</span></a> <i class="fa fa-angle-right"></i>
-                                    </span>
-                                </div>
-                            </div>							
+                                					
 									
 										
 									<!-- Modal -->
