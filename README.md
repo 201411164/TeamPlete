@@ -28,11 +28,18 @@
 ## 개발환경
 
 **운영체제 :** Windows 10
+
 **서버 :**  Apache Tomcat 9.0 server
+
 **IDE :** Eclipse
+
 **Database:** Oracle SQL Developer, Oracle XE 11g
+
 **Lang/Tools :** Java, Servlet, JSP, Javascript, HTML, CSS
+
 **Web Hosting :** AWS Route53, RDS, EC2
+
 **사용 기술** :  Ajax, JQuery, Spring Framework, Bootstrap, MyBatis
+
 **Javascript Framework** : Select2js, Fullcalendar, Nanoslider, Sweet Alert,  Quill Editor
 
