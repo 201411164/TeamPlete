@@ -100,29 +100,6 @@ public class TaskController {
 		hm.put("taskId", taskId);
 		List<MemberVO> notChargeMembers = service.NotChargeMembers(hm);
 						
-		for(int i=0; i<chargeListN.size(); i++) {
-			for(int j=0; j<boardList.size(); j++) {
-				if(chargeListN.get(i).getChargeMemberid().equals(boardList.get(j).getWriterId())) {
-					chargeListN.get(i).setSubmit('Y');
-					service.updateSubmitS(chargeListN.get(i));
-					break;
-				}
-			}
-		}
-		
-		for(int i=0; i<chargeListY.size(); i++) {
-			int cnt = 0;
-			for(int j=0; j<boardList.size(); j++) {
-				if(chargeListY.get(i).getChargeMemberid().equals(boardList.get(j).getWriterId())) {
-					cnt ++;
-					break;
-				}
-			}
-			if(cnt == 0) {
-				chargeListY.get(i).setSubmit('N');
-				service.updateSubmitS(chargeListY.get(i));
-			}
-		}
 		objectMap.put("members", members);
 		objectMap.put("taskDetail", task);
 		objectMap.put("taskFileList", taskFileList);

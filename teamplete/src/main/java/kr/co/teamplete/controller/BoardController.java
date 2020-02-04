@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.teamplete.dto.ActivityVO;
 import kr.co.teamplete.dto.BoardVO;
+import kr.co.teamplete.dto.ChargeVO;
 import kr.co.teamplete.dto.FileVO;
 import kr.co.teamplete.dto.TaskVO;
 import kr.co.teamplete.service.ActivityService;
@@ -35,6 +35,15 @@ public class BoardController {
 	public String writeBoard(BoardVO board, @PathVariable("taskId") int taskId) {
 
 		TaskVO task = taskService.selectTaskS(taskId);
+		
+		List<ChargeVO> chargeList = taskService.selectNsubmitS(taskId);
+		
+		for(ChargeVO charge : chargeList) {
+			if(board.getWriterId().equals(charge.getChargeMemberid())) {
+				charge.setSubmit('Y');
+				taskService.updateSubmitS(charge);
+			}
+		}
 		
 		board.setTaskId(taskId);
 
@@ -109,6 +118,26 @@ public class BoardController {
 		TaskVO task = taskService.selectTaskS(boardDetail.getTaskId());
 
 		service.deleteBoardS(boardId);
+		
+		List<ChargeVO> chargeList = taskService.selectYsubmitS(boardDetail.getTaskId());
+		
+		List<BoardVO> boardList = service.selectAllBoardS(boardDetail.getTaskId());
+		
+		for(ChargeVO charge : chargeList) {
+			int cnt = 0;
+			for(BoardVO board : boardList) {
+				if(charge.getChargeMemberid().equals(board.getWriterId())) {
+					cnt ++;
+					break;
+				}
+			}
+			
+			if(cnt == 0) {
+				charge.setSubmit('N');
+				taskService.updateSubmitS(charge);
+			}
+		}
+		
 		
 		ActivityVO activity = new ActivityVO();
 		
