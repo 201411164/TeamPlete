@@ -23,4 +23,16 @@
 
 네! 공지사항을 다들 제대로 이해하지 못해 **과제를 다시 제출하거나 제출하지 않는 상황**이 일어나게 됩니다. (ㅠㅠ) 게다가 단톡방에서는 각 개개인의 산출물을 관리하기도 어렵습니다.  
 
-**Teamplete는** 이러한 불편함을 해소하고자 고동욱 및 성예진 2인의 개발자가 만든 Spring MVC 기반 Web Project입니다.
+**Teamplete는** 이러한 불편함을 해소하고자 **고동욱** 및 **성예진** 2인의 개발자가 만든 Spring MVC 기반 Web Project입니다.
+
+## 개발환경
+
+**운영체제 :** Windows 10
+**서버 :**  Apache Tomcat 9.0 server
+**IDE :** Eclipse
+**Database:** Oracle SQL Developer, Oracle XE 11g
+**Lang/Tools :** Java, Servlet, JSP, Javascript, HTML, CSS
+**Web Hosting :** AWS Route53, RDS, EC2
+**사용 기술** :  Ajax, JQuery, Spring Framework, Bootstrap, MyBatis
+**Javascript Framework** : Select2js, Fullcalendar, Nanoslider, Sweet Alert,  Quill Editor
+
