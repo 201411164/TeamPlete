@@ -168,7 +168,7 @@ border-style: none !important;
 							role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h4 class="modal-title" id="myModalLabel33">태스크를 추가해주세요.</h4>
+									<h4 class="modal-title" id="myModalLabel33">카드를 수정해주세요.</h4>
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
