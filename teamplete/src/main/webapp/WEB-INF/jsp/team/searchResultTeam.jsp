@@ -92,7 +92,7 @@
 					<h5 style="color:#152636;"><strong><i class="feather icon-users mr-1"></i> : </strong> 
 					<c:set var="cnt" value="0"/>
 					<c:forEach items="${ allTeamMembers[status.index] }" var="member">
-								${ member.name },
+								${ member.name }
 								<c:if test="${ loginVO.memberid eq member.memberid }">
 									<c:set var="cnt" value="1"/>
 								</c:if>

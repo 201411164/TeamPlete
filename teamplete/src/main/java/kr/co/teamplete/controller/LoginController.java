@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -81,7 +82,6 @@ public class LoginController {
     private CalendarService calendarService;
 	
 	
-	String loginId;
 	
 	// 스프링 4.3 이상 => GetMapping, PostMapping, PutMapping...
 	
@@ -108,7 +108,6 @@ public class LoginController {
 			memberService.updateMember(loginVO);
 			model.addAttribute("loginVO", loginVO);
 			
-			loginId = loginVO.getMemberid();
 			
 			return "redirect:/team";
 		}
@@ -147,7 +146,6 @@ public class LoginController {
         	
             model.addAttribute("loginVO", member);
             
-            loginId = member.getMemberid();
             
             return "redirect:/team";
         } else return "redirect:/";
@@ -176,17 +174,15 @@ public class LoginController {
 		memberService.deleteMember(memberid);
 	}
 	
-	
-
-	
 	// 세션에 저장된 아이디로 팀 조회
 	@RequestMapping(value = "/team", method = RequestMethod.GET)
-	public ModelAndView teamList() {
+	public ModelAndView teamList(@SessionAttribute("loginVO") MemberVO member) {
+		
 		
 		List<String> updateTime = new ArrayList<>();
 		
 		List<String> deadline = new ArrayList<>();
-		List<TeamVO> teamList = teamService.selectAllTeam(loginId);
+		List<TeamVO> teamList = teamService.selectAllTeam(member.getMemberid());
 		List<List<MemberVO>> teamMemberList = new ArrayList<>();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("team/team");
@@ -206,9 +202,9 @@ public class LoginController {
 		mav.addObject("deadline", deadline);
 		mav.addObject("teamMemberList", teamMemberList);
 		mav.addObject("updateTime", updateTime);
-		int teamNumber = teamService.selectOwnerAll(loginId);
+		int teamNumber = teamService.selectOwnerAll(member.getMemberid());
 		mav.addObject("teamNumber",teamNumber);
-		MemberVO user = memberService.selectMemberById(loginId);
+		MemberVO user = memberService.selectMemberById(member.getMemberid());
 		mav.addObject("user", user);
 
 		return mav;
@@ -217,11 +213,11 @@ public class LoginController {
 	
 	// 상세 팀 조회 (태스크 조회)
 	@RequestMapping(value = "/teamdetail/{id}", method = {RequestMethod.GET})
-	public ModelAndView teamDetail(@PathVariable("id") int teamId) {
+	public ModelAndView teamDetail(@PathVariable("id") int teamId, @SessionAttribute("loginVO") MemberVO mem) {
 		
 		List<CalendarVO> calendarList = calendarService.selectAllCalendar(teamId);
 		
-		MemberVO user = memberService.selectMemberById(loginId);
+		MemberVO user = memberService.selectMemberById(mem.getMemberid());
 		
 		//채팅내용 조회
 		List<MsgVO> msgList = msgService.selectMsg(teamService.detailTeam(teamId).getRoomId());
@@ -307,7 +303,7 @@ public class LoginController {
 		}
 		
 		
-		int taskNumber = taskService.selectMemberAllTask(loginId);
+		int taskNumber = taskService.selectMemberAllTask(mem.getMemberid());
 		
 		map.put("team", team);
 		map.put("members", members);
@@ -340,7 +336,7 @@ public class LoginController {
 	
 	// 팀 검색
 	@RequestMapping(value = "/team/search", method = RequestMethod.GET)
-	public ModelAndView searchTeam(@RequestParam("keyword") String keyword) {
+	public ModelAndView searchTeam(@RequestParam("keyword") String keyword, @SessionAttribute("loginVO") MemberVO mem) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -349,7 +345,7 @@ public class LoginController {
 		List<List<MemberVO>> allTeamMembers = new ArrayList<>();
 		
 		// 내가 요청한 request
-		List<RequestVO> requestList = requestService.selectMyRequest(loginId);
+		List<RequestVO> requestList = requestService.selectMyRequest(mem.getMemberid());
 		
 		
 		for(TeamVO searchTeam : searchTeamList) {
@@ -385,24 +381,24 @@ public class LoginController {
 		
 		return mav;
 	}
-
-	
 	
 	// 세션에 저장된 아이디의 마이페이지
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public ModelAndView mypage() {
+	public ModelAndView mypage(@SessionAttribute("loginVO") MemberVO mem) {
 		ModelAndView mav = new ModelAndView();
 
 		MemberVO user = new MemberVO();
+		
+		String memId = mem.getMemberid();
 
-		user = memberService.selectMemberById(loginId);
+		user = memberService.selectMemberById(memId);
 		
 
 		Map<String, Object> map = new HashMap<>();
-		List<TaskVO> notSubmitMyTaskAll = taskService.notSubmitMyTaskAll(loginId);
-		List<TeamVO> teamList = teamService.selectAllTeam(loginId);
-		List<RequestVO> allRequestList = requestService.selectAllRequest(loginId);
-		int taskNumber = taskService.selectMemberAllTask(loginId);
+		List<TaskVO> notSubmitMyTaskAll = taskService.notSubmitMyTaskAll(memId);
+		List<TeamVO> teamList = teamService.selectAllTeam(memId);
+		List<RequestVO> allRequestList = requestService.selectAllRequest(memId);
+		int taskNumber = taskService.selectMemberAllTask(memId);
 
 		map.put("notSubmitMyTaskAll", notSubmitMyTaskAll);
 		map.put("user", user);
@@ -415,30 +411,25 @@ public class LoginController {
 		return mav;
 	}
 	
+	
+	
 	// 세션에 저장된 아이디의 상점
-		@RequestMapping(value = "/shop", method = RequestMethod.GET)
-		public ModelAndView myshop() {
-			ModelAndView mav = new ModelAndView();
+	@RequestMapping(value = "/shop", method = RequestMethod.GET)
+	public ModelAndView myshop(@SessionAttribute("loginVO") MemberVO mem) {
+		ModelAndView mav = new ModelAndView();
 
-			MemberVO user = new MemberVO();
+		MemberVO user = new MemberVO();
 
-			user = memberService.selectMemberById(loginId);
+		user = memberService.selectMemberById(mem.getMemberid());
 
-			Map<String, Object> map = new HashMap<>();
-			
-			map.put("user", user);
-			mav.addAllObjects(map);
-			mav.setViewName("shop/shop");
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("user", user);
+		mav.addAllObjects(map);
+		mav.setViewName("shop/shop");
 
-			return mav;
-		}
-	
-	
-	
-	
-	
-	
-	
-	
+		return mav;
+	}
+
 	
 }

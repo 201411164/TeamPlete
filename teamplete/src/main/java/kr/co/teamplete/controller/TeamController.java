@@ -14,21 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.teamplete.dto.CalendarVO;
 import kr.co.teamplete.dto.ChatRoomVO;
 import kr.co.teamplete.dto.TeamMemberVO;
 import kr.co.teamplete.dto.TeamVO;
+import kr.co.teamplete.service.ActivityService;
+import kr.co.teamplete.service.BoardService;
+import kr.co.teamplete.service.CalendarService;
 import kr.co.teamplete.service.ChatRoomService;
+import kr.co.teamplete.service.MemberService;
+import kr.co.teamplete.service.MsgService;
+import kr.co.teamplete.service.RequestService;
+import kr.co.teamplete.service.TaskService;
 import kr.co.teamplete.service.TeamService;
 
 @Controller
 public class TeamController {
 	
 	@Autowired
-	private TeamService service;
-	
-	@Autowired
 	private ChatRoomService chatRoomService;
+
+	@Autowired
+	private TeamService teamService;
 	
 
 	// 팀 등록한 뒤 팀 조회 페이지로 돌아감
@@ -56,7 +62,7 @@ public class TeamController {
 		
 //		String ownerName = memberService.selectMemberById(memberid).getName();
 		
-		service.insertTeam(team);
+		teamService.insertTeam(team);
 		
 		ChatRoomVO chatRoom = new ChatRoomVO();
 		
@@ -78,35 +84,29 @@ public class TeamController {
 			TeamMemberVO teamMember = new TeamMemberVO();
 			teamMember.setMemberId(s);
 			teamMember.setTeamId(teamId);			
-			service.insertTeamMem(teamMember);			
+			teamService.insertTeamMem(teamMember);			
 		}
 		
 		return memberList;
 	}
 	
 	
-	@RequestMapping(value = "/teamdetail/calendar", method = { RequestMethod.POST})
 	
-	public void addCalendar(CalendarVO calendar) {
-		System.out.println("calendar description:"+calendar.getDescription());
-		System.out.println("calendar title:"+calendar.getTitle());
-		System.out.println("calendar start:"+calendar.getStart());
-		System.out.println("calendar End:"+calendar.getEnd());
-	}
+	
 	
 	
 	
 	//팀 정보 수정
 	@RequestMapping(value = "/team/update/{teamId}", method = { RequestMethod.POST, RequestMethod.GET })
 	public String updateTeam(TeamVO team, @PathVariable("teamId") int teamId) {
-		service.updateTeamInfo(team);
+		teamService.updateTeamInfo(team);
 		return "redirect:/team";
 	}
 	
 	@RequestMapping(value = "/team/delete/{teamId}", method = RequestMethod.DELETE)
 	public void deleteTeam(@PathVariable("teamId") int teamId) {
 		
-		service.deleteTeamById(teamId);
+		teamService.deleteTeamById(teamId);
 	}
 	
 	@RequestMapping(value = "/team/outTeam/{teamId}/{memberId:.+}", method = RequestMethod.DELETE)
@@ -117,8 +117,11 @@ public class TeamController {
 		hm.put("teamId", teamId);
 		hm.put("memberId", memberId);
 		
-		service.outFromTeam(hm);
+		teamService.outFromTeam(hm);
 	}
+	
+	
+
 	
 
 }

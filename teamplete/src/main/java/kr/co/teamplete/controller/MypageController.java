@@ -25,7 +25,8 @@ import kr.co.teamplete.service.MemberService;
 public class MypageController {
 	
 	@Autowired
-	private MemberService service;
+	private MemberService memberService;
+	
 	
 	// 개인 정보 수정시 비밀번호 확인
 	@RequestMapping(value="/checkPW", method=RequestMethod.POST)
@@ -36,7 +37,7 @@ public class MypageController {
 		hm.put("memberid", memberid);
 		hm.put("password", password);
 		
-		int count = service.checkPw(hm);
+		int count = memberService.checkPw(hm);
 		
 		return String.valueOf(count);
 	}
@@ -46,15 +47,15 @@ public class MypageController {
 	@RequestMapping(value = "/mypage/modify", method = RequestMethod.PUT)
 	public void modifyMemberInfo(@RequestBody MemberVO member) {
 		
-		MemberVO memberDetail = service.selectMemberById(member.getMemberid());
+		MemberVO memberDetail = memberService.selectMemberById(member.getMemberid());
 		
 		if(memberDetail.getKakao() == 'N') {
 //			System.out.println("일반로그인입니다. Kakao: " + memberDetail.getKakao());
-			service.modifyMemberInfo(member);
+			memberService.modifyMemberInfo(member);
 		}
 		else {
 //			System.out.println("카카오 로그인입니다. Kakao: " + memberDetail.getKakao());
-			service.modifyKakaoInfo(member);
+			memberService.modifyKakaoInfo(member);
 		}
 	}
 	
@@ -63,7 +64,7 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value = "/mypage/updatetype", method = RequestMethod.PUT)
 	public void updateType(@RequestBody MemberVO member) {
-		service.updateType(member);
+		memberService.updateType(member);
 	}
 	
 	
@@ -77,7 +78,7 @@ public class MypageController {
 		ProfileVO profile = null;
 		
 		try {
-			profile = service.getProfileInfo(pid, pfile);
+			profile = memberService.getProfileInfo(pid, pfile);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,20 +88,20 @@ public class MypageController {
 		}
 		
 		//checkProfile로 insert 할지 update할지 결정(일단 insert만)
-		int profileCnt = service.checkProfile(pid);
+		int profileCnt = memberService.checkProfile(pid);
 		System.out.println("프로필 업로드 확인 cnt: " + profileCnt);
 		
 		if(profileCnt == 0) {
-			service.insertProfile(profile);
+			memberService.insertProfile(profile);
 		} else {
-			service.modifyProfile(profile);
+			memberService.modifyProfile(profile);
 		}
 		
 		
 		hm.put("memberid", pid);
 		hm.put("profile", profile.getFilePath());
 		
-		service.updateProfile(hm);
+		memberService.updateProfile(hm);
 		
 		return "redirect:/mypage";
 	}
@@ -124,9 +125,11 @@ public class MypageController {
 		hm.put("memberid", pid);
 		hm.put("profile", imgList.get(index));
 		
-		service.updateProfile(hm);
+		memberService.updateProfile(hm);
 		
-		service.deleteProfile(pid);
+		memberService.deleteProfile(pid);
 	}
 	
+	
+
 }
