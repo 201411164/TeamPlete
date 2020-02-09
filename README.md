@@ -39,7 +39,27 @@
 
 **Web Hosting :** AWS Route53, RDS, EC2
 
-**사용 기술** :  Ajax, JQuery, Spring Framework, Bootstrap, MyBatis
+**사용 기술** :  Ajax, JQuery, Spring Framework, Bootstrap, MyBatis, WebSocket
 
-**Javascript Framework** : Select2js, Fullcalendar, Nanoslider, Sweet Alert,  Quill Editor
+**Javascript Framework** : Select2js, Fullcalendar, NanoSlider, Sweet Alert,  Quill Editor, SockJS
 
+
+Select2Js : Multiple Select Input ![초대하거나 담당자를 저장할 때](./image/select2.JPG)
+
+Fullcalendar : 일정 관리 가능한 달력 ![일정 추가 및 마감일 관리 달력](./image/fullcalendar.JPG)
+
+SweetAlert : 기본 Alert창을 더 심미적으로 ![알림을 표시할 때](./image/select2.JPG)
+
+Quill Editor : 강력한 Rich Text Editor ![카드를 추가할 때](./image/quill.JPG)
+
+SockJS : Websocket을 활용한 팀 채팅 ![카드를 추가할 때](./image/login2.JPG)
+
+
+
+
+**Performance Improvement** :  IntersectionObserver을 활용한 동적 로딩 활용.
+
+
+**결제 모듈** : IAMPort API를 활용한 PG사 결제 지원(카카오페이). User 등급에 따라 권한 차등 부여.
+
+**보안 관련** : SQL Injection Attack을 막기 위한 설계를 함.
