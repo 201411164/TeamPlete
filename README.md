@@ -1,6 +1,8 @@
 # ****Teamplete에 오신 걸 환영합니다****
 
-**Teamplete**는 조별 과제나 팀 작업 등의 **협업**을 훨씬 더 쉽고 간편하게 만들어주는 웹사이트입니다.
+**[Teamplete](http://www.teamplete.net)**는 조별 과제나 팀 작업 등의 **협업**을 훨씬 더 쉽고 간편하게 만들어주는 웹사이트입니다.
+
+
 
  ![팀플리트 메인 이미지](./image/teamplete01.JPG)
  
@@ -47,7 +49,11 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 ###이제 **Teamplete**에서 편리하게 팀 작업을 트래킹하고 산출물들을 관리하세요!!
 
 
-**Teamplete**는 **고동욱** 및 **성예진** 2인의 개발자가 만든 Spring MVC 기반 Web Project입니다.
+**[Teamplete](http://www.teamplete.net)**는 **고동욱** 및 **성예진** 2인의 개발자가 만든 Spring MVC 기반 Web Project입니다.
+
+
+바로가기 : [www.teamplete.net](http://www.teamplete.net)
+
 
 
 
@@ -67,7 +73,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 
-**UI/Prototype :Figma 
+**UI/Prototype :** Figma 
 
 
 
@@ -77,7 +83,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 링크 : https://www.figma.com/file/ysjmj5n5qZRBjyVG6ETLM3/Teamplete?node-id=0%3A1
 
 
-설계부터 UI Design 등의 많은 화면 기술 작업을 figma 툴을 사용해 진행. 
+설계부터 UI Design 등의 많은 화면 기술 작업을 figma 툴을 사용해 진행하였습니다. 
 
 
 
@@ -85,6 +91,10 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 **Web Hosting :** AWS Route53, RDS, EC2
+
+www.teamplete.net Domain을 사용하기 위해 Route53을 연결했고,
+
+EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
@@ -170,14 +180,17 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 
-**Performance Improvement** :  IntersectionObserver을 활용한 동적 로딩 활용. (현재 보고 있는 화면만 이미지 로딩, 스크롤 시 추가적으로 로딩)
+**Performance Improvement** :  IntersectionObserver을 활용한 동적 로딩 활용에 사용하였습니다. 
+
+
+(현재 보고 있는 화면만 이미지 로딩, 스크롤 시 추가적으로 로딩)
 
 
 **결제 모듈** : IAMPort API를 활용한 PG사 결제 지원(카카오페이). User 등급에 따라 권한 차등 부여.
 
 
 
-![카드를 추가할 때](./image/store.jpg)
+![상점](./image/store.JPG)
 
 
 
@@ -192,7 +205,61 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 
-**보안 관련** : SQL Injection Attack을 막기 위한 설계를 함, Amazon S3 Key를 따로 관리, 회원가입 시 특수문자 및 비밀번호 Javascript로 검사
+**보안 관련** : SQL Injection Attack을 막기 위한 설계, Amazon S3 Key를 따로 관리, 회원가입 시 특수문자 및 비밀번호 Javascript로 검사합니다.
 
 
-## 마무리
+
+**편의성 관련** : og-property 속성을 주어서 모바일에서 확인할 때 편의성 증대
+
+예시 :)
+
+
+![ogproperty](./image/ogproperty.png)
+
+
+모바일에서 웹 주소를 공유하는 일이 잦다는 점에 착안하여 미리보기 이미지 및 설명, 속성을 추가하였습니다.
+
+
+
+
+
+
+## 스크린샷
+
+
+
+팀 기본 화면 :
+
+
+![팀 기본 화면](./image/teamdetail.png)
+
+마이페이지 화면:
+
+![마이 페이지](./image/mypage.png)
+
+카드 작성(일정, 과제 추가 화면):
+
+![일정 추가](./image/write_form.JPG)
+
+
+
+
+## Contributor
+
+
+
+**201411164(고동욱)**
+
+ 
+
+**sungyejin(성예진)**
+
+ 
+
+
+
+## License
+
+2020 [Teamplete](http://www.teamplete.net).Co All rights reserved. 
+
+
