@@ -50,6 +50,10 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 **Teamplete**는 **고동욱** 및 **성예진** 2인의 개발자가 만든 Spring MVC 기반 Web Project입니다.
 
 
+바로가기 : www.teamplete.net
+
+
+
 
 ## 개발환경
 
@@ -77,7 +81,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 링크 : https://www.figma.com/file/ysjmj5n5qZRBjyVG6ETLM3/Teamplete?node-id=0%3A1
 
 
-설계부터 UI Design 등의 많은 화면 기술 작업을 figma 툴을 사용해 진행. 
+설계부터 UI Design 등의 많은 화면 기술 작업을 figma 툴을 사용해 진행하였습니다. 
 
 
 
@@ -85,6 +89,10 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 **Web Hosting :** AWS Route53, RDS, EC2
+
+www.teamplete.net Domain을 사용하기 위해 Route53을 연결했고,
+
+EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
@@ -193,6 +201,19 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 **보안 관련** : SQL Injection Attack을 막기 위한 설계를 함, Amazon S3 Key를 따로 관리, 회원가입 시 특수문자 및 비밀번호 Javascript로 검사
+
+
+
+**편의성 관련 ** : og-property 속성을 주어서 모바일에서 확인할 때 편의성 증대
+
+예시 :)
+
+
+![카드를 추가할 때](./image/ogproperty.jpg)
+
+
+
+
 
 
 ## 마무리
