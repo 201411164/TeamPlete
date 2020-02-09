@@ -21,9 +21,35 @@
 
 ![공지했으나 다들 이해 못한 상황.jpg](./image/kakao2.jpg)
 
-네! 공지사항을 다들 제대로 이해하지 못해 **과제를 다시 제출하거나 제출하지 않는 상황**이 일어나게 됩니다. (ㅠㅠ) 게다가 단톡방에서는 각 개개인의 산출물을 관리하기도 어렵습니다.  
+네! 공지사항을 다들 제대로 이해하지 못해 **과제를 다시 제출하거나 제출하지 않는 상황**이 일어나게 됩니다. (ㅠㅠ) 게다가 단톡방에서는 각 개개인의 산출물을 관리하기도 어렵습니다. 
 
-**Teamplete는** 이러한 불편함을 해소하고자 **고동욱** 및 **성예진** 2인의 개발자가 만든 Spring MVC 기반 Web Project입니다.
+
+
+이러한 답답한 상황을 해결하기 위해 직접 개발에 나섰습니다.
+
+
+
+![팀플리트.jpg](./image/taskdetail.png)
+
+
+
+
+
+
+
+Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한은 언제까지인지, 참고할 파일은 무엇인지 **직관적**으로 한 눈에 볼 수 있습니다.
+
+
+또한, 더 이상 공지 읽고 제출은 다른 곳에 할 필요가 없습니다. 명단을 만들어 누가 제출했는지 안 했는지 확인하는 것도 참 번거로웠죠??
+
+
+
+###이제 **Teamplete**에서 편리하게 팀 작업을 트래킹하고 산출물들을 관리하세요!!
+
+
+**Teamplete**는 **고동욱** 및 **성예진** 2인의 개발자가 만든 Spring MVC 기반 Web Project입니다.
+
+
 
 ## 개발환경
 
@@ -35,11 +61,40 @@
 
 **Database:** Oracle SQL Developer, Oracle XE 11g
 
+
+
 **Lang/Tools :** Java, Servlet, JSP, Javascript, HTML, CSS
+
+
+
+**UI/Prototype :Figma 
+
+
+
+![figma](./image/figma.png)
+
+
+
+
+
+설계부터 UI Design 등의 많은 화면 기술 작업을 figma 툴을 사용해 진행. 
+
+
+
+
+
 
 **Web Hosting :** AWS Route53, RDS, EC2
 
+
+
+
 **사용 기술** :  Ajax, JQuery, Spring Framework, Bootstrap, MyBatis, WebSocket
+
+
+
+
+
 
 **Javascript Framework** : Select2js, Fullcalendar, NanoSlider, Sweet Alert,  Quill Editor, SockJS
 
@@ -120,4 +175,24 @@
 
 **결제 모듈** : IAMPort API를 활용한 PG사 결제 지원(카카오페이). User 등급에 따라 권한 차등 부여.
 
-**보안 관련** : SQL Injection Attack을 막기 위한 설계를 함.
+
+
+![카드를 추가할 때](./image/store.jpg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**보안 관련** : SQL Injection Attack을 막기 위한 설계를 함, Amazon S3 Key를 따로 관리, 회원가입 시 특수문자 및 비밀번호 Javascript로 검사
+
+
+## 개발동기
