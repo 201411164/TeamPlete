@@ -185,7 +185,7 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
-![카드를 추가할 때](./image/store.jpg)
+![상점](./image/store.JPG)
 
 
 
@@ -209,7 +209,7 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 예시 :)
 
 
-![카드를 추가할 때](./image/ogproperty.jpg)
+![카드를 추가할 때](./image/ogproperty.PNG)
 
 
 
