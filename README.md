@@ -1,10 +1,13 @@
 # ****Teamplete에 오신 걸 환영합니다****
 
-**[Teamplete](http://www.teamplete.net)**는 조별 과제나 팀 작업 등의 **협업**을 훨씬 더 쉽고 간편하게 만들어주는 웹사이트입니다.
+**[Teamplete](http://www.teamplete.net)**는 조별 과제나 팀 작업 등의 **협업**을 훨씬 더 쉽고 간편하게 만들어주는 반응형 웹사이트입니다.
 
 
 
  ![팀플리트 메인 이미지](./image/teamplete01.JPG)
+ 
+ 
+  ![팀플리트 메인 이미지](./image/Teampletead1.png)
  
 ## 개발동기
 
