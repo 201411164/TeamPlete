@@ -71,7 +71,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 
-![figma](./image/figma.PNG)
+![figma](./image/figma.png)
 
 
 
