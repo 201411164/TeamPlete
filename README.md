@@ -224,16 +224,43 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 ## 스크린샷
 
-**메인 화면 ** :
 
 
-![ogproperty](./image/teamdetail.png)
+**팀 기본 화면 ** :
 
 
-![ogproperty](./image/mypage.png)
+![팀 기본 화면](./image/teamdetail.png)
+
+**마이페이지 화면 ** :
+
+![마이 페이지](./image/mypage.png)
+
+**카드 작성(일정, 과제 추가 화면) ** :
+
+![일정 추가](./image/write_form.png)
 
 
 
 
+## Contributor
+
+
+
+**201411164**
+
+   **고동욱**
+   
+
+
+
+**sungyejin**
+
+   **성예진**
+
+
+
+## License
+
+2020 Teamplete.Co All rights reserved. 
 
 
