@@ -49,7 +49,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 
-###이제 **Teamplete**에서 편리하게 팀 작업을 트래킹하고 산출물들을 관리하세요!!
+이제 **Teamplete**에서 편리하게 팀 작업을 트래킹하고 산출물들을 관리하세요!!
 
 
 [Teamplete](http://www.teamplete.net)는 **고동욱** 및 **성예진** 2인의 개발자가 만든 Spring MVC 기반 Web Project입니다.
