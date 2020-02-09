@@ -212,11 +212,28 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 예시 :)
 
 
-![카드를 추가할 때](./image/ogproperty.png)
+![ogproperty](./image/ogproperty.png)
+
+
+모바일에서 웹 주소를 공유하는 일이 잦다는 점에 착안하여 미리보기 이미지 및 설명, 속성을 추가하였습니다.
 
 
 
 
 
 
-## 마무리
+## 스크린샷
+
+**메인 화면 ** :
+
+
+![ogproperty](./image/teamdetail.png)
+
+
+![ogproperty](./image/mypage.png)
+
+
+
+
+
+
