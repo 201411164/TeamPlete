@@ -74,7 +74,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 ![figma](./image/figma.png)
 
 
-
+링크 : https://www.figma.com/file/ysjmj5n5qZRBjyVG6ETLM3/Teamplete?node-id=0%3A1
 
 
 설계부터 UI Design 등의 많은 화면 기술 작업을 figma 툴을 사용해 진행. 
@@ -129,7 +129,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 
-![알림을 표시할 때](./image/select2.png)
+![알림을 표시할 때](./image/sweetalert.png)
 
 
 
@@ -195,4 +195,4 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 **보안 관련** : SQL Injection Attack을 막기 위한 설계를 함, Amazon S3 Key를 따로 관리, 회원가입 시 특수문자 및 비밀번호 Javascript로 검사
 
 
-## 개발동기
+## 마무리
