@@ -74,7 +74,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 ![figma](./image/figma.png)
 
 
-
+링크 : https://www.figma.com/file/ysjmj5n5qZRBjyVG6ETLM3/Teamplete?node-id=0%3A1
 
 
 설계부터 UI Design 등의 많은 화면 기술 작업을 figma 툴을 사용해 진행. 
