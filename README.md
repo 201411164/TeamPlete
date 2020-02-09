@@ -72,7 +72,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 
-**Lang/Tools :** Java, Servlet, JSP, Javascript, HTML, CSS
+**Lang/Tools :** Java, Servlet, JSP, JSTL, Javascript, HTML, CSS
 
 
 
@@ -99,10 +99,12 @@ www.teamplete.net Domain을 사용하기 위해 Route53을 연결했고,
 
 EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
+사용자 시간에 맞게 동작하도록 EC2 및 RDS Timezone 설정을 완료하였습니다.
 
 
 
-**사용 기술** :  Ajax, JQuery, Spring Framework, Bootstrap, MyBatis, WebSocket
+
+**사용 기술** :  Ajax, JQuery, Spring Framework, Bootstrap, MyBatis, WebSocket, HandShakeInterceptor
 
 
 
@@ -112,7 +114,7 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 **Javascript Framework** : Select2js, Fullcalendar, NanoSlider, Sweet Alert,  Quill Editor, SockJS
 
 
-**Select2Js** : Multiple Select Input
+**Select2Js** : 한 번에 여러 명을 초대하거나 여러 사람을 담당자로 지정할 때 필요합니다.
 
 ![초대하거나 담당자를 저장할 때](./image/select2.png)
 
@@ -124,7 +126,7 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
-**Fullcalendar** : 일정 관리 가능한 달력
+**Fullcalendar** : 일정 관리 가능한 달력을 보여주기 위해 사용하였습니다. 마감일까지 남은 과제들을 보여줍니다.
 
 
 ![일정 추가 및 마감일 관리 달력](./image/fullcalendar.png)
@@ -138,7 +140,7 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
-**SweetAlert** : 기본 Alert창을 더 심미적으로
+**SweetAlert** : 기본 Alert창을 더 심미적으로 활용하기 위해 사용하였습니다.
 
 
 
@@ -169,7 +171,10 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
-**SockJS** : Websocket을 활용한 팀 채팅
+**SockJS** : Websocket을 활용한 팀 채팅에 사용되었으며, HandShakeInterceptor 및 WebSocketHandler와 같이 사용합니다.
+
+
+WebSocket을 사용하였기 때문에 팀 내 채팅은 새로고침 없이 실시간(Real-time)으로 동작합니다.
 
 
 
@@ -183,13 +188,13 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
-**Performance Improvement** :  IntersectionObserver을 활용한 동적 로딩 활용에 사용하였습니다. 
+**Performance Improvement** :  IntersectionObserver을 활용한 동적 로딩 활용에 사용하였습니다. Quill-Editor를 로딩할 때도 사용됩니다.
 
 
 (현재 보고 있는 화면만 이미지 로딩, 스크롤 시 추가적으로 로딩)
 
 
-**결제 모듈** : IAMPort API를 활용한 PG사 결제 지원(카카오페이). User 등급에 따라 권한 차등 부여.
+**결제 모듈** : IAMPort API를 활용한 PG사 결제 지원(카카오페이). User 등급에 따라 권한 차등 부여하였습니다.
 
 
 
