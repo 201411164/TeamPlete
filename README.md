@@ -73,7 +73,7 @@ Teamplete에서 **간단하게 카드를 추가**하기만 하면 제출기한�
 
 
 
-**UI/Prototype :Figma 
+**UI/Prototype :** Figma 
 
 
 
