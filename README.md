@@ -178,7 +178,10 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
-**Performance Improvement** :  IntersectionObserver을 활용한 동적 로딩 활용. (현재 보고 있는 화면만 이미지 로딩, 스크롤 시 추가적으로 로딩)
+**Performance Improvement** :  IntersectionObserver을 활용한 동적 로딩 활용에 사용하였습니다. 
+
+
+(현재 보고 있는 화면만 이미지 로딩, 스크롤 시 추가적으로 로딩)
 
 
 **결제 모듈** : IAMPort API를 활용한 PG사 결제 지원(카카오페이). User 등급에 따라 권한 차등 부여.
@@ -200,7 +203,7 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
-**보안 관련** : SQL Injection Attack을 막기 위한 설계를 함, Amazon S3 Key를 따로 관리, 회원가입 시 특수문자 및 비밀번호 Javascript로 검사
+**보안 관련** : SQL Injection Attack을 막기 위한 설계, Amazon S3 Key를 따로 관리, 회원가입 시 특수문자 및 비밀번호 Javascript로 검사합니다.
 
 
 
@@ -209,7 +212,7 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 예시 :)
 
 
-![카드를 추가할 때](./image/ogproperty.PNG)
+![카드를 추가할 때](./image/ogproperty.png)
 
 
 
