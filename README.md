@@ -111,7 +111,7 @@ EC2 (서버 컴퓨터)는 ubuntu 16.0.4, RDS는 Oracle을 사용합니다.
 
 
 
-**Javascript Framework** : Select2js, Fullcalendar, NanoSlider, Sweet Alert,  Quill Editor, SockJS
+**Javascript 기술** : Select2js, Fullcalendar, NanoSlider, Sweet Alert,  Quill Editor, SockJS
 
 
 **Select2Js** : 한 번에 여러 명을 초대하거나 여러 사람을 담당자로 지정할 때 필요합니다.
@@ -217,7 +217,7 @@ WebSocket을 사용하였기 때문에 팀 내 채팅은 새로고침 없이 실
 
 
 
-**편의성 관련** : og-property 속성을 주어서 모바일에서 확인할 때 편의성 증대
+**편의성 관련** : og-property 속성을 주어서 모바일에서 확인할 때 편의성을 증대하였습니다.
 
 예시 :)
 
@@ -226,6 +226,15 @@ WebSocket을 사용하였기 때문에 팀 내 채팅은 새로고침 없이 실
 
 
 모바일에서 웹 주소를 공유하는 일이 잦다는 점에 착안하여 미리보기 이미지 및 설명, 속성을 추가하였습니다.
+
+
+
+간편 로그인 : KaKao-api를 활용하여 기존 카카오톡 계정으로 [Teamplete](http://www.teamplete.net)에 로그인 할 수 있습니다.
+
+
+![kakaologin](./image/kakaologin.png)
+
+
 
 
 
