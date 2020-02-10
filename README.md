@@ -265,11 +265,11 @@ WebSocket을 사용하였기 때문에 팀 내 채팅은 새로고침 없이 실
 
 
 
-**201411164(고동욱)**
+**201411164([고동욱](https://github.com/201411164))**
 
- 
 
-**sungyejin(성예진)**
+
+**sungyejin([성예진](https://github.com/sungyejin))**
 
  
 
